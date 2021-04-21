@@ -1,3 +1,56 @@
+@import 'normalize';
+@import 'mixins';
+
+:root {
+  // color
+  --src-hsl-bg: 0, 0%, 98%;
+  --src-hsl-fill: 0, 0%, 9%;
+  --src-hsl-key: 148, 88%, 38%;
+  --src-hsl-shape: 0, 0%, 87%;
+  --src-hsl-shape-button: 0, 0%, 56%;
+  --src-hsl-invert: 0, 0%, 100%;
+  --color-bg: hsl(var(--src-hsl-bg));
+  --color-fill: hsl(var(--src-hsl-fill));
+  --color-key: hsl(var(--src-hsl-key));
+  --color-shape: hsl(var(--src-hsl-shape));
+  --color-shape-button: hsl(var(--src-hsl-shape-button));
+  --color-invert: hsl(var(--src-hsl-invert));
+  // size
+  // font
+  --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-point: Helvetica, Arial, sans-serif;
+  // speed
+
+  @include responsive(desktop) {}
+  @include dark-mode(true) {
+    --src-hsl-bg: 0, 0%, 13%;
+    --src-hsl-fill: 0, 0%, 95%;
+    --src-hsl-key: 148, 73%, 39%;
+    --src-hsl-shape: 0, 0%, 10%;
+    --src-hsl-shape-button: 0, 0%, 22%;
+    --src-hsl-invert: 0, 0%, 0%;
+  }
+}
+
+html {
+  touch-action: manipulation;
+  &.mode-modal {
+    overflow: hidden;
+  }
+}
 body {
-  background: #fff;
+  min-width: 320px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: var(--color-bg);
+}
+body, button, input, textarea, select {
+  font-family: var(--font-base);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: none;
+  color: var(--color-fill);
+}
+a {
+  color: var(--color-key);
 }

@@ -1,21 +1,22 @@
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n';
-// store
-import store from '~/store/index';
 // components
-import app from '~/screen/app.vue';
+import App from '~/screen/App.vue';
+// assets
+import store from '~/store/index.js';
+import messages from '~/messages';
 // style
 import '~/scss/main.scss';
 
 // initial i18n
 const i18n = createI18n({
-  locale: 'ko',
+  locale: 'en',
   fallbackLocale: 'en',
-  messages: {},
+  messages,
 });
 
 // initial app and mount
-const main = createApp(app)
+const main = createApp(App)
   .use(store)
   .use(i18n)
   .mount('#app');

@@ -1,0 +1,45 @@
+@import 'variables';
+
+// responsive
+@mixin responsive($range)
+{
+  @if $range == desktop
+  {
+    @media (min-width: 1024px) { @content; }
+  }
+  @else if $range == desktop-1280
+  {
+    @media (min-width: 1280px) { @content; }
+  }
+  @else if $range == desktop-1440
+  {
+    @media (min-width: 1440px) { @content; }
+  }
+}
+
+// for retina
+@mixin retina()
+{
+  @media (-webkit-min-device-pixel-ratio: 2) { @content; }
+}
+
+// dark mode
+@mixin dark-mode($root: false)
+{
+  @if $root
+  {
+    &[data-color=dark] { @content; }
+    &[data-color=system], &:not([data-color]) {
+      @media (prefers-color-scheme: dark) { @content; }
+    }
+  }
+  @else
+  {
+    html[data-color=dark] & { @content; }
+    @media (prefers-color-scheme: dark) {
+      html[data-color=system] &, html:not([data-color]) & {
+        @content;
+      }
+    }
+  }
+}

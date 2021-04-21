@@ -10,6 +10,7 @@
     },
     "pretty": true,
     "noUnusedParameters": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "allowJs": true
   }
 }
