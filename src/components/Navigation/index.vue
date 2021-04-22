@@ -3,6 +3,7 @@
   <div class="slideshow-navigation__item">
     <button
       type="button"
+      :title="$t('navigation.thumbnail')"
       :class="state.activeThumbnail ? 'on' : ''"
       @click="onClickThumbnailButton">
       <Icon icon-name="grid"/>
@@ -11,6 +12,7 @@
   <div class="slideshow-navigation__item">
     <button
       type="button"
+      :title="$t('navigation.menu')"
       :class="state.activeMenu ? 'on' : ''"
       @click="onClickMenuButton">
       <Icon icon-name="menu"/>
@@ -25,7 +27,7 @@
           <button
             type="button"
             @click="onClickContextItem('preference')">
-            Preference
+            {{$t('navigation.preference')}}
           </button>
         </li>
         <li>
@@ -33,14 +35,14 @@
             type="button"
             :class="[ false && 'on' ]"
             @click="onClickContextItem('autoplay')">
-            Autoplay
+            {{$t('navigation.autoplay')}}
           </button>
         </li>
         <li>
           <button
             type="button"
             @click="onClickContextItem('fullscreen')">
-            Fullscreen
+            {{$t('navigation.fullscreen')}}
           </button>
         </li>
       </ul>

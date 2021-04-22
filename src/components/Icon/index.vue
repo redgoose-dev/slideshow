@@ -29,6 +29,10 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./src/icon-grid.vue'));
           case 'menu':
             return defineAsyncComponent(() => import('./src/icon-menu.vue'));
+          case 'arrow-left':
+            return defineAsyncComponent(() => import('./src/icon-arrow-left.vue'));
+          case 'arrow-right':
+            return defineAsyncComponent(() => import('./src/icon-arrow-right.vue'));
           default:
             return null;
         }

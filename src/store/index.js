@@ -24,11 +24,18 @@ const mutations = {
   {
     state.mode = value;
   },
+  updatePreference(state, value)
+  {
+    // TODO
+  }
 };
 
 // actions
 const actions = {
-  // 컨텐츠 모드변경
+  /**
+   * change mode
+   * 컨텐츠 모드변경
+   */
   changeMode(context, value)
   {
     let mode = null;
@@ -41,6 +48,13 @@ const actions = {
     }
     context.commit('changeMode', mode);
   },
+  /**
+   * update preference
+   */
+  updatePreference(context, newValue)
+  {
+    // TODO
+  }
 };
 
 export default createStore({

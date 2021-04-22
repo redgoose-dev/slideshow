@@ -1,12 +1,10 @@
 <template>
-<div class="slideshow">
-  <LoadingIntro v-if="state.loading"/>
-  <Container v-else/>
-</div>
+<LoadingIntro v-if="state.loading"/>
+<Container v-else/>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted, watch } from 'vue';
+import { defineComponent, reactive, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import * as util from '~/libs/util';
 import Container from '~/screen/Container/index.vue';
@@ -50,7 +48,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style lang="scss">
-.slideshow {}
-</style>

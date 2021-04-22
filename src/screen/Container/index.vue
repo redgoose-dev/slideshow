@@ -1,10 +1,15 @@
 <template>
-<div class="container">
-  <Slides/>
-  <Thumbnail v-if="state.mode === 'thumbnail'"/>
-  <Navigation class="container__navigation"/>
+<div class="slideshow">
+  <Slides class="slideshow__slides"/>
+  <Thumbnail
+    v-if="state.mode === 'thumbnail'"
+    class="slideshow__thumbnail"/>
+  <Navigation
+    class="slideshow__navigation"/>
   <teleport to="#preference">
-    <Preference v-if="state.mode === 'preference'"/>
+    <Preference
+      v-if="state.mode === 'preference'"
+      class="slideshow__preference"/>
   </teleport>
 </div>
 </template>
@@ -49,15 +54,38 @@ export default defineComponent({
 
 <style lang="scss">
 @import '../../scss/mixins';
-.container {
+.slideshow {
+  &__slides {
+    position: relative;
+  }
+  &__thumbnail {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
   &__navigation {
     position: fixed;
-    z-index: 2;
-    right: 30px;
-    top: 30px;
+    z-index: 4;
+    right: 0;
+    top: 0;
   }
-  @include dark-mode() {
-    //background: lime;
+  &__preference {
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
   }
+  @include responsive(desktop) {
+    &__navigation {
+      right: 30px;
+      top: 30px;
+    }
+  }
+  @include dark-mode() {}
 }
 </style>
