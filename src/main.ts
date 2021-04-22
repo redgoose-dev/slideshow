@@ -5,6 +5,7 @@ import App from '~/screen/App.vue';
 // assets
 import store from '~/store/index.js';
 import messages from '~/messages';
+import initCustomEvent from '~/libs/initCustomEvent';
 // style
 import '~/scss/main.scss';
 
@@ -14,6 +15,9 @@ const i18n = createI18n({
   fallbackLocale: 'en',
   messages,
 });
+
+// initial custom event
+initCustomEvent();
 
 // initial app and mount
 const main = createApp(App)

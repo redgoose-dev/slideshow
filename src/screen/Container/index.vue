@@ -12,10 +12,10 @@
 <script lang="ts">
 import { defineComponent, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
-import Slides from '~/components/Slides/index.vue';
 import Thumbnail from '~/screen/Thumbnail/index.vue';
-import Navigation from '~/screen/Navigation/index.vue';
 import Preference from '~/screen/Preference/index.vue';
+import Navigation from '~/components/Navigation/index.vue';
+import Slides from '~/components/Slides/index.vue';
 
 export default defineComponent({
   name: 'Container',
