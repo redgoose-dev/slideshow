@@ -1,9 +1,17 @@
 <template>
 <nav class="slideshow-controller">
-  <button type="button">
+  <button
+    v-if="showPrev"
+    type="button"
+    :disabled="disabled"
+    @click="$emit('click-prev')">
     <Icon icon-name="arrow-left"/>
   </button>
-  <button type="button">
+  <button
+    v-if="showNext"
+    type="button"
+    :disabled="disabled"
+    @click="$emit('click-next')">
     <Icon icon-name="arrow-right"/>
   </button>
 </nav>
@@ -18,11 +26,21 @@ export default defineComponent({
   components: {
     Icon,
   },
+  props: {
+    showPrev: { type: Boolean, default: true },
+    showNext: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false },
+  },
+  emits: {
+    'click-prev': null,
+    'click-next': null,
+  },
 });
 </script>
 
 <style lang="scss">
 .slideshow-controller {
+  height: 80px;
   button {
     display: block;
     width: 80px;
@@ -43,10 +61,11 @@ export default defineComponent({
     &:nth-child(2) {
       right: 10px;
     }
-    &:disabled {
-      cursor: not-allowed;
-    }
     &:active {
+      opacity: .5;
+    }
+    &:disabled {
+      cursor: auto;
       opacity: .5;
     }
     svg {

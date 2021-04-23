@@ -1,5 +1,5 @@
 <template>
-<em class="slideshow-paginate">{{current}} / {{total}}</em>
+<em class="slideshow-paginate">{{current + 1}} / {{total}}</em>
 </template>
 
 <script lang="ts">

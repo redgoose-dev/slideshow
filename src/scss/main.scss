@@ -19,6 +19,7 @@ $src-hsl-bg: 0, 0%, 98%;
   --font-eng: Helvetica, Arial, sans-serif;
   // speed
   --speed-button-active: 200ms;
+  --speed-slide-animation: 1000ms;
 
   @include responsive(desktop) {}
   @include dark-mode(true) {
