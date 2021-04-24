@@ -2,34 +2,36 @@
 <article class="slideshow-slides">
   <Images
     :items="state.computedImages"
-    :active="$store.state.slides.active"
+    :active="$store.state.activeSlide"
+    :animation-type="`horizontal`"
     :duration="500"
-    :style-type="null"
+    :style-type="`contain`"
+    image-size="75%"
     class="slideshow-slides__images"
-    @animation-end="onAnimationEnd"/>
+    @animation-control="onAnimationControl"/>
   <Caption
     title="조용한 아침"
     :description="`first line\nsecond line`"
     class="slideshow-slides__caption"/>
   <Controller
     class="slideshow-slides__controller"
-    :disabled="state.animated"
-    :show-prev="true"
-    :show-next="true"
+    :disabled="$store.state.animatedSlides"
+    :show-prev="state.computedShowPrevButton"
+    :show-next="state.computedShowNextButton"
     @click-prev="onClickPrev"
     @click-next="onClickNext"/>
   <Paginate
     :total="state.computedImages.length"
-    :current="$store.state.slides.active"
+    :current="$store.state.activeSlide"
     class="slideshow-slides__paginate"/>
 </article>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 import Images from './Images';
-import Caption from './Caption.vue';
+import Caption from './Caption';
 import Paginate from './Paginate';
 import Controller from './Controller';
 
@@ -46,41 +48,43 @@ export default defineComponent({
     const $store = useStore();
     let state = reactive({
       computedImages: computed(() => {
-        return $store.state.slides.index.map(item => {
-          return item;
-        });
+        return $store.state.slides.map(item => (item));
       }),
-      animated: false,
+      computedShowPrevButton: computed(() => {
+        if ($store.state.preference.slides.loop) return true;
+        return 0 < $store.state.activeSlide;
+      }),
+      computedShowNextButton: computed(() => {
+        if ($store.state.preference.slides.loop) return true;
+        return $store.state.slides.length - 1 > $store.state.activeSlide;
+      }),
     });
 
     // methods
-    function changeSlide(n: number): void
+    function changeSlide(n)
     {
-      if (state.animated) return;
-      state.animated = true;
-      $store.commit('changeSlideActive', n);
+      $store.commit('changeSlide', n);
     }
-    function onClickPrev(): void
+    function onClickPrev()
     {
-      changeSlide($store.state.slides.active - 1);
+      changeSlide($store.state.activeSlide - 1);
     }
-    function onClickNext(): void
+    function onClickNext()
     {
-      changeSlide($store.state.slides.active + 1);
+      changeSlide($store.state.activeSlide + 1);
     }
-    function onAnimationEnd(): void
+    function onAnimationControl(sw)
     {
-      // TODO
-      state.animated = false;
+      $store.commit('animationControlSlides', sw);
     }
 
     return {
       state,
       onClickPrev,
       onClickNext,
-      onAnimationEnd,
+      onAnimationControl,
     };
-  }
+  },
 });
 </script>
 
@@ -91,9 +95,6 @@ export default defineComponent({
     z-index: 0;
   }
   &__caption {
-    display: none;
-  }
-  &__controller {
     display: none;
   }
   &__paginate {
@@ -109,14 +110,6 @@ export default defineComponent({
       top: 32px;
       left: 30px;
       z-index: 2;
-    }
-    &__controller {
-      display: block;
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
     }
     &__paginate {
       right: 30px;

@@ -14,13 +14,13 @@
 </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
-import Thumbnail from '~/screen/Thumbnail/index.vue';
-import Preference from '~/screen/Preference/index.vue';
-import Navigation from '~/components/Navigation/index.vue';
-import Slides from '~/components/Slides/index.vue';
+import Thumbnail from '~/screen/Thumbnail';
+import Preference from '~/screen/Preference';
+import Navigation from '~/components/Navigation';
+import Slides from '~/components/Slides';
 
 export default defineComponent({
   name: 'Container',

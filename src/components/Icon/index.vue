@@ -11,7 +11,7 @@
 </svg>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, defineAsyncComponent, computed, reactive } from 'vue';
 
 export default defineComponent({
@@ -26,13 +26,13 @@ export default defineComponent({
         switch (props.iconName)
         {
           case 'grid':
-            return defineAsyncComponent(() => import('./src/icon-grid.vue'));
+            return defineAsyncComponent(() => import('./src/icon-grid'));
           case 'menu':
-            return defineAsyncComponent(() => import('./src/icon-menu.vue'));
+            return defineAsyncComponent(() => import('./src/icon-menu'));
           case 'arrow-left':
-            return defineAsyncComponent(() => import('./src/icon-arrow-left.vue'));
+            return defineAsyncComponent(() => import('./src/icon-arrow-left'));
           case 'arrow-right':
-            return defineAsyncComponent(() => import('./src/icon-arrow-right.vue'));
+            return defineAsyncComponent(() => import('./src/icon-arrow-right'));
           default:
             return null;
         }

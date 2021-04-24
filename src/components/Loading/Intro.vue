@@ -7,10 +7,10 @@
 </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, reactive, onMounted, onUnmounted } from 'vue';
 import * as util from '~/libs/util';
-import LoadingUnit from './Unit.vue';
+import LoadingUnit from './Unit';
 
 export default defineComponent({
   name: 'LoadingIntro',

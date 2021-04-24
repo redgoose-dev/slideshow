@@ -8,7 +8,14 @@
   ]"
   :style="{
     '--speed-slide-animation': `${duration}ms`,
-  }">
+    '--image-size': imageSize,
+  }"
+  @touchstart="onTouchStart"
+  @touchmove="onTouchMove"
+  @touchend="onTouchEnd"
+  @mousedown="onTouchStart"
+  @mousemove="onTouchMove"
+  @mouseup="onTouchEnd">
   <figure
     v-for="(item, key) in items"
     :ref="el => { figures[key] = el }"
@@ -23,16 +30,10 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref, watch, reactive } from 'vue';
-import LoadingUnit from '~/components/Loading/Unit.vue';
+<script>
+import { defineComponent, onMounted, ref, watch, reactive } from 'vue';
+import LoadingUnit from '~/components/Loading/Unit';
 import * as util from '~/libs/util';
-
-interface Item {
-  src: string;
-  title: string;
-  description: string;
-}
 
 export default defineComponent({
   name: 'SlidesImages',
@@ -42,23 +43,23 @@ export default defineComponent({
   props: {
     animationType: { type: String, default: 'fade' }, // null,'fade','horizontal'
     styleType: { type: String, default: null }, // null,contain,cover
-    items: { type: Array as PropType<Array[Item]>, required: true },
+    items: { type: Array, required: true },
     active: { type: Number, default: 0 },
     duration: { type: Number, default: 800 }, // ms
+    imageSize: { type: String, default: '100%' },
   },
   setup(props, context)
   {
     let state = reactive({
-      loaded: new Array(props.items.length).fill(false) as Array[boolean],
-      active: props.active,
+      loaded: new Array(props.items.length).fill(false),
       activeKey: props.active,
       activeClassName: 'current',
-      animateClassName: null,
       animateKey: null,
-      animated: false,
+      animateClassName: null,
     });
     const figures = ref([]);
     let targetElement = null;
+    let move = false;
 
     // set loaded
     state.loaded[props.active] = true;
@@ -70,8 +71,7 @@ export default defineComponent({
       switch (props.animationType)
       {
         case 'fade':
-        case 'horizontal':
-          state.animated = true;
+          context.emit('animation-control', true);
           state.activeClassName = 'current current-to';
           state.animateKey = props.active;
           state.animateClassName = 'from';
@@ -81,9 +81,11 @@ export default defineComponent({
             targetElement.addEventListener('transitionend', onTransitionEnd);
           });
           break;
+        case 'horizontal':
+          console.log('horizontal slide animation')
+          break;
         default:
           state.activeKey = props.active;
-          context.emit('animation-end');
           break;
       }
       if (!state.loaded[props.active])
@@ -97,12 +99,11 @@ export default defineComponent({
     }
     function onTransitionEnd()
     {
-      state.animateKey = null;
-      state.animateClassName = null;
+      state.animateKey = undefined;
+      state.animateClassName = undefined;
       state.activeKey = props.active;
       state.activeClassName = 'current';
-      context.emit('animation-end');
-      state.animated = false;
+      context.emit('animation-control', false);
       removeTransitionEndEvent();
     }
     function removeTransitionEndEvent()
@@ -111,6 +112,22 @@ export default defineComponent({
       targetElement.removeEventListener('transitionend', onTransitionEnd);
       targetElement = null;
     }
+    function onTouchStart()
+    {
+      move = true;
+      // console.log('onTouchStart');
+    }
+    function onTouchMove()
+    {
+      if (!move) return;
+      // console.log('onTouchMove');
+    }
+    function onTouchEnd()
+    {
+      if (!move) return;
+      move = false;
+      // console.log('onTouchEnd');
+    }
 
     // watches
     watch(() => props.active, play);
@@ -118,10 +135,13 @@ export default defineComponent({
     return {
       state,
       figures,
+      onTouchStart,
+      onTouchMove,
+      onTouchEnd,
     };
   },
   emits: {
-    'animation-end': null,
+    'animation-control': null,
   },
 });
 </script>
@@ -148,8 +168,9 @@ export default defineComponent({
       top: 50%;
       display: block;
       transform: translate(-50%, -50%);
-      max-width: var(--image-size, 80%);
-      max-height: var(--image-size, 80%);
+      max-width: var(--image-size, 100%);
+      max-height: var(--image-size, 100%);
+      box-sizing: border-box;
     }
     &.current {
       display: block;
@@ -182,14 +203,14 @@ export default defineComponent({
       transition-property: transform;
       transition-duration: var(--speed-slide-animation, 800ms);
       transition-timing-function: ease-out;
-      &.prev {
-        display: block;
-        transform: translateX(-100%);
-      }
-      &.next {
-        display: block;
-        transform: translateX(100%);
-      }
+      //&.from {
+      //  display: block;
+      //  transform: translateX(-100%);
+      //}
+      //&.next {
+      //  display: block;
+      //  transform: translateX(100%);
+      //}
     }
   }
   &--contain {

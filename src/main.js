@@ -1,11 +1,12 @@
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n';
-// components
-import App from '~/screen/App.vue';
 // assets
-import store from '~/store/index.js';
+import store from '~/store';
 import messages from '~/messages';
-import initCustomEvent from '~/libs/initCustomEvent';
+import * as util from '~/libs/util';
+import * as local from '~/libs/local';
+// components
+import App from '~/screen/App';
 // style
 import '~/scss/main.scss';
 
@@ -17,10 +18,13 @@ const i18n = createI18n({
 });
 
 // initial custom event
-initCustomEvent();
+util.initCustomEvent();
 
 // initial app and mount
-const main = createApp(App)
+const app = createApp(App)
   .use(store)
   .use(i18n)
   .mount('#app');
+
+// setup local
+local.setup(app);

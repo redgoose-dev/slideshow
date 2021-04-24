@@ -3,7 +3,11 @@
 // responsive
 @mixin responsive($range)
 {
-  @if $range == desktop
+  @if $range == tablet
+  {
+    @media (min-width: 768px) { @content; }
+  }
+  @else if $range == desktop
   {
     @media (min-width: 1024px) { @content; }
   }
