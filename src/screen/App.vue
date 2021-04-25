@@ -31,6 +31,7 @@ export default defineComponent({
     async function refresh()
     {
       state.loading = true;
+      // TODO: 임의로 3초 딜레이 시켰지만 합당한 딜레이 시간을 찾아야겠다.
       await util.sleep(3000);
       state.loading = false;
     }

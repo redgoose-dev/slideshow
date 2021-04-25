@@ -1,0 +1,125 @@
+.slideshow-images {
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  user-select: none;
+  figure {
+    margin: 0;
+    box-sizing: border-box;
+    background-color: var(--color-bg);
+    > img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: block;
+      transform: translate(-50%, -50%);
+      max-width: var(--image-size, 100%);
+      max-height: var(--image-size, 100%);
+      box-sizing: border-box;
+    }
+  }
+  &--none {
+    figure {
+      display: none;
+      &.current {
+        display: block;
+      }
+    }
+  }
+  &--fade {
+    backface-visibility: hidden;
+    figure {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      transition-property: opacity;
+      transition-duration: var(--speed-slide-animation, 800ms);
+      transition-timing-function: ease-out;
+      &.next {
+        display: block;
+        z-index: 2;
+        opacity: 1;
+        &.ready {
+          opacity: 0;
+        }
+      }
+      &.current {
+        display: block;
+        z-index: 1;
+        opacity: 1;
+        &.ready {
+          opacity: 0;
+        }
+      }
+    }
+    &.animated figure {
+      will-change: opacity;
+    }
+  }
+  &--horizontal {
+    --size-w: 100vw;
+    --size-h: 100vh;
+    .wrap {
+      backface-visibility: hidden;
+      width: var(--size-w);
+      height: var(--size-h);
+      font-size: 0;
+      white-space: nowrap;
+      transition-property: transform;
+      transition-duration: var(--speed-slide-animation, 800ms);
+      transition-timing-function: cubic-bezier(.215,.610,.355,1);
+      --pos: calc(var(--size-w) * var(--active-column) * -1);
+      transform: translateX(var(--pos));
+    }
+    figure {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .animated.wrap {
+      will-change: transform;
+    }
+  }
+  &--contain {
+    figure {
+      > img {
+        width: var(--image-size, 80%);
+        height: var(--image-size, 80%);
+        object-fit: contain;
+      }
+    }
+  }
+  &--cover {
+    figure {
+      > img {
+        width: var(--image-size, 80%);
+        height: var(--image-size, 80%);
+        object-fit: cover;
+      }
+    }
+  }
+  .overlay {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+  }
+}
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  --loading-size: 50px;
+  --loading-speed: 500ms;
+}

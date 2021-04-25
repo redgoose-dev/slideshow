@@ -1,22 +1,27 @@
 <template>
 <div class="slideshow">
-  <Slides class="slideshow__slides"/>
+  <Slides
+    v-if="state.existSlideItem"
+    ref="slides"
+    class="slideshow__slides"/>
+  <p v-else>not slide item</p>
   <Thumbnail
-    v-if="state.mode === 'thumbnail'"
+    v-if="state.computedMode === 'thumbnail'"
     class="slideshow__thumbnail"/>
   <Navigation
     class="slideshow__navigation"/>
   <teleport to="#preference">
     <Preference
-      v-if="state.mode === 'preference'"
+      v-if="state.computedMode === 'preference'"
       class="slideshow__preference"/>
   </teleport>
 </div>
 </template>
 
 <script>
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive, computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
+import * as local from '~/libs/local';
 import Thumbnail from '~/screen/Thumbnail';
 import Preference from '~/screen/Preference';
 import Navigation from '~/components/Navigation';
@@ -34,7 +39,7 @@ export default defineComponent({
   {
     const store = useStore();
     let state = reactive({
-      mode: computed(() => {
+      computedMode: computed(() => {
         switch (store.state.mode)
         {
           case 'preference':
@@ -44,9 +49,18 @@ export default defineComponent({
             return null;
         }
       }),
+      existSlideItem: store.state.slides.length > 0,
     });
+    const slides = ref(null);
+
+    // lifecycles
+    onMounted(() => {
+      local.setupSlides(slides.value);
+    });
+
     return {
       state,
+      slides,
     };
   },
 });

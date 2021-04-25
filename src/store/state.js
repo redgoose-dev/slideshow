@@ -41,8 +41,6 @@ export default {
       description: 'smdopgmspdg\nsd gjsdgp',
     },
   ],
-  activeSlide: 0,
-  animatedSlides: false,
   mode: null, // null,thumbnail,preference
   dev: process.env.NODE_ENV === 'development',
 };

@@ -1,35 +1,38 @@
 <template>
 <article class="slideshow-slides">
   <Images
+    ref="images"
+    :initial-active="state.active"
     :items="state.computedImages"
-    :active="$store.state.activeSlide"
     :animation-type="`horizontal`"
     :duration="500"
     :style-type="`contain`"
     image-size="75%"
-    class="slideshow-slides__images"
-    @animation-control="onAnimationControl"/>
+    :loop="$store.state.preference.slides.loop"
+    @animation-control="onAnimationControl"
+    @change-active="onChangeActive"/>
   <Caption
-    title="조용한 아침"
-    :description="`first line\nsecond line`"
+    :title="state.computedCaption.title"
+    :description="state.computedCaption.description"
     class="slideshow-slides__caption"/>
   <Controller
     class="slideshow-slides__controller"
-    :disabled="$store.state.animatedSlides"
+    :disabled="state.animated"
     :show-prev="state.computedShowPrevButton"
     :show-next="state.computedShowNextButton"
-    @click-prev="onClickPrev"
-    @click-next="onClickNext"/>
+    @click-prev="prev"
+    @click-next="next"/>
   <Paginate
     :total="state.computedImages.length"
-    :current="$store.state.activeSlide"
+    :current="state.active"
     class="slideshow-slides__paginate"/>
 </article>
 </template>
 
 <script>
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive, computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import * as number from '~/libs/number';
 import Images from './Images';
 import Caption from './Caption';
 import Paginate from './Paginate';
@@ -45,44 +48,73 @@ export default defineComponent({
   },
   setup()
   {
-    const $store = useStore();
+    const store = useStore();
+    const images = ref(null);
     let state = reactive({
+      active: 6,
+      animated: false,
       computedImages: computed(() => {
-        return $store.state.slides.map(item => (item));
+        return store.state.slides.map(item => (item));
       }),
       computedShowPrevButton: computed(() => {
-        if ($store.state.preference.slides.loop) return true;
-        return 0 < $store.state.activeSlide;
+        if (store.state.preference.slides.loop) return true;
+        return 0 < state.active;
       }),
       computedShowNextButton: computed(() => {
-        if ($store.state.preference.slides.loop) return true;
-        return $store.state.slides.length - 1 > $store.state.activeSlide;
+        if (store.state.preference.slides.loop) return true;
+        return state.computedImages.length - 1 > state.active;
+      }),
+      computedCaption: computed(() => {
+        const item = state.computedImages[state.active];
+        return {
+          title: item.title,
+          description: item.description,
+        };
       }),
     });
 
+    // check active number
+    if (!checkActive(state.active)) state.active = 0;
+
     // methods
-    function changeSlide(n)
+    function change(n)
     {
-      $store.commit('changeSlide', n);
+      if (state.animated) return;
+      if (!checkActive(n)) return;
+      const vm = images.value;
+      onChangeActive(n);
+      vm.play(n);
     }
-    function onClickPrev()
+    function prev()
     {
-      changeSlide($store.state.activeSlide - 1);
+      let n = number.move(state.computedImages.length, state.active - 1, store.state.preference.slides.loop);
+      change(n);
     }
-    function onClickNext()
+    function next()
     {
-      changeSlide($store.state.activeSlide + 1);
+      let n = number.move(state.computedImages.length, state.active + 1, store.state.preference.slides.loop);
+      change(n);
     }
     function onAnimationControl(sw)
     {
-      $store.commit('animationControlSlides', sw);
+      state.animated = sw;
+    }
+    function onChangeActive(n)
+    {
+      state.active = n;
+    }
+    function checkActive(n)
+    {
+      return !!state.computedImages[n];
     }
 
     return {
       state,
-      onClickPrev,
-      onClickNext,
+      images,
+      prev,
+      next,
       onAnimationControl,
+      onChangeActive,
     };
   },
 });
@@ -91,9 +123,6 @@ export default defineComponent({
 <style lang="scss">
 @import "../../scss/mixins";
 .slideshow-slides {
-  &__images {
-    z-index: 0;
-  }
   &__caption {
     display: none;
   }

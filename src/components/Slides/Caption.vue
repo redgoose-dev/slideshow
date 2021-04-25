@@ -27,6 +27,7 @@ export default defineComponent({
     font-size: 42px;
     letter-spacing: -1px;
     font-weight: 800;
+    white-space: nowrap;
   }
   pre {
     display: block;

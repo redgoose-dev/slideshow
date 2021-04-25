@@ -10,6 +10,19 @@ export function sleep(ms = 1000)
 }
 
 /**
+ * convert pure object
+ * `proxy`, `observable`객체를 순수한 객체로 변환해준다.
+ *
+ * @param {object|Array} src
+ * @return {object|Array}
+ */
+export function convertPureObject(src)
+{
+  if (!src) return null;
+  return JSON.parse(JSON.stringify(src));
+}
+
+/**
  * change screen mode
  *
  * @param {String} theme
@@ -46,4 +59,53 @@ export function initCustomEvent()
   };
   window.on = document.on = Element.prototype.on = events.on;
   window.off = document.off = Element.prototype.off = events.off;
+}
+
+/**
+ * set area true
+ *
+ * @param {Array} src
+ * @param {number} total
+ * @param {number} current
+ * @param {boolean} loop
+ * @return {Array}
+ */
+export function setAreaTrue(src, total, current, loop)
+{
+  function setTrue(sw)
+  {
+    if (sw)
+    {
+      if (src[current + 1] !== undefined) src[current + 1] = true;
+    }
+    else
+    {
+      if (src[current - 1] !== undefined) src[current - 1] = true;
+    }
+  }
+  src = convertPureObject(src);
+  if (loop)
+  {
+    if (current === 0)
+    {
+      src[total - 1] = true;
+      setTrue(true);
+    }
+    else if (current === total - 1)
+    {
+      src[0] = true;
+      setTrue(false);
+    }
+    else
+    {
+      setTrue(true);
+      setTrue(false);
+    }
+  }
+  else
+  {
+    setTrue(true);
+    setTrue(false);
+  }
+  return src;
 }
