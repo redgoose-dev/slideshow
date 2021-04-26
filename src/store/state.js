@@ -1,9 +1,26 @@
 export default {
   preference: {
-    general: {},
-    style: {},
+    general: {
+      screenColor: 'system', // dark,light,system
+      language: 'en',
+      hud: true,
+      hoverHud: false,
+      visibleElements: {},
+    },
+    style: {
+      imageScale: 75, // %
+      imageType: null, // null,contain,cover
+      captionScale: 100, // %
+      captionMargin: 24, // px
+    },
     slides: {
+      initialNumber: 0,
+      animationType: 'horizontal', // null,fade,horizontal
+      animationSpeed: 500,
+      autoplay: false,
+      autoplayDelay: 3000,
       loop: true,
+      swipe: true,
     },
     keyboard: {
       enableShortcut: true,

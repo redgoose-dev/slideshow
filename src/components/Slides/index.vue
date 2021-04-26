@@ -1,14 +1,24 @@
 <template>
-<article class="slideshow-slides">
+<article
+  class="slideshow-slides"
+  @touchstart="onTouchStart"
+  @touchmove="onTouchMove"
+  @touchend="onTouchEnd"
+  @mousedown="onTouchStart"
+  @mousemove="onTouchMove"
+  @mouseup="onTouchEnd"
+  @mouseleave="onTouchCancel"
+  @contextmenu="onTouchCancel">
   <Images
     ref="images"
     :initial-active="state.active"
     :items="state.computedImages"
-    :animation-type="`horizontal`"
-    :duration="500"
-    :style-type="`contain`"
-    image-size="75%"
+    :animation-type="$store.state.preference.slides.animationType"
+    :duration="$store.state.preference.slides.animationSpeed"
+    :image-type="$store.state.preference.style.imageType"
+    :image-size="$store.state.preference.style.imageScale"
     :loop="$store.state.preference.slides.loop"
+    :move-pos="state.swipePos"
     @animation-control="onAnimationControl"
     @change-active="onChangeActive"/>
   <Caption
@@ -26,6 +36,7 @@
     :total="state.computedImages.length"
     :current="state.active"
     class="slideshow-slides__paginate"/>
+  <p class="log">{{state.swipePos}}</p>
 </article>
 </template>
 
@@ -51,8 +62,9 @@ export default defineComponent({
     const store = useStore();
     const images = ref(null);
     let state = reactive({
-      active: 6,
+      active: store.state.preference.slides.initialNumber,
       animated: false,
+      swipePos: undefined,
       computedImages: computed(() => {
         return store.state.slides.map(item => (item));
       }),
@@ -72,6 +84,8 @@ export default defineComponent({
         };
       }),
     });
+    let swipeMove = false;
+    let swipeMeta = null;
 
     // check active number
     if (!checkActive(state.active)) state.active = 0;
@@ -85,14 +99,22 @@ export default defineComponent({
       onChangeActive(n);
       vm.play(n);
     }
-    function prev()
+    function prev(e)
     {
-      let n = number.move(state.computedImages.length, state.active - 1, store.state.preference.slides.loop);
+      let n = number.move(
+        state.computedImages.length,
+        state.active - 1,
+        store.state.preference.slides.loop
+      );
       change(n);
     }
-    function next()
+    function next(e)
     {
-      let n = number.move(state.computedImages.length, state.active + 1, store.state.preference.slides.loop);
+      let n = number.move(
+        state.computedImages.length,
+        state.active + 1,
+        store.state.preference.slides.loop
+      );
       change(n);
     }
     function onAnimationControl(sw)
@@ -107,6 +129,70 @@ export default defineComponent({
     {
       return !!state.computedImages[n];
     }
+    // TODO
+    function onTouchStart(e)
+    {
+      e.stopPropagation();
+      if (store.state.preference.slides.animationType !== 'horizontal') return;
+      swipeMeta = {
+        dist: 0,
+        startX: (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX),
+        startTime: new Date().getTime(),
+      };
+      swipeMove = true;
+    }
+    function onTouchMove(e)
+    {
+      e.preventDefault();
+      if (!swipeMove) return;
+      const screenWidth = window.innerWidth;
+      swipeMeta.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX);
+      const dist = swipeMeta.moveX - swipeMeta.startX;
+      state.swipePos = (dist / screenWidth * 100) + (0 - (100 * (state.active)));
+    }
+    function onTouchEnd(e)
+    {
+      e.preventDefault();
+      if (!swipeMove) return;
+      if (e.touches && e.touches.length > 0) return;
+      swipeMeta.endX = (e.changedTouches && e.changedTouches[0]) ? Math.floor(e.changedTouches[0].clientX) : (e.clientX || e.pageX);
+      let elapsedTime = new Date().getTime() - swipeMeta.startTime;
+      state.swipePos = undefined;
+
+      // short touch
+      // if (elapsedTime <= 200)
+      // {
+      //   console.log('short touch');
+      // }
+      // // long touch
+      // else if (elapsedTime <= 1000)
+      // {
+      //   console.log('long touch');
+      // }
+
+      // if (swipeMeta.startX > swipeMeta.endX)
+      // {
+      //   next();
+      // }
+      // else
+      // {
+      //   prev();
+      // }
+
+      // TODO: 스와이프 액션이 일어나는 조건
+      // TODO: - 짧은 시간에 조금 이동하면 OK (튕기듯이 손가락을 이동했다는 의미다.)
+      // TODO: - 긴 시간에 일정이상 이동하면 OK
+
+      // TODO: 스와이프가 취소되거나 종료되었을때 제자리로 돌아가는데 애니메이션이 들어가면 좋을거 같다.
+
+      swipeMove = false;
+    }
+    function onTouchCancel(e)
+    {
+      e.stopPropagation();
+      state.swipePos = undefined;
+      swipeMove = false;
+    }
 
     return {
       state,
@@ -115,35 +201,13 @@ export default defineComponent({
       next,
       onAnimationControl,
       onChangeActive,
+      onTouchStart,
+      onTouchMove,
+      onTouchEnd,
+      onTouchCancel,
     };
   },
 });
 </script>
 
-<style lang="scss">
-@import "../../scss/mixins";
-.slideshow-slides {
-  &__caption {
-    display: none;
-  }
-  &__paginate {
-    position: fixed;
-    z-index: 2;
-    right: 16px;
-    bottom: 10px;
-  }
-  @include responsive(desktop) {
-    &__caption {
-      display: block;
-      position: fixed;
-      top: 32px;
-      left: 30px;
-      z-index: 2;
-    }
-    &__paginate {
-      right: 30px;
-      bottom: 30px;
-    }
-  }
-}
-</style>
+<style src="./index.scss" lang="scss"></style>

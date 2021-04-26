@@ -2,33 +2,26 @@
 <div
   :class="[
     'slideshow-images',
-    !animationType && `slideshow-images--none`,
-    animationType === 'fade' && `slideshow-images--fade`,
-    animationType === 'horizontal' && `slideshow-images--horizontal`,
-    styleType && `slideshow-images--${styleType}`,
-    state.animated && 'animated',
+    state.computedAnimationTypeClass,
+    imageType && `type--${imageType}`,
+    state.playAnimation && 'play-animation',
   ]"
-  :style="{
-    '--speed-slide-animation': `${duration}ms`,
-    '--image-size': imageSize,
-    '--active-column': state.active,
-  }"
-  @touchstart="onTouchStart"
-  @touchmove="onTouchMove"
-  @touchend="onTouchEnd"
-  @mousedown="onTouchStart"
-  @mousemove="onTouchMove"
-  @mouseup="onTouchEnd">
+  :style="state.computedContainerStyle">
   <div ref="wrap" class="wrap">
+    <figure v-if="state.computedShowFirstItem" class="first">
+      <img v-if="state.loaded[items.length-1]" :src="items[items.length-1].src" :alt="items[items.length-1].title">
+    </figure>
     <figure
       v-for="(item, key) in items"
       :ref="el => { figures[key] = el }"
       :class="[
         (state.active === key && !!state.activeClassName) && state.activeClassName,
-        (state.animate === key && !!state.animateClassName) && state.animateClassName,
+        (state.nextKey === key && !!state.nextClassName) && state.nextClassName,
       ]">
       <img v-if="state.loaded[key]" :src="item.src" :alt="item.title">
-      <LoadingUnit v-else class="loading"/>
+    </figure>
+    <figure v-if="state.computedShowLastItem" class="last">
+      <img v-if="state.loaded[0]" :src="items[0].src" :alt="items[0].title">
     </figure>
   </div>
   <i class="overlay"/>
@@ -37,8 +30,8 @@
 
 <script>
 import { defineComponent, ref, reactive, computed } from 'vue';
-import LoadingUnit from '~/components/Loading/Unit';
 import * as util from '~/libs/util';
+import LoadingUnit from '~/components/Loading/Unit';
 
 export default defineComponent({
   name: 'SlidesImages',
@@ -46,29 +39,63 @@ export default defineComponent({
     LoadingUnit,
   },
   props: {
-    initialActive: { type: Number, default: 0 },
+    items: { type: Array, required: true }, // 슬라이드 아이템 목록
+    initialActive: { type: Number, default: 0 }, // 초기 활성화되는 슬라이드
     animationType: { type: String, default: null }, // null,'fade','horizontal'
-    styleType: { type: String, default: null }, // null,contain,cover
-    items: { type: Array, required: true },
-    duration: { type: Number, default: 800 }, // ms
-    imageSize: { type: String, default: '100%' },
-    loop: { type: Boolean },
+    imageType: { type: String, default: null }, // null,contain,cover
+    duration: { type: Number, default: 800 }, // animation speed(ms)
+    imageSize: { type: Number, default: 100 }, // slide image scale(%)
+    loop: { type: Boolean }, // slide loop
+    movePos: { type: Number, default: undefined },
   },
   setup(props, context)
   {
     let state = reactive({
-      loaded: new Array(props.items.length).fill(false),
-      active: props.initialActive,
+      loaded: new Array(props.items.length).fill(false), // 이미지 로드체크 목록
+      active: props.initialActive, // 현재 활성화되어있는 슬라이드 번호
       activeClassName: 'current',
-      animate: undefined,
-      animateClassName: undefined,
-      animated: false,
+      nextKey: undefined,
+      nextClassName: undefined,
+      playAnimation: false,
+      computedAnimationTypeClass: computed(() => {
+        switch (props.animationType)
+        {
+          case 'fade':
+            return 'animation--fade';
+          case 'horizontal':
+            return 'animation--horizontal';
+          default:
+            return 'animation--none';
+        }
+      }),
+      computedContainerStyle: computed(() => {
+        let result = {
+          '--speed-slide-animation': `${props.duration}ms`,
+          '--image-size': `${props.imageSize}%`,
+        };
+        if (props.animationType === 'horizontal')
+        {
+          result[`--active-column`] = (state.nextKey !== undefined) ? state.nextKey : state.active;
+          if (props.movePos !== undefined)
+          {
+            result['--move-pos'] = `${props.movePos}vw`;
+          }
+        }
+        return result;
+      }),
+      computedShowFirstItem: computed(() => {
+        if (!props.loop) return false;
+        return props.items[props.items.length-1] && props.animationType === 'horizontal';
+      }),
+      computedShowLastItem: computed(() => {
+        if (!props.loop) return false;
+        return props.items[0] && props.animationType === 'horizontal';
+      }),
     });
     let _active = props.initialActive;
     const figures = ref([]);
     const wrap = ref(null);
     let targetElement = null;
-    let move = false;
 
     // set loaded
     state.loaded[props.initialActive] = true;
@@ -98,26 +125,35 @@ export default defineComponent({
       {
         case 'fade':
           context.emit('animation-control', true);
-          state.animated = true;
-          state.activeClassName = 'current ready';
-          state.animate = _active;
-          state.animateClassName = 'next ready';
+          state.playAnimation = true;
+          state.activeClassName = 'fadeout ready';
+          state.nextKey = _active;
+          state.nextClassName = 'fadein ready';
           await util.sleep(20);
-          state.animateClassName = 'next';
+          state.nextClassName = 'fadein';
           targetElement = figures.value[_active];
           targetElement.addEventListener('transitionend', onTransitionEnd);
           break;
         case 'horizontal':
           context.emit('animation-control', true);
-          state.animated = true;
-          state.active = _active;
+          state.playAnimation = true;
+          if (props.loop)
+          {
+            if (state.active === 0 && _active >= props.items.length - 1)
+            {
+              state.nextKey = -1;
+            }
+            else if (state.active >= props.items.length - 1 && _active === 0)
+            {
+              state.nextKey = props.items.length;
+            }
+            state.active = _active;
+          }
+          else
+          {
+            state.active = _active;
+          }
           wrap.value.addEventListener('transitionend', onTransitionEnd);
-          // TODO: 현재 슬라이드는 `loop=true` 상태에서 첫번째와 마지막 슬라이드에서 문제가 생긴다.
-          // TODO: 마지막에서 첫번째로 넘어갈 수 없는 현상이 일어난다.
-          // TODO: 다른 슬라이드를 분석해보니 첫번째 이전에는 마지막 아이템, 마지막은 첫번째 아이템을 복제해놓고 애니메이션이 가능하도록 대비를 한다.
-          // TODO: 애니메이션이 끝나면 위치값을 고쳐서 마지막은 첫번째로 첫번째는 마지막으로 이동할 수 있도록 조정작업을 해주면 될거같다.
-          // TODO: 첫번째 아이템은 `0-100vw`, 마지막 아이템은 `last+100vw` 으로 복제물을 배치한다.
-          // TODO: 영역을 넘어선 상태로 배치하기 부담스러우면 그대로 늘려놓고 `key`값을 보정하여 순서를 밀어서 대처할 수 있을것이다.
           break;
         default:
           state.active = _active;
@@ -129,18 +165,18 @@ export default defineComponent({
       switch (props.animationType)
       {
         case 'fade':
-          state.animate = undefined;
-          state.animateClassName = undefined;
+          state.playAnimation = false;
+          state.nextKey = undefined;
+          state.nextClassName = undefined;
           state.active = _active;
           state.activeClassName = 'current';
           break;
         case 'horizontal':
-          state.active = _active;
-          state.activeClassName = 'current';
+          state.playAnimation = false;
+          state.nextKey = undefined;
           state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
           break;
       }
-      state.animated = false;
       context.emit('animation-control', false);
       removeTransitionEndEvent();
     }
@@ -150,33 +186,12 @@ export default defineComponent({
       targetElement.removeEventListener('transitionend', onTransitionEnd);
       targetElement = null;
     }
-    function onTouchStart(e)
-    {
-      if (props.animationType !== 'horizontal') return;
-      move = true;
-      // console.log('onTouchStart');
-    }
-    function onTouchMove(e)
-    {
-      if (!move) return;
-      // console.log('onTouchMove');
-    }
-    function onTouchEnd(e)
-    {
-      if (!move) return;
-      move = false;
-      // console.log('onTouchEnd');
-      // TODO: context.emit('change-active')
-    }
 
     return {
       state,
       figures,
       wrap,
       play,
-      onTouchStart,
-      onTouchMove,
-      onTouchEnd,
     };
   },
   emits: {

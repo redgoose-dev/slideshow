@@ -53,7 +53,7 @@ export default defineComponent({
       display: block;
       width: 20vw;
       max-width: 100px;
-      height: 62vh;
+      height: 24vh;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
