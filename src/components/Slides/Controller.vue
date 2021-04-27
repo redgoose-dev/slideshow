@@ -1,5 +1,5 @@
 <template>
-<nav class="slideshow-controller">
+<nav class="slideshow-controller" @click="e => { e.stopPropagation(); }">
   <button
     v-if="showPrev"
     type="button"

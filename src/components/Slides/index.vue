@@ -1,6 +1,9 @@
 <template>
 <article
-  class="slideshow-slides"
+  :class="[
+    'slideshow-slides',
+    state.swipeMove && 'swipe-move',
+  ]"
   @touchstart="onTouchStart"
   @touchmove="onTouchMove"
   @touchend="onTouchEnd"
@@ -8,7 +11,7 @@
   @mousemove="onTouchMove"
   @mouseup="onTouchEnd"
   @mouseleave="onTouchCancel"
-  @contextmenu="onTouchCancel">
+  @contextmenu="onContextMenu">
   <Images
     ref="images"
     :initial-active="state.active"
@@ -22,8 +25,11 @@
     @animation-control="onAnimationControl"
     @change-active="onChangeActive"/>
   <Caption
+    :active="state.active"
+    :type="$store.state.preference.slides.animationCaptionType"
     :title="state.computedCaption.title"
     :description="state.computedCaption.description"
+    :animation-type="$store.state.preference.slides.animationCaptionType"
     class="slideshow-slides__caption"/>
   <Controller
     class="slideshow-slides__controller"
@@ -36,7 +42,6 @@
     :total="state.computedImages.length"
     :current="state.active"
     class="slideshow-slides__paginate"/>
-  <p class="log">{{state.swipePos}}</p>
 </article>
 </template>
 
@@ -65,6 +70,7 @@ export default defineComponent({
       active: store.state.preference.slides.initialNumber,
       animated: false,
       swipePos: undefined,
+      swipeMove: false,
       computedImages: computed(() => {
         return store.state.slides.map(item => (item));
       }),
@@ -84,7 +90,6 @@ export default defineComponent({
         };
       }),
     });
-    let swipeMove = false;
     let swipeMeta = null;
 
     // check active number
@@ -99,7 +104,7 @@ export default defineComponent({
       onChangeActive(n);
       vm.play(n);
     }
-    function prev(e)
+    function prev()
     {
       let n = number.move(
         state.computedImages.length,
@@ -108,7 +113,7 @@ export default defineComponent({
       );
       change(n);
     }
-    function next(e)
+    function next()
     {
       let n = number.move(
         state.computedImages.length,
@@ -129,69 +134,79 @@ export default defineComponent({
     {
       return !!state.computedImages[n];
     }
-    // TODO
     function onTouchStart(e)
     {
-      e.stopPropagation();
+      e.preventDefault();
+      if (state.animated) return;
       if (store.state.preference.slides.animationType !== 'horizontal') return;
       swipeMeta = {
         dist: 0,
         startX: (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX),
         startTime: new Date().getTime(),
       };
-      swipeMove = true;
+      state.swipeMove = true;
     }
     function onTouchMove(e)
     {
       e.preventDefault();
-      if (!swipeMove) return;
-      const screenWidth = window.innerWidth;
+      if (state.animated || !state.swipeMove) return;
       swipeMeta.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX);
+      const screenWidth = window.innerWidth;
       const dist = swipeMeta.moveX - swipeMeta.startX;
       state.swipePos = (dist / screenWidth * 100) + (0 - (100 * (state.active)));
     }
     function onTouchEnd(e)
     {
+      function action(dir)
+      {
+        if (dir) next();
+        else prev();
+      }
+
       e.preventDefault();
-      if (!swipeMove) return;
+      if (state.animated || !state.swipeMove) return;
       if (e.touches && e.touches.length > 0) return;
+
+      const screenWidth = window.innerWidth;
       swipeMeta.endX = (e.changedTouches && e.changedTouches[0]) ? Math.floor(e.changedTouches[0].clientX) : (e.clientX || e.pageX);
+      let dir = swipeMeta.startX > swipeMeta.endX; // next is true
       let elapsedTime = new Date().getTime() - swipeMeta.startTime;
+      let distPos = swipeMeta.endX - swipeMeta.startX;
+      let percent = Math.abs(distPos) / screenWidth * 100;
+
+      // unset values
       state.swipePos = undefined;
+      state.swipeMove = false;
+      swipeMeta = undefined;
 
-      // short touch
-      // if (elapsedTime <= 200)
-      // {
-      //   console.log('short touch');
-      // }
-      // // long touch
-      // else if (elapsedTime <= 1000)
-      // {
-      //   console.log('long touch');
-      // }
+      // 클릭하는 수준으로 짧으면 정지
+      if (elapsedTime < 100 || percent < 2) return;
 
-      // if (swipeMeta.startX > swipeMeta.endX)
-      // {
-      //   next();
-      // }
-      // else
-      // {
-      //   prev();
-      // }
-
-      // TODO: 스와이프 액션이 일어나는 조건
-      // TODO: - 짧은 시간에 조금 이동하면 OK (튕기듯이 손가락을 이동했다는 의미다.)
-      // TODO: - 긴 시간에 일정이상 이동하면 OK
-
-      // TODO: 스와이프가 취소되거나 종료되었을때 제자리로 돌아가는데 애니메이션이 들어가면 좋을거 같다.
-
-      swipeMove = false;
+      // play
+      if (elapsedTime > 300)
+      {
+        // long touch
+        if (percent > 30) action(dir);
+        else images.value.cancel();
+      }
+      else
+      {
+        // short touch
+        if (percent > 10) action(dir);
+        else images.value.cancel();
+      }
     }
     function onTouchCancel(e)
     {
       e.stopPropagation();
+      if (state.swipeMove) images.value.cancel();
       state.swipePos = undefined;
-      swipeMove = false;
+      state.swipeMove = false;
+    }
+    function onContextMenu()
+    {
+      state.swipePos = undefined;
+      state.swipeMove = false;
     }
 
     return {
@@ -205,6 +220,7 @@ export default defineComponent({
       onTouchMove,
       onTouchEnd,
       onTouchCancel,
+      onContextMenu,
     };
   },
 });

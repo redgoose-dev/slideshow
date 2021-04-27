@@ -5,6 +5,7 @@
     state.computedAnimationTypeClass,
     imageType && `type--${imageType}`,
     state.playAnimation && 'play-animation',
+    state.cancelAnimation && 'cancel-animation',
   ]"
   :style="state.computedContainerStyle">
   <div ref="wrap" class="wrap">
@@ -57,6 +58,7 @@ export default defineComponent({
       nextKey: undefined,
       nextClassName: undefined,
       playAnimation: false,
+      cancelAnimation: false,
       computedAnimationTypeClass: computed(() => {
         switch (props.animationType)
         {
@@ -160,6 +162,13 @@ export default defineComponent({
           break;
       }
     }
+    async function cancel()
+    {
+      if (state.playAnimation) return;
+      context.emit('animation-control', true);
+      state.cancelAnimation = true;
+      wrap.value.addEventListener('transitionend', onCancelTransitionEnd);
+    }
     function onTransitionEnd()
     {
       switch (props.animationType)
@@ -170,15 +179,21 @@ export default defineComponent({
           state.nextClassName = undefined;
           state.active = _active;
           state.activeClassName = 'current';
+          removeTransitionEndEvent();
+          context.emit('animation-control', false);
           break;
         case 'horizontal':
           state.playAnimation = false;
           state.nextKey = undefined;
           state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
+          context.emit('animation-control', false);
           break;
       }
+    }
+    function onCancelTransitionEnd()
+    {
+      state.cancelAnimation = false;
       context.emit('animation-control', false);
-      removeTransitionEndEvent();
     }
     function removeTransitionEndEvent()
     {
@@ -192,6 +207,7 @@ export default defineComponent({
       figures,
       wrap,
       play,
+      cancel,
     };
   },
   emits: {

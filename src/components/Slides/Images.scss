@@ -138,6 +138,13 @@
         transition-timing-function: cubic-bezier(.215,.610,.355,1);
       }
     }
+    &.cancel-animation {
+      .wrap {
+        transition-property: transform;
+        transition-duration: 200ms;
+        transition-timing-function: ease-out;
+      }
+    }
   }
 }
 

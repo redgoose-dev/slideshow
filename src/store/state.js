@@ -8,7 +8,7 @@ export default {
       visibleElements: {},
     },
     style: {
-      imageScale: 75, // %
+      imageScale: 80, // %
       imageType: null, // null,contain,cover
       captionScale: 100, // %
       captionMargin: 24, // px
@@ -17,6 +17,7 @@ export default {
       initialNumber: 0,
       animationType: 'horizontal', // null,fade,horizontal
       animationSpeed: 500,
+      animationCaptionType: null, // null,shuffle
       autoplay: false,
       autoplayDelay: 3000,
       loop: true,
