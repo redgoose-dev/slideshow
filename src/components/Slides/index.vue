@@ -11,6 +11,7 @@
   @mousemove="onTouchMove"
   @mouseup="onTouchEnd"
   @mouseleave="onTouchCancel"
+  @mouseenter="onMouseEnter"
   @contextmenu="onContextMenu">
   <Images
     ref="images"
@@ -42,13 +43,15 @@
     :total="state.computedImages.length"
     :current="state.active"
     class="slideshow-slides__paginate"/>
+  <p class="log">autoplay: {{$store.state.preference.slides.autoplay}}</p>
 </article>
 </template>
 
 <script>
-import { defineComponent, reactive, computed, ref } from 'vue';
+import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
 import * as number from '~/libs/number';
+import * as util from '~/libs/util';
 import Images from './Images';
 import Caption from './Caption';
 import Paginate from './Paginate';
@@ -90,41 +93,23 @@ export default defineComponent({
         };
       }),
     });
-    let swipeMeta = null;
+    let swipeMeta = null; // 슬라이드를 스와이프할때 필요한 정보들을 담는다.
+    let autoplayTimer = undefined; // 오토플레이 `setTimeout` 값을 담는데 사용된다.
+    let autoplayPause = false; // 오토플레이 일시정지할때 사용하는 결정적인 값
 
     // check active number
     if (!checkActive(state.active)) state.active = 0;
 
     // methods
-    function change(n)
-    {
-      if (state.animated) return;
-      if (!checkActive(n)) return;
-      const vm = images.value;
-      onChangeActive(n);
-      vm.play(n);
-    }
-    function prev()
-    {
-      let n = number.move(
-        state.computedImages.length,
-        state.active - 1,
-        store.state.preference.slides.loop
-      );
-      change(n);
-    }
-    function next()
-    {
-      let n = number.move(
-        state.computedImages.length,
-        state.active + 1,
-        store.state.preference.slides.loop
-      );
-      change(n);
-    }
     function onAnimationControl(sw)
     {
       state.animated = sw;
+      if (!sw)
+      {
+        // with autoplay
+        let autoplay = store.state.preference.slides.autoplay && !autoplayPause;
+        if (autoplay) runAutoplay(true);
+      }
     }
     function onChangeActive(n)
     {
@@ -137,8 +122,10 @@ export default defineComponent({
     function onTouchStart(e)
     {
       e.preventDefault();
-      if (state.animated) return;
+      if (!store.state.preference.slides.swipe) return;
       if (store.state.preference.slides.animationType !== 'horizontal') return;
+      if (state.animated) return;
+      runAutoplay(false);
       swipeMeta = {
         dist: 0,
         startX: (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX),
@@ -161,6 +148,10 @@ export default defineComponent({
       {
         if (dir) next();
         else prev();
+      }
+      function cancel()
+      {
+        images.value.cancel();
       }
 
       e.preventDefault();
@@ -187,13 +178,13 @@ export default defineComponent({
       {
         // long touch
         if (percent > 30) action(dir);
-        else images.value.cancel();
+        else cancel();
       }
       else
       {
         // short touch
         if (percent > 10) action(dir);
-        else images.value.cancel();
+        else cancel();
       }
     }
     function onTouchCancel(e)
@@ -202,25 +193,108 @@ export default defineComponent({
       if (state.swipeMove) images.value.cancel();
       state.swipePos = undefined;
       state.swipeMove = false;
+      if (store.state.preference.slides.autoplay && store.state.preference.slides.autoplayPauseOnHover)
+      {
+        autoplayPause = false;
+        if (!state.animated) runAutoplay(true);
+      }
+    }
+    function onMouseEnter(e)
+    {
+      if (store.state.preference.slides.autoplay && store.state.preference.slides.autoplayPauseOnHover)
+      {
+        autoplayPause = true;
+        runAutoplay(false);
+      }
     }
     function onContextMenu()
     {
       state.swipePos = undefined;
       state.swipeMove = false;
     }
+    function runAutoplay(sw)
+    {
+      if (!store.state.preference.slides.autoplay) return;
+      if (sw && !autoplayTimer)
+      {
+        const delay = store.state.preference.slides.autoplayDelay;
+        const dir = store.state.preference.slides.autoplayDirection;
+        const loop = store.state.preference.slides.loop;
+        const side = isActiveSide(dir);
+        if (!loop && (!loop && side)) return;
+        autoplayTimer = setTimeout(() => {
+          if (!dir) prev();
+          else next();
+        }, delay);
+      }
+      else if (autoplayTimer)
+      {
+        clearTimeout(autoplayTimer);
+        autoplayTimer = undefined;
+      }
+    }
+    function isActiveSide(dir)
+    {
+      return (!dir && state.active === 0) || (dir && state.active >= state.computedImages.length - 1);
+    }
+    // public methods
+    function change(n)
+    {
+      if (state.animated) return;
+      if (!checkActive(n)) return;
+      const vm = images.value;
+      state.active = n;
+      runAutoplay(false);
+      vm.play(n);
+    }
+    function prev()
+    {
+      let n = number.move(
+        state.computedImages.length,
+        state.active - 1,
+        store.state.preference.slides.loop
+      );
+      change(n);
+    }
+    function next()
+    {
+      let n = number.move(
+        state.computedImages.length,
+        state.active + 1,
+        store.state.preference.slides.loop
+      );
+      change(n);
+    }
+    function autoplay(sw = undefined)
+    {
+      store.commit('toggleAutoplay', sw);
+    }
+
+    // lifecycles
+    onMounted(() => {
+      if (store.state.preference.slides.autoplay) runAutoplay(true);
+    });
+
+    // watch
+    watch(() => store.state.preference.slides.autoplay, sw => runAutoplay(sw));
 
     return {
       state,
       images,
-      prev,
-      next,
+      // methods
       onAnimationControl,
       onChangeActive,
       onTouchStart,
       onTouchMove,
       onTouchEnd,
       onTouchCancel,
+      onMouseEnter,
       onContextMenu,
+      // public methods
+      change,
+      prev,
+      next,
+      autoplay,
     };
   },
 });

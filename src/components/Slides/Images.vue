@@ -110,7 +110,6 @@ export default defineComponent({
     async function play(n = null)
     {
       if (typeof n !== 'number') return;
-      removeTransitionEndEvent();
       // set temp active
       _active = Number(n);
       // init image load event
@@ -126,6 +125,11 @@ export default defineComponent({
       switch (props.animationType)
       {
         case 'fade':
+          if (targetElement)
+          {
+            targetElement.removeEventListener('transitionend', onTransitionEnd);
+            targetElement = null;
+          }
           context.emit('animation-control', true);
           state.playAnimation = true;
           state.activeClassName = 'fadeout ready';
@@ -162,13 +166,6 @@ export default defineComponent({
           break;
       }
     }
-    async function cancel()
-    {
-      if (state.playAnimation) return;
-      context.emit('animation-control', true);
-      state.cancelAnimation = true;
-      wrap.value.addEventListener('transitionend', onCancelTransitionEnd);
-    }
     function onTransitionEnd()
     {
       switch (props.animationType)
@@ -179,27 +176,34 @@ export default defineComponent({
           state.nextClassName = undefined;
           state.active = _active;
           state.activeClassName = 'current';
-          removeTransitionEndEvent();
+          if (targetElement)
+          {
+            targetElement.removeEventListener('transitionend', onTransitionEnd);
+            targetElement = null;
+          }
           context.emit('animation-control', false);
           break;
         case 'horizontal':
           state.playAnimation = false;
           state.nextKey = undefined;
           state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
+          wrap.value.removeEventListener('transitionend', onTransitionEnd);
           context.emit('animation-control', false);
           break;
       }
     }
+    async function cancel()
+    {
+      if (state.playAnimation) return;
+      context.emit('animation-control', true);
+      state.cancelAnimation = true;
+      wrap.value.addEventListener('transitionend', onCancelTransitionEnd);
+    }
     function onCancelTransitionEnd()
     {
       state.cancelAnimation = false;
+      wrap.value.removeEventListener('transitionend', onCancelTransitionEnd);
       context.emit('animation-control', false);
-    }
-    function removeTransitionEndEvent()
-    {
-      if (!targetElement) return;
-      targetElement.removeEventListener('transitionend', onTransitionEnd);
-      targetElement = null;
     }
 
     return {

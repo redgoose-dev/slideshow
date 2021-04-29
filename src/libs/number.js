@@ -10,7 +10,7 @@ export function move(total = 0, value = 0, loop = true)
 {
   if (total - 1 < value)
   {
-    if (!loop) return total;
+    if (!loop) return total - 1;
     return 0;
   }
   else if (value < 0)

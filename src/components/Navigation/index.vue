@@ -33,7 +33,7 @@
         <li>
           <button
             type="button"
-            :class="[ false && 'on' ]"
+            :class="[ $store.state.preference.slides.autoplay && 'on' ]"
             @click="onClickContextItem('autoplay')">
             {{$t('navigation.autoplay')}}
           </button>
@@ -54,6 +54,7 @@
 <script>
 import { defineComponent, reactive } from 'vue';
 import { useStore } from 'vuex';
+import * as local from '~/libs/local';
 import Icon from '~/components/Icon';
 
 export default defineComponent({
@@ -101,7 +102,7 @@ export default defineComponent({
           console.log('on click preference in context menu item');
           break;
         case 'autoplay':
-          console.log('on click autoplay in context menu item');
+          local.slides.autoplay();
           break;
         case 'fullscreen':
           console.log('on click fullscreen in context menu item');

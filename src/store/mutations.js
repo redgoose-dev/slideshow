@@ -12,5 +12,17 @@ export function changeMode(state, value)
 export function updatePreference(state, value)
 {
   // TODO
-  console.log('call preference');
+  console.log('call updatePreference in mutations', value);
+}
+
+/**
+ * toggle autoplay
+ *
+ * @param {object} state
+ * @param {boolean} sw
+ */
+export function toggleAutoplay(state, sw = undefined)
+{
+  sw = (typeof sw === 'boolean') ? sw : !state.preference.slides.autoplay;
+  state.preference.slides.autoplay = sw;
 }

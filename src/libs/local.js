@@ -1,12 +1,12 @@
-export let vm = null;
-export let $slides = null;
+export let main = null;
+export let slides = null;
 
 /**
  * setup app
  */
 export function setup(o)
 {
-  vm = o;
+  main = o;
 }
 
 /**
@@ -14,5 +14,5 @@ export function setup(o)
  */
 export function setupSlides(o)
 {
-  $slides = o;
+  slides = o;
 }

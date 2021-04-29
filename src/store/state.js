@@ -20,7 +20,9 @@ export default {
       animationCaptionType: null, // null,shuffle
       autoplay: false,
       autoplayDelay: 3000,
-      loop: true,
+      autoplayDirection: true, // next(true), prev(false)
+      autoplayPauseOnHover: false,
+      loop: false,
       swipe: true,
     },
     keyboard: {
@@ -36,7 +38,7 @@ export default {
     {
       src: 'https://goose.redgoose.me/data/upload/original/202103/hud-tadpole-001.jpg',
       title: 'preeev',
-      description: 'prevv description',
+      description: 'prevv sdmig sdigfs dmg\nsdmig sdgolp sdgm,',
     },
     {
       src: 'https://goose.redgoose.me/data/upload/original/202003/double-generator-001.jpg',
