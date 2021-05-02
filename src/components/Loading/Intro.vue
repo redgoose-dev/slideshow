@@ -56,10 +56,9 @@ export default defineComponent({
   user-select: none;
   strong {
     display: block;
-    margin: 32px 0 0;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -.5px;
+    margin: 42px 0 0;
+    font-size: 20px;
+    font-weight: 200;
   }
   &--move {
     .unit {
@@ -72,8 +71,10 @@ export default defineComponent({
   }
   @include responsive(desktop) {
     strong {
-      margin: 42px 0 0;
+      margin: 48px 0 0;
       font-size: 24px;
+      font-weight: 200;
+      letter-spacing: 2px;
     }
     &--move {
       .unit {

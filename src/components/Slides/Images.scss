@@ -6,20 +6,6 @@
   box-sizing: border-box;
   overflow: hidden;
   backface-visibility: hidden;
-  // TODO: test start
-  //transform: scale(.25);
-  //&:after {
-  //  content: '';
-  //  position: absolute;
-  //  left: 0;
-  //  right: 0;
-  //  top: 0;
-  //  bottom: 0;
-  //  z-index: 10;
-  //  border: 6px dashed red;
-  //  pointer-events: none;
-  //}
-  // TODO: test end
   .wrap {
     width: 100%;
     height: 100%;

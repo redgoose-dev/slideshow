@@ -1,3 +1,5 @@
+@import "../../scss/mixins";
+
 .slideshow-navigation {
   display: flex;
   &__item {
@@ -10,18 +12,16 @@
       height: 48px;
       padding: 0;
       margin: 0;
-      background: hsla(0, 0%, 0%, .4);
+      background: rgba(0,0,0,.4);
       border: none;
       font-size: 0;
       outline: none;
       cursor: pointer;
       transition: background-color var(--speed-button-active) ease-out;
       border-radius: 1px;
-      &:active {
-        background-color: hsla(0, 0%, 0%, .7);
-      }
+      &:active,
       &.on {
-        background-color: hsla(0, 0%, 0%, .7);
+        background-color: rgba(0,0,0,.7);
       }
       > svg {
         display: block;
@@ -29,6 +29,20 @@
         --icon-color: var(--color-invert);
         --icon-stroke: 1.5;
         --icon-size: 22px;
+      }
+    }
+  }
+  @include dark-mode() {
+    &__item {
+      > button {
+        background: rgba(17,17,17,.4);
+        &:active,
+        &.on {
+          background-color: rgba(17,17,17,.7);
+        }
+        > svg {
+          --icon-color: var(--color-fill);
+        }
       }
     }
   }
@@ -44,7 +58,7 @@
     padding: 0;
     width: 150px;
     box-sizing: border-box;
-    background-color: hsla(0, 0%, 0%, .7);
+    background-color: rgba(0,0,0,.7);
     border-radius: 1px;
     overflow: hidden;
     pointer-events: none;
@@ -80,6 +94,24 @@
     ul {
       pointer-events: auto;
       opacity: 1;
+    }
+  }
+  @include dark-mode() {
+    ul {
+      background-color: rgba(17,17,17,.7);
+    }
+    li {
+      &:nth-child(n+2) {
+        border-top: 1px solid rgba(255,255,255,.05);
+      }
+    }
+    button {
+      color: var(--color-fill);
+      background-color: rgba(0,0,0,0);
+      &.on,
+      &:active {
+        background-color: rgba(0,0,0,.1);
+      }
     }
   }
 }

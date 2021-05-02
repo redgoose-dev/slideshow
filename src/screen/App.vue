@@ -25,10 +25,21 @@ export default defineComponent({
     });
 
     // method
-    function updateTheme()
+    function updateTheme(color)
     {
-      // TODO: 다크모드 관련부분 작업
-      console.log('update theme');
+      let theme;
+      switch(color)
+      {
+        case 'light':
+        case 'dark':
+          theme = color;
+          break;
+        default:
+          theme = 'system';
+          break;
+      }
+      const $html = document.querySelector('html');
+      $html.dataset['color'] = theme;
     }
     function start()
     {
@@ -47,15 +58,16 @@ export default defineComponent({
     }
 
     // watch
-    // watch(() => store.state.preference, () => {
-    //   console.log('updated preference');
-    // });
+    watch(() => store.state.preference, () => {
+      console.log('updated preference');
+    });
 
     // lifecycles
     onMounted(async () => {
       await util.sleep(500);
       // TODO: 스토리지에 들어있는 값들을 vuex 영역에 복원한다.
       // TODO: 아니면 서버에 있는 json 값들을 가져와 vuex 영역에 복원한다.
+      updateTheme(store.state.preference.general.screenColor);
       state.loading = false;
     });
 

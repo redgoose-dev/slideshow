@@ -1,0 +1,57 @@
+@import "../../scss/mixins";
+
+.empty {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  &__wrap {
+    text-align: center;
+    padding: 0 0 30px;
+  }
+  &__icon {
+    display: block;
+    margin: 0 auto;
+    --icon-color: var(--color-fill);
+    --icon-size: 80px;
+    --icon-stroke: .75px;
+  }
+  &__title {
+    margin: 4px 0 0;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -.5px;
+  }
+  &__description {
+    margin: 2px 0 0;
+    letter-spacing: -.25px;
+    font-size: 12px;
+    color: var(--color-low-fill);
+  }
+
+  @include responsive(desktop) {
+    &__icon {
+      --icon-size: 120px;
+      --icon-stroke: .5px;
+    }
+    &__title {
+      margin-top: 0;
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+    &__description {
+      margin-top: 4px;
+      font-size: 13px;
+    }
+  }
+  @include dark-mode() {
+    &__icon {
+      --icon-color: var(--color-fill);
+    }
+  }
+}

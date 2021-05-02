@@ -23,18 +23,6 @@ export function convertPureObject(src)
 }
 
 /**
- * change screen mode
- *
- * @param {String} theme
- */
-export function changeScreenMode(theme)
-{
-  if (!theme) return;
-  const $html = document.querySelector('html');
-  $html.dataset['color-mode'] = theme;
-}
-
-/**
  * initial custom event
  * 중복되는 `dom`에다 여러 이벤트를 넣고 싶을때(특히 window) 유니크한 이름으로 이벤트를 만들 수 있도록 커스텀 이벤트를 만들어서 사용할때 사용한다.
  */

@@ -1,11 +1,13 @@
 export default {
   preference: {
     general: {
-      screenColor: 'system', // dark,light,system
+      screenColor: 'light', // dark,light,system
       language: 'en',
       hud: true,
       hoverHud: false,
-      visibleElements: {},
+      visibleContents: {
+        thumbnail: true,
+      },
     },
     style: {
       imageScale: 80, // %
@@ -22,7 +24,7 @@ export default {
       autoplayDelay: 3000,
       autoplayDirection: true, // next(true), prev(false)
       autoplayPauseOnHover: false,
-      loop: false,
+      loop: true,
       swipe: true,
     },
     keyboard: {

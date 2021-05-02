@@ -115,18 +115,9 @@ export default defineComponent({
     letter-spacing: -.25px;
     color: var(--color-low-fill);
   }
-  > *::selection {
-    background-color: var(--color-key);
-    color: var(--color-invert);
-  }
   @include responsive(desktop) {
     display: block;
     pointer-events: none;
-  }
-  @include dark-mode() {
-    > *::selection {
-      color: var(--color-fill);
-    }
   }
 }
 </style>

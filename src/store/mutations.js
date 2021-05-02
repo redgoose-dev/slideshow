@@ -1,9 +1,21 @@
 /**
  * change mode
+ *
+ * @param {object} state
+ * @param {string} value
  */
 export function changeMode(state, value)
 {
-  state.mode = value;
+  switch (value)
+  {
+    case 'thumbnail':
+    case 'preference':
+      state.mode = value;
+      break;
+    default:
+      state.mode = null;
+      break;
+  }
 }
 
 /**

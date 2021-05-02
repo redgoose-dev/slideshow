@@ -44,6 +44,15 @@ body {
   line-height: 1.6;
   background-color: var(--color-bg);
   overflow: hidden;
+  ::selection {
+    background: var(--color-key);
+    color: var(--color-invert);
+  }
+  @include dark-mode() {
+    ::selection {
+      color: var(--color-fill);
+    }
+  }
 }
 body, button, input, textarea, select {
   font-family: var(--font-base);

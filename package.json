@@ -6,8 +6,8 @@
   "author": "redgoose <scripter@me.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
-    "build": "vue-cli-service build"
+    "dev": "node_modules/.bin/vue-cli-service serve --host 0.0.0.0 --port 3000",
+    "build": "node_modules/.bin/vue-cli-service build"
   },
   "browserslist": [
     "> 1%",
@@ -21,7 +21,6 @@
   "devDependencies": {
     "@vue/cli-service": "^4.5.12",
     "@vue/compiler-sfc": "^3.0.11",
-    "fibers": "^5.0.0",
     "sass": "^1.32.11",
     "sass-loader": "^10.1.1"
   }

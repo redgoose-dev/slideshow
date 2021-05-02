@@ -43,7 +43,6 @@
     :total="state.computedImages.length"
     :current="state.active"
     class="slideshow-slides__paginate"/>
-  <p class="log">autoplay: {{$store.state.preference.slides.autoplay}}</p>
 </article>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
 <nav class="slideshow-navigation">
-  <div class="slideshow-navigation__item">
+  <div
+    v-if="$store.state.preference.general.visibleContents.thumbnail"
+    class="slideshow-navigation__item">
     <button
       type="button"
       :title="$t('navigation.thumbnail')"
@@ -30,7 +32,7 @@
             {{$t('navigation.preference')}}
           </button>
         </li>
-        <li>
+        <li v-if="$store.state.slides.length > 0">
           <button
             type="button"
             :class="[ $store.state.preference.slides.autoplay && 'on' ]"
@@ -48,6 +50,7 @@
       </ul>
     </div>
   </div>
+  {{state.computedExistSlide}}
 </nav>
 </template>
 
@@ -74,7 +77,7 @@ export default defineComponent({
     function onClickThumbnailButton()
     {
       state.activeThumbnail = !state.activeThumbnail;
-      store.dispatch('changeMode', !state.activeThumbnail ? null : 'thumbnail');
+      store.commit('changeMode', !state.activeThumbnail ? null : 'thumbnail');
     }
     function onClickMenuButton(e)
     {
@@ -102,7 +105,7 @@ export default defineComponent({
           console.log('on click preference in context menu item');
           break;
         case 'autoplay':
-          local.slides.autoplay();
+          if (local.slides) local.slides.autoplay();
           break;
         case 'fullscreen':
           console.log('on click fullscreen in context menu item');
@@ -120,4 +123,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./index.scss" lang="scss"></style>
+<style src="./index.scss" lang="scss" scoped></style>

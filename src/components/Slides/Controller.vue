@@ -1,6 +1,6 @@
 <template>
 <nav
-  class="slideshow-controller"
+  class="controller"
   @click="e => { e.stopPropagation() }">
   <button
     v-if="showPrev"
@@ -42,9 +42,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../scss/mixins";
-.slideshow-controller {
+.controller {
   display: none;
   @include responsive(desktop) {
     display: block;
@@ -82,6 +82,7 @@ export default defineComponent({
       svg {
         --icon-size: 74px;
         --icon-stroke: .75;
+        --icon-color: var(--color-fill);
         display: block;
         position: absolute;
         top: 50%;

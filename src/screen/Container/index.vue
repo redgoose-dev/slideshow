@@ -4,9 +4,9 @@
     v-if="state.existSlideItem"
     ref="slides"
     class="slideshow__slides"/>
-  <p v-else>not slide item</p>
+  <SlidesEmpty v-else/>
   <Thumbnail
-    v-if="state.computedMode === 'thumbnail'"
+    v-if="state.computedShowThumbnail"
     class="slideshow__thumbnail"/>
   <Navigation
     class="slideshow__navigation"/>
@@ -26,11 +26,13 @@ import Thumbnail from '~/screen/Thumbnail';
 import Preference from '~/screen/Preference';
 import Navigation from '~/components/Navigation';
 import Slides from '~/components/Slides';
+import SlidesEmpty from '~/components/Slides/Empty';
 
 export default defineComponent({
   name: 'Container',
   components: {
     Slides,
+    SlidesEmpty,
     Thumbnail,
     Navigation,
     Preference,
@@ -39,6 +41,7 @@ export default defineComponent({
   {
     const store = useStore();
     let state = reactive({
+      existSlideItem: store.state.slides.length > 0,
       computedMode: computed(() => {
         switch (store.state.mode)
         {
@@ -49,7 +52,9 @@ export default defineComponent({
             return null;
         }
       }),
-      existSlideItem: store.state.slides.length > 0,
+      computedShowThumbnail: computed(() => {
+        return store.state.preference.general.visibleContents.thumbnail && state.computedMode === 'thumbnail';
+      }),
     });
     const slides = ref(null);
 
