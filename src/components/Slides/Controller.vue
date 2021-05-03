@@ -1,7 +1,5 @@
 <template>
-<nav
-  class="controller"
-  @click="e => { e.stopPropagation() }">
+<nav class="controller">
   <button
     v-if="showPrev"
     type="button"

@@ -1,6 +1,9 @@
 <template>
 <LoadingIntro v-if="state.loading"/>
 <Container v-else/>
+  <p class="log">
+    {{$store.state.activeSlide}}
+  </p>
 </template>
 
 <script>

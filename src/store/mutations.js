@@ -38,3 +38,14 @@ export function toggleAutoplay(state, sw = undefined)
   sw = (typeof sw === 'boolean') ? sw : !state.preference.slides.autoplay;
   state.preference.slides.autoplay = sw;
 }
+
+/**
+ * change active slide
+ *
+ * @param {object} state
+ * @param {number} n
+ */
+export function changeActiveSlide(state, n)
+{
+  state.activeSlide = n;
+}

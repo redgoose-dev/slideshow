@@ -6,12 +6,14 @@
     <button
       type="button"
       :title="$t('navigation.thumbnail')"
-      :class="state.activeThumbnail ? 'on' : ''"
-      @click="onClickThumbnailButton">
+      :class="state.computedActiveThumbnail ? 'on' : ''"
+      @click="onClickThumbnailButton(!state.computedActiveThumbnail)">
       <Icon icon-name="grid"/>
     </button>
   </div>
-  <div class="slideshow-navigation__item">
+  <div
+    v-if="$store.state.preference.general.visibleContents.menu"
+    class="slideshow-navigation__item">
     <button
       type="button"
       :title="$t('navigation.menu')"
@@ -32,7 +34,7 @@
             {{$t('navigation.preference')}}
           </button>
         </li>
-        <li v-if="$store.state.slides.length > 0">
+        <li v-if="state.computedShowAutoplay">
           <button
             type="button"
             :class="[ $store.state.preference.slides.autoplay && 'on' ]"
@@ -50,12 +52,11 @@
       </ul>
     </div>
   </div>
-  {{state.computedExistSlide}}
 </nav>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 import * as local from '~/libs/local';
 import Icon from '~/components/Icon';
@@ -69,15 +70,19 @@ export default defineComponent({
   {
     const store = useStore();
     let state = reactive({
-      activeThumbnail: false,
       activeMenu: false,
+      computedActiveThumbnail: computed(() => {
+        return store.state.mode === 'thumbnail';
+      }),
+      computedShowAutoplay: computed(() => {
+        return store.state.slides.length > 0 && store.state.preference.slides.autoplay;
+      }),
     });
 
     // methods
-    function onClickThumbnailButton()
+    function onClickThumbnailButton(sw)
     {
-      state.activeThumbnail = !state.activeThumbnail;
-      store.commit('changeMode', !state.activeThumbnail ? null : 'thumbnail');
+      store.commit('changeMode', sw ? 'thumbnail' : null);
     }
     function onClickMenuButton(e)
     {

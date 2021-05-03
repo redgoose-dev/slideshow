@@ -19,6 +19,7 @@
       cursor: pointer;
       transition: background-color var(--speed-button-active) ease-out;
       border-radius: 1px;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
       &:active,
       &.on {
         background-color: rgba(0,0,0,.7);

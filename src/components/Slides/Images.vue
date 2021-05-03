@@ -45,7 +45,7 @@ export default defineComponent({
     animationType: { type: String, default: null }, // null,'fade','horizontal'
     imageType: { type: String, default: null }, // null,contain,cover
     duration: { type: Number, default: 800 }, // animation speed(ms)
-    imageSize: { type: Number, default: 100 }, // slide image scale(%)
+    imageSize: { type: Array, default: [100,100] }, // slide image scale(%)
     loop: { type: Boolean }, // slide loop
     movePos: { type: Number, default: undefined },
   },
@@ -73,7 +73,8 @@ export default defineComponent({
       computedContainerStyle: computed(() => {
         let result = {
           '--speed-slide-animation': `${props.duration}ms`,
-          '--image-size': `${props.imageSize}%`,
+          '--image-size-width': `${props.imageSize[0]}%`,
+          '--image-size-height': `${props.imageSize[1]}%`,
         };
         if (props.animationType === 'horizontal')
         {
@@ -107,7 +108,7 @@ export default defineComponent({
     }
 
     // methods
-    async function play(n = null)
+    async function play(n = null, userAnimationType = undefined)
     {
       if (typeof n !== 'number') return;
       // set temp active
@@ -122,7 +123,8 @@ export default defineComponent({
         image.src = props.items[_active].src;
       }
       // play motion
-      switch (props.animationType)
+      const type = userAnimationType !== undefined ? userAnimationType : props.animationType;
+      switch (type)
       {
         case 'fade':
           if (targetElement)
@@ -161,6 +163,7 @@ export default defineComponent({
           }
           wrap.value.addEventListener('transitionend', onTransitionEnd);
           break;
+        case 'none':
         default:
           state.active = _active;
           break;

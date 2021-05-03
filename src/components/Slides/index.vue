@@ -15,7 +15,7 @@
   @contextmenu="onContextMenu">
   <Images
     ref="images"
-    :initial-active="state.active"
+    :initial-active="$store.state.activeSlide"
     :items="state.computedImages"
     :animation-type="$store.state.preference.slides.animationType"
     :duration="$store.state.preference.slides.animationSpeed"
@@ -26,22 +26,25 @@
     @animation-control="onAnimationControl"
     @change-active="onChangeActive"/>
   <Caption
-    :active="state.active"
+    v-if="$store.state.preference.general.visibleContents.caption"
+    :active="$store.state.activeSlide"
     :type="$store.state.preference.slides.animationCaptionType"
     :title="state.computedCaption.title"
     :description="state.computedCaption.description"
     :animation-type="$store.state.preference.slides.animationCaptionType"
     class="slideshow-slides__caption"/>
   <Controller
-    class="slideshow-slides__controller"
+    v-if="$store.state.preference.general.visibleContents.controller"
     :disabled="state.animated"
     :show-prev="state.computedShowPrevButton"
     :show-next="state.computedShowNextButton"
+    class="slideshow-slides__controller"
     @click-prev="prev"
     @click-next="next"/>
   <Paginate
+    v-if="$store.state.preference.general.visibleContents.paginate"
     :total="state.computedImages.length"
-    :current="state.active"
+    :current="$store.state.activeSlide"
     class="slideshow-slides__paginate"/>
 </article>
 </template>
@@ -50,7 +53,6 @@
 import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
 import * as number from '~/libs/number';
-import * as util from '~/libs/util';
 import Images from './Images';
 import Caption from './Caption';
 import Paginate from './Paginate';
@@ -69,7 +71,7 @@ export default defineComponent({
     const store = useStore();
     const images = ref(null);
     let state = reactive({
-      active: store.state.preference.slides.initialNumber,
+      active: store.state.activeSlide === undefined ? store.state.preference.slides.initialNumber : store.state.activeSlide,
       animated: false,
       swipePos: undefined,
       swipeMove: false,
@@ -78,14 +80,14 @@ export default defineComponent({
       }),
       computedShowPrevButton: computed(() => {
         if (store.state.preference.slides.loop) return true;
-        return 0 < state.active;
+        return 0 < store.state.activeSlide;
       }),
       computedShowNextButton: computed(() => {
         if (store.state.preference.slides.loop) return true;
-        return state.computedImages.length - 1 > state.active;
+        return state.computedImages.length - 1 > store.state.activeSlide;
       }),
       computedCaption: computed(() => {
-        const item = state.computedImages[state.active];
+        const item = state.computedImages[store.state.activeSlide];
         return {
           title: item.title,
           description: item.description,
@@ -97,7 +99,8 @@ export default defineComponent({
     let autoplayPause = false; // 오토플레이 일시정지할때 사용하는 결정적인 값
 
     // check active number
-    if (!checkActive(state.active)) state.active = 0;
+    let active = store.state.preference.slides.initialNumber;
+    onChangeActive(!!checkActive(active) ? active : 0);
 
     // methods
     function onAnimationControl(sw)
@@ -112,7 +115,8 @@ export default defineComponent({
     }
     function onChangeActive(n)
     {
-      state.active = n;
+      store.commit('changeActiveSlide', n);
+
     }
     function checkActive(n)
     {
@@ -120,10 +124,10 @@ export default defineComponent({
     }
     function onTouchStart(e)
     {
-      e.preventDefault();
+      e.stopPropagation();
+      if (state.animated) return;
       if (!store.state.preference.slides.swipe) return;
       if (store.state.preference.slides.animationType !== 'horizontal') return;
-      if (state.animated) return;
       runAutoplay(false);
       swipeMeta = {
         dist: 0,
@@ -134,12 +138,12 @@ export default defineComponent({
     }
     function onTouchMove(e)
     {
-      e.preventDefault();
+      e.stopPropagation();
       if (state.animated || !state.swipeMove) return;
       swipeMeta.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX);
       const screenWidth = window.innerWidth;
       const dist = swipeMeta.moveX - swipeMeta.startX;
-      state.swipePos = (dist / screenWidth * 100) + (0 - (100 * (state.active)));
+      state.swipePos = (dist / screenWidth * 100) + (0 - (100 * store.state.activeSlide));
     }
     function onTouchEnd(e)
     {
@@ -153,7 +157,7 @@ export default defineComponent({
         images.value.cancel();
       }
 
-      e.preventDefault();
+      e.stopPropagation();
       if (state.animated || !state.swipeMove) return;
       if (e.touches && e.touches.length > 0) return;
 
@@ -170,7 +174,11 @@ export default defineComponent({
       swipeMeta = undefined;
 
       // 클릭하는 수준으로 짧으면 정지
-      if (elapsedTime < 100 || percent < 2) return;
+      if (elapsedTime < 120 || percent < 5)
+      {
+        runAutoplay(true);
+        return;
+      }
 
       // play
       if (elapsedTime > 300)
@@ -194,16 +202,14 @@ export default defineComponent({
       state.swipeMove = false;
       if (store.state.preference.slides.autoplay && store.state.preference.slides.autoplayPauseOnHover)
       {
-        autoplayPause = false;
-        if (!state.animated) runAutoplay(true);
+        pause(false);
       }
     }
     function onMouseEnter(e)
     {
       if (store.state.preference.slides.autoplay && store.state.preference.slides.autoplayPauseOnHover)
       {
-        autoplayPause = true;
-        runAutoplay(false);
+        pause(true);
       }
     }
     function onContextMenu()
@@ -213,9 +219,9 @@ export default defineComponent({
     }
     function runAutoplay(sw)
     {
-      if (!store.state.preference.slides.autoplay) return;
       if (sw && !autoplayTimer)
       {
+        if (!store.state.preference.slides.autoplay) return;
         const delay = store.state.preference.slides.autoplayDelay;
         const dir = store.state.preference.slides.autoplayDirection;
         const loop = store.state.preference.slides.loop;
@@ -234,23 +240,22 @@ export default defineComponent({
     }
     function isActiveSide(dir)
     {
-      return (!dir && state.active === 0) || (dir && state.active >= state.computedImages.length - 1);
+      return (!dir && store.state.activeSlide === 0) ||
+        (dir && store.state.activeSlide >= state.computedImages.length - 1);
     }
     // public methods
-    function change(n)
+    function change(n, userAnimationType = undefined)
     {
-      if (state.animated) return;
-      if (!checkActive(n)) return;
-      const vm = images.value;
-      state.active = n;
+      if (state.animated || !checkActive(n) || !images.value) return;
+      onChangeActive(n);
       runAutoplay(false);
-      vm.play(n);
+      images.value.play(n, userAnimationType);
     }
     function prev()
     {
       let n = number.move(
         state.computedImages.length,
-        state.active - 1,
+        store.state.activeSlide - 1,
         store.state.preference.slides.loop
       );
       change(n);
@@ -259,7 +264,7 @@ export default defineComponent({
     {
       let n = number.move(
         state.computedImages.length,
-        state.active + 1,
+        store.state.activeSlide + 1,
         store.state.preference.slides.loop
       );
       change(n);
@@ -267,6 +272,13 @@ export default defineComponent({
     function autoplay(sw = undefined)
     {
       store.commit('toggleAutoplay', sw);
+    }
+    function pause(sw = undefined)
+    {
+      if (sw === undefined) return;
+      if (!store.state.preference.slides.autoplay) return;
+      autoplayPause = sw;
+      if (!sw || (sw && !state.animated)) runAutoplay(!sw);
     }
 
     // lifecycles
@@ -294,6 +306,7 @@ export default defineComponent({
       prev,
       next,
       autoplay,
+      pause,
     };
   },
 });
