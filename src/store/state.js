@@ -6,7 +6,7 @@ export default {
       screenColor: 'system', // dark,light,system
       language: 'en',
       hud: true,
-      hoverHud: false,
+      hoverVisibleContents: false,
       visibleContents: {
         menu: true,
         thumbnail: true,
@@ -16,14 +16,14 @@ export default {
       },
     },
     style: {
-      imageScale: [100,100], // %
+      imageScale: [85,85], // %
       imageType: null, // null,contain,cover
       captionScale: 100, // %
       captionMargin: 24, // px
     },
     slides: {
       initialNumber: 0,
-      animationType: 'fade', // null,none,fade,horizontal
+      animationType: 'horizontal', // null,none,fade,horizontal
       animationSpeed: 500,
       animationCaptionType: null, // null,shuffle
       autoplay: false,

@@ -33,13 +33,22 @@
       }
     }
   }
+  .slideshow--hover & {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--speed-content-toggle) ease-out;
+  }
+  .slideshow--hover:hover & {
+    opacity: unset;
+    pointer-events: unset;
+  }
   @include dark-mode() {
     &__item {
       > button {
         background: rgba(17,17,17,.4);
         &:active,
         &.on {
-          background-color: rgba(17,17,17,.7);
+          background-color: rgba(17,17,17,.8);
         }
         > svg {
           --icon-color: var(--color-fill);
@@ -111,7 +120,7 @@
       background-color: rgba(0,0,0,0);
       &.on,
       &:active {
-        background-color: rgba(0,0,0,.1);
+        background-color: rgba(0,0,0,.2);
       }
     }
   }

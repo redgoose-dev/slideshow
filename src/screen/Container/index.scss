@@ -1,0 +1,44 @@
+@import '../../scss/mixins';
+
+.slideshow {
+  &__slides {
+    position: relative;
+  }
+  &__thumbnail {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--color-bg);
+  }
+  &__navigation {
+    position: fixed;
+    z-index: 4;
+    top: 12px;
+    right: 12px;
+  }
+  &__preference {
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  @include responsive(tablet)
+  {
+    &__navigation {
+      top: 16px;
+      right: 16px;
+    }
+  }
+  @include responsive(desktop) {
+    &__navigation {
+      top: 30px;
+      right: 30px;
+    }
+  }
+}

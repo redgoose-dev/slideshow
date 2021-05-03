@@ -14,7 +14,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .slideshow-paginate {
   font-family: var(--font-eng);
   font-style: normal;
@@ -22,5 +22,15 @@ export default defineComponent({
   user-select: none;
   line-height: 1.15;
   letter-spacing: -.5px;
+
+  .slideshow--hover & {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--speed-content-toggle) ease-out;
+  }
+  .slideshow--hover:hover & {
+    opacity: unset;
+    pointer-events: unset;
+  }
 }
 </style>

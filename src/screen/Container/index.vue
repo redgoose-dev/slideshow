@@ -1,5 +1,9 @@
 <template>
-<div class="slideshow">
+<div
+  :class="[
+    'slideshow',
+    $store.state.preference.general.hoverVisibleContents && 'slideshow--hover',
+  ]">
   <Slides
     v-if="state.existSlideItem"
     ref="slides"
@@ -8,7 +12,9 @@
   <Thumbnail
     v-if="state.computedShowThumbnail"
     class="slideshow__thumbnail"/>
-  <Navigation class="slideshow__navigation"/>
+  <Navigation
+    v-if="$store.state.preference.general.hud"
+    class="slideshow__navigation"/>
   <teleport to="#preference">
     <Preference
       v-if="state.computedShowPreference"
@@ -59,15 +65,85 @@ export default defineComponent({
       }),
     });
     const slides = ref(null);
+    let pauseKeyboardEvent = false;
+    let keys = [];
+
+    // methods
+    function onKeyup(e)
+    {
+      if (pauseKeyboardEvent) return;
+      const keyName = e.key.toLowerCase();
+      if (keys.length > 1)
+      {
+        const idx = keys.indexOf(keyName);
+        if (idx > -1) keys.splice(idx);
+      }
+      else
+      {
+        /**
+         * key guide
+         *
+         * `<-`: 이전 슬라이드로 이동
+         * `->`: 다음 슬라이드로 이동
+         * `a`: 자동재생 토글
+         * `s`: 환경설정 토글
+         * `t`: 썸네일 목록화면 토글
+         * `r`: 재실행
+         * `h`: 모든 HUD 요소 보이기 토글
+         */
+        switch (keyName)
+        {
+          case 'arrowleft':
+            local.slides.prev();
+            break;
+          case 'arrowright':
+            local.slides.next();
+            break;
+          case 'a':
+            local.slides.autoplay(!store.state.preference.slides.autoplay);
+            break;
+          case 's':
+            store.commit('changeMode', store.state.mode === 'preference' ? null : 'preference');
+            break;
+          case 't':
+            store.commit('changeMode', store.state.mode === 'thumbnail' ? null : 'thumbnail');
+            break;
+          case 'r':
+            local.main.restart();
+            break;
+          case 'h':
+            store.commit('toggleHud');
+            break;
+        }
+        keys = [];
+      }
+    }
+    function onKeydown(e)
+    {
+      if (pauseKeyboardEvent) return;
+      const keyName = e.key.toLowerCase();
+      if (keys.indexOf(keyName) > -1) return;
+      keys.push(keyName);
+    }
 
     // lifecycles
     onMounted(() => {
+      // setup slides
       local.setupSlides(slides.value);
-      // TODO: 키보드 이벤트 켜기
+      // on keyboard event
+      if (store.state.preference.keyboard.enable)
+      {
+        window.on('keyup.slideshow-keyboard', onKeyup);
+        window.on('keydown.slideshow-keyboard', onKeydown);
+      }
     });
     onUnmounted(() => {
-      // TODO: 키보드 이벤트 끄기
-      console.warn('unmounted on Container component')
+      // off keyboard event
+      if (store.state.preference.keyboard.enable)
+      {
+        window.off('keyup.slideshow-keyboard');
+        window.off('keydown.slideshow-keyboard');
+      }
     });
 
     return {
@@ -78,48 +154,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-@import '../../scss/mixins';
-.slideshow {
-  &__slides {
-    position: relative;
-  }
-  &__thumbnail {
-    position: fixed;
-    z-index: 3;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: var(--color-bg);
-  }
-  &__navigation {
-    position: fixed;
-    z-index: 4;
-    top: 12px;
-    right: 12px;
-  }
-  &__preference {
-    position: fixed;
-    z-index: 5;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-  @include responsive(tablet)
-  {
-    &__navigation {
-      top: 16px;
-      right: 16px;
-    }
-  }
-  @include responsive(desktop) {
-    &__navigation {
-      top: 30px;
-      right: 30px;
-    }
-  }
-  @include dark-mode() {}
-}
-</style>
+<style src="./index.scss" lang="scss" scoped></style>

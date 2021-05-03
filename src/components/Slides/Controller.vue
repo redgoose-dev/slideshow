@@ -97,6 +97,25 @@ export default defineComponent({
         }
       }
     }
+    .slideshow--hover & {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--speed-content-toggle) ease-out;
+    }
+    .slideshow--hover:hover & {
+      opacity: unset;
+      pointer-events: unset;
+    }
+  }
+  @include responsive(desktop) {
+    button {
+      &.prev {
+        left: 30px;
+      }
+      &.next {
+        right: 30px;
+      }
+    }
   }
 }
 </style>

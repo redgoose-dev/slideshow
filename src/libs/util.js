@@ -97,3 +97,25 @@ export function setAreaTrue(src, total, current, loop)
   }
   return src;
 }
+
+/**
+ * control fullscreen
+ *
+ * @param {boolean} sw
+ */
+export function fullscreen(sw)
+{
+  const doc = window.document;
+  const docEl = doc.documentElement;
+  // state.activeFullscreen = sw;
+  if (sw)
+  {
+    const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    requestFullScreen.call(docEl);
+  }
+  else
+  {
+    const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    cancelFullScreen.call(doc);
+  }
+}

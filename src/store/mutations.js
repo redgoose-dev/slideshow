@@ -40,6 +40,18 @@ export function toggleAutoplay(state, sw = undefined)
 }
 
 /**
+ * toggle HUD
+ *
+ * @param {object} state
+ * @param {boolean} sw
+ */
+export function toggleHud(state, sw = undefined)
+{
+  sw = (typeof sw === 'boolean') ? sw : !state.preference.general.hud;
+  state.preference.general.hud = sw;
+}
+
+/**
  * change active slide
  *
  * @param {object} state

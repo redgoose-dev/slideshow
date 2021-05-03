@@ -34,7 +34,7 @@
             {{$t('navigation.preference')}}
           </button>
         </li>
-        <li v-if="state.computedShowAutoplay">
+        <li v-if="$store.state.slides.length > 0">
           <button
             type="button"
             :class="[ $store.state.preference.slides.autoplay && 'on' ]"
@@ -45,6 +45,7 @@
         <li>
           <button
             type="button"
+            :class="[ state.activeFullscreen && 'on' ]"
             @click="onClickContextItem('fullscreen')">
             {{$t('navigation.fullscreen')}}
           </button>
@@ -56,9 +57,10 @@
 </template>
 
 <script>
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive, computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import * as local from '~/libs/local';
+import * as util from '~/libs/util';
 import Icon from '~/components/Icon';
 
 export default defineComponent({
@@ -71,11 +73,9 @@ export default defineComponent({
     const store = useStore();
     let state = reactive({
       activeMenu: false,
+      activeFullscreen: false,
       computedActiveThumbnail: computed(() => {
         return store.state.mode === 'thumbnail';
-      }),
-      computedShowAutoplay: computed(() => {
-        return store.state.slides.length > 0 && store.state.preference.slides.autoplay;
       }),
     });
 
@@ -113,10 +113,22 @@ export default defineComponent({
           if (local.slides) local.slides.autoplay();
           break;
         case 'fullscreen':
-          console.log('on click fullscreen in context menu item');
+          util.fullscreen(!state.activeFullscreen);
+          state.activeFullscreen = !state.activeFullscreen;
+          // state.activeMenu = false;
           break;
       }
     }
+
+    // lifecycles
+    onMounted(() => {
+      document.on('fullscreenchange.slideshow', () => {
+        state.activeFullscreen = !!document.fullscreenElement;
+      });
+    });
+    onUnmounted(() => {
+      document.off('fullscreenchange.slideshow');
+    });
 
     return {
       state,

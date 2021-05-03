@@ -20,6 +20,7 @@ $src-hsl-bg: 0, 0%, 98%;
   // speed
   --speed-button-active: 200ms;
   --speed-slide-animation: 1000ms;
+  --speed-content-toggle: 300ms;
 
   @include responsive(desktop) {}
   @include dark-mode(true) {

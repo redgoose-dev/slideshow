@@ -94,6 +94,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../scss/mixins";
+
 .slideshow-caption {
   display: none;
   h1 {
@@ -118,6 +119,15 @@ export default defineComponent({
   @include responsive(desktop) {
     display: block;
     pointer-events: none;
+  }
+  .slideshow--hover & {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--speed-content-toggle) ease-out;
+  }
+  .slideshow--hover:hover & {
+    opacity: unset;
+    pointer-events: unset;
   }
 }
 </style>

@@ -1,5 +1,8 @@
 export default {
   en: {
+    main: {
+      confirmRestart: 'Do you really want to restart?',
+    },
     loading: {
       label: 'Ready Slideshow..',
     },
@@ -18,6 +21,9 @@ export default {
     },
   },
   ko: {
+    main: {
+      confirmRestart: '정말로 재시작 하겠습니까?',
+    },
     loading: {
       label: '슬라이드쇼 준비중..',
     },
