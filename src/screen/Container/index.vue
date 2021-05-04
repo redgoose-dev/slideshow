@@ -9,13 +9,11 @@
     ref="slides"
     class="slideshow__slides"/>
   <SlidesEmpty v-else/>
-  <Thumbnail
-    v-if="state.computedShowThumbnail"
-    class="slideshow__thumbnail"/>
   <Navigation
     v-if="$store.state.preference.general.hud"
     class="slideshow__navigation"/>
-  <teleport to="#preference">
+  <teleport to="#modal">
+    <Thumbnail v-if="state.computedShowThumbnail"/>
     <Preference
       v-if="state.computedShowPreference"
       class="slideshow__preference"/>

@@ -1,0 +1,146 @@
+@import "../../scss/mixins";
+
+.preference {
+  --header: 48px;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-bg);
+  @supports (backdrop-filter: blur(30px)) {
+    backdrop-filter: blur(30px);
+  }
+  &__wrap {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+  }
+  &__side {}
+  &__body {
+    flex: 1;
+    box-sizing: border-box;
+  }
+  &__content {
+    box-sizing: border-box;
+    height: calc(100% - var(--header));
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 20px 40px;
+  }
+
+  @include responsive(desktop) {
+    --header: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,.75);
+    &__wrap {
+      width: 75vw;
+      height: 80vh;
+      max-width: 800px;
+      max-height: 780px;
+      margin: 0 auto;
+      background-color: var(--color-bg);
+      border-radius: 4px;
+      box-shadow: 0 1px 30px 0 rgba(0,0,0,.3), 0 0 1px 0 rgba(0,0,0,.51);
+      overflow: hidden;
+    }
+    &__content {
+      padding: 30px 30px 50px;
+    }
+  }
+}
+
+.preference-header {
+  position: relative;
+  display: flex;
+  height: var(--header);
+  box-sizing: border-box;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.15);
+    height: 1px;
+    transform-origin: 0 100%;
+    transform: scaleY(.5);
+  }
+  &__body {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 0 0 20px;
+    h2 {
+      margin: 0;
+      line-height: 1;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.25px;
+    }
+    p {
+      display: none;
+    }
+  }
+  &__nav {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    button {
+      display: block;
+      width: 42px;
+      height: 42px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      --icon-stroke: 1.5;
+      --icon-size: 24px;
+      &:active {
+        opacity: .5;
+      }
+      &[type=submit] {
+        --icon-color: var(--color-key);
+      }
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  @include responsive(desktop) {
+    &__body {
+      padding: 0 0 0 30px;
+      h2 {
+        font-size: 30px;
+        letter-spacing: -.5px;
+      }
+      p {
+        display: block;
+        margin: 2px 0 0;
+        font-size: 12px;
+        line-height: 1.15;
+        color: var(--color-low-fill);
+        white-space: nowrap;
+      }
+    }
+    &__nav {
+      margin-right: 16px;
+      button {
+        width: 44px;
+        height: 44px;
+        --icon-size: 28px;
+        --icon-stroke: 1.25;
+      }
+    }
+  }
+}

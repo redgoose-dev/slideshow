@@ -2,6 +2,13 @@
 
 .thumbnail {
   box-sizing: border-box;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-bg);
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 
@@ -20,9 +27,6 @@
       font-weight: 500;
       line-height: 1.15;
     }
-  }
-  &__body {
-    //
   }
   &__index {
     --column: 2;

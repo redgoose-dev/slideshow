@@ -35,6 +35,20 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./src/icon-arrow-right'));
           case 'frown':
             return defineAsyncComponent(() => import('./src/icon-frown'));
+          case 'tool':
+            return defineAsyncComponent(() => import('./src/icon-tool'));
+          case 'droplet':
+            return defineAsyncComponent(() => import('./src/icon-droplet'));
+          case 'copy':
+            return defineAsyncComponent(() => import('./src/icon-copy'));
+          case 'database':
+            return defineAsyncComponent(() => import('./src/icon-database'));
+          case 'command':
+            return defineAsyncComponent(() => import('./src/icon-command'));
+          case 'check':
+            return defineAsyncComponent(() => import('./src/icon-check'));
+          case 'x':
+            return defineAsyncComponent(() => import('./src/icon-x'));
           default:
             return null;
         }

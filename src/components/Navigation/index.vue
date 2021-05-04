@@ -107,7 +107,7 @@ export default defineComponent({
       switch (key)
       {
         case 'preference':
-          console.log('on click preference in context menu item');
+          store.commit('changeMode', 'preference');
           break;
         case 'autoplay':
           if (local.slides) local.slides.autoplay();
@@ -115,7 +115,6 @@ export default defineComponent({
         case 'fullscreen':
           util.fullscreen(!state.activeFullscreen);
           state.activeFullscreen = !state.activeFullscreen;
-          // state.activeMenu = false;
           break;
       }
     }
