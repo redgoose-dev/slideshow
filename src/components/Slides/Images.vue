@@ -73,8 +73,8 @@ export default defineComponent({
       computedContainerStyle: computed(() => {
         let result = {
           '--speed-slide-animation': `${props.duration}ms`,
-          '--image-size-width': `${props.imageSize[0]}%`,
-          '--image-size-height': `${props.imageSize[1]}%`,
+          '--image-size-width': props.imageSize[0],
+          '--image-size-height': props.imageSize[1],
         };
         if (props.animationType === 'horizontal')
         {

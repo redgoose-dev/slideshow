@@ -6,7 +6,7 @@
 <script>
 import { defineComponent, reactive, watch, onMounted, nextTick } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n/index';
 import * as util from '~/libs/util';
 import Container from '~/screen/Container';
 import LoadingIntro from '~/components/Loading/Intro';

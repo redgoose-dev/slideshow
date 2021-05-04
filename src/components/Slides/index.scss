@@ -1,9 +1,6 @@
 @import "../../scss/mixins";
 
 .slideshow-slides {
-  &__caption {
-    display: none;
-  }
   &__paginate {
     position: fixed;
     z-index: 2;
@@ -14,13 +11,6 @@
     cursor: grabbing;
   }
   @include responsive(desktop) {
-    &__caption {
-      display: block;
-      position: fixed;
-      top: 32px;
-      left: 30px;
-      z-index: 2;
-    }
     &__paginate {
       right: 30px;
       bottom: 30px;

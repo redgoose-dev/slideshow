@@ -1,9 +1,6 @@
 <template>
 <article
-  :class="[
-    'slideshow-slides',
-    state.swipeMove && 'swipe-move',
-  ]"
+  :class="[ 'slideshow-slides', state.swipeMove && 'swipe-move' ]"
   @touchstart="onTouchStart"
   @touchmove="onTouchMove"
   @touchend="onTouchEnd"
@@ -28,11 +25,12 @@
   <Caption
     v-if="state.computedVisibleCaption"
     :active="$store.state.activeSlide"
-    :type="$store.state.preference.slides.animationCaptionType"
     :title="state.computedCaption.title"
     :description="state.computedCaption.description"
     :animation-type="$store.state.preference.slides.animationCaptionType"
-    class="slideshow-slides__caption"/>
+    :animation-speed="$store.state.preference.slides.animationCaptionSpeed"
+    :position="$store.state.preference.style.captionPosition"
+    :scale="$store.state.preference.style.captionScale"/>
   <Controller
     v-if="state.computedVisibleController"
     :disabled="state.animated"

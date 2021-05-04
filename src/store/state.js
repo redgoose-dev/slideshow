@@ -3,7 +3,7 @@ export default {
     general: {
       name: 'Slideshow',
       description: 'slideshow description',
-      screenColor: 'system', // dark,light,system
+      screenColor: 'light', // dark,light,system
       language: 'en',
       hud: true,
       hoverVisibleContents: false,
@@ -16,16 +16,17 @@ export default {
       },
     },
     style: {
-      imageScale: [85,85], // %
+      imageScale: ['85%','85%'], // [ width, height ]
       imageType: null, // null,contain,cover
       captionScale: 100, // %
-      captionMargin: 24, // px
+      captionPosition: ['32px','30px'], // [ left, top ]
     },
     slides: {
       initialNumber: 0,
       animationType: 'horizontal', // null,none,fade,horizontal
       animationSpeed: 500,
       animationCaptionType: null, // null,shuffle
+      animationCaptionSpeed: 40,
       autoplay: false,
       autoplayDelay: 3000,
       autoplayDirection: true, // next(true), prev(false)

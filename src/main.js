@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { createI18n } from 'vue-i18n';
+import { createI18n } from 'vue-i18n/index';
 // assets
 import store from '~/store';
 import messages from '~/messages';

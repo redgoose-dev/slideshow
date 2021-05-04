@@ -1,5 +1,11 @@
 <template>
-<article class="slideshow-caption">
+<article
+  class="slideshow-caption"
+  :style="{
+    '--caption-position-left': position[0],
+    '--caption-position-top': position[1],
+    '--caption-scale': scale,
+  }">
   <template v-if="animationType === 'shuffle'">
     <h1 ref="elementTitle"></h1>
     <pre ref="elementDescription"></pre>
@@ -22,7 +28,9 @@ export default defineComponent({
     title: { type: String, default: 'Untitled' },
     description: { type: String, default: null },
     animationType: { type: String, default: null }, // null,shuffle
-    animationSpeed: { type: Number, default: 40 },
+    animationSpeed: { type: Number, default: 40 }, // shuffle(fps)
+    position: { type: Array, default: [] }, // [left,top]
+    scale: { type: Number, default: 100 },
   },
   setup(props)
   {
@@ -56,6 +64,7 @@ export default defineComponent({
           shuffle(elementTitle.value, {
             text: props.title,
             fps: props.animationSpeed,
+            randomTextType: 'pattern',
           });
           interval = setTimeout(() => {
             clearTimer();
@@ -97,37 +106,46 @@ export default defineComponent({
 
 .slideshow-caption {
   display: none;
-  h1 {
-    margin: 0;
-    line-height: 1;
-    font-size: 42px;
-    letter-spacing: -1px;
-    font-weight: 800;
-    white-space: nowrap;
-  }
-  pre {
-    display: block;
-    margin: 4px 0 0;
-    font-family: var(--font-base);
-    line-height: 1.05;
-    word-break: break-word;
-    font-weight: 400;
-    font-size: 13px;
-    letter-spacing: -.25px;
-    color: var(--color-low-fill);
-  }
   @include responsive(desktop) {
+    --scale: calc(var(--caption-scale, 100) / 100);
     display: block;
+    position: fixed;
+    top: var(--caption-position-top, 32px);
+    left: var(--caption-position-left, 30px);
+    z-index: 2;
     pointer-events: none;
-  }
-  .slideshow--hover & {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--speed-content-toggle) ease-out;
-  }
-  .slideshow--hover:hover & {
-    opacity: unset;
-    pointer-events: unset;
+    transform: scale(var(--scale));
+    transform-origin: 0 0;
+    backface-visibility: hidden;
+    will-change: transform;
+    h1 {
+      margin: 0;
+      line-height: 1;
+      font-size: 42px;
+      letter-spacing: -1px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    pre {
+      display: block;
+      margin: 4px 0 0;
+      font-family: var(--font-base);
+      line-height: 1.05;
+      word-break: break-word;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: -.25px;
+      color: var(--color-low-fill);
+    }
+    .slideshow--hover & {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--speed-content-toggle) ease-out;
+    }
+    .slideshow--hover:hover & {
+      opacity: unset;
+      pointer-events: unset;
+    }
   }
 }
 </style>
