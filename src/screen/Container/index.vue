@@ -63,13 +63,12 @@ export default defineComponent({
       }),
     });
     const slides = ref(null);
-    let pauseKeyboardEvent = false;
     let keys = [];
 
     // methods
     function onKeyup(e)
     {
-      if (pauseKeyboardEvent) return;
+      if (!store.state.keyboardEvent) return;
       const keyName = e.key.toLowerCase();
       if (keys.length > 1)
       {
@@ -118,7 +117,7 @@ export default defineComponent({
     }
     function onKeydown(e)
     {
-      if (pauseKeyboardEvent) return;
+      if (!store.state.keyboardEvent) return;
       const keyName = e.key.toLowerCase();
       if (keys.indexOf(keyName) > -1) return;
       keys.push(keyName);

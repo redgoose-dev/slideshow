@@ -3,8 +3,7 @@ export default {
     general: {
       name: 'Slideshow',
       description: 'slideshow description',
-      screenColor: 'light', // dark,light,system
-      language: 'en',
+      language: 'en', // en,ko
       hud: true,
       hoverVisibleContents: false,
       visibleContents: {
@@ -16,6 +15,7 @@ export default {
       },
     },
     style: {
+      screenColor: 'light', // dark,light,system
       imageScale: ['85%','85%'], // [ width, height ]
       imageType: null, // null,contain,cover
       captionScale: 100, // %
@@ -25,7 +25,7 @@ export default {
       initialNumber: 0,
       animationType: 'horizontal', // null,none,fade,horizontal
       animationSpeed: 500,
-      animationCaptionType: null, // null,shuffle
+      animationCaptionType: 'none', // none,shuffle
       animationCaptionSpeed: 40,
       autoplay: false,
       autoplayDelay: 3000,
@@ -96,5 +96,6 @@ export default {
   ],
   mode: null, // null,thumbnail,preference
   activeSlide: undefined,
+  keyboardEvent: true,
   dev: process.env.NODE_ENV === 'development', // TODO: 사용하지 않으면 삭제할 수 있다.
 };

@@ -61,3 +61,14 @@ export function changeActiveSlide(state, n)
 {
   state.activeSlide = n;
 }
+
+/**
+ * use keyboard event
+ *
+ * @param {object} state
+ * @param {boolean} sw
+ */
+export function useKeyboardEvent(state, sw)
+{
+  state.keyboardEvent = sw;
+}

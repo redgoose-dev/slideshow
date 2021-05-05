@@ -33,6 +33,10 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./src/icon-arrow-left'));
           case 'arrow-right':
             return defineAsyncComponent(() => import('./src/icon-arrow-right'));
+          case 'arrow-up':
+            return defineAsyncComponent(() => import('./src/icon-arrow-up'));
+          case 'arrow-down':
+            return defineAsyncComponent(() => import('./src/icon-arrow-down'));
           case 'frown':
             return defineAsyncComponent(() => import('./src/icon-frown'));
           case 'tool':

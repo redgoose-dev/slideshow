@@ -18,18 +18,20 @@
     justify-content: center;
     box-sizing: border-box;
     height: 100%;
+    min-width: 0;
   }
   &__side {}
   &__body {
     flex: 1;
     box-sizing: border-box;
+    min-width: 0;
   }
   &__content {
     box-sizing: border-box;
     height: calc(100% - var(--header));
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 20px 20px 40px;
+    padding: 30px 20px 40px;
   }
 
   @include responsive(desktop) {

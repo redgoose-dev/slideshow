@@ -48,9 +48,11 @@ export default defineComponent({
     // lifecycles
     onMounted(() => {
       if (local.slides) local.slides.pause(true);
+      store.commit('useKeyboardEvent', false);
     });
     onUnmounted(() => {
       if (local.slides) local.slides.pause(false);
+      store.commit('useKeyboardEvent', true);
     });
 
     return {
