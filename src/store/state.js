@@ -5,8 +5,8 @@ export default {
       description: 'slideshow description',
       language: 'en', // en,ko
       hud: true,
-      hoverVisibleContents: false,
-      visibleContents: {
+      hoverVisibleHud: false,
+      visibleHudContents: {
         menu: true,
         thumbnail: true,
         caption: true,
@@ -94,7 +94,7 @@ export default {
       description: 'ㅡ냐ㅐㅇㅎ너앻 ㅇㄴ헌ㅇ헤ㅔ',
     },
   ],
-  mode: null, // null,thumbnail,preference
+  mode: 'preference', // null,thumbnail,preference
   activeSlide: undefined,
   keyboardEvent: true,
   dev: process.env.NODE_ENV === 'development', // TODO: 사용하지 않으면 삭제할 수 있다.

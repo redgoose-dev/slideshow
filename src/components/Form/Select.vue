@@ -10,6 +10,7 @@
     :id="id"
     :required="required"
     :value="modelValue"
+    :disabled="disabled"
     class="form-select__body"
     @change="$emit('update:modelValue', $event.target.value)"
     @blur="$emit('blur:modelValue', $event.target.value)">
@@ -38,12 +39,11 @@ export default defineComponent({
     id: String,
     disabled: Boolean,
     required: Boolean,
-    placeholder: { type: String, default: 'Please select item' },
+    placeholder: {
+      type: [ String, null ],
+      default: 'Please select item',
+    },
     modelValue: [ String, Number ],
-  },
-  setup()
-  {
-    return {};
   },
   emits: {
     'update:modelValue': null,
@@ -62,6 +62,7 @@ export default defineComponent({
   background: var(--color-shape);
   border-radius: var(--form-radius);
   transition: box-shadow var(--speed-button-active) ease-out;
+  user-select: none;
   &:focus-within {
     box-shadow: 0 0 0 2px var(--color-key);
   }

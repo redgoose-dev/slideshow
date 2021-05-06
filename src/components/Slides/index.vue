@@ -92,16 +92,16 @@ export default defineComponent({
         };
       }),
       computedVisibleCaption: computed(() => {
-        const { hud, visibleContents } = store.state.preference.general;
-        return hud && visibleContents.caption;
+        const { hud, visibleHudContents } = store.state.preference.general;
+        return hud && visibleHudContents.caption;
       }),
       computedVisibleController: computed(() => {
-        const { hud, visibleContents } = store.state.preference.general;
-        return hud && visibleContents.controller;
+        const { hud, visibleHudContents } = store.state.preference.general;
+        return hud && visibleHudContents.controller;
       }),
       computedVisiblePaginate: computed(() => {
-        const { hud, visibleContents } = store.state.preference.general;
-        return hud && visibleContents.paginate;
+        const { hud, visibleHudContents } = store.state.preference.general;
+        return hud && visibleHudContents.paginate;
       }),
     });
     let swipeMeta = null; // 슬라이드를 스와이프할때 필요한 정보들을 담는다.

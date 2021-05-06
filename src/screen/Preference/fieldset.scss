@@ -9,7 +9,27 @@ fieldset {
   }
 }
 
-.field {
+.field-basic + *,
+.field-check + *,
+.field-switch + * {
+  margin-top: 30px;
+}
+
+.field-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -.25px;
+  line-height: 1.15;
+}
+.field-description {
+  font-size: 11px;
+  color: var(--color-low-fill);
+  line-height: 1.42;
+  letter-spacing: -.25px;
+}
+
+.field-basic {
   &__title {
     margin: 0;
     font-size: 14px;
@@ -18,16 +38,41 @@ fieldset {
     line-height: 1.15;
   }
   &__body {
-    margin: 8px 0 0;
+    margin: 10px 0 0;
   }
-  &__description {
+  .field-description {
     margin: 4px 0 0;
-    font-size: 12px;
-    color: var(--color-low-fill);
-    line-height: 1.42;
-    letter-spacing: -.25px;
   }
-  & + .field {
-    margin-top: 30px;
+}
+
+.field-check {
+  display: flex;
+  align-items: center;
+  &__body {
+    padding: 0 0 0 16px;
+    .field-description {
+      margin: 1px 0 0;
+    }
   }
+}
+
+.field-switch {
+  display: flex;
+  align-items: center;
+  &__body {
+    padding: 0 16px 0 0;
+    flex: 1;
+    .field-description {
+      margin: 1px 0 0;
+    }
+  }
+}
+
+.field-checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }

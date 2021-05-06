@@ -2,7 +2,7 @@
 <div
   :class="[
     'slideshow',
-    $store.state.preference.general.hoverVisibleContents && 'slideshow--hover',
+    $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
   ]">
   <Slides
     v-if="state.existSlideItem"
@@ -56,7 +56,7 @@ export default defineComponent({
         }
       }),
       computedShowThumbnail: computed(() => {
-        return store.state.preference.general.visibleContents.thumbnail && state.computedMode === 'thumbnail';
+        return store.state.preference.general.visibleHudContents.thumbnail && state.computedMode === 'thumbnail';
       }),
       computedShowPreference: computed(() => {
         return state.computedMode === 'preference';

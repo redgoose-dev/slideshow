@@ -1,7 +1,7 @@
 <template>
 <nav class="slideshow-navigation">
   <div
-    v-if="$store.state.preference.general.visibleContents.thumbnail"
+    v-if="$store.state.preference.general.visibleHudContents.thumbnail"
     class="slideshow-navigation__item">
     <button
       type="button"
@@ -12,7 +12,7 @@
     </button>
   </div>
   <div
-    v-if="$store.state.preference.general.visibleContents.menu"
+    v-if="$store.state.preference.general.visibleHudContents.menu"
     class="slideshow-navigation__item">
     <button
       type="button"

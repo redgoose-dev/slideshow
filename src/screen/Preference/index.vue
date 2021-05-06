@@ -30,7 +30,7 @@
         <component
           :is="state.computedContentComponent"
           :structure="state.structure[state.tab]"
-          @update=""/>
+          @update="onUpdateFields"/>
       </div>
     </form>
   </div>
@@ -120,6 +120,10 @@ export default defineComponent({
     {
       store.commit('changeMode', null);
     }
+    function onUpdateFields(structure)
+    {
+      console.log(state.structure[state.tab], structure);
+    }
 
     // lifecycles
     onMounted(() => {
@@ -136,6 +140,7 @@ export default defineComponent({
       onChangeTab,
       onSubmit,
       onClose,
+      onUpdateFields,
     };
   },
 });
