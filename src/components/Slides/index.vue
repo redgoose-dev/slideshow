@@ -27,8 +27,8 @@
     :active="$store.state.activeSlide"
     :title="state.computedCaption.title"
     :description="state.computedCaption.description"
-    :animation-type="$store.state.preference.slides.animationCaptionType"
-    :animation-speed="$store.state.preference.slides.animationCaptionSpeed"
+    :animation-type="$store.state.preference.slides.captionAnimationType"
+    :animation-speed="$store.state.preference.slides.captionAnimationSpeed"
     :position="$store.state.preference.style.captionPosition"
     :scale="$store.state.preference.style.captionScale"/>
   <Controller

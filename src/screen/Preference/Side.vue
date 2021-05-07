@@ -14,6 +14,17 @@
     </button>
     <button
       type="button"
+      title="Slide"
+      :disabled="mode === 'slides'"
+      class="preference-side__button"
+      @click="$emit('click-menu', 'slides')">
+      <span>
+        <Icon icon-name="copy"/>
+        <em>Slides</em>
+      </span>
+    </button>
+    <button
+      type="button"
       title="Style"
       :disabled="mode === 'style'"
       class="preference-side__button"
@@ -21,17 +32,6 @@
       <span>
         <Icon icon-name="droplet"/>
         <em>Style</em>
-      </span>
-    </button>
-    <button
-      type="button"
-      title="Slide"
-      :disabled="mode === 'slide'"
-      class="preference-side__button"
-      @click="$emit('click-menu', 'slide')">
-      <span>
-        <Icon icon-name="copy"/>
-        <em>Slide</em>
       </span>
     </button>
     <button
@@ -95,6 +95,7 @@ export default defineComponent({
     box-sizing: border-box;
     cursor: pointer;
     transition: background-color var(--speed-button-active) ease-out;
+    user-select: none;
     &:active {
       background-color: rgba(0,0,0,.2);
       cursor: default;
@@ -119,9 +120,9 @@ export default defineComponent({
 
   @include responsive(desktop) {
     --size: 42px;
-    width: 200px;
+    width: 180px;
     &__button {
-      width: 200px;
+      width: 100%;
       span {
         display: flex;
         align-items: center;

@@ -55,7 +55,7 @@ export default defineComponent({
   {
     const store = useStore();
     let state = reactive({
-      tab: 'general', // general,style,slide,data,keyboard
+      tab: 'style', // general,slides,style,data,keyboard
       structure: object.convertPureObject(store.state.preference),
       computedContentComponent: computed(() => {
         switch (state.tab)
@@ -65,7 +65,7 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./General'));
           case 'style':
             return defineAsyncComponent(() => import('./Style'));
-          case 'slide':
+          case 'slides':
             return defineAsyncComponent(() => import('./Slide'));
           case 'data':
             return defineAsyncComponent(() => import('./Data'));
@@ -114,7 +114,7 @@ export default defineComponent({
     function onSubmit(e)
     {
       e.preventDefault();
-      console.log('onSubmit');
+      console.log('onSubmit', state.structure);
     }
     function onClose()
     {
@@ -122,7 +122,7 @@ export default defineComponent({
     }
     function onUpdateFields(structure)
     {
-      console.log(state.structure[state.tab], structure);
+      state.structure[state.tab] = structure;
     }
 
     // lifecycles

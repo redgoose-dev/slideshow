@@ -14,25 +14,25 @@ export default {
         paginate: true,
       },
     },
-    style: {
-      screenColor: 'light', // dark,light,system
-      imageScale: ['85%','85%'], // [ width, height ]
-      imageType: null, // null,contain,cover
-      captionScale: 100, // %
-      captionPosition: ['32px','30px'], // [ left, top ]
-    },
     slides: {
       initialNumber: 0,
       animationType: 'horizontal', // null,none,fade,horizontal
       animationSpeed: 500,
-      animationCaptionType: 'none', // none,shuffle
-      animationCaptionSpeed: 40,
+      captionAnimationType: 'none', // none,shuffle
+      captionAnimationSpeed: 40,
       autoplay: false,
       autoplayDelay: 3000,
       autoplayDirection: true, // next(true), prev(false)
       autoplayPauseOnHover: false,
       loop: true,
       swipe: true,
+    },
+    style: {
+      screenColor: 'light', // dark,light,system
+      imageScale: ['85%','85%'], // [ width, height ]
+      imageType: null, // null,contain,cover
+      captionScale: 100, // %
+      captionPosition: ['32px','30px'], // [ left, top ]
     },
     keyboard: {
       enable: true,

@@ -119,3 +119,24 @@ export function fullscreen(sw)
     cancelFullScreen.call(doc);
   }
 }
+
+/**
+ * get value from type
+ * 타입으로 값 가져오기
+ *
+ * @param {string} type
+ * @param {string} value
+ * @return {any}
+ */
+export function getValueFromType(type, value)
+{
+  switch (type)
+  {
+    case 'boolean':
+      return (value === 'true');
+    case 'number':
+      return Number(value);
+    default:
+      return value;
+  }
+}

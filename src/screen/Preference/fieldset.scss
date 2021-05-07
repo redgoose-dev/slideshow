@@ -12,7 +12,7 @@ fieldset {
 .field-basic + *,
 .field-check + *,
 .field-switch + * {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .field-title {
@@ -40,8 +40,26 @@ fieldset {
   &__body {
     margin: 10px 0 0;
   }
+  &__inline {
+    margin: 10px 0 0;
+    display: flex;
+    align-items: center;
+    > *:nth-child(n+2) {
+      margin-left: 8px;
+    }
+  }
   .field-description {
     margin: 4px 0 0;
+  }
+  .label {
+    display: flex;
+    align-items: center;
+    > span {
+      margin-left: 6px;
+      line-height: 1.15;
+      font-size: 14px;
+      letter-spacing: -.5px;
+    }
   }
 }
 
@@ -56,6 +74,15 @@ fieldset {
   }
 }
 
+.field-checks {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
 .field-switch {
   display: flex;
   align-items: center;
@@ -66,13 +93,4 @@ fieldset {
       margin: 1px 0 0;
     }
   }
-}
-
-.field-checks {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
 }

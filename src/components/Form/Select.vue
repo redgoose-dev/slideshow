@@ -12,7 +12,7 @@
     :value="modelValue"
     :disabled="disabled"
     class="form-select__body"
-    @change="$emit('update:modelValue', $event.target.value)"
+    @change="onChange"
     @blur="$emit('blur:modelValue', $event.target.value)">
     <option v-if="placeholder" value="" :disabled="false">
       {{placeholder}}
@@ -27,6 +27,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import * as util from '~/libs/util';
 import Icon from '~/components/Icon';
 
 export default defineComponent({
@@ -41,9 +42,20 @@ export default defineComponent({
     required: Boolean,
     placeholder: {
       type: [ String, null ],
-      default: 'Please select item',
+      default: null,
     },
+    modelType: String,
     modelValue: [ String, Number ],
+  },
+  setup(props, context)
+  {
+    function onChange(e)
+    {
+      context.emit('update:modelValue', util.getValueFromType(props.modelType, e.target.value));
+    }
+    return {
+      onChange,
+    };
   },
   emits: {
     'update:modelValue': null,

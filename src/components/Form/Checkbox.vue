@@ -62,8 +62,8 @@ export default defineComponent({
     }
     i {
       display: block;
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       box-sizing: border-box;
       border-radius: 50%;
       background-color: var(--color-shape);
@@ -75,18 +75,18 @@ export default defineComponent({
         position: absolute;
         left: 50%;
         top: 50%;
+        transition: transform 200ms ease-out;
         transform: translate(-45%, -45%) scale(0);
         transform-origin: 50% 50%;
-        --icon-size: 16px;
+        --icon-size: 14px;
         --icon-color: #fff;
-        --icon-stroke: 3;
-        transition: transform 200ms ease-out;
+        --icon-stroke: 2.5;
       }
     }
     input:checked + i {
       background-color: var(--color-key);
       svg {
-        transform: translate(-45%, -45%) scale(1);
+        transform: translate(-45%,-45%) scale(1);
       }
     }
   }

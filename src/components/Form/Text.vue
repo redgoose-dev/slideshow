@@ -12,12 +12,13 @@
   :step="step"
   :maxlength="maxlength"
   :rows="rows"
+  :size="size"
   :class="[
     'form',
     'form-text',
     inline && 'form-text--inline',
   ]"
-  @input="$emit('update:modelValue', $event.target.value)"
+  @input="onChange"
   @blur="$emit('blur:modelValue', $event.target.value)"/>
 <input
   v-else
@@ -31,13 +32,19 @@
   :max="max"
   :step="step"
   :maxlength="maxlength"
-  class="form form-text"
-  @input="$emit('update:modelValue', $event.target.value)"
+  :size="size"
+  :class="[
+    'form',
+    'form-text',
+    inline && 'form-text--inline',
+  ]"
+  @input="onChange"
   @blur="$emit('blur:modelValue', $event.target.value)"/>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import * as util from '~/libs/util';
 
 export default defineComponent({
   name: 'FormText',
@@ -51,9 +58,21 @@ export default defineComponent({
     max: Number,
     step: Number,
     maxlength: Number,
-    rows: { type: Number, default: 3 },
     inline: Boolean,
+    rows: { type: Number, default: 3 },
+    size: { type: Number, default: 10 },
+    modelType: String,
     modelValue: [ String, Number ],
+  },
+  setup(props, context)
+  {
+    function onChange(e)
+    {
+      context.emit('update:modelValue', util.getValueFromType(props.modelType, e.target.value));
+    }
+    return {
+      onChange,
+    };
   },
   emits: {
     'update:modelValue': null,
@@ -91,7 +110,7 @@ export default defineComponent({
     line-height: 1.42;
   }
   &--inline {
-    width: auto;
+    width: unset;
     display: inline-block;
   }
 }
