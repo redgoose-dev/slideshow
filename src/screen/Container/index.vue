@@ -77,17 +77,6 @@ export default defineComponent({
       }
       else
       {
-        /**
-         * key guide
-         *
-         * `<-`: 이전 슬라이드로 이동
-         * `->`: 다음 슬라이드로 이동
-         * `a`: 자동재생 토글
-         * `s`: 환경설정 토글
-         * `t`: 썸네일 목록화면 토글
-         * `r`: 재실행
-         * `h`: 모든 HUD 요소 보이기 토글
-         */
         switch (keyName)
         {
           case 'arrowleft':
@@ -128,7 +117,7 @@ export default defineComponent({
       // setup slides
       local.setupSlides(slides.value);
       // on keyboard event
-      if (store.state.preference.keyboard.enable)
+      if (store.state.preference.keyboard.enabled)
       {
         window.on('keyup.slideshow-keyboard', onKeyup);
         window.on('keydown.slideshow-keyboard', onKeydown);
@@ -136,7 +125,7 @@ export default defineComponent({
     });
     onUnmounted(() => {
       // off keyboard event
-      if (store.state.preference.keyboard.enable)
+      if (store.state.preference.keyboard.enabled)
       {
         window.off('keyup.slideshow-keyboard');
         window.off('keydown.slideshow-keyboard');

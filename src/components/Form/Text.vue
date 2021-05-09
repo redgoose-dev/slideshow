@@ -62,7 +62,7 @@ export default defineComponent({
     rows: { type: Number, default: 3 },
     size: { type: Number, default: 10 },
     modelType: String,
-    modelValue: [ String, Number ],
+    modelValue: [ String, Number, Boolean, Array ],
   },
   setup(props, context)
   {

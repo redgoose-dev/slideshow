@@ -98,10 +98,10 @@ export default defineComponent({
     user-select: none;
     &:active {
       background-color: rgba(0,0,0,.2);
-      cursor: default;
     }
     &:disabled {
       background-color: var(--color-key);
+      cursor: default;
     }
     span {
       display: block;
@@ -120,7 +120,7 @@ export default defineComponent({
 
   @include responsive(desktop) {
     --size: 42px;
-    width: 180px;
+    width: 160px;
     &__button {
       width: 100%;
       span {

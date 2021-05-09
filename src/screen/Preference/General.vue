@@ -1,11 +1,14 @@
 <template>
-<div>
-  <fieldset>
-    <legend>General fields</legend>
+<fieldset>
+  <legend>General fields</legend>
+  <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_name">Name</label>
       </h3>
+      <p class="field-description">
+        슬라이드 제목을 입력합니다.
+      </p>
       <div class="field-basic__body">
         <FormText
           name="pref_name"
@@ -13,15 +16,15 @@
           placeholder="Please input text"
           v-model="state.name"
           @update:modelValue="onSave"/>
-        <p class="field-description">
-          슬라이드 제목을 입력합니다.
-        </p>
       </div>
     </div>
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_description">Description</label>
       </h3>
+      <p class="field-description">
+        슬라이드에 대한 설명을 입력합니다.
+      </p>
       <div class="field-basic__body">
         <FormText
           type="textarea"
@@ -30,15 +33,16 @@
           placeholder="Please input text"
           v-model="state.description"
           @update:modelValue="onSave"/>
-        <p class="field-description">
-          슬라이드에 대한 설명을 입력합니다.
-        </p>
       </div>
     </div>
+    <hr class="field-line">
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_language">Language</label>
       </h3>
+      <p class="field-description">
+        메시지 언어를 설정합니다.
+      </p>
       <div class="field-basic__body">
         <FormSelect
           name="pref_language"
@@ -49,10 +53,8 @@
           <option value="ko">Korean</option>
         </FormSelect>
       </div>
-      <p class="field-description">
-        메시지 언어를 설정합니다.
-      </p>
     </div>
+    <hr class="field-line">
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
@@ -92,6 +94,9 @@
       <h3 class="field-title">
         <label for="pref_visibleHudContents">Visible HUD Contents</label>
       </h3>
+      <p class="field-description">
+        각 조작과 상태요소들 표시를 조절합니다.
+      </p>
       <div class="field-basic__body">
         <ul class="field-checks">
           <li>
@@ -136,12 +141,69 @@
           </li>
         </ul>
       </div>
-      <p class="field-description">
-        각 조작과 상태요소들 표시를 조절합니다.
-      </p>
     </div>
-  </fieldset>
-</div>
+    <hr class="field-line">
+    <div class="field-switch">
+      <div class="field-switch__body">
+        <h3 class="field-title">
+          <label for="pref_useStorage">Using browser storage</label>
+        </h3>
+        <p class="field-description">
+          슬라이드 데이터와 환경설정을 브라우저에 저장합니다.
+        </p>
+      </div>
+      <div class="field-switch__input">
+        <FormSwitch
+          name="pref_useStorage"
+          id="pref_useStorage"
+          v-model="state.useStorage"
+          @update:modelValue="onSave"/>
+      </div>
+    </div>
+    <div class="field-basic">
+      <h3 class="field-title">
+        <label>Backup & Restore</label>
+      </h3>
+      <p class="field-description">
+        슬라이드쇼의 모든 데이터를 가져오거나 내보냅니다.
+      </p>
+      <div class="field-basic__body">
+        <div class="grid import-data">
+          <div>
+            <ButtonBasic
+              color="key"
+              @click="">
+              Backup
+            </ButtonBasic>
+          </div>
+          <div>
+            <ButtonBasic
+              color="key"
+              @click="">
+              Restore
+            </ButtonBasic>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-basic">
+      <h3 class="field-title">
+        <label>Reset slideshow</label>
+      </h3>
+      <p class="field-description">
+        모든 설정과 슬라이드 데이터를 재설정합니다.
+      </p>
+      <div class="field-basic__body">
+        <ButtonBasic
+          color="danger"
+          @click="">
+          Reset slideshow
+        </ButtonBasic>
+      </div>
+    </div>
+  </div>
+</fieldset>
 </template>
 
 <script>
@@ -151,6 +213,7 @@ import FormText from '~/components/Form/Text';
 import FormSelect from '~/components/Form/Select';
 import FormSwitch from '~/components/Form/Switch';
 import FormCheckbox from '~/components/Form/Checkbox';
+import ButtonBasic from '~/components/Button/Basic';
 
 export default defineComponent({
   name: 'PreferenceGeneral',
@@ -159,6 +222,7 @@ export default defineComponent({
     FormSelect,
     FormSwitch,
     FormCheckbox,
+    ButtonBasic,
   },
   props: {
     structure: Object,
@@ -199,3 +263,16 @@ export default defineComponent({
 </script>
 
 <style src="./fieldset.scss" lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "../../scss/mixins";
+.import-data {
+  --column: 1;
+  --gap: 10px;
+  @include responsive(tablet) {
+    --column: 2;
+  }
+}
+.reset {
+  margin-top: 16px;
+}
+</style>

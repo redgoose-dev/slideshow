@@ -2,34 +2,33 @@
 
 fieldset {
   margin: 0;
-  padding: 0;
+  padding: 30px 20px 40px;
   border: none;
+  --field-margin: 40px;
   > legend {
     font-size: 0;
   }
-}
-
-.field-basic + *,
-.field-check + *,
-.field-switch + * {
-  margin-top: 40px;
+  @include responsive(desktop) {
+    padding: 30px 30px 50px;
+  }
 }
 
 .field-title {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -.25px;
   line-height: 1.15;
 }
 .field-description {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-low-fill);
   line-height: 1.42;
   letter-spacing: -.25px;
 }
 
 .field-basic {
+  margin: var(--field-margin) 0;
   &__title {
     margin: 0;
     font-size: 14px;
@@ -38,14 +37,14 @@ fieldset {
     line-height: 1.15;
   }
   &__body {
-    margin: 10px 0 0;
+    margin: 8px 0 0;
   }
   &__inline {
     margin: 10px 0 0;
     display: flex;
     align-items: center;
     > *:nth-child(n+2) {
-      margin-left: 8px;
+      margin-left: 16px;
     }
   }
   .field-description {
@@ -55,17 +54,24 @@ fieldset {
     display: flex;
     align-items: center;
     > span {
-      margin-left: 6px;
       line-height: 1.15;
-      font-size: 14px;
+      font-size: 13px;
       letter-spacing: -.5px;
     }
+    > * + * {
+      margin-left: 6px;
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--column, 1), 1fr);
+    gap: var(--gap, 0);
   }
 }
-
 .field-check {
   display: flex;
   align-items: center;
+  margin: var(--field-margin) 0;
   &__body {
     padding: 0 0 0 16px;
     .field-description {
@@ -73,24 +79,44 @@ fieldset {
     }
   }
 }
-
 .field-checks {
+  --column: 2;
   margin: 0;
   padding: 4px 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--column), 1fr);
   gap: 12px;
+  @include responsive(tablet) {
+    --column: 3;
+  }
 }
-
 .field-switch {
   display: flex;
   align-items: center;
+  margin: var(--field-margin) 0;
   &__body {
     padding: 0 16px 0 0;
     flex: 1;
     .field-description {
-      margin: 1px 0 0;
+      margin: 2px 0 0;
     }
+  }
+}
+.field-line {
+  display: block;
+  margin: -10px 0;
+  background: none;
+  border: none;
+  border-top: 1px dashed var(--color-shape-button);
+  transform: scaleY(.5);
+}
+
+.fields {
+  > *:first-child {
+    margin-top: 0;
+  }
+  > *:last-child {
+    margin-bottom: 0;
   }
 }

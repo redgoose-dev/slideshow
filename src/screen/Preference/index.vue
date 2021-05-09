@@ -1,6 +1,6 @@
 <template>
-<article class="preference">
-  <div class="preference__wrap">
+<article class="preference" @click="onClose">
+  <div class="preference__wrap" @click="e => { e.stopPropagation() }">
     <Side
       :mode="state.tab"
       class="preference__side"
@@ -55,7 +55,7 @@ export default defineComponent({
   {
     const store = useStore();
     let state = reactive({
-      tab: 'style', // general,slides,style,data,keyboard
+      tab: 'data', // general,slides,style,data,keyboard
       structure: object.convertPureObject(store.state.preference),
       computedContentComponent: computed(() => {
         switch (state.tab)
@@ -122,6 +122,7 @@ export default defineComponent({
     }
     function onUpdateFields(structure)
     {
+      console.log('onUpdateFields');
       state.structure[state.tab] = structure;
     }
 

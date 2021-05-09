@@ -13,6 +13,7 @@ export default {
         controller: true,
         paginate: true,
       },
+      useStorage: false,
     },
     slides: {
       initialNumber: 0,
@@ -29,13 +30,13 @@ export default {
     },
     style: {
       screenColor: 'light', // dark,light,system
+      imageType: 'none', // none,contain,cover
       imageScale: ['85%','85%'], // [ width, height ]
-      imageType: null, // null,contain,cover
       captionScale: 100, // %
       captionPosition: ['32px','30px'], // [ left, top ]
     },
     keyboard: {
-      enable: true,
+      enabled: true,
     },
   },
   slides: [

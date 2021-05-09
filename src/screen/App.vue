@@ -64,10 +64,6 @@ export default defineComponent({
       stop();
       nextTick().then(start);
     }
-    function pauseKeyboard()
-    {
-
-    }
 
     // lifecycles
     onMounted(() => {

@@ -59,7 +59,7 @@ export default defineComponent({
   &__wrap {
     display: flex;
     height: var(--form-height);
-    border-radius: calc(var(--form-height) * .5);
+    border-radius: var(--form-radius);
     overflow: hidden;
     background-color: var(--color-shape);
     transition: box-shadow var(--speed-button-active) ease-out;
