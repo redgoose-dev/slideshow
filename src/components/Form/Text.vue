@@ -17,6 +17,7 @@
     'form',
     'form-text',
     inline && 'form-text--inline',
+    color && `form-text--color-${color}`,
   ]"
   @input="onChange"
   @blur="$emit('blur:modelValue', $event.target.value)"/>
@@ -37,6 +38,7 @@
     'form',
     'form-text',
     inline && 'form-text--inline',
+    color && `form-text--color-${color}`,
   ]"
   @input="onChange"
   @blur="$emit('blur:modelValue', $event.target.value)"/>
@@ -61,6 +63,7 @@ export default defineComponent({
     inline: Boolean,
     rows: { type: Number, default: 3 },
     size: { type: Number, default: 10 },
+    color: String, // error,success
     modelType: String,
     modelValue: [ String, Number, Boolean, Array ],
   },
@@ -112,6 +115,14 @@ export default defineComponent({
   &--inline {
     width: unset;
     display: inline-block;
+  }
+  &--color {
+    &-error {
+      box-shadow: 0 0 0 2px var(--color-danger);
+      &:focus {
+        box-shadow: 0 0 0 2px var(--color-danger);
+      }
+    }
   }
 }
 </style>

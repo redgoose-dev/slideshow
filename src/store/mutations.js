@@ -1,3 +1,6 @@
+import * as object from '~/libs/object';
+import defaults from './defaults';
+
 /**
  * change mode
  *
@@ -23,8 +26,29 @@ export function changeMode(state, value)
  */
 export function updatePreference(state, value)
 {
-  // TODO
-  console.log('call updatePreference in mutations', value);
+  state.preference = object.convertPureObject(value);
+}
+
+/**
+ * update slides
+ */
+export function updateSlides(state, value)
+{
+  state.slides = object.convertPureObject(value);
+}
+
+/**
+ * reset slideshow
+ *
+ * @param {object} state
+ */
+export function reset(state)
+{
+  state.preference = defaults.preference;
+  state.slides = defaults.slides;
+  state.mode = defaults.mode;
+  state.activeSlide = defaults.activeSlide;
+  state.keyboardEvent = defaults.keyboardEvent;
 }
 
 /**

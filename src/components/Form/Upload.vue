@@ -5,6 +5,7 @@
     'form-upload',
   ]">
   <input
+    v-if="state.input"
     type="file"
     class="form-upload__input"
     :accept="accept"
@@ -20,7 +21,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import * as util from '~/libs/util';
 import Icon from '~/components/Icon';
 
 export default defineComponent({
@@ -34,15 +36,28 @@ export default defineComponent({
     label: { type: String, default: 'Please upload file' },
     accept: String,
   },
-  setup()
+  setup(props, context)
   {
+    let state = reactive({
+      input: true,
+    });
+
     // methods
     function onChange(e)
     {
-      console.log('onChange');
+      context.emit('change', e.target.files);
+      refreshInput().then();
+    }
+
+    async function refreshInput()
+    {
+      state.input = false;
+      await util.sleep(50);
+      state.input = true;
     }
 
     return {
+      state,
       onChange,
     };
   },

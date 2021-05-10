@@ -1,10 +1,7 @@
 <template>
 <article class="preference" @click="onClose">
   <div class="preference__wrap" @click="e => { e.stopPropagation() }">
-    <Side
-      :mode="state.tab"
-      class="preference__side"
-      @click-menu="onChangeTab"/>
+    <Side :mode="state.tab" @click-menu="onChangeTab"/>
     <form class="preference__body" @submit="onSubmit">
       <header class="preference-header">
         <div class="preference-header__body">
@@ -26,7 +23,7 @@
           </button>
         </nav>
       </header>
-      <div class="preference__content">
+      <div ref="content" class="preference__content">
         <component
           :is="state.computedContentComponent"
           :structure="state.structure[state.tab]"
@@ -38,7 +35,7 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent, reactive, computed, onMounted, onUnmounted } from 'vue';
+import { defineComponent, defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
 import * as object from '~/libs/object';
 import * as local from '~/libs/local';
@@ -55,6 +52,7 @@ export default defineComponent({
   {
     const store = useStore();
     let state = reactive({
+      // TODO: 작업을 위하여 임의로 탭을 변경하고 있는데 작업이 끝나면 `general`으로 변경하기
       tab: 'data', // general,slides,style,data,keyboard
       structure: object.convertPureObject(store.state.preference),
       computedContentComponent: computed(() => {
@@ -105,6 +103,7 @@ export default defineComponent({
         }
       }),
     });
+    const content = ref(null);
 
     // methods
     function onChangeTab(name)
@@ -136,8 +135,12 @@ export default defineComponent({
       store.commit('useKeyboardEvent', true);
     });
 
+    // watch
+    watch(() => state.tab, () => content.value.scrollTo(0, 0));
+
     return {
       state,
+      content,
       onChangeTab,
       onSubmit,
       onClose,

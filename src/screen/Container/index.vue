@@ -1,9 +1,8 @@
 <template>
-<div
-  :class="[
-    'slideshow',
-    $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
-  ]">
+<div :class="[
+  'slideshow',
+  $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
+]">
   <Slides
     v-if="state.existSlideItem"
     ref="slides"
@@ -24,6 +23,7 @@
 <script>
 import { defineComponent, reactive, computed, ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n/index';
 import * as local from '~/libs/local';
 import Thumbnail from '~/screen/Thumbnail';
 import Preference from '~/screen/Preference';
@@ -43,6 +43,7 @@ export default defineComponent({
   setup()
   {
     const store = useStore();
+    const { t } = useI18n({ useScope: 'global' });
     let state = reactive({
       existSlideItem: store.state.slides.length > 0,
       computedMode: computed(() => {
@@ -69,35 +70,35 @@ export default defineComponent({
     function onKeyup(e)
     {
       if (!store.state.keyboardEvent) return;
-      const keyName = e.key.toLowerCase();
       if (keys.length > 1)
       {
-        const idx = keys.indexOf(keyName);
+        const idx = keys.indexOf(e.keyCode);
         if (idx > -1) keys.splice(idx);
       }
       else
       {
-        switch (keyName)
+        switch (e.keyCode)
         {
-          case 'arrowleft':
+          case 37: // arrow left
             local.slides.prev();
             break;
-          case 'arrowright':
+          case 39: // arrow right
             local.slides.next();
             break;
-          case 'a':
+          case 65: // a
             local.slides.autoplay(!store.state.preference.slides.autoplay);
             break;
-          case 's':
+          case 83: // s
             store.commit('changeMode', store.state.mode === 'preference' ? null : 'preference');
             break;
-          case 't':
+          case 84: // t
             store.commit('changeMode', store.state.mode === 'thumbnail' ? null : 'thumbnail');
             break;
-          case 'r':
+          case 82: // r
+            if (confirm(t('main.confirmRestart'))) return;
             local.main.restart();
             break;
-          case 'h':
+          case 72: // h
             store.commit('toggleHud');
             break;
         }
@@ -107,9 +108,8 @@ export default defineComponent({
     function onKeydown(e)
     {
       if (!store.state.keyboardEvent) return;
-      const keyName = e.key.toLowerCase();
-      if (keys.indexOf(keyName) > -1) return;
-      keys.push(keyName);
+      if (keys.indexOf(e.keyCode) > -1) return;
+      keys.push(e.keyCode);
     }
 
     // lifecycles

@@ -170,16 +170,12 @@
       <div class="field-basic__body">
         <div class="grid import-data">
           <div>
-            <ButtonBasic
-              color="key"
-              @click="">
+            <ButtonBasic color="key" @click="onClickBackup">
               Backup
             </ButtonBasic>
           </div>
           <div>
-            <ButtonBasic
-              color="key"
-              @click="">
+            <ButtonBasic color="key" @click="onClickRestore">
               Restore
             </ButtonBasic>
           </div>
@@ -195,9 +191,7 @@
         모든 설정과 슬라이드 데이터를 재설정합니다.
       </p>
       <div class="field-basic__body">
-        <ButtonBasic
-          color="danger"
-          @click="">
+        <ButtonBasic color="danger" @click="onClickReset">
           Reset slideshow
         </ButtonBasic>
       </div>
@@ -208,7 +202,10 @@
 
 <script>
 import { defineComponent, reactive } from 'vue';
+import { useStore } from 'vuex';
 import * as object from '~/libs/object';
+import * as local from '~/libs/local';
+import * as string from '~/libs/string';
 import FormText from '~/components/Form/Text';
 import FormSelect from '~/components/Form/Select';
 import FormSwitch from '~/components/Form/Switch';
@@ -229,6 +226,7 @@ export default defineComponent({
   },
   setup(props, context)
   {
+    const store = useStore();
     let state = reactive({
       name: props.structure.name,
       description: props.structure.description,
@@ -236,6 +234,7 @@ export default defineComponent({
       hud: props.structure.hud,
       hoverVisibleHud: props.structure.hoverVisibleHud,
       visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
+      useStorage: props.structure.useStorage,
     });
 
     // methods
@@ -249,11 +248,73 @@ export default defineComponent({
       state.visibleHudContents[key] = value;
       onSave();
     }
+    function onClickBackup()
+    {
+      if (!confirm('정말 모든 데이터를 백업할까요?\n백업한 내용은 json 파일로 저장됩니다.')) return;
+      let result = {
+        preference: object.convertPureObject(store.state.preference),
+        slides: object.convertPureObject(store.state.slides),
+      };
+      const date = new Date();
+      let dateFormat = `${date.getFullYear()}${string.twoDigit(date.getMonth() + 1)}${string.twoDigit(date.getDate())}`;
+      const element = document.createElement('a');
+      element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`);
+      element.setAttribute('download', `slideshow_${dateFormat}.json`);
+      element.click();
+    }
+    function onClickRestore()
+    {
+      return new Promise((resolve, reject) => {
+        const el = document.createElement('input');
+        el.setAttribute('type', 'file');
+        el.setAttribute('accept', 'application/json');
+        el.addEventListener('change', e => {
+          if (!(e.target.files && e.target.files.length > 0))
+          {
+            alert('선택한 파일이 없습니다.');
+            return;
+          }
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = async e => {
+            try
+            {
+              let json = JSON.parse(String(e.target.result));
+              if (!confirm(`정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다.`)) return;
+              if (!(json.preference && json.slides)) throw new Error('no data');
+              store.commit('updatePreference', json.preference);
+              store.commit('updateSlides', json.slides);
+              store.commit('changeMode', null);
+              store.commit('changeActiveSlide', json.preference.slides.initialNumber);
+              store.commit('useKeyboardEvent', true);
+              alert('복원을 완료했습니다.');
+              local.main.restart();
+            }
+            catch(e)
+            {
+              alert('복원에 실패했습니다.');
+            }
+          };
+          reader.readAsText(file);
+        }, false);
+        el.click();
+      });
+    }
+    function onClickReset()
+    {
+      if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?\n초기화하면 복구할 수 없습니다.')) return;
+      store.commit('reset');
+      alert('초기화 되었습니다.');
+      local.main.restart();
+    }
 
     return {
       state,
       onSave,
       onUpdateHudContents,
+      onClickBackup,
+      onClickRestore,
+      onClickReset,
     };
   },
   emits: {

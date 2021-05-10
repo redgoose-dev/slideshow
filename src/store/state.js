@@ -1,44 +1,6 @@
-export default {
-  preference: {
-    general: {
-      name: 'Slideshow',
-      description: 'slideshow description',
-      language: 'en', // en,ko
-      hud: true,
-      hoverVisibleHud: false,
-      visibleHudContents: {
-        menu: true,
-        thumbnail: true,
-        caption: true,
-        controller: true,
-        paginate: true,
-      },
-      useStorage: false,
-    },
-    slides: {
-      initialNumber: 0,
-      animationType: 'horizontal', // null,none,fade,horizontal
-      animationSpeed: 500,
-      captionAnimationType: 'none', // none,shuffle
-      captionAnimationSpeed: 40,
-      autoplay: false,
-      autoplayDelay: 3000,
-      autoplayDirection: true, // next(true), prev(false)
-      autoplayPauseOnHover: false,
-      loop: true,
-      swipe: true,
-    },
-    style: {
-      screenColor: 'light', // dark,light,system
-      imageType: 'none', // none,contain,cover
-      imageScale: ['85%','85%'], // [ width, height ]
-      captionScale: 100, // %
-      captionPosition: ['32px','30px'], // [ left, top ]
-    },
-    keyboard: {
-      enabled: true,
-    },
-  },
+import defaults from './defaults';
+
+export default Object.assign({}, defaults, {
   slides: [
     {
       src: 'https://goose.redgoose.me/data/upload/original/201904/194e6128bed99cebc428116d3622908b.jpg',
@@ -95,8 +57,7 @@ export default {
       description: 'ㅡ냐ㅐㅇㅎ너앻 ㅇㄴ헌ㅇ헤ㅔ',
     },
   ],
-  mode: 'preference', // null,thumbnail,preference
+  mode: null, // null,thumbnail,preference
   activeSlide: undefined,
   keyboardEvent: true,
-  dev: process.env.NODE_ENV === 'development', // TODO: 사용하지 않으면 삭제할 수 있다.
-};
+});

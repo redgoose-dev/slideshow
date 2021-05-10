@@ -23,3 +23,4 @@ export function move(total = 0, value = 0, loop = true)
     return Number(value);
   }
 }
+
