@@ -51,10 +51,19 @@ export default defineComponent({
   setup()
   {
     const store = useStore();
+    const preference = object.convertPureObject(store.state.preference);
+    const slides = object.convertPureObject(store.state.slides);
     let state = reactive({
-      // TODO: 작업을 위하여 임의로 탭을 변경하고 있는데 작업이 끝나면 `general`으로 변경하기
-      tab: 'data', // general,slides,style,data,keyboard
-      structure: object.convertPureObject(store.state.preference),
+      tab: 'general', // general,slides,style,data,keyboard
+      structure: {
+        general: preference.general,
+        slides: preference.slides,
+        style: preference.style,
+        data: {
+          slides: JSON.stringify(slides, null, 2),
+        },
+        keyboard: preference.keyboard,
+      },
       computedContentComponent: computed(() => {
         switch (state.tab)
         {

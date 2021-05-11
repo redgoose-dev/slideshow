@@ -4,9 +4,8 @@
 </template>
 
 <script>
-import { defineComponent, reactive, watch, onMounted, nextTick } from 'vue';
+import { defineComponent, reactive, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
 import * as util from '~/libs/util';
 import Container from '~/screen/Container';
 import LoadingIntro from '~/components/Loading/Intro';
@@ -55,22 +54,15 @@ export default defineComponent({
     function restart()
     {
       state.loading = true;
-      util.sleep(100).then(() => {
-        updateTheme(store.state.preference.style.screenColor);
-        state.loading = false;
-      });
+      updateTheme(store.state.preference.style.screenColor);
+      start();
     }
 
     // lifecycles
-    onMounted(() => {
-      updateTheme(store.state.preference.style.screenColor);
-      start();
-    });
+    onMounted(() => start());
 
-    // watch
-    watch(() => store.state.preference, () => {
-      console.warn('update preference');
-    });
+    // actions
+    updateTheme(store.state.preference.style.screenColor);
 
     return {
       state,

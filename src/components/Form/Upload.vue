@@ -3,12 +3,14 @@
   :class="[
     'form',
     'form-upload',
+    disabled && 'form-upload--disabled',
   ]">
   <input
     v-if="state.input"
     type="file"
     class="form-upload__input"
     :accept="accept"
+    :disabled="disabled"
     @change="onChange">
   <span class="form-upload__body">
     <Icon icon-name="file"/>
@@ -34,6 +36,7 @@ export default defineComponent({
     name: String,
     id: String,
     label: { type: String, default: 'Please upload file' },
+    disabled: Boolean,
     accept: String,
   },
   setup(props, context)
@@ -129,6 +132,10 @@ export default defineComponent({
         --icon-stroke: 1.75;
       }
     }
+  }
+  &--disabled {
+    opacity: .5;
+    cursor: not-allowed;
   }
 }
 </style>

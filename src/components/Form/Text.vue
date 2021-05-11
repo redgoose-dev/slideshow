@@ -1,6 +1,7 @@
 <template>
 <textarea
   v-if="type === 'textarea'"
+  ref="root"
   :type="type"
   :name="name"
   :id="id"
@@ -23,6 +24,7 @@
   @blur="$emit('blur:modelValue', $event.target.value)"/>
 <input
   v-else
+  ref="root"
   :type="type"
   :name="name"
   :id="id"
@@ -45,7 +47,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import * as util from '~/libs/util';
 
 export default defineComponent({
@@ -69,12 +71,19 @@ export default defineComponent({
   },
   setup(props, context)
   {
+    const root = ref(0);
     function onChange(e)
     {
       context.emit('update:modelValue', util.getValueFromType(props.modelType, e.target.value));
     }
+    function focus()
+    {
+      if (root.value) root.value.focus();
+    }
     return {
+      root,
       onChange,
+      focus,
     };
   },
   emits: {
