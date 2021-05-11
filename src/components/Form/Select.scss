@@ -1,0 +1,43 @@
+@import "../../scss/mixins";
+
+.form-select {
+  display: block;
+  position: relative;
+  height: var(--form-height);
+  box-sizing: border-box;
+  background: var(--color-shape);
+  border-radius: var(--form-radius);
+  transition: box-shadow var(--speed-button-active) ease-out;
+  user-select: none;
+  &:focus-within {
+    box-shadow: 0 0 0 2px var(--color-key);
+  }
+  &__body {
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    box-sizing: border-box;
+    outline: none;
+    background: none;
+    border: none;
+    padding: 0 var(--form-side-padding);
+    font-size: 16px;
+  }
+  &__icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    --icon-stroke: 1.5;
+    --icon-size: 22px;
+  }
+  &--disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+  @include dark-mode() {
+    &__icon {
+      --icon-color: var(--color-fill);
+    }
+  }
+}

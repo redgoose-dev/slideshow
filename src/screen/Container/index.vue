@@ -13,9 +13,8 @@
     class="slideshow__navigation"/>
   <teleport to="#modal">
     <Thumbnail v-if="state.computedShowThumbnail"/>
-    <Preference
-      v-if="state.computedShowPreference"
-      class="slideshow__preference"/>
+    <Preference v-if="state.computedShowPreference"/>
+    <Guide v-if="state.computedShowGuide"/>
   </teleport>
 </div>
 </template>
@@ -25,20 +24,22 @@ import { defineComponent, reactive, computed, ref, onMounted, onUnmounted } from
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
 import * as local from '~/libs/local';
-import Thumbnail from '~/screen/Thumbnail';
-import Preference from '~/screen/Preference';
 import Navigation from '~/components/Navigation';
 import Slides from '~/components/Slides';
 import SlidesEmpty from '~/components/Slides/Empty';
+import Thumbnail from '~/screen/Thumbnail';
+import Preference from '~/screen/Preference';
+import Guide from '~/screen/Guide';
 
 export default defineComponent({
   name: 'Container',
   components: {
+    Navigation,
     Slides,
     SlidesEmpty,
     Thumbnail,
-    Navigation,
     Preference,
+    Guide,
   },
   setup()
   {
@@ -51,6 +52,7 @@ export default defineComponent({
         {
           case 'preference':
           case 'thumbnail':
+          case 'guide':
             return store.state.mode;
           default:
             return null;
@@ -61,6 +63,9 @@ export default defineComponent({
       }),
       computedShowPreference: computed(() => {
         return state.computedMode === 'preference';
+      }),
+      computedShowGuide: computed(() => {
+        return state.computedMode === 'guide';
       }),
     });
     const slides = ref(null);
@@ -74,6 +79,16 @@ export default defineComponent({
       {
         const idx = keys.indexOf(e.keyCode);
         if (idx > -1) keys.splice(idx);
+        return;
+      }
+      if (state.computedMode)
+      {
+        switch (e.keyCode)
+        {
+          case 27: // esc
+            store.commit('changeMode', null);
+            break;
+        }
       }
       else
       {
@@ -89,10 +104,10 @@ export default defineComponent({
             local.slides.autoplay(!store.state.preference.slides.autoplay);
             break;
           case 83: // s
-            store.commit('changeMode', store.state.mode === 'preference' ? null : 'preference');
+            store.commit('changeMode', 'preference');
             break;
           case 84: // t
-            store.commit('changeMode', store.state.mode === 'thumbnail' ? null : 'thumbnail');
+            store.commit('changeMode', 'thumbnail');
             break;
           case 82: // r
             if (confirm(t('main.confirmRestart'))) return;
@@ -101,9 +116,12 @@ export default defineComponent({
           case 72: // h
             store.commit('toggleHud');
             break;
+          case 71: // g
+            store.commit('changeMode', 'guide');
+            break;
         }
-        keys = [];
       }
+      keys = [];
     }
     function onKeydown(e)
     {

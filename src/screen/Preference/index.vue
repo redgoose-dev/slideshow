@@ -119,29 +119,51 @@ export default defineComponent({
     {
       state.tab = name;
     }
-    function onSubmit(e)
-    {
-      e.preventDefault();
-      console.log('onSubmit', state.structure);
-    }
     function onClose()
     {
       store.commit('changeMode', null);
     }
     function onUpdateFields(structure)
     {
-      console.log('onUpdateFields');
       state.structure[state.tab] = structure;
+    }
+    function onSubmit(e)
+    {
+      e.preventDefault();
+      if (!confirm('슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?')) return;
+      try
+      {
+        // check data
+        let slides = JSON.parse(state.structure.data.slides);
+        if (!object.checkSlideItems(slides)) throw 'The slides data is invalid.';
+        let preference = {
+          general: object.convertPureObject(state.structure.general),
+          slides: object.convertPureObject(state.structure.slides),
+          style: object.convertPureObject(state.structure.style),
+          keyboard: object.convertPureObject(state.structure.keyboard),
+        };
+        if (!object.checkPreference(preference)) throw 'Bad preference data.';
+        // update store
+        store.commit('updateSlides', slides);
+        store.commit('updatePreference', preference);
+        store.commit('changeMode', null);
+        store.commit('changeActiveSlide', store.state.preference.slides.initialNumber);
+        store.commit('useKeyboardEvent', true);
+        // restart
+        local.main.restart();
+      }
+      catch(e)
+      {
+        alert('오류가 발생하여 적용하지 못했습니다.');
+      }
     }
 
     // lifecycles
     onMounted(() => {
       if (local.slides) local.slides.pause(true);
-      store.commit('useKeyboardEvent', false);
     });
     onUnmounted(() => {
       if (local.slides) local.slides.pause(false);
-      store.commit('useKeyboardEvent', true);
     });
 
     // watch

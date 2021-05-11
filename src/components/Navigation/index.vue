@@ -1,7 +1,7 @@
 <template>
 <nav class="slideshow-navigation">
   <div
-    v-if="$store.state.preference.general.visibleHudContents.thumbnail"
+    v-if="state.computedVisibleThumbnail"
     class="slideshow-navigation__item">
     <button
       type="button"
@@ -50,6 +50,14 @@
             {{$t('navigation.fullscreen')}}
           </button>
         </li>
+        <li>
+          <button
+            type="button"
+            :class="[ state.activeFullscreen && 'on' ]"
+            @click="onClickContextItem('guide')">
+            {{$t('navigation.guide')}}
+          </button>
+        </li>
       </ul>
     </div>
   </div>
@@ -74,6 +82,10 @@ export default defineComponent({
     let state = reactive({
       activeMenu: false,
       activeFullscreen: false,
+      computedVisibleThumbnail: computed(() => {
+        if (!store.state.preference.general.visibleHudContents.thumbnail) return false;
+        return store.state.slides && store.state.slides.length > 0;
+      }),
       computedActiveThumbnail: computed(() => {
         return store.state.mode === 'thumbnail';
       }),
@@ -115,6 +127,9 @@ export default defineComponent({
         case 'fullscreen':
           util.fullscreen(!state.activeFullscreen);
           state.activeFullscreen = !state.activeFullscreen;
+          break;
+        case 'guide':
+          store.commit('changeMode', 'guide');
           break;
       }
     }

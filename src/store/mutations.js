@@ -13,6 +13,7 @@ export function changeMode(state, value)
   {
     case 'thumbnail':
     case 'preference':
+    case 'guide':
       state.mode = value;
       break;
     default:

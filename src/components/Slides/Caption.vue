@@ -7,12 +7,12 @@
     '--caption-scale': scale,
   }">
   <template v-if="animationType === 'shuffle'">
-    <h1 ref="elementTitle"></h1>
-    <pre ref="elementDescription"></pre>
+    <h1 v-if="title" ref="elementTitle"></h1>
+    <pre v-if="description" ref="elementDescription"></pre>
   </template>
   <template v-else>
-    <h1>{{title}}</h1>
-    <pre>{{description}}</pre>
+    <h1 v-if="title">{{title}}</h1>
+    <pre v-if="description">{{description}}</pre>
   </template>
 </article>
 </template>
@@ -61,18 +61,24 @@ export default defineComponent({
             clearInterval(Number(elementDescription.value.dataset.id));
             elementDescription.value.innerText = '';
           }
-          shuffle(elementTitle.value, {
-            text: props.title,
-            fps: props.animationSpeed,
-            randomTextType: 'pattern',
-          });
-          interval = setTimeout(() => {
-            clearTimer();
-            shuffle(elementDescription.value, {
-              text: props.description,
+          if (props.title)
+          {
+            shuffle(elementTitle.value, {
+              text: props.title,
               fps: props.animationSpeed,
+              randomTextType: 'pattern',
             });
-          }, 300);
+          }
+          if (props.description)
+          {
+            interval = setTimeout(() => {
+              clearTimer();
+              shuffle(elementDescription.value, {
+                text: props.description,
+                fps: props.animationSpeed,
+              });
+            }, 300);
+          }
           break;
       }
     }

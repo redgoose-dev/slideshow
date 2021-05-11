@@ -94,44 +94,4 @@ export default defineComponent({
 </script>
 
 <style src="./form.scss" lang="scss" scoped></style>
-<style lang="scss" scoped>
-.form-text {
-  display: block;
-  width: 100%;
-  height: var(--form-height);
-  margin: 0;
-  padding: 0 var(--form-side-padding);
-  background: var(--color-shape);
-  border: none;
-  box-sizing: border-box;
-  border-radius: var(--form-radius);
-  outline: none;
-  transition: box-shadow var(--speed-button-active) ease-out;
-  font-size: 16px;
-  &:focus {
-    box-shadow: 0 0 0 2px var(--color-key);
-  }
-  &:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-  }
-  &[type=textarea] {
-    padding: 12px var(--form-side-padding);
-    height: auto;
-    border-radius: 4px;
-    line-height: 1.42;
-  }
-  &--inline {
-    width: unset;
-    display: inline-block;
-  }
-  &--color {
-    &-error {
-      box-shadow: 0 0 0 2px var(--color-danger);
-      &:focus {
-        box-shadow: 0 0 0 2px var(--color-danger);
-      }
-    }
-  }
-}
-</style>
+<style src="./Text.scss" lang="scss" scoped></style>

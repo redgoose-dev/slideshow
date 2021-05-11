@@ -4,7 +4,7 @@
   --header: 48px;
   box-sizing: border-box;
   position: fixed;
-  z-index: 3;
+  z-index: 5;
   left: 0;
   right: 0;
   top: 0;
@@ -32,6 +32,7 @@
     height: calc(100% - var(--header));
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    @include custom-scroll-style();
   }
 
   @include responsive(desktop) {
@@ -43,13 +44,18 @@
     &__wrap {
       width: 75vw;
       height: 80vh;
-      max-width: 680px;
+      max-width: 720px;
       max-height: 640px;
       margin: 0 auto;
       background-color: var(--color-bg);
       border-radius: 4px;
       box-shadow: 0 1px 30px 0 rgba(0,0,0,.3), 0 0 1px 0 rgba(0,0,0,.51);
       overflow: hidden;
+    }
+  }
+  @include dark-mode() {
+    @include responsive(desktop) {
+      background: rgba(34,34,34,.75);
     }
   }
 }
@@ -101,6 +107,7 @@
       background: none;
       cursor: pointer;
       transition: opacity var(--speed-button-active) ease-out;
+      --icon-color: var(--color-fill);
       &:active {
         opacity: .5;
       }
@@ -115,6 +122,7 @@
       }
     }
   }
+
   @include responsive(desktop) {
     &__body {
       padding: 0 0 0 30px;
@@ -139,6 +147,11 @@
         --icon-size: 28px;
         --icon-stroke: 1.25;
       }
+    }
+  }
+  @include dark-mode() {
+    &:before {
+      background-color: #303030;
     }
   }
 }

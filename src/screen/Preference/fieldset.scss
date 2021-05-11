@@ -23,7 +23,7 @@ fieldset {
 .field-description {
   font-size: 12px;
   color: var(--color-low-fill);
-  line-height: 1.42;
+  line-height: 1.25;
   letter-spacing: -.25px;
 }
 
@@ -99,7 +99,7 @@ fieldset {
     padding: 0 16px 0 0;
     flex: 1;
     .field-description {
-      margin: 2px 0 0;
+      margin: 4px 0 0;
     }
   }
 }
@@ -110,6 +110,9 @@ fieldset {
   border: none;
   border-top: 1px dashed var(--color-shape-button);
   transform: scaleY(.5);
+  @include dark-mode() {
+    border-color: var(--color-low-fill);
+  }
 }
 
 .fields {

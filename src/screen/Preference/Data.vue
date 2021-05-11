@@ -45,7 +45,7 @@
         <label for="pref_slides">Edit slide data</label>
       </h3>
       <p class="field-description">
-        데이터를 `RestAPI`를 통하여 가져옵니다.
+        JSON 데이터를 `RestAPI`를 통하여 가져옵니다.
       </p>
       <div class="field-basic__body">
         <FormText

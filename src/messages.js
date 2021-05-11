@@ -12,6 +12,7 @@ export default {
       preference: 'Preference',
       autoplay: 'Autoplay',
       fullscreen: 'Fullscreen',
+      guide: 'Guide',
     },
     slides: {
       empty: {
@@ -33,6 +34,7 @@ export default {
       preference: '환경설정',
       autoplay: '슬라이드 자동제생',
       fullscreen: '전체화면 보기',
+      guide: '가이드',
     },
     slides: {
       empty: {
