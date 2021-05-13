@@ -29,7 +29,7 @@ export default defineComponent({
     // methods
     function onClose()
     {
-      store.commit('changeMode', null);
+      store.dispatch('changeMode', null);
     }
 
     // lifecycles

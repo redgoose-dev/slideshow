@@ -1,8 +1,10 @@
 <template>
 <article class="thumbnail">
   <header class="thumbnail__header">
-    <h2>{{$store.state.preference.general.name}}</h2>
-    <p>{{$store.state.preference.general.description}}</p>
+    <h2>
+      {{$store.state.preference.general.name}}
+    </h2>
+    <p v-html="state.computedDescription"/>
     <ButtonClose class="thumbnail__close" @click="onClose"/>
   </header>
   <div class="thumbnail__body">
@@ -41,17 +43,20 @@ export default defineComponent({
           thumbnail: o.thumbnail || o.src,
         }));
       }),
+      computedDescription: computed(() => {
+        return store.state.preference.general.description.replaceAll('\n', '<br/>');
+      }),
     });
 
     // methods
     function onSelect(n)
     {
       local.slides.change(n, 'none');
-      store.commit('changeMode', null);
+      store.dispatch('changeMode', null);
     }
     function onClose()
     {
-      store.commit('changeMode', null);
+      store.dispatch('changeMode', null);
     }
 
     // lifecycles

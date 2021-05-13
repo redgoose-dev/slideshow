@@ -14,6 +14,7 @@
           name="pref_name"
           id="pref_name"
           placeholder="Please input text"
+          :maxlength="30"
           v-model="state.name"
           @update:modelValue="onSave"/>
       </div>
@@ -278,11 +279,11 @@ export default defineComponent({
               let json = JSON.parse(String(e.target.result));
               if (!confirm(`정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다.`)) return;
               if (!(json.preference && json.slides)) throw new Error('no data');
-              store.commit('updatePreference', json.preference);
-              store.commit('updateSlides', json.slides);
-              store.commit('changeMode', null);
-              store.commit('changeActiveSlide', json.preference.slides.initialNumber);
-              store.commit('useKeyboardEvent', true);
+              store.dispatch('changePreference', json.preference);
+              store.dispatch('changeSlides', json.slides);
+              store.dispatch('changeMode', null);
+              store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
+              store.commit('updateUseKeyboardEvent', true);
               alert('복원을 완료했습니다.');
               local.main.restart();
             }
@@ -299,8 +300,7 @@ export default defineComponent({
     function onClickReset()
     {
       if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?\n초기화하면 복구할 수 없습니다.')) return;
-      store.commit('reset');
-      alert('초기화 되었습니다.');
+      store.dispatch('reset');
       local.main.restart();
     }
 

@@ -1,7 +1,108 @@
+import * as object from '~/libs/object';
+import defaults from './defaults';
+import * as storage from '~/libs/storage';
+
 /**
- * update preference
+ * change mode
+ * 'null,thumbnail,preference,guide'
+ *
+ * @param {object} context
+ * @param {string} value
  */
-export function updatePreference(context, newValue)
+export function changeMode(context, value)
 {
-  // TODO
+  if (context.state.mode === value) return;
+  switch (value)
+  {
+    case 'thumbnail':
+    case 'preference':
+    case 'guide':
+      context.commit('updateMode', value);
+      break;
+    default:
+      context.commit('updateMode', null);
+      break;
+  }
+}
+
+/**
+ * change preference
+ */
+export function changePreference(context, value)
+{
+  const pref = object.convertPureObject(value);
+  storage.set('preference', pref);
+  context.commit('updatePreference', pref);
+}
+
+/**
+ * change autoplay
+ * @param {object} context
+ * @param {boolean} sw
+ */
+export function changeAutoplay(context, sw = undefined)
+{
+  sw = sw === undefined ? !context.state.preference.slides.autoplay : sw;
+  context.commit('updateValueInPreference', {
+    map: [ 'slides', 'autoplay' ],
+    value: sw,
+  });
+}
+
+/**
+ * change hud
+ *
+ * @param {object} context
+ * @param {boolean} sw
+ */
+export function changeHud(context, sw = undefined)
+{
+  sw = sw === undefined ? !context.state.preference.general.hud : sw;
+  context.commit('updateValueInPreference', {
+    map: [ 'general', 'hud' ],
+    value: sw,
+  });
+}
+
+/**
+ * change slides
+ *
+ * @param {object} context
+ * @param {object[]} newSlides
+ */
+export function changeSlides(context, newSlides)
+{
+  const slides = object.convertPureObject(newSlides);
+  storage.set('slides', slides);
+  context.commit('updateSlides', slides);
+}
+
+/**
+ * change active slide
+ *
+ * @param {object} context
+ * @param {number} active
+ */
+export function changeActiveSlide(context, active)
+{
+  if (typeof active !== 'number') return;
+  context.commit('updateActiveSlide', active);
+}
+
+/**
+ * reset
+ *
+ * @param {object} context
+ */
+export function reset(context)
+{
+  // update storage
+  storage.set('preference', defaults.preference);
+  storage.set('slides', defaults.slides);
+  // update store
+  context.commit('updatePreference', defaults.preference);
+  context.commit('updateSlides', defaults.slides);
+  context.commit('updateActiveSlide', defaults.preference.slides.initialNumber);
+  context.commit('updateUseKeyboardEvent', true);
+  context.commit('updateMode', null);
 }

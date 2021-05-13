@@ -41,7 +41,6 @@ export default defineComponent({
   @supports (backdrop-filter: blur(5px)) {
     backdrop-filter: blur(5px);
   }
-
   &:active {
     opacity: .5;
   }
@@ -62,6 +61,9 @@ export default defineComponent({
       --icon-size: 52px;
       --icon-stroke: .75px;
     }
+  }
+  @include dark-mode() {
+    background: rgba(34,34,34,.75);
   }
 }
 </style>

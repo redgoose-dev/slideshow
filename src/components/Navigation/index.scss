@@ -59,6 +59,7 @@
 }
 .slideshow-navigation-context {
   position: relative;
+  user-select: none;
   ul {
     position: absolute;
     right: 0;
@@ -95,6 +96,7 @@
     outline: none;
     transition: background-color var(--speed-button-active) ease-out;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     &.on,
     &:active {
       background-color: rgba(0,0,0,.1);

@@ -86,7 +86,7 @@ export default defineComponent({
         switch (e.keyCode)
         {
           case 27: // esc
-            store.commit('changeMode', null);
+            store.dispatch('changeMode', null);
             break;
         }
       }
@@ -104,20 +104,20 @@ export default defineComponent({
             local.slides.autoplay(!store.state.preference.slides.autoplay);
             break;
           case 83: // s
-            store.commit('changeMode', 'preference');
+            store.dispatch('changeMode', 'preference');
             break;
           case 84: // t
-            store.commit('changeMode', 'thumbnail');
+            store.dispatch('changeMode', 'thumbnail');
             break;
           case 82: // r
-            if (confirm(t('main.confirmRestart'))) return;
+            if (!confirm(t('main.confirmRestart'))) return;
             local.main.restart();
             break;
           case 72: // h
-            store.commit('toggleHud');
+            store.dispatch('changeHud');
             break;
           case 71: // g
-            store.commit('changeMode', 'guide');
+            store.dispatch('changeMode', 'guide');
             break;
         }
       }

@@ -1,25 +1,25 @@
-import * as object from '~/libs/object';
-import defaults from './defaults';
-
 /**
  * change mode
- *
- * @param {object} state
- * @param {string} value
  */
-export function changeMode(state, value)
+export function updateMode(state, value)
 {
-  switch (value)
-  {
-    case 'thumbnail':
-    case 'preference':
-    case 'guide':
-      state.mode = value;
-      break;
-    default:
-      state.mode = null;
-      break;
-  }
+  state.mode = value;
+}
+
+/**
+ * update active slide
+ */
+export function updateActiveSlide(state, n)
+{
+  state.activeSlide = n;
+}
+
+/**
+ * use keyboard event
+ */
+export function updateUseKeyboardEvent(state, sw)
+{
+  state.keyboardEvent = sw;
 }
 
 /**
@@ -27,7 +27,28 @@ export function changeMode(state, value)
  */
 export function updatePreference(state, value)
 {
-  state.preference = object.convertPureObject(value);
+  state.preference = value;
+}
+
+/**
+ * update value in preference
+ */
+export function updateValueInPreference(state, src)
+{
+  const { value, map } = src;
+  if (!(map && Array.isArray(map))) return;
+  switch (map.length)
+  {
+    case 1:
+      state.preference[map[0]] = value;
+      break;
+    case 2:
+      state.preference[map[0]][map[1]] = value;
+      break;
+    case 3:
+      state.preference[map[0]][map[1]][map[2]] = value;
+      break;
+  }
 }
 
 /**
@@ -35,65 +56,5 @@ export function updatePreference(state, value)
  */
 export function updateSlides(state, value)
 {
-  state.slides = object.convertPureObject(value);
-}
-
-/**
- * reset slideshow
- *
- * @param {object} state
- */
-export function reset(state)
-{
-  state.preference = defaults.preference;
-  state.slides = defaults.slides;
-  state.mode = defaults.mode;
-  state.activeSlide = defaults.activeSlide;
-  state.keyboardEvent = defaults.keyboardEvent;
-}
-
-/**
- * toggle autoplay
- *
- * @param {object} state
- * @param {boolean} sw
- */
-export function toggleAutoplay(state, sw = undefined)
-{
-  sw = (typeof sw === 'boolean') ? sw : !state.preference.slides.autoplay;
-  state.preference.slides.autoplay = sw;
-}
-
-/**
- * toggle HUD
- *
- * @param {object} state
- * @param {boolean} sw
- */
-export function toggleHud(state, sw = undefined)
-{
-  sw = (typeof sw === 'boolean') ? sw : !state.preference.general.hud;
-  state.preference.general.hud = sw;
-}
-
-/**
- * change active slide
- *
- * @param {object} state
- * @param {number} n
- */
-export function changeActiveSlide(state, n)
-{
-  state.activeSlide = n;
-}
-
-/**
- * use keyboard event
- *
- * @param {object} state
- * @param {boolean} sw
- */
-export function useKeyboardEvent(state, sw)
-{
-  state.keyboardEvent = sw;
+  state.slides = value;
 }
