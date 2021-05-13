@@ -18,7 +18,10 @@
     cursor: pointer;
     transition: background-color var(--speed-button-active) ease-out;
     user-select: none;
-    &:active {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    &:active,
+    &:focus {
       background-color: rgba(0,0,0,.2);
     }
     &:disabled {

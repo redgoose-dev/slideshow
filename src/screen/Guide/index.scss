@@ -1,3 +1,5 @@
+@import "../../scss/mixins";
+
 .guide {
   position: fixed;
   z-index: 5;
@@ -9,4 +11,18 @@
   box-sizing: border-box;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+
+  &__close {
+    position: fixed;
+    z-index: 2;
+    top: 4px;
+    right: 4px;
+  }
+
+  @include responsive(tablet) {
+    &__close {
+      top: 16px;
+      right: 16px;
+    }
+  }
 }

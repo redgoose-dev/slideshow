@@ -62,7 +62,7 @@ state.slides = [
 state.mode = null; // null,thumbnail,preference,guide
 state.activeSlide = undefined;
 state.keyboardEvent = true;
-state.preference.style.screenColor = 'system';
+state.preference.style.screenColor = 'light';
 // TODO: assign test values - end
 
 export default state;

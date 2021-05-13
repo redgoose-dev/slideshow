@@ -128,7 +128,7 @@ export default defineComponent({
       margin: 0;
       line-height: 1;
       font-size: 42px;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
       font-weight: 800;
       white-space: nowrap;
     }
@@ -140,7 +140,7 @@ export default defineComponent({
       word-break: break-word;
       font-weight: 400;
       font-size: 13px;
-      letter-spacing: -.25px;
+      letter-spacing: -.5px;
       color: var(--color-low-fill);
     }
     .slideshow--hover & {

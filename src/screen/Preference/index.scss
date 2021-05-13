@@ -106,10 +106,16 @@
       border: none;
       background: none;
       cursor: pointer;
+      outline: none;
+      border-radius: 2px;
+      -webkit-tap-highlight-color: transparent;
       transition: opacity var(--speed-button-active) ease-out;
       --icon-color: var(--color-fill);
       &:active {
         opacity: .5;
+      }
+      &:focus {
+        box-shadow: 0 0 0 2px var(--color-key);
       }
       &[type=submit] {
         --icon-color: var(--color-key);

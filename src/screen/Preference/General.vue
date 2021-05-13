@@ -92,7 +92,7 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_visibleHudContents">Visible HUD Contents</label>
+        <label for="pref_hudContents">Visible HUD Contents</label>
       </h3>
       <p class="field-description">
         각 조작과 상태요소들 표시를 조절합니다.
@@ -101,40 +101,36 @@
         <ul class="field-checks">
           <li>
             <FormCheckbox
-              name="pref_hudContents_menu"
-              id="pref_hudContents_menu"
+              name="pref_hudContents"
+              id="pref_hudContents"
               label="Menu"
               :modelValue="state.visibleHudContents.menu"
               @update:modelValue="o => onUpdateHudContents('menu', o)"/>
           </li>
           <li>
             <FormCheckbox
-              name="pref_hudContents_thumbnail"
-              id="pref_hudContents_thumbnail"
+              name="pref_hudContents"
               label="Thumbnail"
               :modelValue="state.visibleHudContents.thumbnail"
               @update:modelValue="o => onUpdateHudContents('thumbnail', o)"/>
           </li>
           <li>
             <FormCheckbox
-              name="pref_hudContents_caption"
-              id="pref_hudContents_caption"
+              name="pref_hudContents"
               label="Caption"
               :modelValue="state.visibleHudContents.caption"
               @update:modelValue="o => onUpdateHudContents('caption', o)"/>
           </li>
           <li>
             <FormCheckbox
-              name="pref_hudContents_controller"
-              id="pref_hudContents_controller"
+              name="pref_hudContents"
               label="Controller"
               :modelValue="state.visibleHudContents.controller"
               @update:modelValue="o => onUpdateHudContents('controller', o)"/>
           </li>
           <li>
             <FormCheckbox
-              name="pref_hudContents_paginate"
-              id="pref_hudContents_paginate"
+              name="pref_hudContents"
               label="Paginate"
               :modelValue="state.visibleHudContents.paginate"
               @update:modelValue="o => onUpdateHudContents('paginate', o)"/>

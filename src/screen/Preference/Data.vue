@@ -6,6 +6,10 @@
       <h3 class="field-title">
         <label for="apiAddress">API Address</label>
       </h3>
+      <p class="field-description">
+        'RestAPI'나 'json'파일을 통하여 슬라이드 데이터를 입력할 수 있습니다.<br/>
+        데이터를 입력하면 슬라이드 편집 섹션에 입력한 내용으로 바뀝니다.
+      </p>
       <div class="field-multiple">
         <div class="field-multiple__body">
           <FormText

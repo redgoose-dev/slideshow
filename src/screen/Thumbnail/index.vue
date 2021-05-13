@@ -3,6 +3,7 @@
   <header class="thumbnail__header">
     <h2>{{$store.state.preference.general.name}}</h2>
     <p>{{$store.state.preference.general.description}}</p>
+    <ButtonClose class="thumbnail__close" @click="onClose"/>
   </header>
   <div class="thumbnail__body">
     <ul class="thumbnail__index">
@@ -23,9 +24,13 @@
 import { defineComponent, reactive, computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import * as local from '~/libs/local';
+import ButtonClose from '~/components/Button/Close';
 
 export default defineComponent({
   name: 'Thumbnail',
+  components: {
+    ButtonClose,
+  },
   setup()
   {
     const store = useStore();
@@ -44,6 +49,10 @@ export default defineComponent({
       local.slides.change(n, 'none');
       store.commit('changeMode', null);
     }
+    function onClose()
+    {
+      store.commit('changeMode', null);
+    }
 
     // lifecycles
     onMounted(() => {
@@ -56,6 +65,7 @@ export default defineComponent({
     return {
       state,
       onSelect,
+      onClose,
     };
   },
 });
