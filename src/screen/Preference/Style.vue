@@ -4,10 +4,12 @@
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_screenColor">Screen mode</label>
+        <label for="pref_screenColor">
+          {{$t('preference.style.screenColor.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        화면모드를 선택합니다.
+        {{$t('preference.style.screenColor.description')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -15,19 +17,27 @@
           id="pref_screenColor"
           v-model="state.screenColor"
           @update:modelValue="onSave">
-          <option value="system">System</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
+          <option value="system">
+            {{$t('preference.style.screenColor.option_system')}}
+          </option>
+          <option value="light">
+            {{$t('preference.style.screenColor.option_light')}}
+          </option>
+          <option value="dark">
+            {{$t('preference.style.screenColor.option_dark')}}
+          </option>
         </FormSelect>
       </div>
     </div>
     <hr class="field-line">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_imageType">Image type</label>
+        <label for="pref_imageType">
+          {{$t('preference.style.imageType.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드 이미지의 표시방법
+        {{$t('preference.style.imageType.description')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -35,18 +45,26 @@
           id="pref_imageType"
           v-model="state.imageType"
           @update:modelValue="onSave">
-          <option value="none">None</option>
-          <option value="contain">Contain</option>
-          <option value="cover">Cover</option>
+          <option value="none">
+            {{$t('preference.style.imageType.option_none')}}
+          </option>
+          <option value="contain">
+            {{$t('preference.style.imageType.option_contain')}}
+          </option>
+          <option value="cover">
+            {{$t('preference.style.imageType.option_cover')}}
+          </option>
         </FormSelect>
       </div>
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_imageScale">Image scale</label>
+        <label for="pref_imageScale">
+          {{$t('preference.style.imageScale.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드 이미지 사이즈를 정합니다. 예) width,height
+        {{$t('preference.style.imageScale.description')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -64,10 +82,12 @@
     <hr class="field-line">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_captionScale">Caption scale</label>
+        <label for="pref_captionScale">
+          {{$t('preference.style.captionScale.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        캡션의 크기를 결정하는 값입니다.
+        {{$t('preference.style.captionScale.description')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -88,10 +108,12 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_captionPosition">Caption position</label>
+        <label for="pref_captionPosition">
+          {{$t('preference.style.captionPosition.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        캡션의 위치 예) left,top
+        {{$t('preference.style.captionPosition.description')}}
       </p>
       <div class="field-basic__body">
         <FormText

@@ -4,6 +4,7 @@
     v-if="showPrev"
     type="button"
     :disabled="disabled"
+    :title="$t('slides.controller.prev')"
     class="prev"
     @click="$emit('click-prev')">
     <Icon icon-name="arrow-left"/>
@@ -12,6 +13,7 @@
     v-if="showNext"
     type="button"
     :disabled="disabled"
+    :title="$t('slides.controller.next')"
     class="next"
     @click="$emit('click-next')">
     <Icon icon-name="arrow-right"/>
@@ -40,82 +42,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-@import "../../scss/mixins";
-.controller {
-  display: none;
-  @include responsive(desktop) {
-    display: block;
-    button {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      display: block;
-      width: 20vw;
-      max-width: 100px;
-      height: 24vh;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background: none;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      border-radius: 1px;
-      transition: opacity var(--speed-button-active) ease-out;
-      overflow: hidden;
-      &.prev {
-        left: 0;
-      }
-      &.next {
-        right: 0;
-      }
-      &:active {
-        opacity: .5;
-      }
-      &:disabled {
-        cursor: auto;
-        opacity: .5;
-      }
-      svg {
-        --icon-size: 74px;
-        --icon-stroke: .75;
-        --icon-color: var(--color-fill);
-        display: block;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      &.prev {
-        svg {
-          left: 0;
-        }
-      }
-      &.next {
-        svg {
-          right: 0;
-        }
-      }
-    }
-    .slideshow--hover & {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--speed-content-toggle) ease-out;
-    }
-    .slideshow--hover:hover & {
-      opacity: unset;
-      pointer-events: unset;
-    }
-  }
-  @include responsive(desktop) {
-    button {
-      &.prev {
-        left: 30px;
-      }
-      &.next {
-        right: 30px;
-      }
-    }
-  }
-}
-</style>
+<style src="./Controller.scss" lang="scss" scoped></style>

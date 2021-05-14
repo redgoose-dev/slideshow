@@ -5,10 +5,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_enabled">Enabled shortcut</label>
+          <label for="pref_enabled">
+            {{$t('preference.keyboard.enabled.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          키보드 단축키를 사용합니다.
+          {{$t('preference.keyboard.enabled.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -24,44 +26,74 @@
 
   <section class="keyboard-guide">
     <header class="keyboard-guide__header">
-      <h3>Keyboard guide</h3>
-      <p>다름과 같이 키보드 단축키를 누르면 해당 기능이 작동됩니다.</p>
+      <h3>
+        {{$t('preference.keyboard.guide.title')}}
+      </h3>
+      <p>
+        {{$t('preference.keyboard.guide.description')}}
+      </p>
     </header>
     <table class="keyboard-guide__body">
       <thead>
       <tr>
-        <th>Shortcut key</th>
-        <td>Description</td>
+        <th>
+          {{$t('preference.keyboard.guide.table.head_key')}}
+        </th>
+        <td>
+          {{$t('preference.keyboard.guide.table.head_description')}}
+        </td>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <th><code>Left</code></th>
-        <td>이전 슬라이드로 이동</td>
+        <th>
+          <code>
+            {{$t('preference.keyboard.guide.table.body_leftKey')}}
+          </code>
+        </th>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_leftDescription')}}
+        </td>
       </tr>
       <tr>
-        <th><code>Right</code></th>
-        <td>다음 슬라이드로 이동</td>
+        <th>
+          <code>
+            {{$t('preference.keyboard.guide.table.body_rightKey')}}
+          </code>
+        </th>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_rightDescription')}}
+        </td>
       </tr>
       <tr>
         <th><code>A</code></th>
-        <td>자동재생</td>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_autoplayDescription')}}
+        </td>
       </tr>
       <tr>
         <th><code>S</code></th>
-        <td>환경설정</td>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_preferenceDescription')}}
+        </td>
       </tr>
       <tr>
         <th><code>T</code></th>
-        <td>썸네일 이미지 목록화면</td>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_thumbnailDescription')}}
+        </td>
       </tr>
       <tr>
         <th><code>R</code></th>
-        <td>슬라이드 재실행</td>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_restartDescription')}}
+        </td>
       </tr>
       <tr>
         <th><code>H</code></th>
-        <td>모든 HUD 요소 보이기</td>
+        <td>
+          {{$t('preference.keyboard.guide.table.body_hudDescription')}}
+        </td>
       </tr>
       </tbody>
     </table>

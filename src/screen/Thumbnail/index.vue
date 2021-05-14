@@ -5,7 +5,10 @@
       {{$store.state.preference.general.name}}
     </h2>
     <p v-html="state.computedDescription"/>
-    <ButtonClose class="thumbnail__close" @click="onClose"/>
+    <ButtonClose
+      :title="$t('base.close')"
+      class="thumbnail__close"
+      @click="onClose"/>
   </header>
   <div class="thumbnail__body">
     <ul class="thumbnail__index">

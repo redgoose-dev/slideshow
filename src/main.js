@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n/index';
 // assets
 import store from '~/store';
-import messages from '~/messages';
 import * as util from '~/libs/util';
 import * as local from '~/libs/local';
 // components
@@ -14,7 +13,10 @@ import '~/scss/main.scss';
 const i18n = createI18n({
   locale: 'en',
   fallbackLocale: 'en',
-  messages,
+  messages: {
+    en: require('~/i18n/en.json'),
+    ko: require('~/i18n/ko.json'),
+  },
 });
 
 // initial custom event

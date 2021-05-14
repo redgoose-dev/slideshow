@@ -1,0 +1,238 @@
+{
+	"base": {
+		"apply": "Apply",
+		"backup": "Backup",
+		"close": "Close",
+		"inputText": "Please input text",
+		"restore": "Restore"
+	},
+	"loading": {
+		"label": "Ready Slideshow.."
+	},
+	"main": {
+		"confirmRestart": "Do you really want to restart?"
+	},
+	"navigation": {
+		"autoplay": "Autoplay",
+		"fullscreen": "Fullscreen",
+		"guide": "Guide",
+		"menu": "Open menu",
+		"preference": "Preference",
+		"thumbnail": "View thumbnail"
+	},
+	"preference": {
+		"confirm": "The slideshow restarts.\nWould you like to apply?",
+		"data": {
+			"alerts": {
+				"failedGetData": "Failed get data.",
+				"failedGetFile": "Failed to get the file.",
+				"noSelectedFile": "There are no files selected."
+			},
+			"importSlidesData": {
+				"desc_apiAddress": "Get data through `RestAPI`.",
+				"desc_file": "Import slide data by uploading `json` file.",
+				"description": "Slide data can be entered through `RestAPI` or `json` file. As you enter data, it will be replaced with what you entered in the Edit Slide section.",
+				"label_getData": "Import data",
+				"title": "API Address",
+				"uploadFile": "Choosing a `JSON` file"
+			},
+			"slides": {
+				"description": "`JSON` data is imported through the `RestAPI`.",
+				"title": "Edit slide data"
+			}
+		},
+		"failedApply": "Failed to apply due to an error.",
+		"general": {
+			"alerts": {
+				"completeRestore": "Restore complete.",
+				"failedRestore": "Restore failed.",
+				"noSelectedFile": "There is no file selected."
+			},
+			"backup": {
+				"description": "Import or export all data in the slideshow.",
+				"title": "Backup & Restore"
+			},
+			"browserStorage": {
+				"description": "Save slide data and preferences to the browser.",
+				"title": "Using browser storage"
+			},
+			"confirms": {
+				"backup": "Do you really want to back up all your data?\nThe backed up content is saved as a `json` file.",
+				"reset": "Do you really want to reset all settings and slide data?\nOnce initialized, it cannot be recovered.",
+				"restore": "Would you really want to restore all your data?\nThis operation will delete all current data."
+			},
+			"description": {
+				"description": "Enter a description for the slideshow.",
+				"title": "Description"
+			},
+			"hoverVisibleHud": {
+				"description": "If you overlay mouse, HUD will be hidden.",
+				"title": "Visible Hover HUD"
+			},
+			"hud": {
+				"description": "It shows controller and status.",
+				"title": "HUD"
+			},
+			"language": {
+				"description": "Set the language.",
+				"option_en": "English",
+				"option_ko": "Korean",
+				"title": "Language"
+			},
+			"name": {
+				"description": "Enter a title for the slideshow.",
+				"title": "Name"
+			},
+			"reset": {
+				"description": "Reset all settings and slide data.",
+				"label": "Reset slideshow",
+				"title": "Reset slideshow"
+			},
+			"visibleContents": {
+				"description": "Set the display of each controller and status.",
+				"item_caption": "Caption",
+				"item_controller": "Controller",
+				"item_menu": "Menu",
+				"item_paginate": "Paginate",
+				"item_thumbnail": "Thumbnail",
+				"title": "Visible contents"
+			}
+		},
+		"header": {
+			"data": {
+				"description": "Manage slide data.",
+				"title": "Data"
+			},
+			"general": {
+				"description": "Set the basic items.",
+				"title": "General"
+			},
+			"keyboard": {
+				"description": "Settings related to keyboard shortcuts.",
+				"title": "Keyboard"
+			},
+			"slides": {
+				"description": "Set the parts related to the slide.",
+				"title": "Slides"
+			},
+			"style": {
+				"description": "Set the parts displayed on the screen.",
+				"title": "Style"
+			}
+		},
+		"keyboard": {
+			"enabled": {
+				"description": "Use keyboard shortcuts.",
+				"title": "Enabled shortcut"
+			},
+			"guide": {
+				"description": "Pressing a keyboard shortcut as follows executes the function.",
+				"table": {
+					"body_autoplayDescription": "Autoplay",
+					"body_hudDescription": "Show all HUD elements",
+					"body_leftDescription": "Go to the previous slide",
+					"body_leftKey": "Left key",
+					"body_preferenceDescription": "Open preference",
+					"body_restartDescription": "Restart the slideshow",
+					"body_rightDescription": "Go to the next slide",
+					"body_rightKey": "Right key",
+					"body_thumbnailDescription": "Open the thumbnail image list screen",
+					"head_description": "Description",
+					"head_key": "Shortcut key"
+				},
+				"title": "Keyboard guide"
+			}
+		},
+		"slides": {
+			"animationSpeed": {
+				"description": "Change transition animation speed.",
+				"title": "Transition speed"
+			},
+			"animationType": {
+				"description": "Select the transition type when the slide changes.",
+				"option_fade": "Transparency",
+				"option_horizontal": "Move horizontally",
+				"option_none": "None",
+				"title": "Transition type"
+			},
+			"autoplay": {
+				"description": "Autoplay the slide.",
+				"title": "Autoplay"
+			},
+			"autoplayDelay": {
+				"description": "The amount of time to wait before the slide automatically transitions.",
+				"title": "Autoplay delay"
+			},
+			"autoplayDirection": {
+				"description": "Set the direction in which the slide automatically transitions.",
+				"option_next": "Next",
+				"option_prev": "Previous",
+				"title": "Autoplay direction"
+			},
+			"autoplayPauseOnHover": {
+				"description": "If you place the mouse over the slide area, autoplay is paused.",
+				"title": "Autoplay pause on hover"
+			},
+			"captionAnimationSpeed": {
+				"description": "The higher the value, the faster the animation.",
+				"title": "Caption animation speed"
+			},
+			"captionAnimationType": {
+				"description": "Select the caption transition when the slide changes.",
+				"option_none": "None",
+				"option_shuffle": "Shuffle text",
+				"title": "Caption animation type"
+			},
+			"initialNumber": {
+				"description": "This is the slide number displayed at the start. (Numbers from 0)",
+				"title": "Initial slide number"
+			},
+			"loop": {
+				"description": "Moves the slide from last to first.",
+				"title": "Repeat"
+			},
+			"swipe": {
+				"description": "Use swipe operations on touch devices",
+				"title": "Swipe"
+			}
+		},
+		"style": {
+			"captionPosition": {
+				"description": "Set position of the caption. ex) left,top",
+				"title": "Caption position"
+			},
+			"captionScale": {
+				"description": "Set size of the caption.",
+				"title": "Caption scale"
+			},
+			"imageScale": {
+				"description": "Set the size of the slide image. ex) horizontal,vertical",
+				"title": "Image scale"
+			},
+			"imageType": {
+				"description": "Choose slide image type",
+				"option_contain": "Contain",
+				"option_cover": "Cover",
+				"option_none": "None",
+				"title": "Image type"
+			},
+			"screenColor": {
+				"description": "Select a screen mode.",
+				"option_dark": "Dark",
+				"option_light": "Light",
+				"option_system": "System",
+				"title": "Screen mode"
+			}
+		}
+	},
+	"slides": {
+		"controller": {
+			"next": "Go to next slide",
+			"prev": "Go to previous slide"
+		},
+		"empty": {
+			"description": "Please add slides in preferences.",
+			"title": "empty"
+		}
+	}
+}

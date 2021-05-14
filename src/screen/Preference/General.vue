@@ -4,16 +4,18 @@
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_name">Name</label>
+        <label for="pref_name">
+          {{$t('preference.general.name.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드 제목을 입력합니다.
+        {{$t('preference.general.name.description')}}
       </p>
       <div class="field-basic__body">
         <FormText
           name="pref_name"
           id="pref_name"
-          placeholder="Please input text"
+          :placeholder="$t('base.inputText')"
           :maxlength="30"
           v-model="state.name"
           @update:modelValue="onSave"/>
@@ -21,17 +23,19 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_description">Description</label>
+        <label for="pref_description">
+          {{$t('preference.general.description.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드에 대한 설명을 입력합니다.
+        {{$t('preference.general.description.description')}}
       </p>
       <div class="field-basic__body">
         <FormText
           type="textarea"
           name="pref_description"
           id="pref_description"
-          placeholder="Please input text"
+          :placeholder="$t('base.inputText')"
           v-model="state.description"
           @update:modelValue="onSave"/>
       </div>
@@ -39,10 +43,12 @@
     <hr class="field-line">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_language">Language</label>
+        <label for="pref_language">
+          {{$t('preference.general.language.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        메시지 언어를 설정합니다.
+        {{$t('preference.general.language.description')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -50,8 +56,8 @@
           id="pref_language"
           v-model="state.language"
           @update:modelValue="onSave">
-          <option value="en">English</option>
-          <option value="ko">Korean</option>
+          <option value="en">{{$t('preference.general.language.option_en')}}</option>
+          <option value="ko">{{$t('preference.general.language.option_ko')}}</option>
         </FormSelect>
       </div>
     </div>
@@ -59,10 +65,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_hud">Visible HUD</label>
+          <label for="pref_hud">
+            {{$t('preference.general.hud.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          조작과 상태요소를 보여줍니다.
+          {{$t('preference.general.hud.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -76,11 +84,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_hoverVisibleHud">Visible Hover HUD</label>
+          <label for="pref_hoverVisibleHud">
+            {{$t('preference.general.hoverVisibleHud.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          슬라이드 영역에 마우스를 갖다대면 조작과 상태요소를 숨깁니다.<br/>
-          If you overlay mouse, HUD will be hidden.
+          {{$t('preference.general.hoverVisibleHud.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -93,10 +102,12 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_hudContents">Visible HUD Contents</label>
+        <label for="pref_hudContents">
+          {{$t('preference.general.visibleContents.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        각 조작과 상태요소들 표시를 조절합니다.
+        {{$t('preference.general.visibleContents.description')}}
       </p>
       <div class="field-basic__body">
         <ul class="field-checks">
@@ -104,35 +115,35 @@
             <FormCheckbox
               name="pref_hudContents"
               id="pref_hudContents"
-              label="Menu"
+              :label="$t('preference.general.visibleContents.item_menu')"
               :modelValue="state.visibleHudContents.menu"
               @update:modelValue="o => onUpdateHudContents('menu', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              label="Thumbnail"
+              :label="$t('preference.general.visibleContents.item_thumbnail')"
               :modelValue="state.visibleHudContents.thumbnail"
               @update:modelValue="o => onUpdateHudContents('thumbnail', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              label="Caption"
+              :label="$t('preference.general.visibleContents.item_caption')"
               :modelValue="state.visibleHudContents.caption"
               @update:modelValue="o => onUpdateHudContents('caption', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              label="Controller"
+              :label="$t('preference.general.visibleContents.item_controller')"
               :modelValue="state.visibleHudContents.controller"
               @update:modelValue="o => onUpdateHudContents('controller', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              label="Paginate"
+              :label="$t('preference.general.visibleContents.item_paginate')"
               :modelValue="state.visibleHudContents.paginate"
               @update:modelValue="o => onUpdateHudContents('paginate', o)"/>
           </li>
@@ -143,10 +154,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_useStorage">Using browser storage</label>
+          <label for="pref_useStorage">
+            {{$t('preference.general.browserStorage.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          슬라이드 데이터와 환경설정을 브라우저에 저장합니다.
+          {{$t('preference.general.browserStorage.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -159,21 +172,23 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label>Backup & Restore</label>
+        <label>
+          {{$t('preference.general.backup.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드쇼의 모든 데이터를 가져오거나 내보냅니다.
+        {{$t('preference.general.backup.description')}}
       </p>
       <div class="field-basic__body">
         <div class="grid import-data">
           <div>
             <ButtonBasic color="key" @click="onClickBackup">
-              Backup
+              {{$t('base.backup')}}
             </ButtonBasic>
           </div>
           <div>
             <ButtonBasic color="key" @click="onClickRestore">
-              Restore
+              {{$t('base.restore')}}
             </ButtonBasic>
           </div>
         </div>
@@ -182,14 +197,16 @@
 
     <div class="field-basic">
       <h3 class="field-title">
-        <label>Reset slideshow</label>
+        <label>
+          {{$t('preference.general.reset.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        모든 설정과 슬라이드 데이터를 재설정합니다.
+        {{$t('preference.general.reset.description')}}
       </p>
       <div class="field-basic__body">
         <ButtonBasic color="danger" @click="onClickReset">
-          Reset slideshow
+          {{$t('preference.general.reset.label')}}
         </ButtonBasic>
       </div>
     </div>
@@ -200,6 +217,7 @@
 <script>
 import { defineComponent, reactive } from 'vue';
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n/index';
 import * as object from '~/libs/object';
 import * as local from '~/libs/local';
 import * as string from '~/libs/string';
@@ -224,6 +242,7 @@ export default defineComponent({
   setup(props, context)
   {
     const store = useStore();
+    const { t } = useI18n({ useScope: 'global' });
     let state = reactive({
       name: props.structure.name,
       description: props.structure.description,
@@ -247,7 +266,7 @@ export default defineComponent({
     }
     function onClickBackup()
     {
-      if (!confirm('정말 모든 데이터를 백업할까요?\n백업한 내용은 json 파일로 저장됩니다.')) return;
+      if (!confirm(t('preference.general.confirms.backup'))) return;
       let result = {
         preference: object.convertPureObject(store.state.preference),
         slides: object.convertPureObject(store.state.slides),
@@ -268,7 +287,7 @@ export default defineComponent({
         el.addEventListener('change', e => {
           if (!(e.target.files && e.target.files.length > 0))
           {
-            alert('선택한 파일이 없습니다.');
+            alert(t('preference.general.alerts.noSelectedFile'));
             return;
           }
           const file = e.target.files[0];
@@ -277,19 +296,19 @@ export default defineComponent({
             try
             {
               let json = JSON.parse(String(e.target.result));
-              if (!confirm(`정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다.`)) return;
+              if (!confirm(t('preference.general.confirms.restore'))) return;
               if (!(json.preference && json.slides)) throw new Error('no data');
               store.dispatch('changePreference', json.preference);
               store.dispatch('changeSlides', json.slides);
               store.dispatch('changeMode', null);
               store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
               store.commit('updateUseKeyboardEvent', true);
-              alert('복원을 완료했습니다.');
+              alert(t('preference.general.alerts.completeRestore'));
               local.main.restart();
             }
             catch(e)
             {
-              alert('복원에 실패했습니다.');
+              alert(t('preference.general.alerts.failedRestore'));
             }
           };
           reader.readAsText(file);
@@ -299,7 +318,7 @@ export default defineComponent({
     }
     function onClickReset()
     {
-      if (!confirm('정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?\n초기화하면 복구할 수 없습니다.')) return;
+      if (!confirm(t('preference.general.confirms.reset'))) return;
       store.dispatch('reset');
       local.main.restart();
     }

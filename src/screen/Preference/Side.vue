@@ -3,57 +3,57 @@
   <nav>
     <button
       type="button"
-      title="General"
+      :title="$t('preference.header.general.title')"
       :disabled="mode === 'general'"
       class="preference-side__button"
       @click="$emit('click-menu', 'general')">
       <span>
         <Icon icon-name="tool"/>
-        <em>General</em>
+        <em>{{$t('preference.header.general.title')}}</em>
       </span>
     </button>
     <button
       type="button"
-      title="Slide"
+      :title="$t('preference.header.slides.title')"
       :disabled="mode === 'slides'"
       class="preference-side__button"
       @click="$emit('click-menu', 'slides')">
       <span>
         <Icon icon-name="copy"/>
-        <em>Slides</em>
+        <em>{{$t('preference.header.slides.title')}}</em>
       </span>
     </button>
     <button
       type="button"
-      title="Style"
+      :title="$t('preference.header.style.title')"
       :disabled="mode === 'style'"
       class="preference-side__button"
       @click="$emit('click-menu', 'style')">
       <span>
         <Icon icon-name="droplet"/>
-        <em>Style</em>
+        <em>{{$t('preference.header.style.title')}}</em>
       </span>
     </button>
     <button
       type="button"
-      title="Data"
+      :title="$t('preference.header.data.title')"
       :disabled="mode === 'data'"
       class="preference-side__button"
       @click="$emit('click-menu', 'data')">
       <span>
         <Icon icon-name="database"/>
-        <em>Data</em>
+        <em>{{$t('preference.header.data.title')}}</em>
       </span>
     </button>
     <button
       type="button"
-      title="Keyboard"
+      :title="$t('preference.header.keyboard.title')"
       :disabled="mode === 'keyboard'"
       class="preference-side__button"
       @click="$emit('click-menu', 'keyboard')">
       <span>
         <Icon icon-name="command"/>
-        <em>Keyboard</em>
+        <em>{{$t('preference.header.keyboard.title')}}</em>
       </span>
     </button>
   </nav>

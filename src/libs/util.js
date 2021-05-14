@@ -107,7 +107,6 @@ export function fullscreen(sw)
 {
   const doc = window.document;
   const docEl = doc.documentElement;
-  // state.activeFullscreen = sw;
   if (sw)
   {
     const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;

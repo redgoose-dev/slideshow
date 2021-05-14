@@ -11,13 +11,13 @@
         <nav class="preference-header__nav">
           <button
             type="submit"
-            title="Submit"
+            :title="$t('base.apply')"
             @click="onSubmit">
             <Icon icon-name="check"/>
           </button>
           <button
             type="button"
-            title="Close"
+            :title="$t('base.close')"
             @click="onClose">
             <Icon icon-name="x"/>
           </button>
@@ -37,6 +37,7 @@
 <script>
 import { defineComponent, defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n/index';
 import * as object from '~/libs/object';
 import * as local from '~/libs/local';
 import Icon from '~/components/Icon';
@@ -51,6 +52,7 @@ export default defineComponent({
   setup()
   {
     const store = useStore();
+    const { t } = useI18n({ useScope: 'global' });
     const preference = object.convertPureObject(store.state.preference);
     const slides = object.convertPureObject(store.state.slides);
     let state = reactive({
@@ -73,7 +75,7 @@ export default defineComponent({
           case 'style':
             return defineAsyncComponent(() => import('./Style'));
           case 'slides':
-            return defineAsyncComponent(() => import('./Slide'));
+            return defineAsyncComponent(() => import('./Slides'));
           case 'data':
             return defineAsyncComponent(() => import('./Data'));
           case 'keyboard':
@@ -86,28 +88,28 @@ export default defineComponent({
           case 'general':
           default:
             return {
-              title: 'General',
-              description: '기초적인 항목들을 설정합니다.',
+              title: t('preference.header.general.title'),
+              description: t('preference.header.general.description'),
             };
+          case 'slides':
+            return {
+              title: t('preference.header.slides.title'),
+              description: t('preference.header.slides.description'),
+            }
           case 'style':
             return {
-              title: 'Style',
-              description: '화면에 표시되는 부분들을 설정합니다.',
+              title: t('preference.header.style.title'),
+              description: t('preference.header.style.description'),
             };
-          case 'slide':
-            return {
-              title: 'Slide',
-              description: '슬라이드와 관련된 부분들을 설정합니다.',
-            }
           case 'data':
             return {
-              title: 'Data',
-              description: '슬라이드 데이터를 관리합니다.',
+              title: t('preference.header.data.title'),
+              description: t('preference.header.data.description'),
             };
           case 'keyboard':
             return {
-              title: 'Keyboard',
-              description: '키보드 단축키에 관한 설정입니다.',
+              title: t('preference.header.keyboard.title'),
+              description: t('preference.header.keyboard.description'),
             };
         }
       }),
@@ -130,7 +132,7 @@ export default defineComponent({
     function onSubmit(e)
     {
       e.preventDefault();
-      if (!confirm('슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?')) return;
+      if (!confirm(t('preference.confirm'))) return;
       try
       {
         // check data
@@ -154,7 +156,7 @@ export default defineComponent({
       }
       catch(e)
       {
-        alert('오류가 발생하여 적용하지 못했습니다.');
+        alert(t('preference.failedApply'));
       }
     }
 

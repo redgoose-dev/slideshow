@@ -1,13 +1,15 @@
 <template>
 <fieldset>
-  <legend>Slide fields</legend>
+  <legend>Slides fields</legend>
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_initialNumber">Initial slide number</label>
+        <label for="pref_initialNumber">
+          {{$t('preference.slides.initialNumber.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        최초 실행할때 활성화하는 슬라이드 번호 (번호는 0부터 시작합니다.)
+        {{$t('preference.slides.initialNumber.description')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -26,10 +28,12 @@
     <hr class="field-line">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_animationType">Animation type</label>
+        <label for="pref_animationType">
+          {{$t('preference.slides.animationType.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드가 바뀔때의 트랜지션을 선택합니다.
+        {{$t('preference.slides.animationType.description')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -37,18 +41,26 @@
           id="pref_animationType"
           v-model="state.animationType"
           @update:modelValue="onSave">
-          <option value="none">none</option>
-          <option value="fade">fade</option>
-          <option value="horizontal">horizontal</option>
+          <option value="none">
+            {{$t('preference.slides.animationType.option_none')}}
+          </option>
+          <option value="fade">
+            {{$t('preference.slides.animationType.option_fade')}}
+          </option>
+          <option value="horizontal">
+            {{$t('preference.slides.animationType.option_horizontal')}}
+          </option>
         </FormSelect>
       </div>
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_animationSpeed">Animation speed</label>
+        <label for="pref_animationSpeed">
+          {{$t('preference.slides.animationSpeed.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        트랜지션 애니메이션 속도를 조정합니다.
+        {{$t('preference.slides.animationSpeed.description')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -70,10 +82,12 @@
     <hr class="field-line">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_captionAnimationType">Caption animation type</label>
+        <label for="pref_captionAnimationType">
+          {{$t('preference.slides.captionAnimationType.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드가 바뀔때의 캡션 트랜지션을 선택합니다.
+        {{$t('preference.slides.captionAnimationType.description')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -81,17 +95,23 @@
           id="pref_captionAnimationType"
           v-model="state.captionAnimationType"
           @update:modelValue="onSave">
-          <option value="none">None</option>
-          <option value="shuffle">Shuffle</option>
+          <option value="none">
+            {{$t('preference.slides.captionAnimationType.option_none')}}
+          </option>
+          <option value="shuffle">
+            {{$t('preference.slides.captionAnimationType.option_shuffle')}}
+          </option>
         </FormSelect>
       </div>
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_captionAnimationSpeed">Caption animation speed</label>
+        <label for="pref_captionAnimationSpeed">
+          {{$t('preference.slides.captionAnimationSpeed.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        값이 높을수록 애니메이션 속도가 빨라집니다.
+        {{$t('preference.slides.captionAnimationSpeed.description')}}
       </p>
       <div class="field-basic__inline">
         <FormText
@@ -111,10 +131,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_autoplay">Autoplay</label>
+          <label for="pref_autoplay">
+            {{$t('preference.slides.autoplay.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          슬라이드를 자동재생 합니다.
+          {{$t('preference.slides.autoplay.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -127,10 +149,12 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_autoplayDelay">Autoplay delay</label>
+        <label for="pref_autoplayDelay">
+          {{$t('preference.slides.autoplayDelay.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드가 자동으로 전환하기 전에 대기하는 시간입니다.
+        {{$t('preference.slides.autoplayDelay.description')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -151,18 +175,20 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_autoplayDirection">Autoplay direction</label>
+        <label for="pref_autoplayDirection">
+          {{$t('preference.slides.autoplayDirection.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        슬라이드가 자동으로 전환하는 방향을 설정합니다.
+        {{$t('preference.slides.autoplayDirection.description')}}
       </p>
       <div class="field-basic__inline">
         <FormRadio
           name="pref_autoplayDirection"
           id="pref_autoplayDirection"
           :items="[
-            { key: false, label: 'Prev' },
-            { key: true, label: 'Next' },
+            { key: false, label: $t('preference.slides.autoplayDirection.option_prev') },
+            { key: true, label: $t('preference.slides.autoplayDirection.option_next') },
           ]"
           model-type="boolean"
           v-model="state.autoplayDirection"
@@ -172,10 +198,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_autoplayPauseOnHover">Autoplay pause on hover</label>
+          <label for="pref_autoplayPauseOnHover">
+            {{$t('preference.slides.autoplayPauseOnHover.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          슬라이드 영역에 마우스를 갖다대면 자동재생을 일시정지 합니다.
+          {{$t('preference.slides.autoplayPauseOnHover.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -190,10 +218,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_loop">Loop</label>
+          <label for="pref_loop">
+            {{$t('preference.slides.loop.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          슬라이드를 마지막에서 처음으로 이동합니다.
+          {{$t('preference.slides.loop.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -207,10 +237,12 @@
     <div class="field-switch">
       <div class="field-switch__body">
         <h3 class="field-title">
-          <label for="pref_swipe">Swipe</label>
+          <label for="pref_swipe">
+            {{$t('preference.slides.swipe.title')}}
+          </label>
         </h3>
         <p class="field-description">
-          터치 디바이스에서 스와이프 조작을 사용합니다.
+          {{$t('preference.slides.swipe.description')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -234,7 +266,7 @@ import FormSwitch from '~/components/Form/Switch';
 import FormRadio from '~/components/Form/Radio';
 
 export default defineComponent({
-  name: 'PreferenceSlide',
+  name: 'PreferenceSlides',
   components: {
     FormText,
     FormSelect,

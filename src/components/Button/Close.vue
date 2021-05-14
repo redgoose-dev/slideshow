@@ -1,6 +1,7 @@
 <template>
 <button
   type="button"
+  :title="title"
   class="button-close"
   @click="$emit('close')">
   <Icon icon-name="x"/>
@@ -15,6 +16,9 @@ export default defineComponent({
   name: 'button-close',
   components: {
     Icon,
+  },
+  props: {
+    title: String,
   },
 });
 </script>

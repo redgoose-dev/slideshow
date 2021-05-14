@@ -9,8 +9,13 @@
   ]"
   :style="state.computedContainerStyle">
   <div ref="wrap" class="wrap">
-    <figure v-if="state.computedShowFirstItem" class="first">
-      <img v-if="state.loaded[items.length-1]" :src="items[items.length-1].src" :alt="items[items.length-1].title">
+    <figure
+      v-if="state.computedShowFirstItem"
+      class="first">
+      <img
+        v-if="state.loaded[items.length-1]"
+        :src="items[items.length-1].src"
+        :alt="items[items.length-1].title">
     </figure>
     <figure
       v-for="(item, key) in items"
@@ -21,8 +26,13 @@
       ]">
       <img v-if="state.loaded[key]" :src="item.src" :alt="item.title">
     </figure>
-    <figure v-if="state.computedShowLastItem" class="last">
-      <img v-if="state.loaded[0]" :src="items[0].src" :alt="items[0].title">
+    <figure
+      v-if="state.computedShowLastItem"
+      class="last">
+      <img
+        v-if="state.loaded[0]"
+        :src="items[0].src"
+        :alt="items[0].title">
     </figure>
   </div>
   <i class="overlay"/>

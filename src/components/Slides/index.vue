@@ -1,6 +1,9 @@
 <template>
 <article
-  :class="[ 'slideshow-slides', state.swipeMove && 'swipe-move' ]"
+  :class="[
+    'slideshow-slides',
+    state.swipeMove && 'swipe-move',
+  ]"
   @touchstart="onTouchStart"
   @touchmove="onTouchMove"
   @touchend="onTouchEnd"
@@ -48,7 +51,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue';
+import { defineComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
 import * as number from '~/libs/number';
 import Images from './Images';
@@ -107,6 +110,7 @@ export default defineComponent({
     let swipeMeta = null; // 슬라이드를 스와이프할때 필요한 정보들을 담는다.
     let autoplayTimer = undefined; // 오토플레이 `setTimeout` 값을 담는데 사용된다.
     let autoplayPause = false; // 오토플레이 일시정지할때 사용하는 결정적인 값
+    let mounted = false;
 
     // check active number
     let active = store.state.preference.slides.initialNumber;
@@ -229,6 +233,7 @@ export default defineComponent({
     }
     function runAutoplay(sw)
     {
+      if (!mounted) return;
       if (sw && !autoplayTimer)
       {
         if (!store.state.preference.slides.autoplay) return;
@@ -250,6 +255,7 @@ export default defineComponent({
     }
     function isActiveSide(dir)
     {
+      if (!(state.computedImages && state.computedImages.length > 0)) return;
       return (!dir && store.state.activeSlide === 0) ||
         (dir && store.state.activeSlide >= state.computedImages.length - 1);
     }
@@ -263,6 +269,7 @@ export default defineComponent({
     }
     function prev()
     {
+      if (!(state.computedImages && state.computedImages.length > 0)) return;
       let n = number.move(
         state.computedImages.length,
         store.state.activeSlide - 1,
@@ -272,6 +279,7 @@ export default defineComponent({
     }
     function next()
     {
+      if (!(state.computedImages && state.computedImages.length > 0)) return;
       let n = number.move(
         state.computedImages.length,
         store.state.activeSlide + 1,
@@ -293,7 +301,16 @@ export default defineComponent({
 
     // lifecycles
     onMounted(() => {
+      mounted = true;
       if (store.state.preference.slides.autoplay) runAutoplay(true);
+    });
+    onUnmounted(() => {
+      mounted = false;
+      if (autoplayTimer)
+      {
+        clearTimeout(autoplayTimer);
+        autoplayTimer = undefined;
+      }
     });
 
     // watch

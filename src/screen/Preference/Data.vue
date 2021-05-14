@@ -4,11 +4,12 @@
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="apiAddress">API Address</label>
+        <label for="apiAddress">
+          {{$t('preference.data.importSlidesData.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        'RestAPI'나 'json'파일을 통하여 슬라이드 데이터를 입력할 수 있습니다.<br/>
-        데이터를 입력하면 슬라이드 편집 섹션에 입력한 내용으로 바뀝니다.
+        {{$t('preference.data.importSlidesData.description')}}
       </p>
       <div class="field-multiple">
         <div class="field-multiple__body">
@@ -27,29 +28,32 @@
             color="key"
             :disabled="localState.apiAddressDisableButton"
             @click="importDataOnAddress">
-            Get data
+            {{$t('preference.data.importSlidesData.label_getData')}}
           </ButtonBasic>
         </div>
       </div>
       <p class="field-description">
-        데이터를 `RestAPI`를 통하여 가져옵니다.
+        {{$t('preference.data.importSlidesData.desc_apiAddress')}}
       </p>
       <div class="field-upload">
         <FormUpload
           ref="fileUpload"
           accept="application/json"
+          :title="$t('preference.data.importSlidesData.uploadFile')"
           @change="importDataOnFile"/>
       </div>
       <p class="field-description">
-        슬라이드 데이터를 json 파일을 업로드하여 가져옵니다.
+        {{$t('preference.data.importSlidesData.desc_file')}}
       </p>
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_slides">Edit slide data</label>
+        <label for="pref_slides">
+          {{$t('preference.data.slides.title')}}
+        </label>
       </h3>
       <p class="field-description">
-        JSON 데이터를 `RestAPI`를 통하여 가져옵니다.
+        {{$t('preference.data.slides.description')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -70,9 +74,9 @@
 
 <script>
 import { defineComponent, reactive, ref, nextTick } from 'vue';
+import { useI18n } from 'vue-i18n/index';
 import * as object from '~/libs/object';
 import * as string from '~/libs/string';
-import * as util from '~/libs/util';
 import FormText from '~/components/Form/Text';
 import FormUpload from '~/components/Form/Upload';
 import ButtonBasic from '~/components/Button/Basic';
@@ -89,6 +93,7 @@ export default defineComponent({
   },
   setup(props, context)
   {
+    const { t } = useI18n({ useScope: 'global' });
     let localState = reactive({
       apiAddress: 'https://',
       apiAddressDisableButton: false,
@@ -114,7 +119,7 @@ export default defineComponent({
 
       function error()
       {
-        alert('데이터를 가져오는데 실패했습니다.');
+        alert(t('preference.data.alerts.failedGetData'));
         localState.apiAddressDisableButton = false;
         nextTick().then(() => textApiAddress.value.focus());
       }
@@ -160,7 +165,7 @@ export default defineComponent({
     {
       if (!(files && files.length))
       {
-        alert('선택된 파일이 없습니다.');
+        alert(t('preference.data.alerts.noSelectedFile'));
         return;
       }
       const file = files[0];
@@ -175,7 +180,7 @@ export default defineComponent({
         }
         catch(e)
         {
-          alert('파일 가져오기 실패했습니다.');
+          alert(t('preference.data.alerts.failedGetFile'));
         }
       };
       reader.readAsText(file);

@@ -12,7 +12,6 @@ import * as storage from '~/libs/storage';
 import Container from '~/screen/Container';
 import LoadingIntro from '~/components/Loading/Intro';
 import { convertPureObject } from "@/libs/object";
-import { set } from "~/libs/storage";
 
 export default defineComponent({
   name: 'App',
@@ -48,8 +47,7 @@ export default defineComponent({
     }
     function start()
     {
-      // TODO: 임의로 딜레이를 넣었다. 상황을 보고 조절을 하거나 뺄 예정이다.
-      util.sleep(1000).then(() => {
+      util.sleep(50).then(() => {
         state.loading = false;
       });
     }
@@ -59,10 +57,12 @@ export default defineComponent({
     }
     function restart()
     {
-      state.loading = true;
-      updateTheme(store.state.preference.style.screenColor);
-      locale.value = store.state.preference.general.language;
-      start();
+      stop();
+      util.sleep(1000).then(() => {
+        updateTheme(store.state.preference.style.screenColor);
+        locale.value = store.state.preference.general.language;
+        start();
+      });
     }
 
     // lifecycles
