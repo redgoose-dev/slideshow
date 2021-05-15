@@ -15,7 +15,6 @@
 	"navigation": {
 		"autoplay": "Autoplay",
 		"fullscreen": "Fullscreen",
-		"guide": "Guide",
 		"menu": "Open menu",
 		"preference": "Preference",
 		"thumbnail": "View thumbnail"
@@ -107,6 +106,10 @@
 				"description": "Set the basic items.",
 				"title": "General"
 			},
+			"information": {
+				"description": "You can check information about the slideshow.",
+				"title": "Information"
+			},
 			"keyboard": {
 				"description": "Settings related to keyboard shortcuts.",
 				"title": "Keyboard"
@@ -119,6 +122,11 @@
 				"description": "Set the parts displayed on the screen.",
 				"title": "Style"
 			}
+		},
+		"information": {
+			"author": "Author",
+			"message1": "If you have any comments on problems or improvements, please use the %{link} page.",
+			"version": "Version"
 		},
 		"keyboard": {
 			"enabled": {

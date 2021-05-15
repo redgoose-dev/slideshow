@@ -58,11 +58,9 @@ export default defineComponent({
     function restart()
     {
       stop();
-      util.sleep(1000).then(() => {
-        updateTheme(store.state.preference.style.screenColor);
-        locale.value = store.state.preference.general.language;
-        start();
-      });
+      updateTheme(store.state.preference.style.screenColor);
+      locale.value = store.state.preference.general.language;
+      util.sleep(1000).then(() => start());
     }
 
     // lifecycles

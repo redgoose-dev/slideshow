@@ -42,7 +42,7 @@
         text-align: left;
         code {
           display: inline-block;
-          padding: 4px 8px;
+          padding: 5px 6px;
           border-radius: 2px;
           font-size: 12px;
           line-height: 1;
@@ -73,7 +73,7 @@
         display: table-header-group;
         th,
         td {
-          padding: 8px 8px;
+          padding: 8px;
           border-bottom: 1px solid var(--color-shape-button);
           font-weight: 600;
           font-size: 14px;
@@ -89,13 +89,13 @@
         th {
           display: table-cell;
           text-align: center;
-          padding: 10px 0;
+          padding: 8px 0;
           width: 150px;
         }
         td {
           display: table-cell;
           margin: 0;
-          padding: 10px 16px;
+          padding: 8px 16px;
         }
       }
     }

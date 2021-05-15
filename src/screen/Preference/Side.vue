@@ -56,6 +56,17 @@
         <em>{{$t('preference.header.keyboard.title')}}</em>
       </span>
     </button>
+    <button
+      type="button"
+      :title="$t('preference.header.information.title')"
+      :disabled="mode === 'information'"
+      class="preference-side__button"
+      @click="$emit('click-menu', 'information')">
+      <span>
+        <Icon icon-name="info"/>
+        <em>{{$t('preference.header.information.title')}}</em>
+      </span>
+    </button>
   </nav>
 </aside>
 </template>

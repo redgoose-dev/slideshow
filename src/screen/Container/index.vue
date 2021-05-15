@@ -14,7 +14,6 @@
   <teleport to="#modal">
     <Thumbnail v-if="state.computedShowThumbnail"/>
     <Preference v-if="state.computedShowPreference"/>
-    <Guide v-if="state.computedShowGuide"/>
   </teleport>
 </div>
 </template>
@@ -29,7 +28,6 @@ import Slides from '~/components/Slides';
 import SlidesEmpty from '~/components/Slides/Empty';
 import Thumbnail from '~/screen/Thumbnail';
 import Preference from '~/screen/Preference';
-import Guide from '~/screen/Guide';
 
 export default defineComponent({
   name: 'Container',
@@ -39,7 +37,6 @@ export default defineComponent({
     SlidesEmpty,
     Thumbnail,
     Preference,
-    Guide,
   },
   setup()
   {
@@ -52,7 +49,6 @@ export default defineComponent({
         {
           case 'preference':
           case 'thumbnail':
-          case 'guide':
             return store.state.mode;
           default:
             return null;
@@ -63,9 +59,6 @@ export default defineComponent({
       }),
       computedShowPreference: computed(() => {
         return state.computedMode === 'preference';
-      }),
-      computedShowGuide: computed(() => {
-        return state.computedMode === 'guide';
       }),
     });
     const slides = ref(null);
@@ -115,9 +108,6 @@ export default defineComponent({
             break;
           case 72: // h
             store.dispatch('changeHud');
-            break;
-          case 71: // g
-            store.dispatch('changeMode', 'guide');
             break;
         }
       }

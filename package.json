@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
-  "author": "redgoose <scripter@me.com>",
+  "author": {
+    "name": "redgoose",
+    "email": "scripter@me.com",
+    "url": "https://redgoose.me"
+  },
   "license": "MIT",
   "scripts": {
     "dev": "node_modules/.bin/vue-cli-service serve --host 0.0.0.0 --port 3000",

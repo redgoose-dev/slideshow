@@ -56,7 +56,7 @@ export default defineComponent({
     const preference = object.convertPureObject(store.state.preference);
     const slides = object.convertPureObject(store.state.slides);
     let state = reactive({
-      tab: 'general', // general,slides,style,data,keyboard
+      tab: 'general', // general,slides,style,data,keyboard,information
       structure: {
         general: preference.general,
         slides: preference.slides,
@@ -80,6 +80,8 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./Data'));
           case 'keyboard':
             return defineAsyncComponent(() => import('./Keyboard'));
+          case 'information':
+            return defineAsyncComponent(() => import('./Information'));
         }
       }),
       computedHeaderContent: computed(() => {
@@ -110,6 +112,11 @@ export default defineComponent({
             return {
               title: t('preference.header.keyboard.title'),
               description: t('preference.header.keyboard.description'),
+            };
+          case 'information':
+            return {
+              title: t('preference.header.information.title'),
+              description: t('preference.header.information.description'),
             };
         }
       }),

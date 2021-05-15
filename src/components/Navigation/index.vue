@@ -50,14 +50,6 @@
             {{$t('navigation.fullscreen')}}
           </button>
         </li>
-        <li>
-          <button
-            type="button"
-            :class="[ state.activeFullscreen && 'on' ]"
-            @click="onClickContextItem('guide')">
-            {{$t('navigation.guide')}}
-          </button>
-        </li>
       </ul>
     </div>
   </div>
@@ -127,9 +119,6 @@ export default defineComponent({
         case 'fullscreen':
           util.fullscreen(!state.activeFullscreen);
           state.activeFullscreen = !state.activeFullscreen;
-          break;
-        case 'guide':
-          store.dispatch('changeMode', 'guide');
           break;
       }
     }
