@@ -17,7 +17,7 @@ export default {
     },
     slides: {
       initialNumber: 0,
-      animationType: 'fade', // null,none,fade,horizontal
+      animationType: 'horizontal', // none,fade,horizontal
       animationSpeed: 500,
       captionAnimationType: 'none', // none,shuffle
       captionAnimationSpeed: 40,

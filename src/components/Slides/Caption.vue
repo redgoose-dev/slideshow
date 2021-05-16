@@ -128,7 +128,7 @@ export default defineComponent({
       margin: 0;
       line-height: 1;
       font-size: 42px;
-      letter-spacing: -2px;
+      letter-spacing: -1.5px;
       font-weight: 800;
       white-space: nowrap;
     }

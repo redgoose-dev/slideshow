@@ -31,7 +31,7 @@
 				"desc_apiAddress": "`RestAPI` 통하여 데이터를 가져옵니다.",
 				"desc_file": "슬라이드 데이터를 `json` 파일을 업로드하여 가져옵니다.",
 				"description": "`RestAPI`나 `json`파일을 통하여 슬라이드 데이터를 입력할 수 있습니다. 데이터를 입력하면 슬라이드 편집 섹션에 입력한 내용으로 바뀝니다.",
-				"label_getData": "데이터 가져오기",
+				"label_getData": "가져오기",
 				"title": "슬라이드 데이터 가져오기",
 				"uploadFile": "`JSON` 파일 선택하기"
 			},
