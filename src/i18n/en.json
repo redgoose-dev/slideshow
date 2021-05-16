@@ -57,6 +57,7 @@
 			},
 			"confirms": {
 				"backup": "Do you really want to back up all your data?\nThe backed up content is saved as a `json` file.",
+				"inputExample": "Would you like to put an example slide?",
 				"reset": "Do you really want to reset all settings and slide data?\nOnce initialized, it cannot be recovered.",
 				"restore": "Would you really want to restore all your data?\nThis operation will delete all current data."
 			},

@@ -29,7 +29,7 @@ export default {
       swipe: true,
     },
     style: {
-      screenColor: 'light', // dark,light,system
+      screenColor: 'system', // dark,light,system
       imageType: 'none', // none,contain,cover
       imageScale: ['75%','75%'], // [ width, height ]
       captionScale: 100, // %

@@ -1,10 +1,11 @@
 const { app, BrowserWindow, Menu, MenuItem } = require('electron');
+const dev = process.argv[2] === '--dev';
 let win = null;
 
 // create window
 function createWindow ()
 {
-  win = new BrowserWindow({
+  let settings = {
     width: 1440,
     height: 900,
     minWidth: 1024,
@@ -12,12 +13,45 @@ function createWindow ()
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
+      devTools: dev,
     },
-  });
+  };
+  win = new BrowserWindow(settings);
   win.loadFile('docs/index.html');
-  win.on('closed', () => {
-    win = null;
-  });
+  createMainMenu();
+  win.on('closed', () => { win = null; });
+}
+
+// create main menu
+function createMainMenu()
+{
+  const mac = process.platform === 'darwin';
+  let tree = [
+    {
+      label: 'Menu',
+      submenu: [
+        { role: 'about' },
+        mac && { role: 'close' },
+        { role: 'quit' },
+      ].filter(Boolean),
+    },
+    {
+      label: 'Navigator',
+      submenu: [
+        { role: 'reload' },
+        dev && { role: 'forceReload' },
+        { role: 'togglefullscreen' },
+      ].filter(Boolean),
+    },
+    {
+      role: 'window',
+      submenu: [
+        { role: 'minimize' },
+      ],
+    },
+  ];
+  let menu = Menu.buildFromTemplate(tree);
+  Menu.setApplicationMenu(menu);
 }
 
 // disabled security warnings
@@ -32,5 +66,6 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
+  if (win) return;
   createWindow();
 });

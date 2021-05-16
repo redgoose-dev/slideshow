@@ -1,5 +1,5 @@
 import * as object from '~/libs/object';
-import defaults from './defaults';
+import { defaults } from './resource';
 import * as storage from '~/libs/storage';
 
 /**
@@ -96,13 +96,16 @@ export function changeActiveSlide(context, active)
  */
 export function reset(context)
 {
+  const preference = object.convertPureObject(defaults.preference);
+  const slides = object.convertPureObject(defaults.slides);
+
   // update storage
-  storage.set('preference', defaults.preference);
-  storage.set('slides', defaults.slides);
+  storage.set('preference', preference);
+  storage.set('slides', slides);
   // update store
-  context.commit('updatePreference', defaults.preference);
-  context.commit('updateSlides', defaults.slides);
-  context.commit('updateActiveSlide', defaults.preference.slides.initialNumber);
+  context.commit('updatePreference', preference);
+  context.commit('updateSlides', slides);
+  context.commit('updateActiveSlide', preference.slides.initialNumber);
   context.commit('updateUseKeyboardEvent', true);
   context.commit('updateMode', null);
 }

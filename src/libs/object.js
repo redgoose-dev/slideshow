@@ -57,10 +57,8 @@ export function checkSlideItems(items)
 {
   try
   {
-    if (!(items && Array.isArray(items) && items.length > 0))
-    {
-      throw new Error('Invalid file');
-    }
+    if (!(items && Array.isArray(items))) throw new Error('Invalid file');
+    if (items.length <= 0) return true;
     items.forEach(item => {
       if (typeof item !== 'object') throw 'not object item';
       const checklist = [

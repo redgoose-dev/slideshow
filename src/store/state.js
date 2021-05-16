@@ -1,9 +1,7 @@
-import defaults from './defaults';
+import { convertPureObject } from '~/libs/object';
+import { defaults } from '~/store/resource';
 
 // set state
-let state = defaults;
-
-// set example state data
-state.slides = require('~/example.json');
+let state = convertPureObject(defaults);
 
 export default state;
