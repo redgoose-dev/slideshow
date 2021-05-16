@@ -32,7 +32,7 @@
 				"desc_file": "Import slide data by uploading `json` file.",
 				"description": "Slide data can be entered through `RestAPI` or `json` file. As you enter data, it will be replaced with what you entered in the Edit Slide section.",
 				"label_getData": "Import data",
-				"title": "API Address",
+				"title": "Get slides data",
 				"uploadFile": "Choosing a `JSON` file"
 			},
 			"slides": {

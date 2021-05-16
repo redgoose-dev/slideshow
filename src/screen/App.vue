@@ -9,8 +9,8 @@ import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
 import * as storage from '~/libs/storage';
 import { convertPureObject } from '~/libs/object';
-import { exampleSlides } from '~/store/resource';
 import { sleep } from '~/libs/util';
+import example from '~/example.json';
 import Container from '~/screen/Container';
 import LoadingIntro from '~/components/Loading/Intro';
 
@@ -81,7 +81,7 @@ export default defineComponent({
     {
       // 예제 슬라이드로 복구하고 스토리지에 데이터를 저장한다.
       storage.set('preference', convertPureObject(store.state.preference));
-      const slides = convertPureObject(exampleSlides);
+      const slides = example;
       store.dispatch('changeSlides', slides);
       storage.set('slides', slides);
     }

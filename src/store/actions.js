@@ -1,5 +1,5 @@
 import * as object from '~/libs/object';
-import { defaults } from './resource';
+import defaults from '~/store/defaults';
 import * as storage from '~/libs/storage';
 
 /**

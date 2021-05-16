@@ -4,6 +4,28 @@
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
+        <label for="pref_slides">
+          {{$t('preference.data.slides.title')}}
+        </label>
+      </h3>
+      <p class="field-description">
+        {{$t('preference.data.slides.description')}}
+      </p>
+      <div class="field-basic__body">
+        <FormText
+          ref="textSlides"
+          type="textarea"
+          name="pref_slides"
+          id="pref_slides"
+          placeholder="Please input slides code"
+          :color="state.slidesColor"
+          :rows="10"
+          v-model="state.slides"
+          @update:modelValue="onUpdateSlideSource"/>
+      </div>
+    </div>
+    <div class="field-basic">
+      <h3 class="field-title">
         <label for="apiAddress">
           {{$t('preference.data.importSlidesData.title')}}
         </label>
@@ -45,28 +67,6 @@
       <p class="field-description">
         {{$t('preference.data.importSlidesData.desc_file')}}
       </p>
-    </div>
-    <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_slides">
-          {{$t('preference.data.slides.title')}}
-        </label>
-      </h3>
-      <p class="field-description">
-        {{$t('preference.data.slides.description')}}
-      </p>
-      <div class="field-basic__body">
-        <FormText
-          ref="textSlides"
-          type="textarea"
-          name="pref_slides"
-          id="pref_slides"
-          placeholder="Please input slides code"
-          :color="state.slidesColor"
-          :rows="10"
-          v-model="state.slides"
-          @update:modelValue="onUpdateSlideSource"/>
-      </div>
     </div>
   </div>
 </fieldset>
