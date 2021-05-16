@@ -100,11 +100,16 @@ export default defineComponent({
             store.dispatch('changeMode', 'preference');
             break;
           case 84: // t
-            store.dispatch('changeMode', 'thumbnail');
+            if (store.state.preference.general.visibleHudContents.thumbnail)
+            {
+              store.dispatch('changeMode', 'thumbnail');
+            }
             break;
           case 82: // r
-            if (!confirm(t('main.confirmRestart'))) return;
-            local.main.restart();
+            if (confirm(t('main.confirmRestart')))
+            {
+              local.main.restart();
+            }
             break;
           case 72: // h
             store.dispatch('changeHud');

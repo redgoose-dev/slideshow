@@ -42,13 +42,9 @@
 <script>
 import { defineComponent, ref, reactive, computed } from 'vue';
 import * as util from '~/libs/util';
-import LoadingUnit from '~/components/Loading/Unit';
 
 export default defineComponent({
   name: 'SlidesImages',
-  components: {
-    LoadingUnit,
-  },
   props: {
     items: { type: Array, required: true }, // 슬라이드 아이템 목록
     initialActive: { type: Number, default: 0 }, // 초기 활성화되는 슬라이드
@@ -189,6 +185,7 @@ export default defineComponent({
           state.nextClassName = undefined;
           state.active = _active;
           state.activeClassName = 'current';
+          state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
           if (targetElement)
           {
             targetElement.removeEventListener('transitionend', onTransitionEnd);
