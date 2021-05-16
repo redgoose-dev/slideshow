@@ -89,6 +89,7 @@
 			},
 			"visibleContents": {
 				"description": "Set the display of each controller and status.",
+				"item_autoplay": "Autoplay",
 				"item_caption": "Caption",
 				"item_controller": "Controller",
 				"item_menu": "Menu",
@@ -158,7 +159,7 @@
 			},
 			"animationType": {
 				"description": "Select the transition type when the slide changes.",
-				"option_fade": "Transparency",
+				"option_fade": "Fade in/out",
 				"option_horizontal": "Move horizontally",
 				"option_none": "None",
 				"title": "Transition type"

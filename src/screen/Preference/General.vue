@@ -147,29 +147,17 @@
               :modelValue="state.visibleHudContents.paginate"
               @update:modelValue="o => onUpdateHudContents('paginate', o)"/>
           </li>
+          <li>
+            <FormCheckbox
+              name="pref_hudContents"
+              :label="$t('preference.general.visibleContents.item_autoplay')"
+              :modelValue="state.visibleHudContents.autoplay"
+              @update:modelValue="o => onUpdateHudContents('autoplay', o)"/>
+          </li>
         </ul>
       </div>
     </div>
     <hr class="field-line">
-    <div class="field-switch">
-      <div class="field-switch__body">
-        <h3 class="field-title">
-          <label for="pref_useStorage">
-            {{$t('preference.general.browserStorage.title')}}
-          </label>
-        </h3>
-        <p class="field-description">
-          {{$t('preference.general.browserStorage.description')}}
-        </p>
-      </div>
-      <div class="field-switch__input">
-        <FormSwitch
-          name="pref_useStorage"
-          id="pref_useStorage"
-          v-model="state.useStorage"
-          @update:modelValue="onSave"/>
-      </div>
-    </div>
     <div class="field-basic">
       <h3 class="field-title">
         <label>
@@ -250,7 +238,6 @@ export default defineComponent({
       hud: props.structure.hud,
       hoverVisibleHud: props.structure.hoverVisibleHud,
       visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
-      useStorage: props.structure.useStorage,
     });
 
     // methods

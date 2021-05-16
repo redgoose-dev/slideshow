@@ -89,6 +89,7 @@
 			},
 			"visibleContents": {
 				"description": "각 조작과 상태요소들 표시를 설정합니다.",
+				"item_autoplay": "자동재생",
 				"item_caption": "캡션",
 				"item_controller": "컨트롤러",
 				"item_menu": "메뉴",

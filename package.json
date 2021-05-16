@@ -1,7 +1,8 @@
 {
   "name": "slideshow",
+  "productName": "Slideshow",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",
@@ -11,12 +12,22 @@
   "license": "MIT",
   "scripts": {
     "dev": "node_modules/.bin/vue-cli-service serve --host 0.0.0.0 --port 3000",
-    "build": "node_modules/.bin/vue-cli-service build"
+    "build": "node_modules/.bin/vue-cli-service build",
+    "electron-dev": "node_modules/.bin/electron ./main.js",
+    "electron-build": "rm -rf dist && node_modules/.bin/electron-builder",
+    "start": "http-server docs -a 0.0.0.0 -p 4000 -s"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
   ],
+  "build": {
+    "appId": "redgoose.slideshow",
+    "mac": {
+      "icon": "resource/icons/icon.icns",
+      "category": "public.app-category.utilities"
+    }
+  },
   "dependencies": {
     "vue": "^3.0.11",
     "vue-i18n": "^9.1.6",
@@ -25,6 +36,8 @@
   "devDependencies": {
     "@vue/cli-service": "^4.5.12",
     "@vue/compiler-sfc": "^3.0.11",
+    "electron": "^12.0.7",
+    "electron-builder": "^22.10.5",
     "sass": "^1.32.11",
     "sass-loader": "^10.1.1"
   }

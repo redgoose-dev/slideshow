@@ -97,7 +97,7 @@ export function checkPreference(item)
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'caption']),
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'controller']),
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'paginate']),
-    checkNestedKeys(item, 'boolean', ['general', 'useStorage']),
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'autoplay']),
     // slides
     checkNestedKeys(item, 'number', ['slides', 'initialNumber']),
     checkNestedKeys(item, 'string', ['slides', 'animationType']),

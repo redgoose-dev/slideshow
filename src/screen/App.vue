@@ -71,12 +71,9 @@ export default defineComponent({
     const storageSlides = storage.get('slides');
     if (storagePreference && storageSlides)
     {
-      if (storagePreference.general.useStorage)
-      {
-        store.dispatch('changePreference', storagePreference);
-        store.dispatch('changeSlides', storageSlides);
-        store.dispatch('changeActiveSlide', storagePreference.slides.initialNumber);
-      }
+      store.dispatch('changePreference', storagePreference);
+      store.dispatch('changeSlides', storageSlides);
+      store.dispatch('changeActiveSlide', storagePreference.slides.initialNumber);
     }
     else
     {
