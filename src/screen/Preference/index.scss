@@ -65,6 +65,7 @@
   display: flex;
   height: var(--header);
   box-sizing: border-box;
+  user-select: none;
   &:before {
     content: '';
     display: block;

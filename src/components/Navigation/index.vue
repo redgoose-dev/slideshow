@@ -1,5 +1,7 @@
 <template>
-<nav class="slideshow-navigation">
+<nav
+  class="slideshow-navigation"
+  @touchstart="onTouchStart">
   <div
     v-if="state.computedVisibleThumbnail"
     class="slideshow-navigation__item">
@@ -130,6 +132,10 @@ export default defineComponent({
           break;
       }
     }
+    function onTouchStart(e)
+    {
+      if (e.touches && e.touches.length > 1) e.preventDefault();
+    }
 
     // lifecycles
     onMounted(() => {
@@ -147,6 +153,7 @@ export default defineComponent({
       onClickAutoplayButton,
       onClickMenuButton,
       onClickContextItem,
+      onTouchStart,
     };
   },
 });

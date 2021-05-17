@@ -19,7 +19,6 @@ export default defineComponent({
   font-family: var(--font-eng);
   font-style: normal;
   font-size: 13px;
-  user-select: none;
   line-height: 1.15;
   letter-spacing: -.5px;
 

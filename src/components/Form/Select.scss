@@ -9,6 +9,7 @@
   border-radius: var(--form-radius);
   transition: box-shadow var(--speed-button-active) ease-out;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
   &:focus-within {
     box-shadow: 0 0 0 2px var(--color-key);
   }

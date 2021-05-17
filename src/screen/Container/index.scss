@@ -1,6 +1,8 @@
 @import '../../scss/mixins';
 
 .slideshow {
+  position: relative;
+  box-sizing: border-box;
   &__slides {
     position: relative;
   }

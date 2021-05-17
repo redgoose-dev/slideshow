@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n/index';
 // assets
 import store from '~/store';
-import * as util from '~/libs/util';
 import * as local from '~/libs/local';
 // components
 import App from '~/screen/App';
@@ -18,9 +17,6 @@ const i18n = createI18n({
     ko: require('~/i18n/ko.json'),
   },
 });
-
-// initial custom event
-util.initCustomEvent();
 
 // initial app and mount
 const app = createApp(App)

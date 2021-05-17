@@ -13,6 +13,7 @@
       </span>
     </button>
     <button
+      v-if="$store.state.usePreference.slides"
       type="button"
       :title="$t('preference.header.slides.title')"
       :disabled="mode === 'slides'"
@@ -24,6 +25,7 @@
       </span>
     </button>
     <button
+      v-if="$store.state.usePreference.style"
       type="button"
       :title="$t('preference.header.style.title')"
       :disabled="mode === 'style'"
@@ -35,6 +37,7 @@
       </span>
     </button>
     <button
+      v-if="$store.state.usePreference.data"
       type="button"
       :title="$t('preference.header.data.title')"
       :disabled="mode === 'data'"
@@ -46,6 +49,7 @@
       </span>
     </button>
     <button
+      v-if="$store.state.usePreference.keyboard"
       type="button"
       :title="$t('preference.header.keyboard.title')"
       :disabled="mode === 'keyboard'"
@@ -57,6 +61,7 @@
       </span>
     </button>
     <button
+      v-if="$store.state.usePreference.information"
       type="button"
       :title="$t('preference.header.information.title')"
       :disabled="mode === 'information'"

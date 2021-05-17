@@ -11,6 +11,7 @@
   background: var(--color-bg);
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  user-select: none;
   @include custom-scroll-style();
 
   &__header {

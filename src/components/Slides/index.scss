@@ -1,6 +1,7 @@
 @import "../../scss/mixins";
 
 .slideshow-slides {
+  user-select: none;
   &__paginate {
     position: fixed;
     z-index: 2;

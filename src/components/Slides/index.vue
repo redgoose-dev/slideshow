@@ -139,6 +139,7 @@ export default defineComponent({
     function onTouchStart(e)
     {
       e.stopPropagation();
+      if (e.touches && e.touches.length > 1) e.preventDefault();
       if (state.animated) return;
       if (!store.state.preference.slides.swipe) return;
       if (store.state.preference.slides.animationType !== 'horizontal') return;
@@ -188,7 +189,7 @@ export default defineComponent({
       swipeMeta = undefined;
 
       // 클릭하는 수준으로 짧으면 정지
-      if (elapsedTime < 120 || percent < 5)
+      if (elapsedTime < 60 || percent < 1)
       {
         runAutoplay(true);
         return;
@@ -204,7 +205,7 @@ export default defineComponent({
       else
       {
         // short touch
-        if (percent > 10) action(dir);
+        if (percent > 5) action(dir);
         else cancel();
       }
     }

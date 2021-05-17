@@ -58,3 +58,24 @@ export function updateSlides(state, value)
 {
   state.slides = value;
 }
+
+/**
+ * update use preference
+ * ex) `store.commit('updateUsePreference', [ 'data', false ]);`
+ *
+ * @param state
+ * @param {array} value
+ */
+export function updateUsePreference(state, value)
+{
+  switch (value[0])
+  {
+    case 'slides':
+    case 'style':
+    case 'data':
+    case 'keyboard':
+    case 'information':
+      state.usePreference[value[0]] = Boolean(value[1]);
+      break;
+  }
+}

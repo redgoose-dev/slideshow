@@ -9,7 +9,7 @@ import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
 import * as storage from '~/libs/storage';
 import { convertPureObject } from '~/libs/object';
-import { sleep } from '~/libs/util';
+import { sleep, initCustomEvent } from '~/libs/util';
 import example from '~/example.json';
 import Container from '~/screen/Container';
 import LoadingIntro from '~/components/Loading/Intro';
@@ -25,11 +25,11 @@ export default defineComponent({
     let store = useStore();
     const { t, locale } = useI18n({ useScope: 'global' });
     let state = reactive({
-      loading: true,
       dev: process.env.NODE_ENV === 'development',
+      loading: true,
     });
 
-    // method
+    // private methods
     function updateTheme(color)
     {
       let theme;
@@ -46,6 +46,7 @@ export default defineComponent({
       const $html = document.querySelector('html');
       $html.dataset['color'] = theme;
     }
+    // public methods
     function start()
     {
       sleep(50).then(() => {
@@ -67,20 +68,28 @@ export default defineComponent({
     // lifecycles
     onMounted(() => start());
 
-    // get storage data
+    // initial custom event
+    initCustomEvent();
+
+    // set preference data
     const storagePreference = storage.get('preference');
-    const storageSlides = storage.get('slides');
-    if (storagePreference && storageSlides)
+    if (storagePreference)
     {
-      // 스토리지 내용으로 복구한다.
       store.dispatch('changePreference', storagePreference);
-      store.dispatch('changeSlides', storageSlides);
       store.dispatch('changeActiveSlide', storagePreference.slides.initialNumber);
     }
     else
     {
-      // 예제 슬라이드로 복구하고 스토리지에 데이터를 저장한다.
       storage.set('preference', convertPureObject(store.state.preference));
+    }
+    // set slides data
+    const storageSlides = storage.get('slides');
+    if (storageSlides)
+    {
+      store.dispatch('changeSlides', storageSlides);
+    }
+    else
+    {
       const slides = example;
       store.dispatch('changeSlides', slides);
       storage.set('slides', slides);

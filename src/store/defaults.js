@@ -39,6 +39,13 @@ export default {
       enabled: true,
     },
   },
+  usePreference: {
+    slides: true,
+    style: true,
+    data: true,
+    keyboard: true,
+    information: true,
+  },
   slides: [],
   mode: null,
   activeSlide: undefined,

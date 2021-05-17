@@ -3,17 +3,21 @@
 .slideshow-images {
   position: relative;
   z-index: 0;
-  height: 100vh;
-  user-select: none;
   box-sizing: border-box;
   overflow: hidden;
   backface-visibility: hidden;
+  font-size: 0;
   .wrap {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    min-height: 100vh;
+    @supports (-webkit-appearance:none) and (stroke-color: transparent) {
+      min-height: -webkit-fill-available;
+    }
   }
   figure {
     margin: 0;
+    width: 100%;
+    height: 100%;
     box-sizing: border-box;
     background-color: var(--color-bg);
     > img {
@@ -71,9 +75,9 @@
       display: none;
       position: absolute;
       left: 0;
-      right: 0;
       top: 0;
       bottom: 0;
+      right: 0;
       &.fadein {
         display: block;
         z-index: 2;
@@ -104,23 +108,21 @@
     }
   }
   &--horizontal {
-    --size-w: 100vw;
-    --size-h: 100vh;
     .wrap {
+      --pos: var(--move-pos, calc(100vw * var(--active-column) * -1));
       backface-visibility: hidden;
-      width: var(--size-w);
-      height: var(--size-h);
-      font-size: 0;
       white-space: nowrap;
-      --pos: var(--move-pos, calc(var(--size-w) * var(--active-column) * -1));
       transform: translateX(var(--pos));
     }
     figure {
       position: relative;
       display: inline-block;
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
       box-sizing: border-box;
+      @supports (-webkit-appearance:none) and (stroke-color: transparent) {
+        min-height: -webkit-fill-available;
+      }
       &.first {
         margin-left: -100vw;
       }

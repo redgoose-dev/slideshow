@@ -1,5 +1,8 @@
 <template>
-<article class="preference" @click="onClose">
+<article
+  class="preference"
+  @click="onClose"
+  @touchstart="onTouchStart">
   <div class="preference__wrap" @click="e => { e.stopPropagation() }">
     <Side :mode="state.tab" @click-menu="onChangeTab"/>
     <form class="preference__body" @submit="onSubmit">
@@ -72,15 +75,20 @@ export default defineComponent({
           case 'general':
           default:
             return defineAsyncComponent(() => import('./General'));
-          case 'style':
-            return defineAsyncComponent(() => import('./Style'));
           case 'slides':
+            if (!store.state.usePreference.slides) return;
             return defineAsyncComponent(() => import('./Slides'));
+          case 'style':
+            if (!store.state.usePreference.style) return;
+            return defineAsyncComponent(() => import('./Style'));
           case 'data':
+            if (!store.state.usePreference.data) return;
             return defineAsyncComponent(() => import('./Data'));
           case 'keyboard':
+            if (!store.state.usePreference.keyboard) return;
             return defineAsyncComponent(() => import('./Keyboard'));
           case 'information':
+            if (!store.state.usePreference.information) return;
             return defineAsyncComponent(() => import('./Information'));
         }
       }),
@@ -136,6 +144,10 @@ export default defineComponent({
     {
       state.structure[state.tab] = structure;
     }
+    function onTouchStart(e)
+    {
+      if (e.touches && e.touches.length > 1) e.preventDefault();
+    }
     function onSubmit(e)
     {
       e.preventDefault();
@@ -184,6 +196,7 @@ export default defineComponent({
       onChangeTab,
       onSubmit,
       onClose,
+      onTouchStart,
       onUpdateFields,
     };
   },

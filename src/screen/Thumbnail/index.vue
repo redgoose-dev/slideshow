@@ -1,5 +1,7 @@
 <template>
-<article class="thumbnail">
+<article
+  class="thumbnail"
+  @touchstart="onTouchStart">
   <header class="thumbnail__header">
     <h2>
       {{$store.state.preference.general.name}}
@@ -61,6 +63,10 @@ export default defineComponent({
     {
       store.dispatch('changeMode', null);
     }
+    function onTouchStart(e)
+    {
+      if (e.touches && e.touches.length > 1) e.preventDefault();
+    }
 
     // lifecycles
     onMounted(() => {
@@ -74,6 +80,7 @@ export default defineComponent({
       state,
       onSelect,
       onClose,
+      onTouchStart,
     };
   },
 });
