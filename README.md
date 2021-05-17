@@ -1,6 +1,6 @@
 # slideshow
 
-![SLIDESHOW](https://raw.githubusercontent.com/redgoose-dev/slideshow/main/resource/github/signature.png)
+![SLIDESHOW](https://raw.githubusercontent.com/redgoose-dev/slideshow/main/resource/github/signature2.png)
 
 가족앨범 사진들을 디스플레잉을 어떻게 할 수 있을까 고민하다가 슬라이드쇼 프로젝트를 시작하게 되었습니다.  
 예전에 만든 슬라이드쇼를 제대로 만들어본 경험으로 더 좋은 모습으로 만들고 했습니다.
