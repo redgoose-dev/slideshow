@@ -15,8 +15,7 @@
     "electron-dev": "electron ./main.js --dev",
     "electron-build": "rm -rf dist && yarpm run electron:mac && yarpm run electron:win",
     "electron:mac": "electron-builder --mac --dir ",
-    "electron:win": "electron-builder --win nsis --dir --x64 && rm -rf dist/win-unpacked",
-    "start": "http-server docs -a 0.0.0.0 -p 4000 -s"
+    "electron:win": "electron-builder --win nsis --dir --x64 && rm -rf dist/win-unpacked"
   },
   "browserslist": [
     "> 1%",
