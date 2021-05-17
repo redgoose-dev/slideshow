@@ -55,6 +55,10 @@
 				"description": "Save slide data and preferences to the browser.",
 				"title": "Using browser storage"
 			},
+			"clickVisibleHud": {
+				"description": "Toggles the HUD when clicking the mouse or touching the screen.",
+				"title": "Toggle HUD on click or touch"
+			},
 			"confirms": {
 				"backup": "Do you really want to back up all your data?\nThe backed up content is saved as a `json` file.",
 				"inputExample": "Would you like to put an example slide?",
@@ -244,5 +248,8 @@
 			"description": "Please add slides in preferences.",
 			"title": "empty"
 		}
+	},
+	"thumbnail": {
+		"empty": "No slides"
 	}
 }

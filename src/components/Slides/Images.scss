@@ -9,10 +9,7 @@
   font-size: 0;
   .wrap {
     width: 100vw;
-    min-height: 100vh;
-    @supports (-webkit-appearance:none) and (stroke-color: transparent) {
-      min-height: -webkit-fill-available;
-    }
+    @include full-height();
   }
   figure {
     margin: 0;
@@ -118,11 +115,8 @@
       position: relative;
       display: inline-block;
       width: 100%;
-      min-height: 100vh;
       box-sizing: border-box;
-      @supports (-webkit-appearance:none) and (stroke-color: transparent) {
-        min-height: -webkit-fill-available;
-      }
+      @include full-height();
       &.first {
         margin-left: -100vw;
       }

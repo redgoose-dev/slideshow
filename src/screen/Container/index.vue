@@ -1,8 +1,9 @@
 <template>
-<div :class="[
-  'slideshow',
-  $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
-]">
+<div
+  :class="[
+    'slideshow',
+    $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
+  ]">
   <Slides
     v-if="state.existSlideItem"
     ref="slides"
@@ -88,13 +89,16 @@ export default defineComponent({
         switch (e.keyCode)
         {
           case 37: // arrow left
-            local.slides.prev();
+            if (local.slides) local.slides.prev();
             break;
           case 39: // arrow right
-            local.slides.next();
+            if (local.slides) local.slides.next();
             break;
           case 65: // a
-            local.slides.autoplay(!store.state.preference.slides.autoplay);
+            if (local.slides)
+            {
+              local.slides.autoplay(!store.state.preference.slides.autoplay);
+            }
             break;
           case 83: // s
             store.dispatch('changeMode', 'preference');
@@ -106,7 +110,7 @@ export default defineComponent({
             }
             break;
           case 82: // r
-            if (confirm(t('main.confirmRestart')))
+            if (confirm(t('main.confirmRestart')) && local.main)
             {
               local.main.restart();
             }

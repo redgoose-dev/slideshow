@@ -1,5 +1,7 @@
 <template>
-<article class="empty">
+<article
+  class="empty"
+  @click="onClickWrapper">
   <div class="empty__wrap">
     <Icon
       icon-name="frown"
@@ -16,12 +18,30 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import Icon from '~/components/Icon';
 
 export default defineComponent({
   name: 'SlidesEmpty',
   components: {
     Icon,
+  },
+  setup()
+  {
+    const store = useStore();
+
+    // methods
+    function onClickWrapper(e)
+    {
+      if (store.state.preference.general.clickVisibleHud)
+      {
+        store.dispatch('changeHud');
+      }
+    }
+
+    return {
+      onClickWrapper,
+    };
   },
 });
 </script>

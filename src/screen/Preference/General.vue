@@ -100,6 +100,25 @@
           @update:modelValue="onSave"/>
       </div>
     </div>
+    <div class="field-switch">
+      <div class="field-switch__body">
+        <h3 class="field-title">
+          <label for="pref_clickVisibleHud">
+            {{$t('preference.general.clickVisibleHud.title')}}
+          </label>
+        </h3>
+        <p class="field-description">
+          {{$t('preference.general.clickVisibleHud.description')}}
+        </p>
+      </div>
+      <div class="field-switch__input">
+        <FormSwitch
+          name="pref_clickVisibleHud"
+          id="pref_clickVisibleHud"
+          v-model="state.clickVisibleHud"
+          @update:modelValue="onSave"/>
+      </div>
+    </div>
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_hudContents">
@@ -237,6 +256,7 @@ export default defineComponent({
       language: props.structure.language,
       hud: props.structure.hud,
       hoverVisibleHud: props.structure.hoverVisibleHud,
+      clickVisibleHud: props.structure.clickVisibleHud,
       visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
     });
 

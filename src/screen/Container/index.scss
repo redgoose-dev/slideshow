@@ -3,6 +3,8 @@
 .slideshow {
   position: relative;
   box-sizing: border-box;
+  user-select: none;
+  @include full-height();
   &__slides {
     position: relative;
   }

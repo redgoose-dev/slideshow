@@ -6,6 +6,7 @@ export default {
       language: 'en', // en,ko
       hud: true,
       hoverVisibleHud: false,
+      clickVisibleHud: false,
       visibleHudContents: {
         menu: true,
         thumbnail: true,

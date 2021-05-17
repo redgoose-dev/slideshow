@@ -90,3 +90,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+// full height from viewport
+@mixin full-height()
+{
+  min-height: 100vh;
+  @supports (-webkit-appearance:none) and (stroke-color: transparent) {
+    min-height: -webkit-fill-available;
+  }
+}

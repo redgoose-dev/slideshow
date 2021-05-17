@@ -55,6 +55,10 @@
 				"description": "슬라이드 데이터와 환경설정을 브라우저에 저장합니다.",
 				"title": "브라우저 저장"
 			},
+			"clickVisibleHud": {
+				"description": "마우스를 클릭하거나 화면을 터치할때 HUD를 토글링합니다.",
+				"title": "클릭, 터치시 HUD 토글"
+			},
 			"confirms": {
 				"backup": "정말 모든 데이터를 백업할까요?\n백업한 내용은 `json` 파일로 저장됩니다.",
 				"inputExample": "예제 슬라이드를 넣을까요?",
@@ -244,5 +248,8 @@
 			"description": "환경설정에서 슬라이드를 추가해주세요.",
 			"title": "빈 슬라이드"
 		}
+	},
+	"thumbnail": {
+		"empty": "슬라이드가 없습니다."
 	}
 }

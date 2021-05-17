@@ -4,12 +4,12 @@
     'slideshow-slides',
     state.swipeMove && 'swipe-move',
   ]"
-  @touchstart="onTouchStart"
-  @touchmove="onTouchMove"
-  @touchend="onTouchEnd"
-  @mousedown="onTouchStart"
-  @mousemove="onTouchMove"
-  @mouseup="onTouchEnd"
+  @touchstart="onStart"
+  @touchmove="onMove"
+  @touchend="onEnd"
+  @mousedown="onStart"
+  @mousemove="onMove"
+  @mouseup="onEnd"
   @mouseleave="onTouchCancel"
   @mouseenter="onMouseEnter"
   @contextmenu="onContextMenu">
@@ -111,6 +111,7 @@ export default defineComponent({
     let autoplayTimer = undefined; // 오토플레이 `setTimeout` 값을 담는데 사용된다.
     let autoplayPause = false; // 오토플레이 일시정지할때 사용하는 결정적인 값
     let mounted = false;
+    let touched = false;
 
     // check active number
     let active = store.state.preference.slides.initialNumber;
@@ -136,9 +137,11 @@ export default defineComponent({
     {
       return !!state.computedImages[n];
     }
-    function onTouchStart(e)
+    function onStart(e)
     {
       e.stopPropagation();
+      if (e.touches) touched = true;
+      if (!e.touches && touched) return;
       if (e.touches && e.touches.length > 1) e.preventDefault();
       if (state.animated) return;
       if (!store.state.preference.slides.swipe) return;
@@ -151,17 +154,20 @@ export default defineComponent({
       };
       state.swipeMove = true;
     }
-    function onTouchMove(e)
+    function onMove(e)
     {
       e.stopPropagation();
+      if (!e.touches && touched) return;
       if (state.animated || !state.swipeMove) return;
       swipeMeta.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX);
       const screenWidth = window.innerWidth;
       const dist = swipeMeta.moveX - swipeMeta.startX;
       state.swipePos = (dist / screenWidth * 100) + (0 - (100 * store.state.activeSlide));
     }
-    function onTouchEnd(e)
+    function onEnd(e)
     {
+      e.stopPropagation();
+
       function action(dir)
       {
         if (dir) next();
@@ -172,7 +178,7 @@ export default defineComponent({
         images.value.cancel();
       }
 
-      e.stopPropagation();
+      if (!e.touches && touched) return;
       if (state.animated || !state.swipeMove) return;
       if (e.touches && e.touches.length > 0) return;
 
@@ -192,6 +198,11 @@ export default defineComponent({
       if (elapsedTime < 60 || percent < 1)
       {
         runAutoplay(true);
+        // toggle hud
+        if (store.state.preference.general.clickVisibleHud && !e.target.closest('.controller'))
+        {
+          store.dispatch('changeHud');
+        }
         return;
       }
 
@@ -323,9 +334,9 @@ export default defineComponent({
       // methods
       onAnimationControl,
       onChangeActive,
-      onTouchStart,
-      onTouchMove,
-      onTouchEnd,
+      onStart,
+      onMove,
+      onEnd,
       onTouchCancel,
       onMouseEnter,
       onContextMenu,

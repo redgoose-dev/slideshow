@@ -13,7 +13,9 @@
       @click="onClose"/>
   </header>
   <div class="thumbnail__body">
-    <ul class="thumbnail__index">
+    <ul
+      v-if="state.computedIndex && state.computedIndex.length > 0"
+      class="thumbnail__index">
       <li v-for="(o,k) in state.computedIndex">
         <button
           type="button"
@@ -23,6 +25,10 @@
         </button>
       </li>
     </ul>
+    <div v-else class="thumbnail__empty">
+      <Icon icon-name="frown"/>
+      <p>{{$t('thumbnail.empty')}}</p>
+    </div>
   </div>
 </article>
 </template>
@@ -32,11 +38,13 @@ import { defineComponent, reactive, computed, onMounted, onUnmounted } from 'vue
 import { useStore } from 'vuex';
 import * as local from '~/libs/local';
 import ButtonClose from '~/components/Button/Close';
+import Icon from '~/components/Icon';
 
 export default defineComponent({
   name: 'Thumbnail',
   components: {
     ButtonClose,
+    Icon,
   },
   setup()
   {
@@ -56,7 +64,7 @@ export default defineComponent({
     // methods
     function onSelect(n)
     {
-      local.slides.change(n, 'none');
+      if (local.slides) local.slides.change(n, 'none');
       store.dispatch('changeMode', null);
     }
     function onClose()

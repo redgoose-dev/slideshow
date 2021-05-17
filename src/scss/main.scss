@@ -45,6 +45,7 @@ body {
   line-height: 1.6;
   background-color: var(--color-bg);
   overflow: hidden;
+  position: fixed;
   ::selection {
     background: var(--color-key);
     color: var(--color-invert);
