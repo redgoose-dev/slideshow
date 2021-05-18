@@ -15,9 +15,9 @@
 	"navigation": {
 		"autoplay": "Autoplay",
 		"fullscreen": "Fullscreen",
-		"menu": "Open menu",
+		"menu": "Menu",
 		"preference": "Preference",
-		"thumbnail": "View thumbnail"
+		"thumbnail": "Thumbnail"
 	},
 	"preference": {
 		"confirm": "The slideshow restarts.\nWould you like to apply?",

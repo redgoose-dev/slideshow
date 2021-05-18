@@ -71,6 +71,4 @@ export default defineComponent({
 </script>
 
 <style src="./form.scss" lang="scss" scoped></style>
-<style src="./Upload.scss" lang="scss" scoped>
-
-</style>
+<style src="./Upload.scss" lang="scss" scoped></style>
