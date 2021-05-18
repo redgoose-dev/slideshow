@@ -1,3 +1,6 @@
+const prefix = 'slideshow';
+let disableStorage = false;
+
 /**
  * check localStorage
  *
@@ -16,10 +19,11 @@ function checkObject()
  */
 export function get(key)
 {
+  if (disableStorage) return;
   if (!(checkObject() && key)) return undefined;
   try
   {
-    return JSON.parse(window.localStorage.getItem(key));
+    return JSON.parse(window.localStorage.getItem(`${prefix}_${key}`));
   }
   catch(e)
   {
@@ -35,6 +39,15 @@ export function get(key)
  */
 export function set(key, value)
 {
+  if (disableStorage) return;
   if (!(checkObject() && key && value)) return;
-  window.localStorage.setItem(key, JSON.stringify(value));
+  window.localStorage.setItem(`${prefix}_${key}`, JSON.stringify(value));
+}
+
+/**
+ * disabled storage
+ */
+export function disabled()
+{
+  disableStorage = true;
 }

@@ -94,10 +94,12 @@ export default defineComponent({
       }),
       computedShowFirstItem: computed(() => {
         if (!props.loop) return false;
+        if (props.items.length <= 1) return false;
         return props.items[props.items.length-1] && props.animationType === 'horizontal';
       }),
       computedShowLastItem: computed(() => {
         if (!props.loop) return false;
+        if (props.items.length <= 1) return false;
         return props.items[0] && props.animationType === 'horizontal';
       }),
     });

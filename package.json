@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
     "build": "vue-cli-service build",
+    "dev-external": "vue-cli-service serve --host 0.0.0.0 --port 3000 src/external/main.js",
     "version-patch": "npm version patch"
   },
   "browserslist": [

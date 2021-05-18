@@ -64,7 +64,7 @@ export function checkSlideItems(items)
       const checklist = [
         checkNestedKeys(item, 'string', ['src']),
         checkNestedKeys(item, 'string', ['title']),
-        checkNestedKeys(item, 'string', ['description']),
+        // checkNestedKeys(item, 'string', ['description']),
       ];
       if (checklist.indexOf(false) > -1) throw 'not property in item';
     });

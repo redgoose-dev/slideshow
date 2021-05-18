@@ -1,8 +1,9 @@
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n/index';
+// assets
 import store from '~/store';
 // components
-import App from '~/screen/App';
+import External from './External';
 // style
 import '~/scss/main.scss';
 
@@ -25,7 +26,7 @@ if (!document.getElementById('modal'))
 }
 
 // initial app and mount
-const app = createApp(App)
+createApp(External)
   .use(store)
   .use(i18n)
   .mount('#app');

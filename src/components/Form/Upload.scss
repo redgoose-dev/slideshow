@@ -1,6 +1,7 @@
 @import "../../scss/mixins";
 
 .form-upload {
+  position: relative;
   display: block;
   height: var(--form-height);
   cursor: pointer;
@@ -26,6 +27,7 @@
     border: none;
     width: 100%;
     height: 100%;
+    cursor: pointer;
   }
   &__body {
     display: flex;

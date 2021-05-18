@@ -100,6 +100,7 @@ export default defineComponent({
       }),
       computedVisibleController: computed(() => {
         const { hud, visibleHudContents } = store.state.preference.general;
+        if (state.computedImages.length <= 1) return false;
         return hud && visibleHudContents.controller;
       }),
       computedVisiblePaginate: computed(() => {
@@ -146,6 +147,7 @@ export default defineComponent({
       if (state.animated) return;
       if (!store.state.preference.slides.swipe) return;
       if (store.state.preference.slides.animationType !== 'horizontal') return;
+      if (state.computedImages.length <= 2) return;
       runAutoplay(false);
       swipeMeta = {
         dist: 0,
@@ -159,6 +161,7 @@ export default defineComponent({
       e.stopPropagation();
       if (!e.touches && touched) return;
       if (state.animated || !state.swipeMove) return;
+      if (state.computedImages.length <= 2) return;
       swipeMeta.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX);
       const screenWidth = window.innerWidth;
       const dist = swipeMeta.moveX - swipeMeta.startX;
@@ -181,6 +184,7 @@ export default defineComponent({
       if (!e.touches && touched) return;
       if (state.animated || !state.swipeMove) return;
       if (e.touches && e.touches.length > 0) return;
+      if (state.computedImages.length <= 2) return;
 
       const screenWidth = window.innerWidth;
       swipeMeta.endX = (e.changedTouches && e.changedTouches[0]) ? Math.floor(e.changedTouches[0].clientX) : (e.clientX || e.pageX);

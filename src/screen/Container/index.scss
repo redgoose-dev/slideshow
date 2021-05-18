@@ -5,6 +5,7 @@
   box-sizing: border-box;
   user-select: none;
   @include full-height();
+  min-width: 100vw;
   &__slides {
     position: relative;
   }

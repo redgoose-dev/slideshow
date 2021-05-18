@@ -114,6 +114,41 @@ yarn run electron-dev
 yarn run electron-build
 ```
 
+### Using component
+
+다른 프로젝트에서 슬라이드쇼를 사용하려면 `npm`을 이용하여 컴포넌트를 직접 추가할 수 있습니다.
+
+```shell
+yarn add @redgoose/slideshow
+```
+
+추가하고 프로젝트 entry 소스에서 [main.js](https://github.com/redgoose-dev/slideshow/blob/main/src/main.js) 파일을 참고하여 슬라이드쇼에 필요한 요소를 맞춥니다.  
+[main.scss](https://github.com/redgoose-dev/slideshow/blob/main/src/scss/main.scss) 파일도 참고하여 프로젝트 css에 맞춰서 불러오는것은 권장합니다.
+
+마지막으로 다음과 같이 컴포넌트를 추가합니다.
+
+```vue
+<template>
+  <Slideshow
+    preference="{}"
+    slides="[]"/>
+</template>
+<script>
+import { defineComponent } from 'vue';
+import Slideshow from '@redgoose/slideshow';
+export default defineComponent({
+  components: {
+    Slideshow,
+  },
+});
+</script>
+```
+
+다음은 슬라이드쇼 props 가이드입니다.
+
+- preference: [환경설정](https://github.com/redgoose-dev/slideshow/blob/main/src/store/defaults.js) 참고
+- slides: [Management slides data](https://github.com/redgoose-dev/slideshow/tree/main#management-slides-data) 항목 참고
+
 
 ## Support browser
 
