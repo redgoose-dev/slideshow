@@ -10,17 +10,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
-    "build": "vue-cli-service build",
-    "electron-dev": "electron ./main.js --dev",
-    "electron-build": "rm -rf dist && yarpm run electron:mac && yarpm run electron:win",
-    "electron:mac": "electron-builder --mac --dir ",
-    "electron:win": "electron-builder --win nsis --dir --x64 && rm -rf dist/win-unpacked"
+    "docs": "rm -rf docs && git checkout main docs",
+    "dev": "electron ./main.js --dev",
+    "build": "rm -rf dist && yarpm run build:mac && yarpm run build:win",
+    "build:mac": "electron-builder --mac --dir ",
+    "build:win": "electron-builder --win nsis --dir --x64 && rm -rf dist/win-unpacked"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ],
   "build": {
     "appId": "redgoose.slideshow",
     "productName": "Slideshow",
@@ -37,18 +32,10 @@
       "category": "public.app-category.entertainment"
     }
   },
-  "dependencies": {
-    "vue": "^3.0.11",
-    "vue-i18n": "^9.1.6",
-    "vuex": "^4.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@vue/cli-service": "^4.5.12",
-    "@vue/compiler-sfc": "^3.0.11",
     "electron": "^12.0.7",
     "electron-builder": "^22.11.4",
-    "sass": "^1.32.11",
-    "sass-loader": "^10.1.1",
     "yarpm": "^1.1.1"
   }
 }
