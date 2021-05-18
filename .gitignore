@@ -1,7 +1,6 @@
 # directories
 node_modules/
 /dist
-/docs
 
 # Log files
 npm-debug.log*
