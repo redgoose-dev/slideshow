@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+docs/
+resource/
+public/
+
+vue.config.js
+webpack.config.js
