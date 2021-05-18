@@ -139,3 +139,45 @@ export function getValueFromType(type, value)
       return value;
   }
 }
+
+/**
+ * get api data
+ *
+ * @param {string} url
+ * @param {boolean} parse
+ * @return {Promise}
+ */
+export function getApiData(url, parse = true)
+{
+  return new Promise((resolve, reject) => {
+    try
+    {
+      const httpRequest = new XMLHttpRequest();
+      if (!httpRequest) throw new Error('no XMLHttpRequest');
+      httpRequest.onreadystatechange = () => {
+        try
+        {
+          if (httpRequest.readyState !== XMLHttpRequest.DONE) return;
+          if (httpRequest.status === 200)
+          {
+            resolve(parse ? JSON.parse(httpRequest.responseText) : httpRequest.responseText);
+          }
+          else
+          {
+            throw new Error('failed request url');
+          }
+        }
+        catch(e)
+        {
+          reject(e.message);
+        }
+      };
+      httpRequest.open('get', url);
+      httpRequest.send();
+    }
+    catch(e)
+    {
+      reject(e.message);
+    }
+  });
+}

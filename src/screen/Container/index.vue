@@ -5,7 +5,7 @@
     $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
   ]">
   <Slides
-    v-if="state.existSlideItem"
+    v-if="state.computedExistSlides"
     ref="slides"
     class="slideshow__slides"/>
   <SlidesEmpty v-else/>
@@ -44,7 +44,6 @@ export default defineComponent({
     const store = useStore();
     const { t } = useI18n({ useScope: 'global' });
     let state = reactive({
-      existSlideItem: store.state.slides.length > 0,
       computedMode: computed(() => {
         switch (store.state.mode)
         {
@@ -54,6 +53,9 @@ export default defineComponent({
           default:
             return null;
         }
+      }),
+      computedExistSlides: computed(() => {
+        return store.state.slides && store.state.slides.length > 0;
       }),
       computedShowThumbnail: computed(() => {
         return store.state.preference.general.visibleHudContents.thumbnail && state.computedMode === 'thumbnail';

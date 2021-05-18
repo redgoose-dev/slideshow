@@ -9,11 +9,14 @@ import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
 import * as storage from '~/libs/storage';
 import * as local from '~/libs/local';
+import { getApiData } from '~/libs/util';
 import { convertPureObject, checkPreference, checkSlideItems } from '~/libs/object';
 import { sleep, initCustomEvent } from '~/libs/util';
 import Container from '~/screen/Container';
 import LoadingIntro from '~/components/Loading/Intro';
-import example from '~/example.json';
+
+// set dev
+if (window) window.dev = process.env.NODE_ENV === 'development';
 
 export default defineComponent({
   name: 'App',
@@ -23,7 +26,8 @@ export default defineComponent({
   },
   props: {
     preference: Object,
-    slides: Array,
+    tree: Object,
+    category: { type: String, default: 'default' },
   },
   setup(props)
   {
@@ -52,6 +56,75 @@ export default defineComponent({
       const $html = document.querySelector('html');
       $html.dataset['color'] = theme;
     }
+    function fetchPreference()
+    {
+      if (props.preference)
+      {
+        storage.disabled('preference');
+        if (checkPreference(props.preference))
+        {
+          let preference = convertPureObject(props.preference);
+          store.dispatch('changePreference', preference);
+          store.dispatch('changeActiveSlide', preference.slides.initialNumber);
+          storage.set('preference', preference);
+        }
+      }
+      else
+      {
+        const storagePreference = storage.get('preference');
+        if (storagePreference)
+        {
+          store.dispatch('changePreference', storagePreference);
+          store.dispatch('changeActiveSlide', storagePreference.slides.initialNumber);
+        }
+        else
+        {
+          storage.set('preference', convertPureObject(store.state.preference));
+        }
+      }
+    }
+    async function fetchSlides()
+    {
+      let tree, slides;
+
+      try
+      {
+        // set tree
+        if (props.tree)
+        {
+          storage.disabled('slides');
+          tree = props.tree;
+        }
+        else
+        {
+          const storageSlides = storage.get('slides');
+          tree = !!storageSlides ? storageSlides : convertPureObject(require('~/example.json'));
+        }
+        if (Array.isArray(tree)) tree = { default: tree };
+        store.dispatch('changeTree', tree);
+
+        // set slides
+        slides = store.state.tree[store.state.category];
+        if (slides && typeof slides === 'string')
+        {
+          let getSlides = await getApiData(slides);
+          if (!checkSlideItems(getSlides))
+          {
+            throw new Error('Get data is invalid.');
+          }
+          slides = getSlides;
+        }
+        else if (!(slides && Array.isArray(slides)))
+        {
+          slides = null;
+        }
+        store.dispatch('changeSlides', slides);
+      }
+      catch(e)
+      {
+        if (window.dev) console.warn('ERROR:', typeof e === 'string' ? e : e.message);
+      }
+    }
     // public methods
     function start()
     {
@@ -72,64 +145,15 @@ export default defineComponent({
     }
 
     // lifecycles
-    onMounted(() => start());
+    onMounted(() => {
+      fetchSlides().then(() => start());
+    });
 
     // initial custom event
     initCustomEvent();
 
-    // set preference data
-    if (props.preference)
-    {
-      storage.disabled();
-      if (checkPreference(props.preference))
-      {
-        let preference = convertPureObject(props.preference);
-        store.dispatch('changePreference', preference);
-        store.dispatch('changeActiveSlide', preference.slides.initialNumber);
-        storage.set('preference', preference);
-      }
-    }
-    else
-    {
-      const storagePreference = storage.get('preference');
-      if (storagePreference)
-      {
-        store.dispatch('changePreference', storagePreference);
-        store.dispatch('changeActiveSlide', storagePreference.slides.initialNumber);
-      }
-      else
-      {
-        storage.set('preference', convertPureObject(store.state.preference));
-      }
-    }
-
-    // set slides data
-    if (props.slides)
-    {
-      storage.disabled();
-      if (checkSlideItems(props.slides))
-      {
-        let slides = convertPureObject(props.slides);
-        store.dispatch('changeSlides', slides);
-        storage.set('slides', slides);
-      }
-    }
-    else
-    {
-      const storageSlides = storage.get('slides');
-      if (storageSlides)
-      {
-        store.dispatch('changeSlides', storageSlides);
-      }
-      else
-      {
-        const slides = example;
-        store.dispatch('changeSlides', slides);
-        storage.set('slides', slides);
-      }
-    }
-
     // actions
+    fetchPreference();
     updateTheme(store.state.preference.style.screenColor);
     locale.value = store.state.preference.general.language;
 

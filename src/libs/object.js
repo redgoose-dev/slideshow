@@ -44,34 +44,39 @@ function checkNestedKeys(src, type, keys)
 export function convertPureObject(src)
 {
   if (!src) return null;
-  return JSON.parse(JSON.stringify(src));
+  try
+  {
+    return JSON.parse(JSON.stringify(src));
+  }
+  catch(_)
+  {
+    return null;
+  }
 }
 
 /**
  * check slide items
  *
- * @param {array} items
+ * @param {object[]} items
  * @return {boolean}
  */
 export function checkSlideItems(items)
 {
   try
   {
-    if (!(items && Array.isArray(items))) throw new Error('Invalid file');
-    if (items.length <= 0) return true;
-    items.forEach(item => {
-      if (typeof item !== 'object') throw 'not object item';
-      const checklist = [
-        checkNestedKeys(item, 'string', ['src']),
-        checkNestedKeys(item, 'string', ['title']),
-        // checkNestedKeys(item, 'string', ['description']),
-      ];
-      if (checklist.indexOf(false) > -1) throw 'not property in item';
-    });
+    if (!(items && typeof items === 'object')) throw new Error('Invalid slides data');
+    for (let i=0; i<items[i].length; i++)
+    {
+      if (!(items[i] && items[i].src))
+      {
+        throw new Error(`The item[${i}] of this item is invalid.`);
+      }
+    }
     return true;
   }
   catch(e)
   {
+    if (window.dev) console.warn(e.message);
     return false;
   }
 }
@@ -117,5 +122,6 @@ export function checkPreference(item)
     // keyboard
     checkNestedKeys(item, 'boolean', ['keyboard', 'enabled']),
   ];
+  // TODO: 어디에서 오류뜨는지 `console`찍히게 조취를 취해야할듯..
   return !(checklist.indexOf(false) > -1);
 }

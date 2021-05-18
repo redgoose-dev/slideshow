@@ -1,5 +1,5 @@
-import * as object from '~/libs/object';
 import defaults from '~/store/defaults';
+import * as object from '~/libs/object';
 import * as storage from '~/libs/storage';
 
 /**
@@ -65,6 +65,35 @@ export function changeHud(context, sw = undefined)
 }
 
 /**
+ * change tree
+ *
+ * @param {object} context
+ * @param {object} tree
+ */
+export function changeTree(context, tree)
+{
+  try
+  {
+    let keys = Object.keys(tree);
+    for (let i=0; i<keys.length; i++)
+    {
+      if (typeof tree[keys[i]] === 'string') continue;
+      if (!object.checkSlideItems(tree[keys[i]]))
+      {
+        throw new Error(`error item.${keys[i]}`);
+      }
+    }
+    context.commit('updateTree', tree);
+    storage.set('tree', tree);
+  }
+  catch(e)
+  {
+    if (window.dev) console.warn(e.message);
+    throw new Error(e.message);
+  }
+}
+
+/**
  * change slides
  *
  * @param {object} context
@@ -72,9 +101,7 @@ export function changeHud(context, sw = undefined)
  */
 export function changeSlides(context, newSlides)
 {
-  const slides = object.convertPureObject(newSlides);
-  storage.set('slides', slides);
-  context.commit('updateSlides', slides);
+  context.commit('updateSlides', newSlides);
 }
 
 /**

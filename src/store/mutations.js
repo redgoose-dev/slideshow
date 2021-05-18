@@ -51,12 +51,25 @@ export function updateValueInPreference(state, src)
   }
 }
 
+export function updateTree(state, value)
+{
+  state.tree = value;
+}
+
 /**
  * update slides
  */
 export function updateSlides(state, value)
 {
   state.slides = value;
+}
+
+/**
+ * update category
+ */
+export function updateCategory(state, value)
+{
+  state.category = value;
 }
 
 /**
