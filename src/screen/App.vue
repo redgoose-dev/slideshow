@@ -92,12 +92,12 @@ export default defineComponent({
         // set tree
         if (props.tree)
         {
-          storage.disabled('slides');
+          storage.disabled('tree');
           tree = props.tree;
         }
         else
         {
-          const storageSlides = storage.get('slides');
+          const storageSlides = storage.get('tree');
           tree = !!storageSlides ? storageSlides : convertPureObject(require('~/example.json'));
         }
         if (Array.isArray(tree)) tree = { default: tree };
@@ -136,12 +136,21 @@ export default defineComponent({
     {
       state.loading = true;
     }
-    function restart()
+    function restart(reloadSlides = false)
     {
       stop();
       updateTheme(store.state.preference.style.screenColor);
       locale.value = store.state.preference.general.language;
-      sleep(1000).then(() => start());
+      sleep(800).then(() => {
+        if (reloadSlides)
+        {
+          fetchSlides().then(() => start());
+        }
+        else
+        {
+          start();
+        }
+      });
     }
 
     // lifecycles
@@ -149,10 +158,8 @@ export default defineComponent({
       fetchSlides().then(() => start());
     });
 
-    // initial custom event
-    initCustomEvent();
-
     // actions
+    initCustomEvent();
     fetchPreference();
     updateTheme(store.state.preference.style.screenColor);
     locale.value = store.state.preference.general.language;

@@ -326,8 +326,7 @@ export default defineComponent({
     function onClickReset()
     {
       if (!confirm(t('preference.general.confirms.reset'))) return;
-      store.dispatch('reset');
-      local.main.restart();
+      store.dispatch('reset').then(() => local.main.restart());
     }
 
     return {

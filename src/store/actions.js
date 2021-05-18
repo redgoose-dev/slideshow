@@ -31,8 +31,8 @@ export function changeMode(context, value)
 export function changePreference(context, value)
 {
   const pref = object.convertPureObject(value);
-  storage.set('preference', pref);
   context.commit('updatePreference', pref);
+  storage.set('preference', pref);
 }
 
 /**
@@ -78,6 +78,7 @@ export function changeTree(context, tree)
     for (let i=0; i<keys.length; i++)
     {
       if (typeof tree[keys[i]] === 'string') continue;
+      if (tree[keys[i]].length <= 0) continue;
       if (!object.checkSlideItems(tree[keys[i]]))
       {
         throw new Error(`error item.${keys[i]}`);
@@ -121,17 +122,14 @@ export function changeActiveSlide(context, active)
  *
  * @param {object} context
  */
-export function reset(context)
+export async function reset(context)
 {
   const preference = object.convertPureObject(defaults.preference);
+  const tree = object.convertPureObject(defaults.tree);
   const slides = object.convertPureObject(defaults.slides);
-
-  // update storage
-  storage.set('preference', preference);
-  storage.set('slides', slides);
-  // update store
-  context.commit('updatePreference', preference);
-  context.commit('updateSlides', slides);
+  await context.dispatch('changePreference', preference);
+  await context.dispatch('changeTree', tree);
+  await context.dispatch('changeSlides', slides);
   context.commit('updateActiveSlide', preference.slides.initialNumber);
   context.commit('updateUseKeyboardEvent', true);
   context.commit('updateMode', null);
