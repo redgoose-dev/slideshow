@@ -1,7 +1,8 @@
 {
-  "name": "slideshow",
+  "name": "image-slideshow",
+  "description": "vue's slideshow",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "src/screen/App.vue",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",
@@ -12,31 +13,12 @@
   "scripts": {
     "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
     "build": "vue-cli-service build",
-    "electron-dev": "electron ./main.js --dev",
-    "electron-build": "rm -rf dist && yarpm run electron:mac && yarpm run electron:win",
-    "electron:mac": "electron-builder --mac --dir ",
-    "electron:win": "electron-builder --win nsis --dir --x64 && rm -rf dist/win-unpacked"
+    "version-patch": "npm version patch"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
   ],
-  "build": {
-    "appId": "redgoose.slideshow",
-    "productName": "Slideshow",
-    "directories": {
-      "output": "dist"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "resource/icons/icon.ico"
-    },
-    "mac": {
-      "target": "default",
-      "icon": "resource/icons/icon.icns",
-      "category": "public.app-category.entertainment"
-    }
-  },
   "dependencies": {
     "vue": "^3.0.11",
     "vue-i18n": "^9.1.6",
@@ -45,10 +27,7 @@
   "devDependencies": {
     "@vue/cli-service": "^4.5.12",
     "@vue/compiler-sfc": "^3.0.11",
-    "electron": "^12.0.7",
-    "electron-builder": "^22.11.4",
     "sass": "^1.32.11",
-    "sass-loader": "^10.1.1",
-    "yarpm": "^1.1.1"
+    "sass-loader": "^10.1.1"
   }
 }
