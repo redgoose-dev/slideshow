@@ -5,7 +5,7 @@ import store from '~/store';
 // components
 import External from './External';
 // style
-import '~/scss/main.scss';
+import './main.scss';
 
 // initial i18n
 const i18n = createI18n({
