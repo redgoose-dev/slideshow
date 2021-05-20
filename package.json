@@ -1,5 +1,6 @@
 {
   "name": "@redgoose/slideshow",
+  "productName": "Slideshow",
   "description": "vue's slideshow",
   "version": "1.0.6",
   "main": "src/screen/App.vue",

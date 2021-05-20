@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-
-const development = process.env.NODE_ENV === 'development';
+const pkg = require('./package.json');
 
 module.exports = {
   publicPath: './',
@@ -18,5 +17,13 @@ module.exports = {
         __INTLIFY_PROD_DEVTOOLS__: false,
       }),
     ]
+  },
+  chainWebpack: config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].title = pkg.productName || 'Slideshow';
+        return args;
+      });
   },
 };
