@@ -41,7 +41,7 @@
 import { defineComponent, defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
-import * as object from '~/libs/object';
+import { convertPureObject, checkPreference, checkTree } from '~/libs/object';
 import * as local from '~/libs/local';
 import Icon from '~/components/Icon';
 import Side from './Side';
@@ -56,17 +56,15 @@ export default defineComponent({
   {
     const store = useStore();
     const { t } = useI18n({ useScope: 'global' });
-    const preference = object.convertPureObject(store.state.preference);
-    const slides = object.convertPureObject(store.state.slides);
+    const preference = convertPureObject(store.state.preference);
+    const tree = convertPureObject(store.state.tree);
     let state = reactive({
       tab: 'general', // general,slides,style,data,keyboard,information
       structure: {
         general: preference.general,
         slides: preference.slides,
         style: preference.style,
-        data: {
-          slides: JSON.stringify(slides, null, 2),
-        },
+        data: { tree },
         keyboard: preference.keyboard,
       },
       computedContentComponent: computed(() => {
@@ -154,27 +152,34 @@ export default defineComponent({
       if (!confirm(t('preference.confirm'))) return;
       try
       {
-        // check data
-        let slides = JSON.parse(state.structure.data.slides);
-        if (!object.checkSlideItems(slides)) throw 'The slides data is invalid.';
+        let tree = convertPureObject(state.structure.data.tree);
+        checkTree(tree);
         let preference = {
-          general: object.convertPureObject(state.structure.general),
-          slides: object.convertPureObject(state.structure.slides),
-          style: object.convertPureObject(state.structure.style),
-          keyboard: object.convertPureObject(state.structure.keyboard),
+          general: convertPureObject(state.structure.general),
+          slides: convertPureObject(state.structure.slides),
+          style: convertPureObject(state.structure.style),
+          keyboard: convertPureObject(state.structure.keyboard),
         };
-        if (!object.checkPreference(preference)) throw 'Bad preference data.';
+        if (!checkPreference(preference)) throw 'Bad preference data.';
+
         // update store
-        store.dispatch('changeSlides', slides);
         store.dispatch('changePreference', preference);
         store.dispatch('changeMode', null);
         store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
         store.commit('updateUseKeyboardEvent', true);
+        store.dispatch('changeTree', tree);
+        // check and update category
+        if (!(Object.keys(tree).indexOf(store.state.category) > -1))
+        {
+          store.commit('updateCategory', Object.keys(tree)[0]);
+        }
+
         // restart
-        local.main.restart();
+        local.main.restart().then();
       }
       catch(e)
       {
+        if (window.dev) console.warn(e.message);
         alert(t('preference.failedApply'));
       }
     }

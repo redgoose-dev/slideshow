@@ -1,9 +1,15 @@
 <template>
 <nav class="form form-radio">
   <div class="form-radio__wrap">
-    <label
-      v-for="(o,k) in items"
-      class="">
+    <div v-if="type === 'button'" v-for="(o,k) in items" class="form-radio__button">
+      <button
+        type="button"
+        :disabled="modelValue === o.key || (!modelValue && k === 0)"
+        @click="onClickItem(o.key)">
+        {{o.label}}
+      </button>
+    </div>
+    <label v-else v-for="(o,k) in items">
       <input
         type="radio"
         :name="name"
@@ -20,11 +26,12 @@
 
 <script>
 import { defineComponent } from 'vue';
-import * as util from '~/libs/util';
+import { getValueFromType } from '~/libs/util';
 
 export default defineComponent({
   name: 'FormRadio',
   props: {
+    type: String, // undefined,button
     items: { type: Array, required: true },
     name: String,
     id: String,
@@ -35,10 +42,15 @@ export default defineComponent({
   {
     function onChange(e)
     {
-      context.emit('update:modelValue', util.getValueFromType(props.modelType, e.target.value));
+      context.emit('update:modelValue', getValueFromType(props.modelType, e.target.value));
+    }
+    function onClickItem(key)
+    {
+      context.emit('update:modelValue', getValueFromType(props.modelType, key));
     }
     return {
       onChange,
+      onClickItem,
     };
   },
   emits: {

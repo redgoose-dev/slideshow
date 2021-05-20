@@ -59,26 +59,39 @@ export function convertPureObject(src)
  *
  * @param {object[]} items
  * @return {boolean}
+ * @throws
  */
 export function checkSlideItems(items)
 {
-  try
+  if (!(items && typeof items === 'object')) throw new Error('Invalid slides data');
+  for (let i=0; i<items.length; i++)
   {
-    if (!(items && typeof items === 'object')) throw new Error('Invalid slides data');
-    for (let i=0; i<items[i].length; i++)
+    if (!(items[i] && items[i].src))
     {
-      if (!(items[i] && items[i].src))
-      {
-        throw new Error(`The item[${i}] of this item is invalid.`);
-      }
+      throw new Error(`The item[${i}] of this item is invalid.`);
     }
-    return true;
   }
-  catch(e)
+}
+
+/**
+ * check tree
+ *
+ * @param {object} src
+ * @return {boolean}
+ * @throws
+ */
+export function checkTree(src)
+{
+  if (typeof src !== 'object') throw new Error('This value is not an object.');
+  let keys = Object.keys(src);
+  for (let i=0; i<keys.length; i++)
   {
-    if (window.dev) console.warn(e.message);
-    return false;
+    if (typeof src[keys[i]] === 'string') continue;
+    if (!Array.isArray(src[keys[i]])) throw new Error(`not array item: item.${keys[i]}`);
+    if (src[keys[i]].length <= 0) continue;
+    checkSlideItems(src[keys[i]]);
   }
+  return true;
 }
 
 /**

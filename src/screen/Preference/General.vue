@@ -201,7 +201,6 @@
         </div>
       </div>
     </div>
-
     <div class="field-basic">
       <h3 class="field-title">
         <label>
@@ -311,7 +310,7 @@ export default defineComponent({
               store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
               store.commit('updateUseKeyboardEvent', true);
               alert(t('preference.general.alerts.completeRestore'));
-              local.main.restart();
+              local.main.restart().then();
             }
             catch(e)
             {
@@ -326,7 +325,7 @@ export default defineComponent({
     function onClickReset()
     {
       if (!confirm(t('preference.general.confirms.reset'))) return;
-      store.dispatch('reset').then(() => local.main.restart());
+      store.dispatch('reset').then(() => local.main.restart().then());
     }
 
     return {

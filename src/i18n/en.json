@@ -27,6 +27,9 @@
 				"failedGetFile": "Failed to get the file.",
 				"noSelectedFile": "There are no files selected."
 			},
+			"category": {
+				"title": "Selected category"
+			},
 			"importSlidesData": {
 				"desc_apiAddress": "Get data through `RestAPI`.",
 				"desc_file": "Import slide data by uploading `json` file.",
@@ -37,7 +40,7 @@
 			},
 			"slides": {
 				"description": "`JSON` data is imported through the `RestAPI`.",
-				"title": "Edit slide data"
+				"title": "Manage slide data"
 			}
 		},
 		"failedApply": "Failed to apply due to an error.",

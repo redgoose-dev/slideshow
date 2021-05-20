@@ -108,10 +108,7 @@ export default defineComponent({
         if (slides && typeof slides === 'string')
         {
           let getSlides = await getApiData(slides);
-          if (!checkSlideItems(getSlides))
-          {
-            throw new Error('Get data is invalid.');
-          }
+          checkSlideItems(getSlides);
           slides = getSlides;
         }
         else if (!(slides && Array.isArray(slides)))
@@ -136,21 +133,21 @@ export default defineComponent({
     {
       state.loading = true;
     }
-    function restart(reloadSlides = false)
+    async function restart(reloadSlides = false)
     {
       stop();
       updateTheme(store.state.preference.style.screenColor);
       locale.value = store.state.preference.general.language;
-      sleep(800).then(() => {
-        if (reloadSlides)
-        {
-          fetchSlides().then(() => start());
-        }
-        else
-        {
-          start();
-        }
-      });
+      await fetchSlides();
+      await sleep(800);
+      if (reloadSlides)
+      {
+        fetchSlides().then(() => start());
+      }
+      else
+      {
+        start();
+      }
     }
 
     // lifecycles

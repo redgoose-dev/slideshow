@@ -74,16 +74,7 @@ export function changeTree(context, tree)
 {
   try
   {
-    let keys = Object.keys(tree);
-    for (let i=0; i<keys.length; i++)
-    {
-      if (typeof tree[keys[i]] === 'string') continue;
-      if (tree[keys[i]].length <= 0) continue;
-      if (!object.checkSlideItems(tree[keys[i]]))
-      {
-        throw new Error(`error item.${keys[i]}`);
-      }
-    }
+    object.checkSlideItems(tree);
     context.commit('updateTree', tree);
     storage.set('tree', tree);
   }

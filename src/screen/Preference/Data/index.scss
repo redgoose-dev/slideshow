@@ -1,0 +1,18 @@
+@import "../../../scss/mixins";
+
+.manage-tree {
+  &__mode {
+    --form-height: 36px;
+    --form-text-size: 14px;
+  }
+  &__button {
+    --button-size: 36px;
+  }
+  &-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-body {
+    margin: 8px 0 0;
+  }
+}

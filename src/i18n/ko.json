@@ -27,6 +27,9 @@
 				"failedGetFile": "파일 가져오기 실패했습니다.",
 				"noSelectedFile": "선택된 파일이 없습니다."
 			},
+			"category": {
+				"title": "Selected category"
+			},
 			"importSlidesData": {
 				"desc_apiAddress": "`RestAPI` 통하여 데이터를 가져옵니다.",
 				"desc_file": "슬라이드 데이터를 `json` 파일을 업로드하여 가져옵니다.",
@@ -37,7 +40,7 @@
 			},
 			"slides": {
 				"description": "`RestAPI`를 통하여 JSON 데이터를 가져옵니다.",
-				"title": "슬라이드 데이터 편집"
+				"title": "슬라이드 데이터 관리"
 			}
 		},
 		"failedApply": "오류가 발생하여 적용하지 못했습니다.",

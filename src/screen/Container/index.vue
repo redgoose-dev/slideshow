@@ -11,6 +11,7 @@
   <SlidesEmpty v-else/>
   <Navigation
     v-if="$store.state.preference.general.hud"
+    ref="navigation"
     class="slideshow__navigation"/>
   <teleport to="#modal">
     <Thumbnail v-if="state.computedShowThumbnail"/>
@@ -65,6 +66,7 @@ export default defineComponent({
       }),
     });
     const slides = ref(null);
+    const navigation = ref(null);
     let keys = [];
 
     // methods
@@ -77,6 +79,7 @@ export default defineComponent({
         if (idx > -1) keys.splice(idx);
         return;
       }
+      if (navigation.value) navigation.value.blur();
       if (state.computedMode)
       {
         switch (e.keyCode)
@@ -114,7 +117,7 @@ export default defineComponent({
           case 82: // r
             if (confirm(t('main.confirmRestart')) && local.main)
             {
-              local.main.restart();
+              local.main.restart().then();
             }
             break;
           case 72: // h
@@ -154,6 +157,7 @@ export default defineComponent({
     return {
       state,
       slides,
+      navigation,
     };
   },
 });
