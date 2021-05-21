@@ -80,7 +80,7 @@ export function changeTree(context, tree)
   }
   catch(e)
   {
-    if (window.dev) console.warn(e.message);
+    if (window.dev) console.error(e.message);
     throw new Error(e.message);
   }
 }

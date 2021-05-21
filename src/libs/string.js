@@ -25,3 +25,14 @@ export function validUrl(str)
   }
   return url.protocol === 'http:' || url.protocol === 'https:';
 }
+
+/**
+ * object to string
+ *
+ * @param {object|array} src
+ * @return {string}
+ */
+export function objectToString(src)
+{
+  return JSON.stringify(src, null, 2);
+}

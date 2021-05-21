@@ -275,7 +275,7 @@ export default defineComponent({
       if (!confirm(t('preference.general.confirms.backup'))) return;
       let result = {
         preference: object.convertPureObject(store.state.preference),
-        slides: object.convertPureObject(store.state.slides),
+        tree: object.convertPureObject(store.state.tree),
       };
       const date = new Date();
       let dateFormat = `${date.getFullYear()}${string.twoDigit(date.getMonth() + 1)}${string.twoDigit(date.getDate())}`;
@@ -303,9 +303,9 @@ export default defineComponent({
             {
               let json = JSON.parse(String(e.target.result));
               if (!confirm(t('preference.general.confirms.restore'))) return;
-              if (!(json.preference && json.slides)) throw new Error('no data');
+              if (!(json.preference && json.tree)) throw new Error('no data');
               store.dispatch('changePreference', json.preference);
-              store.dispatch('changeSlides', json.slides);
+              store.dispatch('changeTree', json.tree);
               store.dispatch('changeMode', null);
               store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
               store.commit('updateUseKeyboardEvent', true);

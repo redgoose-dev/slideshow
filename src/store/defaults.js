@@ -36,9 +36,6 @@ export default {
       captionScale: 100, // %
       captionPosition: ['32px','30px'], // [ left, top ]
     },
-    data: {
-      // TODO: 구조를 좀 짜보기. 근데 대부분 바깥에서 쓰는게 좋은거 같아서..
-    },
     keyboard: {
       enabled: true,
     },

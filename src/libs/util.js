@@ -146,6 +146,7 @@ export function getValueFromType(type, value)
  * @param {string} url
  * @param {boolean} parse
  * @return {Promise}
+ * @throws {Error}
  */
 export function getApiData(url, parse = true)
 {
@@ -169,7 +170,7 @@ export function getApiData(url, parse = true)
         }
         catch(e)
         {
-          reject(e.message);
+          reject(new Error(e.message));
         }
       };
       httpRequest.open('get', url);
@@ -177,7 +178,41 @@ export function getApiData(url, parse = true)
     }
     catch(e)
     {
-      reject(e.message);
+      reject(new Error(e.message || 'failed request url'));
+    }
+  });
+}
+
+/**
+ * get file data
+ *
+ * @param {File} file
+ * @param {boolean} parse
+ * @return {Promise}
+ * @throws {Error}
+ */
+export function getFileData(file, parse = true)
+{
+  return new Promise((resolve, reject) => {
+    try
+    {
+      if (!(file)) throw new Error('no file');
+      const reader = new FileReader();
+      reader.onload = e => {
+        try
+        {
+          resolve(parse ? JSON.parse(e.target.result) : e.target.result);
+        }
+        catch(e)
+        {
+          reject(new Error(e.message || 'failed get file data'));
+        }
+      };
+      reader.readAsText(file);
+    }
+    catch(e)
+    {
+      reject(new Error(e.message || 'failed get file data'));
     }
   });
 }

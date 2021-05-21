@@ -1,5 +1,8 @@
 <template>
-<nav class="form form-radio">
+<nav :class="[
+  'form form-radio',
+  inline && 'form form-radio--inline',
+]">
   <div class="form-radio__wrap">
     <div v-if="type === 'button'" v-for="(o,k) in items" class="form-radio__button">
       <button
@@ -35,6 +38,7 @@ export default defineComponent({
     items: { type: Array, required: true },
     name: String,
     id: String,
+    inline: Boolean,
     modelType: String,
     modelValue: [ String, Number, Boolean ],
   },

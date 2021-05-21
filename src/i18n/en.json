@@ -25,22 +25,36 @@
 			"alerts": {
 				"failedGetData": "Failed get data.",
 				"failedGetFile": "Failed to get the file.",
+				"invalidData": "The data is invalid.",
 				"noSelectedFile": "There are no files selected."
 			},
-			"category": {
-				"title": "Selected category"
+			"importData": {
+				"address": {
+					"description": "Get data by RestAPI address.",
+					"title": "Import by address"
+				},
+				"file": {
+					"description": "Upload the json file to get the data",
+					"placeholder": "Please select a JSON file.",
+					"title": "Import to file"
+				},
+				"mode": {
+					"description": "Select how to import your data.",
+					"label_address": "Address",
+					"label_file": "File"
+				},
+				"submit": {
+					"getData": "Get data",
+					"processing": "Processing.."
+				}
 			},
-			"importSlidesData": {
-				"desc_apiAddress": "Get data through `RestAPI`.",
-				"desc_file": "Import slide data by uploading `json` file.",
-				"description": "Slide data can be entered through `RestAPI` or `json` file. As you enter data, it will be replaced with what you entered in the Edit Slide section.",
-				"label_getData": "Import",
-				"title": "Get slides data",
-				"uploadFile": "Choosing a `JSON` file"
-			},
-			"slides": {
-				"description": "`JSON` data is imported through the `RestAPI`.",
-				"title": "Manage slide data"
+			"tree": {
+				"changeMode": "Change the editing mode.",
+				"importData": "Import slide data.",
+				"mode_advanced": "Advanced",
+				"mode_basic": "Basic",
+				"textPlaceholder": "Please input slides data code",
+				"title": "Manage slides data"
 			}
 		},
 		"failedApply": "Failed to apply due to an error.",

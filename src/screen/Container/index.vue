@@ -144,6 +144,11 @@ export default defineComponent({
         window.on('keyup.slideshow-keyboard', onKeyup);
         window.on('keydown.slideshow-keyboard', onKeydown);
       }
+      else
+      {
+        window.off('keyup.slideshow-keyboard');
+        window.off('keydown.slideshow-keyboard');
+      }
     });
     onUnmounted(() => {
       // off keyboard event

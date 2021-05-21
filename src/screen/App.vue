@@ -72,7 +72,7 @@ export default defineComponent({
       else
       {
         const storagePreference = storage.get('preference');
-        if (storagePreference)
+        if (storagePreference && checkPreference(storagePreference))
         {
           store.dispatch('changePreference', storagePreference);
           store.dispatch('changeActiveSlide', storagePreference.slides.initialNumber);
@@ -119,13 +119,14 @@ export default defineComponent({
       }
       catch(e)
       {
-        if (window.dev) console.warn('ERROR:', typeof e === 'string' ? e : e.message);
+        if (window.dev) console.error(e.message);
+        alert('error slide data');
       }
     }
     // public methods
     function start()
     {
-      sleep(50).then(() => {
+      sleep(60).then(() => {
         state.loading = false;
       });
     }

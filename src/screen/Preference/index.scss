@@ -11,9 +11,6 @@
   bottom: 0;
   background: var(--color-bg);
   cursor: zoom-out;
-  @supports (backdrop-filter: blur(30px)) {
-    backdrop-filter: blur(30px);
-  }
   &__wrap {
     display: flex;
     justify-content: center;
@@ -34,13 +31,15 @@
     -webkit-overflow-scrolling: touch;
     @include custom-scroll-style();
   }
-
   @include responsive(desktop) {
     --header: 84px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(255,255,255,.75);
+    @supports (backdrop-filter: blur(30px)) {
+      backdrop-filter: blur(30px);
+    }
     &__wrap {
       width: 75vw;
       height: 80vh;
@@ -129,7 +128,6 @@
       }
     }
   }
-
   @include responsive(desktop) {
     &__body {
       padding: 0 0 0 30px;

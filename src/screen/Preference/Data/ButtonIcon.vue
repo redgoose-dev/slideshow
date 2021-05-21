@@ -22,6 +22,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../scss/mixins";
 .button-icon {
   display: block;
   width: var(--button-size, 36px);
@@ -49,6 +50,11 @@ export default defineComponent({
   }
   &:focus {
     box-shadow: 0 0 0 2px var(--color-key), inset 0 0 8px 0 rgba(0,0,0,.2);
+  }
+  @include dark-mode() {
+    > svg {
+      --icon-color: var(--color-fill);
+    }
   }
 }
 </style>

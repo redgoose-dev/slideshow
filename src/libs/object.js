@@ -4,34 +4,38 @@
  * @param {object} src
  * @param {string} type
  * @param {array} keys
- * @return {boolean}
+ * @throws {Error}
  */
 function checkNestedKeys(src, type, keys)
 {
+  const address = keys.join('.');
+  const message_errorType = `The type(${address}) is wrong.`;
   for (let i = 0; i < keys.length; i++)
   {
-    if (!src || !src.hasOwnProperty(keys[i])) return false;
+    if (!src || !src.hasOwnProperty(keys[i]))
+    {
+      throw new Error(`The item(${address}) is missing or invalid.`);
+    }
     src = src[keys[i]];
   }
   switch (type)
   {
     case 'array':
-      if (!Array.isArray(src)) return false;
+      if (!Array.isArray(src)) throw new Error(message_errorType);
       break;
     case 'string':
-      if (typeof src !== 'string') return false;
+      if (typeof src !== 'string') throw new Error(message_errorType);
       break;
     case 'number':
-      if (typeof src !== 'number') return false;
+      if (typeof src !== 'number') throw new Error(message_errorType);
       break;
     case 'boolean':
-      if (typeof src !== 'boolean') return false;
+      if (typeof src !== 'boolean') throw new Error(message_errorType);
       break;
     case 'object':
-      if (typeof src !== 'object') return false;
+      if (typeof src !== 'object') throw new Error(message_errorType);
       break;
   }
-  return true;
 }
 
 /**
@@ -59,7 +63,7 @@ export function convertPureObject(src)
  *
  * @param {object[]} items
  * @return {boolean}
- * @throws
+ * @throws {Error}
  */
 export function checkSlideItems(items)
 {
@@ -78,10 +82,11 @@ export function checkSlideItems(items)
  *
  * @param {object} src
  * @return {boolean}
- * @throws
+ * @throws {Error}
  */
 export function checkTree(src)
 {
+  if (!src) throw new Error('No value');
   if (typeof src !== 'object') throw new Error('This value is not an object.');
   let keys = Object.keys(src);
   for (let i=0; i<keys.length; i++)
@@ -99,42 +104,47 @@ export function checkTree(src)
  */
 export function checkPreference(item)
 {
-  if (!item) return false;
-  if (!(item.general && item.slides && item.style && item.keyboard)) return false;
-  const checklist = [
+  try
+  {
+    if (!item) throw new Error('no item');
+    if (!(item.general && item.slides && item.style && item.keyboard)) throw new Error('no item property');
     // general
-    checkNestedKeys(item, 'string', ['general', 'name']),
-    checkNestedKeys(item, 'string', ['general', 'description']),
-    checkNestedKeys(item, 'string', ['general', 'language']),
-    checkNestedKeys(item, 'boolean', ['general', 'hud']),
-    checkNestedKeys(item, 'boolean', ['general', 'hoverVisibleHud']),
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'menu']),
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'thumbnail']),
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'caption']),
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'controller']),
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'paginate']),
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'autoplay']),
+    checkNestedKeys(item, 'string', ['general', 'name']);
+    checkNestedKeys(item, 'string', ['general', 'description']);
+    checkNestedKeys(item, 'string', ['general', 'language']);
+    checkNestedKeys(item, 'boolean', ['general', 'hud']);
+    checkNestedKeys(item, 'boolean', ['general', 'hoverVisibleHud']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'menu']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'thumbnail']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'caption']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'controller']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'paginate']);
+    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'autoplay']);
     // slides
-    checkNestedKeys(item, 'number', ['slides', 'initialNumber']),
-    checkNestedKeys(item, 'string', ['slides', 'animationType']),
-    checkNestedKeys(item, 'number', ['slides', 'animationSpeed']),
-    checkNestedKeys(item, 'string', ['slides', 'captionAnimationType']),
-    checkNestedKeys(item, 'number', ['slides', 'captionAnimationSpeed']),
-    checkNestedKeys(item, 'boolean', ['slides', 'autoplay']),
-    checkNestedKeys(item, 'number', ['slides', 'autoplayDelay']),
-    checkNestedKeys(item, 'boolean', ['slides', 'autoplayDirection']),
-    checkNestedKeys(item, 'boolean', ['slides', 'autoplayPauseOnHover']),
-    checkNestedKeys(item, 'boolean', ['slides', 'loop']),
-    checkNestedKeys(item, 'boolean', ['slides', 'swipe']),
+    checkNestedKeys(item, 'number', ['slides', 'initialNumber']);
+    checkNestedKeys(item, 'string', ['slides', 'animationType']);
+    checkNestedKeys(item, 'number', ['slides', 'animationSpeed']);
+    checkNestedKeys(item, 'string', ['slides', 'captionAnimationType']);
+    checkNestedKeys(item, 'number', ['slides', 'captionAnimationSpeed']);
+    checkNestedKeys(item, 'boolean', ['slides', 'autoplay']);
+    checkNestedKeys(item, 'number', ['slides', 'autoplayDelay']);
+    checkNestedKeys(item, 'boolean', ['slides', 'autoplayDirection']);
+    checkNestedKeys(item, 'boolean', ['slides', 'autoplayPauseOnHover']);
+    checkNestedKeys(item, 'boolean', ['slides', 'loop']);
+    checkNestedKeys(item, 'boolean', ['slides', 'swipe']);
     // style
-    checkNestedKeys(item, 'string', ['style', 'screenColor']),
-    checkNestedKeys(item, 'string', ['style', 'imageType']),
-    checkNestedKeys(item, 'array', ['style', 'imageScale']),
-    checkNestedKeys(item, 'number', ['style', 'captionScale']),
-    checkNestedKeys(item, 'array', ['style', 'captionPosition']),
+    checkNestedKeys(item, 'string', ['style', 'screenColor']);
+    checkNestedKeys(item, 'string', ['style', 'imageType']);
+    checkNestedKeys(item, 'array', ['style', 'imageScale']);
+    checkNestedKeys(item, 'number', ['style', 'captionScale']);
+    checkNestedKeys(item, 'array', ['style', 'captionPosition']);
     // keyboard
-    checkNestedKeys(item, 'boolean', ['keyboard', 'enabled']),
-  ];
-  // TODO: 어디에서 오류뜨는지 `console`찍히게 조취를 취해야할듯..
-  return !(checklist.indexOf(false) > -1);
+    checkNestedKeys(item, 'boolean', ['keyboard', 'enabled']);
+    return true;
+  }
+  catch(e)
+  {
+    if (window.dev) console.error(e.message);
+    return false;
+  }
 }

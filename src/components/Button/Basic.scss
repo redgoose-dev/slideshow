@@ -50,6 +50,7 @@
   }
 
   @include dark-mode() {
+    color: var(--color-fill);
     &--color {
       &-key {
         color: var(--color-fill);

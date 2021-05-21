@@ -179,7 +179,7 @@ export default defineComponent({
       }
       catch(e)
       {
-        if (window.dev) console.warn(e.message);
+        if (window.dev) console.error(e.message);
         alert(t('preference.failedApply'));
       }
     }

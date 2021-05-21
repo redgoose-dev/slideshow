@@ -25,21 +25,35 @@
 			"alerts": {
 				"failedGetData": "데이터를 가져오는데 실패했습니다.",
 				"failedGetFile": "파일 가져오기 실패했습니다.",
+				"invalidData": "데이터가 잘못되었습니다.",
 				"noSelectedFile": "선택된 파일이 없습니다."
 			},
-			"category": {
-				"title": "Selected category"
+			"importData": {
+				"address": {
+					"description": "RestAPI 주소로 데이터를 가져옵니다.",
+					"title": "주소로 가져오기"
+				},
+				"file": {
+					"description": "json 파일을 업로드하여 데이터를 가져옵니다.",
+					"placeholder": "json 파일을 선택해주세요.",
+					"title": "파일로 가져오기"
+				},
+				"mode": {
+					"description": "데이터를 가져오는 방법을 선택합니다.",
+					"label_address": "주소",
+					"label_file": "파일"
+				},
+				"submit": {
+					"getData": "데이터 가져오기",
+					"processing": "처리중.."
+				}
 			},
-			"importSlidesData": {
-				"desc_apiAddress": "`RestAPI` 통하여 데이터를 가져옵니다.",
-				"desc_file": "슬라이드 데이터를 `json` 파일을 업로드하여 가져옵니다.",
-				"description": "`RestAPI`나 `json`파일을 통하여 슬라이드 데이터를 입력할 수 있습니다. 데이터를 입력하면 슬라이드 편집 섹션에 입력한 내용으로 바뀝니다.",
-				"label_getData": "가져오기",
-				"title": "슬라이드 데이터 가져오기",
-				"uploadFile": "`JSON` 파일 선택하기"
-			},
-			"slides": {
-				"description": "`RestAPI`를 통하여 JSON 데이터를 가져옵니다.",
+			"tree": {
+				"changeMode": "편집모드를 변경합니다.",
+				"importData": "슬라이드 데이터를 가져옵니다.",
+				"mode_advanced": "전문가",
+				"mode_basic": "기본",
+				"textPlaceholder": "슬라이드 데이터 코드를 입력해주세요.",
 				"title": "슬라이드 데이터 관리"
 			}
 		},

@@ -6,7 +6,7 @@
     disabled && 'form-upload--disabled',
   ]">
   <input
-    v-if="state.input"
+    ref="input"
     type="file"
     class="form-upload__input"
     :accept="accept"
@@ -14,7 +14,9 @@
     @change="onChange">
   <span class="form-upload__body">
     <Icon icon-name="file"/>
-    <em>{{label}}</em>
+    <em>
+      {{state.filename || label}}
+    </em>
     <i>
       <Icon icon-name="upload"/>
     </i>
@@ -23,8 +25,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
-import * as util from '~/libs/util';
+import { defineComponent, reactive, ref } from 'vue';
 import Icon from '~/components/Icon';
 
 export default defineComponent({
@@ -42,26 +43,27 @@ export default defineComponent({
   setup(props, context)
   {
     let state = reactive({
-      input: true,
+      filename: '',
     });
+    const input = ref(null);
 
     // methods
     function onChange(e)
     {
+      if (!(e.target.files && e.target.files[0])) return;
+      state.filename = e.target.files[0].name;
       context.emit('change', e.target.files);
-      refreshInput().then();
     }
-
-    async function refreshInput()
+    function focus()
     {
-      state.input = false;
-      await util.sleep(50);
-      state.input = true;
+      input.value.focus();
     }
 
     return {
       state,
+      input,
       onChange,
+      focus,
     };
   },
   emits: {

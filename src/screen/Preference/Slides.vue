@@ -186,6 +186,7 @@
         <FormRadio
           name="pref_autoplayDirection"
           id="pref_autoplayDirection"
+          :inline="true"
           :items="[
             { key: false, label: $t('preference.slides.autoplayDirection.option_prev') },
             { key: true, label: $t('preference.slides.autoplayDirection.option_next') },

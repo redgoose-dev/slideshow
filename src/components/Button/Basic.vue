@@ -1,6 +1,6 @@
 <template>
 <button
-  type="button"
+  :type="type"
   :disabled="disabled"
   :title="title"
   :class="[
@@ -18,7 +18,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'ButtonBasic',
   props: {
-    type: String, // button,reset,submit
+    type: { type: String, default: 'button' }, // button,reset,submit
     title: String,
     color: String, // key
     disabled: Boolean,

@@ -1,0 +1,116 @@
+@import "../../../scss/mixins";
+
+.modal-wrapper {
+  --size-header-height: 48px;
+  position: fixed;
+  z-index: 6;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-bg);
+  box-sizing: border-box;
+  &__box {
+    position: relative;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  &__header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--size-header-height);
+    display: flex;
+    align-items: center;
+    background: var(--color-shape-button);
+    user-select: none;
+    h2 {
+      flex: 1;
+      margin: 0;
+      padding: 0 0 0 20px;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.42;
+      color: var(--color-invert);
+      letter-spacing: -.5px;
+    }
+    nav {
+      button {
+        display: block;
+        width: var(--size-header-height);
+        height: var(--size-header-height);
+        box-sizing: border-box;
+        font-size: 0;
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: none;
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+        transition: opacity var(--speed-button-active) ease-out;
+        outline: none;
+        border-radius: var(--size-shape-radius);
+        &:active {
+          opacity: .5;
+        }
+        &:focus {
+          box-shadow: inset 0 0 0 2px var(--color-key);
+        }
+        svg {
+          display: block;
+          margin: 0 auto;
+          --icon-stroke: 1.5;
+          --icon-color: var(--color-invert);
+          --icon-size: 28px;
+        }
+      }
+    }
+  }
+  &__body {
+    position: relative;
+    top: var(--size-header-height);
+    box-sizing: border-box;
+    height: calc(100% - var(--size-header-height));
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    @include custom-scroll-style();
+  }
+
+  @include responsive(desktop) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    background: rgba(255,255,255,.75);
+    @supports (backdrop-filter: blur(10px)) {
+      backdrop-filter: blur(10px);
+    }
+    &__box {
+      width: 75%;
+      max-width: var(--modal-size-width, 640px);
+      height: 50%;
+      max-height: var(--modal-size-height, 480px);
+      box-shadow: 0 1px 30px 0 rgba(0, 0, 0, 0.3);
+      background: var(--color-bg);
+      border-radius: var(--size-shape-radius);
+      overflow: hidden;
+      cursor: auto;
+    }
+  }
+  @include dark-mode() {
+    background: rgba(0,0,0,.75);
+    &__header {
+      h2 {
+        color: var(--color-fill);
+      }
+      nav {
+        button {
+          svg {
+            --icon-color: var(--color-fill);
+          }
+        }
+      }
+    }
+  }
+}
