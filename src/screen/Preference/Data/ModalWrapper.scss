@@ -99,7 +99,6 @@
     }
   }
   @include dark-mode() {
-    background: rgba(0,0,0,.75);
     &__header {
       h2 {
         color: var(--color-fill);
@@ -111,6 +110,9 @@
           }
         }
       }
+    }
+    @include responsive(desktop) {
+      background: rgba(0,0,0,.75);
     }
   }
 }

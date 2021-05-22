@@ -91,8 +91,12 @@ export function checkTree(src)
   let keys = Object.keys(src);
   for (let i=0; i<keys.length; i++)
   {
+    // for address
     if (typeof src[keys[i]] === 'string') continue;
-    if (!Array.isArray(src[keys[i]])) throw new Error(`not array item: item.${keys[i]}`);
+    if (!Array.isArray(src[keys[i]].slides))
+    {
+      throw new Error(`not array item: item.${keys[i]}`);
+    }
     if (src[keys[i]].length <= 0) continue;
     checkSlideItems(src[keys[i]]);
   }
@@ -109,8 +113,6 @@ export function checkPreference(item)
     if (!item) throw new Error('no item');
     if (!(item.general && item.slides && item.style && item.keyboard)) throw new Error('no item property');
     // general
-    checkNestedKeys(item, 'string', ['general', 'name']);
-    checkNestedKeys(item, 'string', ['general', 'description']);
     checkNestedKeys(item, 'string', ['general', 'language']);
     checkNestedKeys(item, 'boolean', ['general', 'hud']);
     checkNestedKeys(item, 'boolean', ['general', 'hoverVisibleHud']);

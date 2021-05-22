@@ -72,6 +72,11 @@ export function updateCategory(state, value)
   state.category = value;
 }
 
+export function updateAutoplay(state, value)
+{
+  state.autoplay = value;
+}
+
 /**
  * update use preference
  * ex) `store.commit('updateUsePreference', [ 'data', false ]);`

@@ -125,14 +125,13 @@ export default defineComponent({
       if (!sw)
       {
         // with autoplay
-        let autoplay = store.state.preference.slides.autoplay && !autoplayPause;
+        let autoplay = store.state.autoplay && !autoplayPause;
         if (autoplay) runAutoplay(true);
       }
     }
     function onChangeActive(n)
     {
       store.dispatch('changeActiveSlide', n);
-
     }
     function checkActive(n)
     {
@@ -201,7 +200,7 @@ export default defineComponent({
       // 클릭하는 수준으로 짧으면 정지
       if (elapsedTime < 60 || percent < 1)
       {
-        runAutoplay(true);
+        if (!autoplayPause) runAutoplay(true);
         // toggle hud
         if (store.state.preference.general.clickVisibleHud && !e.target.closest('.controller'))
         {
@@ -226,20 +225,23 @@ export default defineComponent({
     }
     function onTouchCancel(e)
     {
+      if (store.state.mode) return;
       e.stopPropagation();
       if (state.swipeMove) images.value.cancel();
       state.swipePos = undefined;
       state.swipeMove = false;
-      if (store.state.preference.slides.autoplay && store.state.preference.slides.autoplayPauseOnHover)
+      if (store.state.preference.slides.autoplayPauseOnHover)
       {
-        pause(false);
+        autoplayPause = false;
+        if (store.state.autoplay) pause(false, true);
       }
     }
-    function onMouseEnter(e)
+    function onMouseEnter()
     {
-      if (store.state.preference.slides.autoplay && store.state.preference.slides.autoplayPauseOnHover)
+      if (store.state.preference.slides.autoplayPauseOnHover)
       {
-        pause(true);
+        autoplayPause = true;
+        if (store.state.autoplay) pause(true, true);
       }
     }
     function onContextMenu()
@@ -250,9 +252,10 @@ export default defineComponent({
     function runAutoplay(sw)
     {
       if (!mounted) return;
+      if (!store.state.autoplay) return;
       if (sw && !autoplayTimer)
       {
-        if (!store.state.preference.slides.autoplay) return;
+        if (!store.state.autoplay) return;
         const delay = store.state.preference.slides.autoplayDelay;
         const dir = store.state.preference.slides.autoplayDirection;
         const loop = store.state.preference.slides.loop;
@@ -307,18 +310,18 @@ export default defineComponent({
     {
       store.dispatch('changeAutoplay', sw);
     }
-    function pause(sw = undefined)
+    function pause(sw = undefined, inside = false)
     {
       if (sw === undefined) return;
-      if (!store.state.preference.slides.autoplay) return;
-      autoplayPause = sw;
+      if (!store.state.autoplay) return;
+      if (!inside) autoplayPause = sw;
       if (!sw || (sw && !state.animated)) runAutoplay(!sw);
     }
 
     // lifecycles
     onMounted(() => {
       mounted = true;
-      if (store.state.preference.slides.autoplay) runAutoplay(true);
+      if (store.state.autoplay) runAutoplay(true);
     });
     onUnmounted(() => {
       mounted = false;
@@ -330,7 +333,16 @@ export default defineComponent({
     });
 
     // watch
-    watch(() => store.state.preference.slides.autoplay, sw => runAutoplay(sw));
+    watch(() => store.state.autoplay, sw => {
+      if (sw)
+      {
+        if (!autoplayPause) runAutoplay(sw);
+      }
+      else
+      {
+        runAutoplay(sw);
+      }
+    });
 
     return {
       state,

@@ -9,7 +9,6 @@
     <button
       type="button"
       :title="$t('navigation.thumbnail')"
-      :class="state.computedActiveThumbnail ? 'on' : ''"
       @click="onClickThumbnailButton(!state.computedActiveThumbnail)">
       <Icon icon-name="grid"/>
     </button>
@@ -20,7 +19,7 @@
     <button
       type="button"
       :title="$t('navigation.autoplay')"
-      :class="$store.state.preference.slides.autoplay ? 'on' : ''"
+      :class="$store.state.autoplay ? 'active' : ''"
       @click="onClickAutoplayButton">
       <Icon icon-name="play-circle"/>
     </button>
@@ -84,8 +83,10 @@ export default defineComponent({
         return store.state.preference.general.visibleHudContents.thumbnail;
       }),
       computedVisibleAutoplay: computed(() => {
+        const { slides, preference } = store.state;
+        if (!preference.slides.autoplay) return false;
         if (!store.state.preference.general.visibleHudContents.autoplay) return false;
-        return store.state.slides && store.state.slides.length > 0;
+        return slides && slides.length > 0;
       }),
       computedActiveThumbnail: computed(() => {
         return store.state.mode === 'thumbnail';

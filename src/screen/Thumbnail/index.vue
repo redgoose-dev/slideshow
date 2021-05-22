@@ -2,15 +2,13 @@
 <article
   class="thumbnail"
   @touchstart="onTouchStart">
-  <header class="thumbnail__header">
-    <h2>
-      {{$store.state.preference.general.name}}
+  <header v-if="state.computedTitle" class="thumbnail__header">
+    <h2 v-if="state.computedTitle">
+      {{state.computedTitle}}
     </h2>
-    <p v-html="state.computedDescription"/>
-    <ButtonClose
-      :title="$t('base.close')"
-      class="thumbnail__close"
-      @click="onClose"/>
+    <p v-if="state.computedDescription">
+      {{state.computedDescription}}
+    </p>
   </header>
   <div class="thumbnail__body">
     <ul
@@ -30,6 +28,10 @@
       <p>{{$t('thumbnail.empty')}}</p>
     </div>
   </div>
+  <ButtonClose
+    :title="$t('base.close')"
+    class="thumbnail__close"
+    @click="onClose"/>
 </article>
 </template>
 
@@ -56,8 +58,11 @@ export default defineComponent({
           thumbnail: o.thumbnail || o.src,
         }));
       }),
+      computedTitle: computed(() => {
+        return store.state.tree[store.state.category].name;
+      }),
       computedDescription: computed(() => {
-        return store.state.preference.general.description.replaceAll('\n', '<br/>');
+        return store.state.tree[store.state.category].description;
       }),
     });
 

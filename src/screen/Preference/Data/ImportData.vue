@@ -130,6 +130,14 @@ export default defineComponent({
           default:
             throw new Error('no mode');
         }
+        if (Array.isArray(res))
+        {
+          res = {
+            default: {
+              slides: res,
+            }
+          };
+        }
         checkTree(res);
         context.emit('update', res);
         state.processing = false;

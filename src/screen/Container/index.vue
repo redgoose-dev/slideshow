@@ -25,9 +25,9 @@ import { defineComponent, reactive, computed, ref, onMounted, onUnmounted } from
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
 import * as local from '~/libs/local';
-import Navigation from '~/components/Navigation';
 import Slides from '~/components/Slides';
 import SlidesEmpty from '~/components/Slides/Empty';
+import Navigation from '~/screen/Navigation';
 import Thumbnail from '~/screen/Thumbnail';
 import Preference from '~/screen/Preference';
 
@@ -59,7 +59,7 @@ export default defineComponent({
         return store.state.slides && store.state.slides.length > 0;
       }),
       computedShowThumbnail: computed(() => {
-        return store.state.preference.general.visibleHudContents.thumbnail && state.computedMode === 'thumbnail';
+        return state.computedMode === 'thumbnail';
       }),
       computedShowPreference: computed(() => {
         return state.computedMode === 'preference';
@@ -100,19 +100,16 @@ export default defineComponent({
             if (local.slides) local.slides.next();
             break;
           case 65: // a
-            if (local.slides)
+            if (local.slides && store.state.preference.slides.autoplay)
             {
-              local.slides.autoplay(!store.state.preference.slides.autoplay);
+              local.slides.autoplay();
             }
             break;
           case 83: // s
             store.dispatch('changeMode', 'preference');
             break;
           case 84: // t
-            if (store.state.preference.general.visibleHudContents.thumbnail)
-            {
-              store.dispatch('changeMode', 'thumbnail');
-            }
+            store.dispatch('changeMode', 'thumbnail');
             break;
           case 82: // r
             if (confirm(t('main.confirmRestart')) && local.main)

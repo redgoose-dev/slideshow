@@ -4,45 +4,6 @@
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
-        <label for="pref_name">
-          {{$t('preference.general.name.title')}}
-        </label>
-      </h3>
-      <p class="field-description">
-        {{$t('preference.general.name.description')}}
-      </p>
-      <div class="field-basic__body">
-        <FormText
-          name="pref_name"
-          id="pref_name"
-          :placeholder="$t('base.inputText')"
-          :maxlength="30"
-          v-model="state.name"
-          @update:modelValue="onSave"/>
-      </div>
-    </div>
-    <div class="field-basic">
-      <h3 class="field-title">
-        <label for="pref_description">
-          {{$t('preference.general.description.title')}}
-        </label>
-      </h3>
-      <p class="field-description">
-        {{$t('preference.general.description.description')}}
-      </p>
-      <div class="field-basic__body">
-        <FormText
-          type="textarea"
-          name="pref_description"
-          id="pref_description"
-          :placeholder="$t('base.inputText')"
-          v-model="state.description"
-          @update:modelValue="onSave"/>
-      </div>
-    </div>
-    <hr class="field-line">
-    <div class="field-basic">
-      <h3 class="field-title">
         <label for="pref_language">
           {{$t('preference.general.language.title')}}
         </label>
@@ -250,8 +211,6 @@ export default defineComponent({
     const store = useStore();
     const { t } = useI18n({ useScope: 'global' });
     let state = reactive({
-      name: props.structure.name,
-      description: props.structure.description,
       language: props.structure.language,
       hud: props.structure.hud,
       hoverVisibleHud: props.structure.hoverVisibleHud,
@@ -298,7 +257,7 @@ export default defineComponent({
           }
           const file = e.target.files[0];
           const reader = new FileReader();
-          reader.onload = async e => {
+          reader.onload = e => {
             try
             {
               let json = JSON.parse(String(e.target.result));
@@ -308,6 +267,7 @@ export default defineComponent({
               store.dispatch('changeTree', json.tree);
               store.dispatch('changeMode', null);
               store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
+              store.dispatch('changeAutoplay', false);
               store.commit('updateUseKeyboardEvent', true);
               alert(t('preference.general.alerts.completeRestore'));
               local.main.restart().then();

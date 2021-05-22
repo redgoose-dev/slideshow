@@ -42,11 +42,9 @@ export function changePreference(context, value)
  */
 export function changeAutoplay(context, sw = undefined)
 {
-  sw = sw === undefined ? !context.state.preference.slides.autoplay : sw;
-  context.commit('updateValueInPreference', {
-    map: [ 'slides', 'autoplay' ],
-    value: sw,
-  });
+  if (!context.state.preference.slides.autoplay) return;
+  sw = sw === undefined ? !context.state.autoplay : sw;
+  context.commit('updateAutoplay', sw);
 }
 
 /**

@@ -1,15 +1,13 @@
 export default {
   preference: {
     general: {
-      name: 'Slideshow',
-      description: 'The slideshow description.',
       language: 'en', // en,ko
       hud: true,
       hoverVisibleHud: false,
       clickVisibleHud: false,
       visibleHudContents: {
         menu: true,
-        thumbnail: true,
+        thumbnail: false,
         caption: true,
         controller: true,
         paginate: true,
@@ -48,11 +46,14 @@ export default {
     information: true,
   },
   tree: {
-    default: [],
+    default: {
+      slides: [],
+    },
   },
   slides: [],
   category: 'default',
   mode: null,
   activeSlide: undefined,
   keyboardEvent: true,
+  autoplay: false,
 };

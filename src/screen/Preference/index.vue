@@ -166,6 +166,7 @@ export default defineComponent({
         store.dispatch('changePreference', preference);
         store.dispatch('changeMode', null);
         store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
+        store.dispatch('changeAutoplay', false);
         store.commit('updateUseKeyboardEvent', true);
         store.dispatch('changeTree', tree);
         // check and update category

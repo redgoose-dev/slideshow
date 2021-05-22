@@ -83,7 +83,7 @@ export default defineComponent({
         }
       }
     }
-    async function fetchSlides()
+    async function fetchTree()
     {
       let tree, slides;
 
@@ -100,11 +100,18 @@ export default defineComponent({
           const storageSlides = storage.get('tree');
           tree = !!storageSlides ? storageSlides : convertPureObject(require('~/example.json'));
         }
-        if (Array.isArray(tree)) tree = { default: tree };
+        if (Array.isArray(tree))
+        {
+          tree = {
+            default: {
+              slides: tree,
+            },
+          };
+        }
         store.dispatch('changeTree', tree);
 
         // set slides
-        slides = store.state.tree[store.state.category];
+        slides = store.state.tree[store.state.category].slides;
         if (slides && typeof slides === 'string')
         {
           let getSlides = await getApiData(slides);
@@ -139,11 +146,11 @@ export default defineComponent({
       stop();
       updateTheme(store.state.preference.style.screenColor);
       locale.value = store.state.preference.general.language;
-      await fetchSlides();
+      await fetchTree();
       await sleep(800);
       if (reloadSlides)
       {
-        fetchSlides().then(() => start());
+        fetchTree().then(() => start());
       }
       else
       {
@@ -153,7 +160,7 @@ export default defineComponent({
 
     // lifecycles
     onMounted(() => {
-      fetchSlides().then(() => start());
+      fetchTree().then(() => start());
     });
 
     // actions

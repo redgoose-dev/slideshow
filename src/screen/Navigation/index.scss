@@ -24,6 +24,9 @@
       &.on {
         background-color: rgba(0,0,0,.7);
       }
+      &.active {
+        background-color: var(--color-key);
+      }
       > svg {
         display: block;
         margin: 0 auto;
@@ -49,6 +52,9 @@
         &:active,
         &.on {
           background-color: rgba(17,17,17,.8);
+        }
+        &.active {
+          background-color: var(--color-key);
         }
         > svg {
           --icon-color: var(--color-fill);

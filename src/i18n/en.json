@@ -68,10 +68,6 @@
 				"description": "Import or export all data in the slideshow.",
 				"title": "Backup & Restore"
 			},
-			"browserStorage": {
-				"description": "Save slide data and preferences to the browser.",
-				"title": "Using browser storage"
-			},
 			"clickVisibleHud": {
 				"description": "Toggles the HUD when clicking the mouse or touching the screen.",
 				"title": "Toggle HUD on click or touch"
@@ -81,10 +77,6 @@
 				"inputExample": "Would you like to put an example slide?",
 				"reset": "Do you really want to reset all settings and slide data?\nOnce initialized, it cannot be recovered.",
 				"restore": "Would you really want to restore all your data?\nThis operation will delete all current data."
-			},
-			"description": {
-				"description": "Enter a description for the slideshow.",
-				"title": "Description"
 			},
 			"hoverVisibleHud": {
 				"description": "If you overlay mouse, HUD will be hidden.",
@@ -99,10 +91,6 @@
 				"option_en": "English",
 				"option_ko": "Korean",
 				"title": "Language"
-			},
-			"name": {
-				"description": "Enter a title for the slideshow.",
-				"title": "Name"
 			},
 			"reset": {
 				"description": "Reset all settings and slide data.",
