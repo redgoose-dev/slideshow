@@ -1,81 +1,72 @@
 <template>
 <article class="manage-tree">
   <section
-    v-for="item in computes.index"
+    v-for="(item,k) in computes.index"
     class="tree-item">
     <header class="tree-item__header">
-      <h3>{{item.name}}</h3>
+      <nav>
+        <button
+          type="button"
+          title="toggle fold"
+          :class="[
+            'fold',
+            state.fold[k] && 'fold--on',
+          ]"
+          @click="onToggleFold(k)">
+          <Icon icon-name="arrow-down"/>
+        </button>
+      </nav>
+      <h3>{{item.name}} <em>{{item.slides.length}}</em></h3>
       <nav>
         <button
           type="button"
           title="edit category"
+          class="edit"
           @click="">
           <Icon icon-name="edit"/>
         </button>
         <button
           type="button"
           title="remove category"
+          class="remove"
           @click="">
           <Icon icon-name="x"/>
         </button>
-        <button
-          type="button"
-          title="toggle fold"
-          class="fold"
-          @click="">
-          <Icon icon-name="arrow-down"/>
-        </button>
       </nav>
     </header>
-    <ul class="tree-item__index">
-      <li v-for="(slide,k) in item.slides" class="tree-slide">
-        <div class="tree-slide__handle">
-          <i>
-            <Icon icon-name="menu-flat"/>
-          </i>
-        </div>
-        <div class="tree-slide__body">
-          <h4 v-if="slide.title">
-            <em>{{k}}</em>{{slide.title}}
-          </h4>
-          <p v-if="slide.description">
-            {{slide.description}}
-          </p>
-          <nav>
-            <a :href="slide.src" target="_blank">Image</a>
-            <a v-if="slide.thumbnail" :href="slide.thumbnail" target="_blank">Thumbnail</a>
-          </nav>
-        </div>
-        <nav class="tree-slide__nav">
-          <button type="button">
-            <Icon icon-name="edit"/>
-          </button>
-          <button type="button">
-            <Icon icon-name="x"/>
-          </button>
-        </nav>
-      </li>
-    </ul>
+    <Slides
+      v-if="state.fold[k]"
+      :item-key="state.keys[k]"
+      :items="item.slides"
+      @update="o => onUpdateSlides(state.keys[k], o)"/>
     <nav class="tree-item__add">
       <button type="button">add slide</button>
     </nav>
   </section>
   <nav class="add-tree">
-    <button type="button" @click="">
-      add category
-    </button>
+    <ButtonBasic
+      title="Add category"
+      color="key"
+      @click="">
+      Add slide category
+    </ButtonBasic>
   </nav>
 </article>
 </template>
 
 <script>
 import { defineComponent, reactive, computed } from 'vue';
+import { convertPureObject } from '~/libs/object';
 import Icon from '~/components/Icon';
+import ButtonBasic from '~/components/Button/Basic';
+import Slides from './Slides';
 
 export default defineComponent({
   name: 'PreferenceDataManage',
   components: {
     Icon,
+    ButtonBasic,
+    Slides,
   },
   props: {
     tree: { type: Object, required: true },
@@ -86,6 +77,7 @@ export default defineComponent({
       index: props.tree,
       keys: Object.keys(props.tree),
       fold: new Array(Object.keys(props.tree).length).fill(false),
+      dragPlaceholder: undefined,
     });
     let computes = reactive({
       index: computed(() => {
@@ -95,10 +87,21 @@ export default defineComponent({
     });
 
     // methods
+    function onToggleFold(key)
+    {
+      state.fold[key] = !state.fold[key];
+    }
+    function onUpdateSlides(key, newSlides)
+    {
+      state.index[key].slides = newSlides;
+      context.emit('update', convertPureObject(state.index));
+    }
 
     return {
       state,
       computes,
+      onToggleFold,
+      onUpdateSlides,
     };
   },
   emits: {

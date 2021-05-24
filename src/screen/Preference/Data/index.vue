@@ -157,9 +157,8 @@ export default defineComponent({
     }
     function onUpdateTreeUI(tree)
     {
-      // TODO: `TreeUI`에서 데이터가 업데이트 되었을때 호출되는 함수
-      // TODO: 나중에 작업하기
-      console.log('call onUpdateTreeUI()');
+      state.tree = tree;
+      context.emit('update', { tree });
     }
     function onImportData(res)
     {
