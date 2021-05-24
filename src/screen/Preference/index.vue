@@ -59,7 +59,7 @@ export default defineComponent({
     const preference = convertPureObject(store.state.preference);
     const tree = convertPureObject(store.state.tree);
     let state = reactive({
-      tab: 'general', // general,slides,style,data,keyboard,information
+      tab: 'data', // general,slides,style,data,keyboard,information
       structure: {
         general: preference.general,
         slides: preference.slides,

@@ -17,12 +17,12 @@
                 :title="$t('preference.data.tree.changeMode')"
                 :items="[
                   {
-                    key: 'advanced',
-                    label: $t('preference.data.tree.mode_advanced'),
-                  },
-                  {
                     key: 'basic',
                     label: $t('preference.data.tree.mode_basic'),
+                  },
+                  {
+                    key: 'advanced',
+                    label: $t('preference.data.tree.mode_advanced'),
                   },
                 ]"
                 :modelValue="localState.mode"
@@ -101,7 +101,7 @@ export default defineComponent({
   {
     const { t } = useI18n({ useScope: 'global' });
     let localState = reactive({
-      mode: 'advanced', // basic,advanced
+      mode: 'basic', // basic,advanced
       showImportData: false,
       textTreeColor: undefined,
       computedTreeText: computed(() => {

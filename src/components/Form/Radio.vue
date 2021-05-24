@@ -1,7 +1,8 @@
 <template>
 <nav :class="[
   'form form-radio',
-  inline && 'form form-radio--inline',
+  inline && 'form-radio--inline',
+  type === 'button' && 'form-radio--button',
 ]">
   <div class="form-radio__wrap">
     <div v-if="type === 'button'" v-for="(o,k) in items" class="form-radio__button">

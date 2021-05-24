@@ -18,6 +18,7 @@
 }
 
 .pref-data {
+  min-width: 0;
   &__import-data {
     --modal-size-width: 540px;
     --modal-size-height: 390px;

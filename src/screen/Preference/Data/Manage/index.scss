@@ -1,0 +1,148 @@
+@import "../../../../scss/mixins";
+
+.foo {
+  @include text-single-line();
+}
+
+.manage-tree {
+  position: relative;
+  > nav {}
+}
+
+.tree-item {
+  &:nth-child(n+2) {
+    margin-top: 10px;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-shape);
+    > h3 {
+      margin: 0;
+      padding: 0 16px;
+      flex: 1;
+      font-size: 16px;
+      letter-spacing: -.25px;
+      font-weight: 400;
+      @include text-single-line();
+    }
+    > nav {
+      display: flex;
+      align-items: center;
+      button {
+        display: none;
+        width: 42px;
+        height: 42px;
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+        background: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: box-shadow var(--speed-button-active) ease-out;
+        border-radius: var(--size-shape-radius);
+        outline: none;
+        &:focus {
+          box-shadow: 0 0 0 2px var(--color-key);
+        }
+        &:nth-child(n+2) {
+          margin-left: 1px;
+        }
+        svg {
+          --icon-color: var(--color-fill);
+          --icon-size: 28px;
+          --icon-stroke: 1.5;
+        }
+        &.fold {
+          display: block;
+          &.on {}
+        }
+      }
+      svg {
+        display: block;
+        margin: 0 auto;
+        --icon-color: var(--color-invert);
+        --icon-stroke: 1.5;
+        --icon-size: 20px;
+      }
+    }
+  }
+  &__index {
+    margin: 1px 0 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--color-shape);
+    box-sizing: border-box;
+  }
+  &__add {
+    display: none;
+  }
+}
+
+.tree-slide {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  &:nth-child(n+2) {
+    border-top: 1px dashed var(--color-shape);
+  }
+  &__handle {
+    display: none;
+  }
+  &__body {
+    flex: 1;
+    min-width: 0;
+    padding: 16px;
+    h4 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+      @include text-single-line();
+      em {
+        font-style: normal;
+        user-select: none;
+        &:before {
+          content: '[';
+        }
+        &:after {
+          content: '] ';
+        }
+      }
+    }
+    p {
+      margin: 4px 0 0;
+      font-size: 11px;
+      line-height: 1.15;
+      color: var(--color-low-fill);
+      @include text-single-line();
+    }
+    nav {
+      display: flex;
+      margin: 0 -8px -4px;
+      a {
+        display: block;
+        padding: 4px 8px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        outline: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: opacity var(--speed-button-active) ease-out;
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &__nav {
+    display: none;
+  }
+}
+
+.add-tree {
+  display: none;
+}

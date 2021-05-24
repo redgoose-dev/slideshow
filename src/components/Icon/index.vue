@@ -29,6 +29,8 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./src/icon-grid'));
           case 'menu':
             return defineAsyncComponent(() => import('./src/icon-menu'));
+          case 'menu-flat':
+            return defineAsyncComponent(() => import('./src/icon-menu-flat'));
           case 'arrow-left':
             return defineAsyncComponent(() => import('./src/icon-arrow-left'));
           case 'arrow-right':
@@ -63,6 +65,8 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./src/icon-play-circle'));
           case 'download':
             return defineAsyncComponent(() => import('./src/icon-download'));
+          case 'edit':
+            return defineAsyncComponent(() => import('./src/icon-edit'));
           default:
             return null;
         }

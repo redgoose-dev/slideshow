@@ -65,6 +65,7 @@
       letter-spacing: -.5px;
       transition: background-color 200ms ease-out, color 200ms ease-out;
       -webkit-tap-highlight-color: transparent;
+      outline: none;
       &:disabled {
         background: var(--color-key);
         color: var(--color-invert);
@@ -77,6 +78,23 @@
     justify-content: flex-start;
     label {
       flex: unset;
+    }
+  }
+  &--button {
+    .form-radio {
+      &__wrap {
+        overflow: unset;
+        &:focus-within {
+          box-shadow: unset;
+        }
+      }
+      &__button {
+        button {
+          &:focus {
+            box-shadow: 0 0 0 2px var(--color-key);
+          }
+        }
+      }
     }
   }
   @include responsive(desktop) {
