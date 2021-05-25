@@ -1,5 +1,5 @@
 <template>
-<ul class="data-slides" :data-key="itemKey">
+<ul :data-key="itemKey" class="data-slides">
   <li
     v-for="(slide,k) in items"
     :data-key="k"
@@ -25,21 +25,16 @@
       </nav>
     </div>
     <nav class="data-slide__nav">
-      <button
-        type="button"
-        title="Edit"
-        class="edit"
-        @click="">
+      <button type="button" title="Edit" class="edit" @click="$emit('edit', k)">
         <Icon icon-name="edit"/>
       </button>
-      <button
-        type="button"
-        title="Edit"
-        class="remove"
-        @click="">
+      <button type="button" title="Edit" class="remove" @click="$emit('remove', k)">
         <Icon icon-name="x"/>
       </button>
     </nav>
+  </li>
+  <li v-if="!(items && items.length > 0)" class="data-slides__empty">
+    empty
   </li>
 </ul>
 </template>
@@ -132,6 +127,8 @@ export default defineComponent({
   },
   emits: {
     'update': null,
+    'edit': null,
+    'remove': null,
   },
 });
 </script>

@@ -59,10 +59,10 @@ export default defineComponent({
         }));
       }),
       computedTitle: computed(() => {
-        return store.state.tree[store.state.category].name;
+        return store.state.tree[store.state.group].name;
       }),
       computedDescription: computed(() => {
-        return store.state.tree[store.state.category].description;
+        return store.state.tree[store.state.group].description;
       }),
     });
 

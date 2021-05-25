@@ -6,6 +6,16 @@
   list-style: none;
   border: 1px solid var(--color-shape);
   box-sizing: border-box;
+  border-radius: var(--size-shape-radius);
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    height: 72px;
+    color: var(--color-low-fill);
+    user-select: none;
+  }
   @include responsive(desktop) {
     padding: 4px;
   }

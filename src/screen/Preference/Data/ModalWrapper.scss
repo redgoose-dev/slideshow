@@ -60,9 +60,9 @@
         svg {
           display: block;
           margin: 0 auto;
-          --icon-stroke: 1.5;
+          --icon-stroke: 1.75;
           --icon-color: var(--color-invert);
-          --icon-size: 28px;
+          --icon-size: 24px;
         }
       }
     }
@@ -89,7 +89,7 @@
     &__box {
       width: 75%;
       max-width: var(--modal-size-width, 640px);
-      height: 50%;
+      height: 75%;
       max-height: var(--modal-size-height, 480px);
       box-shadow: 0 1px 30px 0 rgba(0, 0, 0, 0.3);
       background: var(--color-bg);

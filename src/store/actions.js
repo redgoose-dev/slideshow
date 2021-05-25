@@ -123,3 +123,15 @@ export async function reset(context)
   context.commit('updateUseKeyboardEvent', true);
   context.commit('updateMode', null);
 }
+
+/**
+ * change group
+ *
+ * @param context
+ * @param {string} key
+ */
+export function changeGroup(context, key)
+{
+  context.commit('updateGroup', key);
+  storage.set('group', key);
+}

@@ -51,7 +51,7 @@ export default {
     },
   },
   slides: [],
-  category: 'default',
+  group: 'default',
   mode: null,
   activeSlide: undefined,
   keyboardEvent: true,

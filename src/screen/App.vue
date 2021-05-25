@@ -26,8 +26,8 @@ export default defineComponent({
   },
   props: {
     preference: Object,
+    group: String,
     tree: Object,
-    category: { type: String, default: 'default' },
   },
   setup(props)
   {
@@ -83,6 +83,11 @@ export default defineComponent({
         }
       }
     }
+    function fetchGroup()
+    {
+      let group = props.group ? props.group : storage.get('group');
+      store.dispatch('changeGroup', group);
+    }
     async function fetchTree()
     {
       let tree, slides;
@@ -111,7 +116,7 @@ export default defineComponent({
         store.dispatch('changeTree', tree);
 
         // set slides
-        slides = store.state.tree[store.state.category].slides;
+        slides = store.state.tree[store.state.group] ? store.state.tree[store.state.group].slides : [];
         if (slides && typeof slides === 'string')
         {
           let getSlides = await getApiData(slides);
@@ -166,6 +171,7 @@ export default defineComponent({
     // actions
     initCustomEvent();
     fetchPreference();
+    fetchGroup();
     updateTheme(store.state.preference.style.screenColor);
     locale.value = store.state.preference.general.language;
 

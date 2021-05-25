@@ -65,11 +65,11 @@ export function updateSlides(state, value)
 }
 
 /**
- * update category
+ * update group
  */
-export function updateCategory(state, value)
+export function updateGroup(state, value)
 {
-  state.category = value;
+  state.group = value;
 }
 
 export function updateAutoplay(state, value)

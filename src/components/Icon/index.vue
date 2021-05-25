@@ -67,6 +67,8 @@ export default defineComponent({
             return defineAsyncComponent(() => import('./src/icon-download'));
           case 'edit':
             return defineAsyncComponent(() => import('./src/icon-edit'));
+          case 'plus':
+            return defineAsyncComponent(() => import('./src/icon-plus'));
           default:
             return null;
         }

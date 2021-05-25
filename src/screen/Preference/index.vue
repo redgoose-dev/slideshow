@@ -169,10 +169,10 @@ export default defineComponent({
         store.dispatch('changeAutoplay', false);
         store.commit('updateUseKeyboardEvent', true);
         store.dispatch('changeTree', tree);
-        // check and update category
-        if (!(Object.keys(tree).indexOf(store.state.category) > -1))
+        // check and update group
+        if (!Object.keys(tree).filter(key => (key === store.state.group)).length)
         {
-          store.commit('updateCategory', Object.keys(tree)[0]);
+          store.dispatch('changeGroup', Object.keys(tree)[0]);
         }
 
         // restart
