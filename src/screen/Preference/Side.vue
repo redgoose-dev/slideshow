@@ -3,73 +3,73 @@
   <nav>
     <button
       type="button"
-      :title="$t('preference.header.general.title')"
+      :title="$t('base.general')"
       :disabled="mode === 'general'"
       class="preference-side__button"
       @click="$emit('click-menu', 'general')">
       <span>
         <Icon icon-name="tool"/>
-        <em>{{$t('preference.header.general.title')}}</em>
+        <em>{{$t('base.general')}}</em>
       </span>
     </button>
     <button
       v-if="$store.state.usePreference.slides"
       type="button"
-      :title="$t('preference.header.slides.title')"
+      :title="$t('base.slides')"
       :disabled="mode === 'slides'"
       class="preference-side__button"
       @click="$emit('click-menu', 'slides')">
       <span>
         <Icon icon-name="copy"/>
-        <em>{{$t('preference.header.slides.title')}}</em>
+        <em>{{$t('base.slides')}}</em>
       </span>
     </button>
     <button
       v-if="$store.state.usePreference.style"
       type="button"
-      :title="$t('preference.header.style.title')"
+      :title="$t('base.style')"
       :disabled="mode === 'style'"
       class="preference-side__button"
       @click="$emit('click-menu', 'style')">
       <span>
         <Icon icon-name="droplet"/>
-        <em>{{$t('preference.header.style.title')}}</em>
+        <em>{{$t('base.style')}}</em>
       </span>
     </button>
     <button
       v-if="$store.state.usePreference.data"
       type="button"
-      :title="$t('preference.header.data.title')"
+      :title="$t('base.data')"
       :disabled="mode === 'data'"
       class="preference-side__button"
       @click="$emit('click-menu', 'data')">
       <span>
         <Icon icon-name="database"/>
-        <em>{{$t('preference.header.data.title')}}</em>
+        <em>{{$t('base.data')}}</em>
       </span>
     </button>
     <button
       v-if="$store.state.usePreference.keyboard"
       type="button"
-      :title="$t('preference.header.keyboard.title')"
+      :title="$t('base.keyboard')"
       :disabled="mode === 'keyboard'"
       class="preference-side__button"
       @click="$emit('click-menu', 'keyboard')">
       <span>
         <Icon icon-name="command"/>
-        <em>{{$t('preference.header.keyboard.title')}}</em>
+        <em>{{$t('base.keyboard')}}</em>
       </span>
     </button>
     <button
       v-if="$store.state.usePreference.information"
       type="button"
-      :title="$t('preference.header.information.title')"
+      :title="$t('base.information')"
       :disabled="mode === 'information'"
       class="preference-side__button"
       @click="$emit('click-menu', 'information')">
       <span>
         <Icon icon-name="info"/>
-        <em>{{$t('preference.header.information.title')}}</em>
+        <em>{{$t('base.information')}}</em>
       </span>
     </button>
   </nav>

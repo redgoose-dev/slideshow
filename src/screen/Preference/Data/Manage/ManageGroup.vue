@@ -1,43 +1,44 @@
 <template>
 <form @submit="onSubmit">
   <fieldset>
-    <legend>Edit slides group fields</legend>
+    <legend>Manage slides group fields</legend>
     <div class="fields">
       <div class="field-basic">
         <h3 class="field-title">
-          <label for="pref_key">
-            그룹 키
+          <label for="pref_key" class="required">
+            {{$t('base.groupKey')}}
           </label>
         </h3>
         <p class="field-description">
-          슬라이드 그룹의 키값을 입력합니다.(필수요소)
+          {{$t('description.inputKeyOnGroup')}}
         </p>
         <div class="field-basic__body">
           <FormText
             name="pref_key"
             id="pref_key"
-            placeholder="Please input key"
+            :placeholder="$t('base.inputKey')"
             :inline="true"
             :required="true"
             :size="24"
-            :maxlength="24"
-            v-model="state.form.key"/>
+            :maxlength="20"
+            :color="state.error.key ? 'error' : ''"
+            v-model="state.form.key"
+            @update:modelValue="onUpdateKey"/>
         </div>
       </div>
       <div class="field-basic">
         <h3 class="field-title">
-          <label for="pref_name">
-            이름
-          </label>
+          <label for="pref_name">{{$t('base.name')}}</label>
         </h3>
         <p class="field-description">
-          카테고리의 이름을 설정합니다.
+          {{$t('description.setCategoryName')}}
         </p>
         <div class="field-basic__body">
           <FormText
             name="pref_name"
             id="pref_name"
-            placeholder="Please input text"
+            :placeholder="$t('base.inputText')"
+            :maxlength="32"
             v-model="state.form.name"/>
         </div>
       </div>
@@ -45,28 +46,25 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_description">
-          설명
+          {{$t('base.description')}}
         </label>
       </h3>
       <p class="field-description">
-        카테고리에 대한 설명을 입력합니다.
+        {{$t('description.setCategoryDescription')}}
       </p>
       <div class="field-basic__body">
         <FormText
           name="pref_description"
           id="pref_description"
-          placeholder="Please input text"
+          :placeholder="$t('base.inputText')"
+          :maxlength="80"
           v-model="state.form.description"/>
       </div>
     </div>
     <nav class="submit-buttons">
       <div>
-        <ButtonBasic
-          type="submit"
-          :color="state.processing ? '' : 'key'"
-          :disabled="state.processing"
-          :inline="true">
-          적용하기
+        <ButtonBasic type="submit" color="key" :inline="true">
+          {{form.type === 'add' ? $t('base.add') : $t('base.submitEdit')}}
         </ButtonBasic>
       </div>
     </nav>
@@ -92,17 +90,34 @@ export default defineComponent({
   {
     let state = reactive({
       form: props.form,
+      error: {
+        key: false,
+      },
     });
 
     // methods
+    function onUpdateKey(str)
+    {
+      if (!str) state.error.key = true;
+      state.error.key = !/^[a-zA-Z0-9_]+$/.test(str);
+    }
     function onSubmit(e)
     {
       e.preventDefault();
-      context.emit('submit', state.form);
+      try
+      {
+        if (state.error.key) throw new Error('error value / key');
+        context.emit('submit', state.form);
+      }
+      catch(e)
+      {
+        if (window.dev) console.error(e.message);
+      }
     }
 
     return {
       state,
+      onUpdateKey,
       onSubmit,
     };
   },

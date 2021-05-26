@@ -38,15 +38,18 @@
     min-width: 0;
     padding: 16px;
     h4 {
-      margin: 0;
+      margin: 0 0 4px;
       font-size: 14px;
       letter-spacing: -.5px;
       line-height: 1.15;
       font-weight: 500;
       @include text-single-line();
+      &.none {
+        opacity: .3;
+      }
     }
     p {
-      margin: 4px 0 0;
+      margin: 0 0 4px;
       font-size: 11px;
       line-height: 1.15;
       color: var(--color-low-fill);
@@ -54,12 +57,13 @@
     }
     nav {
       display: flex;
-      margin: 0 -8px -4px;
+      margin: -4px -8px;
       a {
         display: block;
         padding: 4px 8px;
         text-align: center;
         font-size: 12px;
+        line-height: 1;
         font-weight: bold;
         text-decoration: none;
         outline: none;
@@ -77,13 +81,15 @@
   }
   @include responsive(desktop) {
     margin: 8px;
-    border: solid 1px #ddd;
     border-radius: var(--size-shape-radius);
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.15), inset 0 0 0 1px #ddd;
+    background-color: var(--color-bg);
+    transition: box-shadow var(--speed-button-active) ease-out;
     &:nth-child(n+2) {
       border-top: none;
     }
     &:hover {
+      box-shadow: 0 0 12px 0 rgba(0,0,0,.15), inset 0 0 0 1px var(--color-key);
       .data-slide__nav {
         opacity: 1;
         pointer-events: auto;
@@ -107,7 +113,7 @@
       svg {
         display: block;
         margin: 0 auto;
-        --icon-color: #484848;
+        --icon-color: var(--color-low-fill);
         --icon-size: 20px;
       }
     }
@@ -136,6 +142,7 @@
         -webkit-tap-highlight-color: transparent;
         --icon-size: 16px;
         --icon-stroke: 1.5;
+        --icon-color: var(--color-fill);
         transition: opacity var(--speed-button-active) ease-out;
         &:active {
           opacity: .5;
@@ -171,6 +178,15 @@
         box-sizing: border-box;
         border-radius: var(--size-shape-radius);
         opacity: .75;
+      }
+    }
+  }
+
+  @include dark-mode() {
+    @include responsive(desktop) {
+      box-shadow: 0 0 8px 0 rgba(0,0,0,.15), inset 0 0 0 1px #181818;
+      &:hover {
+        box-shadow: 0 0 12px 0 rgba(0,0,0,.15), inset 0 0 0 1px var(--color-key);
       }
     }
   }

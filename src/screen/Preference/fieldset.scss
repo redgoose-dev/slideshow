@@ -149,3 +149,10 @@ fieldset {
   align-items: center;
   justify-content: center;
 }
+
+.required {
+  &:before {
+    content: '* ';
+    color: var(--color-danger);
+  }
+}

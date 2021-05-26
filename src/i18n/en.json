@@ -1,10 +1,81 @@
 {
+	"alert": {
+		"errorSubmit": "There was a problem with processing.",
+		"failedApply": "Failed to apply due to an error.",
+		"failedGetData": "Failed get data.",
+		"invalidAddress": "The address is invalid. ",
+		"invalidData": "The data is invalid."
+	},
 	"base": {
+		"add": "Add",
+		"address": "Address",
+		"advanced": "Advanced",
 		"apply": "Apply",
+		"author": "Author",
 		"backup": "Backup",
+		"basic": "Basic",
 		"close": "Close",
-		"inputText": "Please input text",
-		"restore": "Restore"
+		"contain": "Contain",
+		"cover": "Cover",
+		"darkMode": "Dark mode",
+		"data": "Data",
+		"description": "Description",
+		"edit": "Edit",
+		"file": "File",
+		"general": "General",
+		"groupKey": "Group key",
+		"image": "Image",
+		"imageUrl": "Image URL",
+		"information": "Information",
+		"inputAddress": "Please input address.",
+		"inputKey": "Please enter the key.",
+		"inputText": "Please input text.",
+		"inputUrl": "Please input URL.",
+		"keyboard": "Keyboard",
+		"lightMode": "Light mode",
+		"name": "Name",
+		"none": "None",
+		"openUrl": "Open URL",
+		"processing": "Processing..",
+		"remove": "Remove",
+		"restore": "Restore",
+		"slides": "Slides",
+		"style": "Style",
+		"subject": "Subject",
+		"submitEdit": "Edit",
+		"system": "System",
+		"thumbnail": "Thumbnail",
+		"urlThumbnailUrl": "Thumbnail image URL",
+		"version": "Version"
+	},
+	"confirm": {
+		"remove": "Do you really want to delete it?",
+		"resetPreference": "The slideshow restarts.\nWould you like to apply?"
+	},
+	"description": {
+		"empty": "Empty",
+		"emptySlides": "No slides.",
+		"getDataByRestAPI": "Get data by RestAPI address.",
+		"getJsonFile": "Upload the JSON file to get the data.",
+		"importDataMethod": "Select how to import your data.",
+		"inputDescriptionSlide": "Input description of the slide.",
+		"inputImageUrl": "Input image address.",
+		"inputKeyOnGroup": "Enter the key value for the slide group.",
+		"inputSlideDataCode": "Please input slides data code.",
+		"inputSlideTitle": "Input title for the slide.",
+		"inputThumbnailUrl": "Input thumbnail image address.",
+		"selectJsonFile": "Please select a JSON file.",
+		"setCategoryDescription": "Set the description of the category.",
+		"setCategoryName": "Set the name of the category."
+	},
+	"label": {
+		"addGroup": "Add group",
+		"addSlide": "Add slide",
+		"editGroup": "Edit group",
+		"editSlide": "Edit slide",
+		"getData": "Import data",
+		"imageType": "Image type",
+		"removeGroup": "Remove group"
 	},
 	"loading": {
 		"label": "Ready Slideshow.."
@@ -20,44 +91,6 @@
 		"thumbnail": "Thumbnail"
 	},
 	"preference": {
-		"confirm": "The slideshow restarts.\nWould you like to apply?",
-		"data": {
-			"alerts": {
-				"failedGetData": "Failed get data.",
-				"failedGetFile": "Failed to get the file.",
-				"invalidData": "The data is invalid.",
-				"noSelectedFile": "There are no files selected."
-			},
-			"importData": {
-				"address": {
-					"description": "Get data by RestAPI address.",
-					"title": "Import by address"
-				},
-				"file": {
-					"description": "Upload the json file to get the data",
-					"placeholder": "Please select a JSON file.",
-					"title": "Import to file"
-				},
-				"mode": {
-					"description": "Select how to import your data.",
-					"label_address": "Address",
-					"label_file": "File"
-				},
-				"submit": {
-					"getData": "Get data",
-					"processing": "Processing.."
-				}
-			},
-			"tree": {
-				"changeMode": "Change the editing mode.",
-				"importData": "Import slide data.",
-				"mode_advanced": "Advanced",
-				"mode_basic": "Basic",
-				"textPlaceholder": "Please input slides data code",
-				"title": "Manage slides data"
-			}
-		},
-		"failedApply": "Failed to apply due to an error.",
 		"general": {
 			"alerts": {
 				"completeRestore": "Restore complete.",
@@ -110,34 +143,26 @@
 		},
 		"header": {
 			"data": {
-				"description": "Manage slide data.",
-				"title": "Data"
+				"description": "Manage slide data."
 			},
 			"general": {
-				"description": "Set the basic items.",
-				"title": "General"
+				"description": "Set the basic items."
 			},
 			"information": {
-				"description": "You can check information about the slideshow.",
-				"title": "Information"
+				"description": "You can check information about the slideshow."
 			},
 			"keyboard": {
-				"description": "Settings related to keyboard shortcuts.",
-				"title": "Keyboard"
+				"description": "Settings related to keyboard shortcuts."
 			},
 			"slides": {
-				"description": "Set the parts related to the slide.",
-				"title": "Slides"
+				"description": "Set the parts related to the slide."
 			},
 			"style": {
-				"description": "Set the parts displayed on the screen.",
-				"title": "Style"
+				"description": "Set the parts displayed on the screen."
 			}
 		},
 		"information": {
-			"author": "Author",
-			"message1": "If you have any comments on problems or improvements, please use the %{link} page.",
-			"version": "Version"
+			"message1": "If you have any comments on problems or improvements, please use the %{link} page."
 		},
 		"keyboard": {
 			"enabled": {
@@ -229,17 +254,10 @@
 				"title": "Image scale"
 			},
 			"imageType": {
-				"description": "Choose slide image type",
-				"option_contain": "Contain",
-				"option_cover": "Cover",
-				"option_none": "None",
-				"title": "Image type"
+				"description": "Choose slide image type"
 			},
 			"screenColor": {
 				"description": "Select a screen mode.",
-				"option_dark": "Dark",
-				"option_light": "Light",
-				"option_system": "System",
 				"title": "Screen mode"
 			}
 		}
@@ -254,7 +272,14 @@
 			"title": "empty"
 		}
 	},
-	"thumbnail": {
-		"empty": "No slides"
+	"title": {
+		"addSlide": "",
+		"changeMode": "Change the editing mode.",
+		"fold": "Fold and unfold",
+		"getSlideItems": "Get slide items",
+		"importDataByAddress": "Import by address",
+		"importDataByFile": "Import to file",
+		"importSlideData": "Import slide data.",
+		"manageSlideData": "Manage slides data"
 	}
 }

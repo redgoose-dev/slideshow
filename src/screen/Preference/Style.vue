@@ -17,15 +17,9 @@
           id="pref_screenColor"
           v-model="state.screenColor"
           @update:modelValue="onSave">
-          <option value="system">
-            {{$t('preference.style.screenColor.option_system')}}
-          </option>
-          <option value="light">
-            {{$t('preference.style.screenColor.option_light')}}
-          </option>
-          <option value="dark">
-            {{$t('preference.style.screenColor.option_dark')}}
-          </option>
+          <option value="system">{{$t('base.system')}}</option>
+          <option value="light">{{$t('base.lightMode')}}</option>
+          <option value="dark">{{$t('base.darkMode')}}</option>
         </FormSelect>
       </div>
     </div>
@@ -33,7 +27,7 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_imageType">
-          {{$t('preference.style.imageType.title')}}
+          {{$t('label.imageType')}}
         </label>
       </h3>
       <p class="field-description">
@@ -46,13 +40,13 @@
           v-model="state.imageType"
           @update:modelValue="onSave">
           <option value="none">
-            {{$t('preference.style.imageType.option_none')}}
+            {{$t('base.none')}}
           </option>
           <option value="contain">
-            {{$t('preference.style.imageType.option_contain')}}
+            {{$t('base.contain')}}
           </option>
           <option value="cover">
-            {{$t('preference.style.imageType.option_cover')}}
+            {{$t('base.cover')}}
           </option>
         </FormSelect>
       </div>
@@ -134,7 +128,7 @@
 
 <script>
 import { defineComponent, reactive } from 'vue';
-import * as object from '~/libs/object';
+import { convertPureObject } from '~/libs/object';
 import FormText from '~/components/Form/Text';
 import FormSelect from '~/components/Form/Select';
 
@@ -160,7 +154,7 @@ export default defineComponent({
     // methods
     function onSave()
     {
-      const structure = object.convertPureObject(state);
+      const structure = convertPureObject(state);
       context.emit('update', structure);
     }
     function onUpdateImageScale(s)

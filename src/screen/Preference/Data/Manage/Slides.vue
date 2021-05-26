@@ -17,24 +17,38 @@
       </i>
     </div>
     <div class="data-slide__body">
-      <h4 v-if="slide.title">{{slide.title}}</h4>
+      <h4 :class="!slide.title ? 'none' : ''">
+        {{slide.title || 'None'}}
+      </h4>
       <p v-if="slide.description">{{slide.description}}</p>
       <nav>
-        <a :href="slide.src" target="_blank">Image</a>
-        <a v-if="slide.thumbnail" :href="slide.thumbnail" target="_blank">Thumbnail</a>
+        <a :href="slide.src" target="_blank">
+          {{$t('base.image')}}
+        </a>
+        <a v-if="slide.thumbnail" :href="slide.thumbnail" target="_blank">
+          {{$t('base.thumbnail')}}
+        </a>
       </nav>
     </div>
     <nav class="data-slide__nav">
-      <button type="button" title="Edit" class="edit" @click="$emit('edit', k)">
+      <button
+        type="button"
+        :title="$t('base.edit')"
+        class="edit"
+        @click="$emit('edit', k)">
         <Icon icon-name="edit"/>
       </button>
-      <button type="button" title="Edit" class="remove" @click="$emit('remove', k)">
+      <button
+        type="button"
+        :title="$t('base.remove')"
+        class="remove"
+        @click="$emit('remove', k)">
         <Icon icon-name="x"/>
       </button>
     </nav>
   </li>
   <li v-if="!(items && items.length > 0)" class="data-slides__empty">
-    empty
+    {{$t('description.empty')}}
   </li>
 </ul>
 </template>
@@ -100,9 +114,9 @@ export default defineComponent({
       let target = getTargetElement(e.target);
       if (state.dragStartKey === state.dragPlaceholderKey) return;
       let clone = convertPureObject(props.items);
-      clone[state.dragStartKey] = convertPureObject(props.items[Number(target.dataset.key)]);
-      clone[Number(target.dataset.key)] = convertPureObject(props.items[state.dragStartKey]);
-      context.emit('update', clone);
+      clone.splice(state.dragStartKey, 1);
+      clone.splice(Number(target.dataset.key), 0, convertPureObject(props.items[state.dragStartKey]));
+      context.emit('change-order', clone);
     }
     function onDragEnd()
     {
@@ -126,7 +140,7 @@ export default defineComponent({
     };
   },
   emits: {
-    'update': null,
+    'change-order': null,
     'edit': null,
     'remove': null,
   },

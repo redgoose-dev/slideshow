@@ -1,6 +1,7 @@
 <template>
 <button
   type="button"
+  :title="title"
   class="button-icon">
   <Icon :icon-name="iconName"/>
 </button>
@@ -17,6 +18,7 @@ export default defineComponent({
   },
   props: {
     iconName: String,
+    title: String,
   },
 });
 </script>

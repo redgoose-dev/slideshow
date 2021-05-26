@@ -103,7 +103,7 @@
 
 <script>
 import { defineComponent, reactive } from 'vue';
-import * as object from '~/libs/object';
+import { convertPureObject } from '~/libs/object';
 import FormSwitch from '~/components/Form/Switch';
 
 export default defineComponent({
@@ -123,7 +123,7 @@ export default defineComponent({
     // methods
     function onSave()
     {
-      const structure = object.convertPureObject(state);
+      const structure = convertPureObject(state);
       context.emit('update', structure);
     }
 

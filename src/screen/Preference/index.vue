@@ -96,32 +96,32 @@ export default defineComponent({
           case 'general':
           default:
             return {
-              title: t('preference.header.general.title'),
+              title: t('base.general'),
               description: t('preference.header.general.description'),
             };
           case 'slides':
             return {
-              title: t('preference.header.slides.title'),
+              title: t('base.slides'),
               description: t('preference.header.slides.description'),
             }
           case 'style':
             return {
-              title: t('preference.header.style.title'),
+              title: t('base.style'),
               description: t('preference.header.style.description'),
             };
           case 'data':
             return {
-              title: t('preference.header.data.title'),
+              title: t('base.data'),
               description: t('preference.header.data.description'),
             };
           case 'keyboard':
             return {
-              title: t('preference.header.keyboard.title'),
+              title: t('base.keyboard'),
               description: t('preference.header.keyboard.description'),
             };
           case 'information':
             return {
-              title: t('preference.header.information.title'),
+              title: t('base.information'),
               description: t('preference.header.information.description'),
             };
         }
@@ -149,7 +149,7 @@ export default defineComponent({
     function onSubmit(e)
     {
       e.preventDefault();
-      if (!confirm(t('preference.confirm'))) return;
+      if (!confirm(t('confirm.resetPreference'))) return;
       try
       {
         let tree = convertPureObject(state.structure.data.tree);
@@ -160,7 +160,7 @@ export default defineComponent({
           style: convertPureObject(state.structure.style),
           keyboard: convertPureObject(state.structure.keyboard),
         };
-        if (!checkPreference(preference)) throw 'Bad preference data.';
+        if (!checkPreference(preference)) throw new Error('Bad preference data.');
 
         // update store
         store.dispatch('changePreference', preference);
@@ -181,7 +181,7 @@ export default defineComponent({
       catch(e)
       {
         if (window.dev) console.error(e.message);
-        alert(t('preference.failedApply'));
+        alert(t('alert.failedApply'));
       }
     }
 

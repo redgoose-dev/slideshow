@@ -8,10 +8,10 @@
           <FormRadio
             name="pref_mode"
             id="prof_mode"
-            :title="$t('preference.data.importData.mode.description')"
+            :title="$t('description.importDataMethod')"
             :items="[
-              { key: 'address', label: $t('preference.data.importData.mode.label_address') },
-              { key: 'file', label: $t('preference.data.importData.mode.label_file') },
+              { key: 'address', label: $t('base.address') },
+              { key: 'file', label: $t('base.file') },
             ]"
             v-model="state.mode"/>
         </div>
@@ -19,35 +19,35 @@
       <div v-if="state.mode === 'address'" class="field-basic">
         <h3 class="field-title">
           <label for="pref_address">
-            {{$t('preference.data.importData.address.title')}}
+            {{$t('title.importDataByAddress')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.data.importData.address.description')}}
+          {{$t('description.getDataByRestAPI')}}
         </p>
         <div class="field-basic__body">
           <FormText
             ref="address"
             name="pref_address"
             id="pref_address"
-            placeholder="Please input address"
+            :placeholder="$t('base.inputAddress')"
             v-model="state.address"/>
         </div>
       </div>
       <div v-if="state.mode === 'file'" class="field-basic">
         <h3 class="field-title">
           <label for="pref_address">
-            {{$t('preference.data.importData.file.title')}}
+            {{$t('title.importDataByFile')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.data.importData.file.description')}}
+          {{$t('description.getJsonFile')}}
         </p>
         <div class="field-basic__body">
           <FormUpload
             ref="file"
             accept="application/json"
-            :label="$t('preference.data.importData.file.placeholder')"
+            :label="$t('description.selectJsonFile')"
             @change="onSelectFile"/>
         </div>
       </div>
@@ -59,7 +59,7 @@
           :color="state.processing ? '' : 'key'"
           :disabled="state.processing"
           :inline="true">
-          {{state.processing ? $t('preference.data.importData.submit.processing') : $t('preference.data.importData.submit.getData')}}
+          {{state.processing ? $t('base.processing') : $t('label.getData')}}
         </ButtonBasic>
       </div>
     </nav>
@@ -78,7 +78,7 @@ import FormUpload from '~/components/Form/Upload';
 import ButtonBasic from '~/components/Button/Basic';
 
 export default defineComponent({
-  name: 'preference-data-import-data',
+  name: 'Preference_Data_ImportData',
   components: {
     FormRadio,
     FormText,
@@ -145,7 +145,7 @@ export default defineComponent({
       catch(e)
       {
         if (window.dev) console.error(e.message);
-        alert(t('preference.data.alerts.failedGetData'));
+        alert(t('alert.failedGetData'));
         state.processing = false;
       }
     }

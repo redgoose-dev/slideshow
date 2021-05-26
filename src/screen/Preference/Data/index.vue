@@ -4,7 +4,7 @@
   <div class="fields">
     <div class="field-basic">
       <h3 class="field-title">
-        {{$t('preference.data.tree.title')}}
+        {{$t('title.manageSlideData')}}
       </h3>
       <div class="field-basic__body">
         <div class="manage-tree">
@@ -14,16 +14,10 @@
                 type="button"
                 name="pref_mode"
                 id="prof_mode"
-                :title="$t('preference.data.tree.changeMode')"
+                :title="$t('title.changeMode')"
                 :items="[
-                  {
-                    key: 'basic',
-                    label: $t('preference.data.tree.mode_basic'),
-                  },
-                  {
-                    key: 'advanced',
-                    label: $t('preference.data.tree.mode_advanced'),
-                  },
+                  { key: 'basic', label: $t('base.basic') },
+                  { key: 'advanced', label: $t('base.advanced') },
                 ]"
                 :modelValue="localState.mode"
                 @update:model-value="onChangeMode"
@@ -31,7 +25,7 @@
             </div>
             <div>
               <ButtonIcon
-                :title="$t('preference.data.tree.importData')"
+                :title="$t('title.importSlideData')"
                 icon-name="download"
                 class="manage-tree__button"
                 @click="localState.showImportData = true"/>
@@ -48,7 +42,7 @@
               type="textarea"
               name="pref_tree"
               id="pref_tree"
-              :placeholder="$t('preference.data.tree.textPlaceholder')"
+              :placeholder="$t('description.inputSlideDataCode')"
               :rows="15"
               :color="localState.textTreeColor"
               v-model="state.tree"
@@ -61,7 +55,7 @@
   <teleport to="#modal">
     <ModalWrapper
       v-if="localState.showImportData"
-      title="Get slide items"
+      :title="$t('title.getSlideItems')"
       class="pref-data__import-data"
       @close="localState.showImportData = false">
       <ImportData @update="onImportData"/>
@@ -71,7 +65,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive } from 'vue';
 import { useI18n } from 'vue-i18n/index';
 import { checkTree } from '~/libs/object';
 import { objectToString } from '~/libs/string';
@@ -104,9 +98,6 @@ export default defineComponent({
       mode: 'basic', // basic,advanced
       showImportData: false,
       textTreeColor: undefined,
-      computedTreeText: computed(() => {
-        return JSON.stringify(state.tree, null, 2)
-      }),
     });
     let state = reactive({
       tree: localState.mode === 'advanced' ? JSON.stringify(props.structure.tree, null, 2) : props.structure.tree,
@@ -135,7 +126,7 @@ export default defineComponent({
       catch(e)
       {
         if (window.dev) console.error(e.message);
-        alert(t('preference.data.alerts.invalidData'));
+        alert(t('alert.invalidData'));
       }
     }
     function onUpdateTreeSource(str)

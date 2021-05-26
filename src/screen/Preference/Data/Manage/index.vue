@@ -1,87 +1,82 @@
 <template>
 <article class="manage-tree">
-  <section
-    v-for="(item,k) in computes.index"
-    class="tree-item">
+  <section v-for="(item,k) in computes.index" class="tree-item">
     <header class="tree-item__header">
       <nav>
         <button
           type="button"
-          title="toggle fold"
-          :class="[
-            'fold',
-            state.fold[k] && 'fold--on',
-          ]"
-          @click="onToggleFold(k)">
+          :title="$t('title.fold')"
+          :class="[ 'fold', state.fold[item.key] && 'fold--on' ]"
+          @click="onToggleFold(item.key)">
           <Icon icon-name="arrow-down"/>
         </button>
       </nav>
       <h3>
-        <strong><b>{{computes.keys[k]}}</b> {{item.name}} <em>{{item.slides.length}}</em></strong>
-        <span v-if="item.description">{{item.description}}</span>
+        <strong>
+          <b>{{item.key}}</b> {{item.name}} <em>{{item.slides.length}}</em>
+        </strong>
+        <span v-if="item.description">
+          {{item.description}}
+        </span>
       </h3>
       <nav>
         <button
           type="button"
-          title="Add slide"
+          :title="$t('label.addSlide')"
           class="add"
-          @click="onAddSlide(computes.keys[k])">
+          @click="onAddSlide(item.key)">
           <Icon icon-name="plus"/>
         </button>
         <button
           type="button"
-          title="Edit tree item"
+          :title="$t('label.editGroup')"
           class="edit"
-          @click="onEditGroup(computes.keys[k])">
+          @click="onEditGroup(item.key)">
           <Icon icon-name="edit"/>
         </button>
         <button
           type="button"
-          title="remove tree item"
+          :title="$t('label.removeGroup')"
           class="remove"
-          @click="onRemoveGroup(computes.keys[k])">
+          @click="onRemoveGroup(item.key)">
           <Icon icon-name="x"/>
         </button>
       </nav>
     </header>
     <Slides
-      v-if="state.fold[k]"
-      :item-key="computes.keys[k]"
+      v-if="state.fold[item.key]"
+      :item-key="item.key"
       :items="item.slides"
-      @update="o => onUpdateSlides(computes.keys[k], o)"
-      @edit="n => onEditSlide(computes.keys[k], n)"
-      @remove="n => onRemoveSlide(computes.keys[k], n)"/>
-    <nav class="tree-item__add">
-      <button type="button">add slide</button>
-    </nav>
+      @change-order="o => onUpdateSlides(item.key, o)"
+      @edit="n => onEditSlide(item.key, n)"
+      @remove="n => onRemoveSlide(item.key, n)"/>
   </section>
   <nav class="add-tree">
     <ButtonBasic
-      title="Add group"
+      :title="$t('label.addGroup')"
       color="key"
       @click="onAddGroup">
-      Add group
+      {{$t('label.addGroup')}}
     </ButtonBasic>
   </nav>
-
   <teleport to="#modal">
     <ModalWrapper
       v-if="state.showManageGroup"
-      title="Edit tree item"
-      class="modal-edit-form"
+      :title="$t('label.editGroup')"
+      class="modal-edit-group"
       @close="state.showManageGroup = false">
       <ManageGroup
         :form="state.manageFormGroup"
         @submit="onSubmitGroup"/>
     </ModalWrapper>
     <ModalWrapper
-      v-if="state.showEditSlide"
-      title="Edit slide"
-      class="modal-edit-form"
-      @close="state.showEditSlide = false">
-      <EditSlide
+      v-if="state.showManageSlide"
+      :title="$t('label.editSlide')"
+      class="modal-edit-slide"
+      @close="state.showManageSlide = false">
+      <ManageSlide
         :form="state.editFormSlide"
-        @update="onUpdateSlide"/>
+        @submit="onSubmitSlide"/>
     </ModalWrapper>
   </teleport>
 </article>
@@ -89,13 +84,14 @@
 
 <script>
 import { defineComponent, reactive, computed } from 'vue';
+import { useI18n } from 'vue-i18n/index';
 import { convertPureObject } from '~/libs/object';
 import Icon from '~/components/Icon';
 import ButtonBasic from '~/components/Button/Basic';
 import ModalWrapper from '~/screen/Preference/Data/ModalWrapper';
 import Slides from './Slides';
 import ManageGroup from './ManageGroup';
-import EditSlide from './EditSlide';
+import ManageSlide from './ManageSlide';
 
 export default defineComponent({
   name: 'PreferenceDataManage',
@@ -105,39 +101,50 @@ export default defineComponent({
     ModalWrapper,
     Slides,
     ManageGroup,
-    EditSlide,
+    ManageSlide,
   },
   props: {
     tree: { type: Object, required: true },
   },
   setup(props, context)
   {
+    const { t } = useI18n({ useScope: 'global' });
     let state = reactive({
-      fold: new Array(Object.keys(props.tree).length).fill(false),
+      fold: createFold(),
       dragPlaceholder: undefined,
       showManageGroup: false,
-      showEditSlide: false,
+      showManageSlide: false,
       manageFormGroup: undefined,
       editFormSlide: undefined,
     });
     let computes = reactive({
       index: computed(() => {
         const keys = Object.keys(props.tree);
-        return keys.map(key => (props.tree[key]));
+        return keys.map(key => ({
+          ...props.tree[key],
+          key,
+        }));
       }),
-      keys: computed(() => (Object.keys(props.tree))),
     });
 
     // methods
+    function createFold()
+    {
+      let obj = {};
+      Object.keys(props.tree).forEach(key => {
+        obj[key] = false;
+      });
+      return obj;
+    }
     function onUpdateSlides(key, newSlides)
     {
       let clone = convertPureObject(props.tree);
       clone[key].slides = newSlides;
       context.emit('update', clone);
     }
-    function onToggleFold(key)
+    function onToggleFold(key, sw = undefined)
     {
-      state.fold[key] = !state.fold[key];
+      state.fold[key] = sw === undefined ? !state.fold[key] : sw;
     }
     function onAddGroup()
     {
@@ -162,7 +169,7 @@ export default defineComponent({
     }
     function onRemoveGroup(key)
     {
-      if (!confirm('정말 삭제할까요?')) return;
+      if (!confirm(t('confirm.remove'))) return;
       let clone = convertPureObject(props.tree);
       delete clone[key];
       context.emit('update', clone);
@@ -192,13 +199,13 @@ export default defineComponent({
             break;
           case 'edit':
             newKey = (originalKey !== key) ? testKey(key) : key;
-            if (!newKey) throw new Error('유효한 키가 아닙니다.');
+            if (!newKey) throw new Error('Not a valid key.');
             clone[newKey] = {
               ...clone[originalKey],
               name,
               description,
             };
-            delete clone[originalKey];
+            if (originalKey !== key) delete clone[originalKey];
             break;
         }
         context.emit('update', clone);
@@ -206,31 +213,73 @@ export default defineComponent({
       }
       catch(e)
       {
-        console.error(e.message)
+        if (window.dev) console.error(e.message);
+        alert(t('alert.errorSubmit'));
       }
     }
-    function onAddSlide()
-    {
-      //
-    }
-    function onEditSlide(key, n)
+    function onAddSlide(key)
     {
       state.editFormSlide = {
-        key,
-        src: '',
+        type: 'add',
+        groupKey: key,
+        src: 'https://',
         thumbnail: '',
         title: '',
         description: '',
       };
-      state.showEditSlide = true;
+      state.showManageSlide = true;
+    }
+    function onEditSlide(key, n)
+    {
+      const item = props.tree[key].slides[n];
+      state.editFormSlide = {
+        type: 'edit',
+        groupKey: key,
+        key: n,
+        src: item.src,
+        thumbnail: item.thumbnail,
+        title: item.title,
+        description: item.description,
+      };
+      state.showManageSlide = true;
     }
     function onRemoveSlide(key, n)
     {
-      console.log('onRemoveSlide');
+      if (!confirm(t('confirm.remove'))) return;
+      let clone = convertPureObject(props.tree);
+      clone[key].slides.splice(n, 1);
+      context.emit('update', clone);
     }
-    function onUpdateSlide()
+    function onSubmitSlide(res)
     {
-      console.log('onUpdateSlide');
+      const { type, groupKey, key, src, thumbnail, title, description } = res;
+      let clone = convertPureObject(props.tree);
+      try
+      {
+        const obj = {
+          src,
+          thumbnail,
+          title,
+          description,
+        };
+        switch (type)
+        {
+          case 'add':
+            clone[groupKey].slides.push(obj);
+            break;
+          case 'edit':
+            clone[groupKey].slides[key] = obj;
+            break;
+        }
+        onToggleFold(groupKey, true);
+        context.emit('update', clone);
+        state.showManageSlide = false;
+      }
+      catch(e)
+      {
+        if (window.dev) console.error(e.message);
+        alert(t('alert.errorSubmit'));
+      }
     }
 
     return {
@@ -245,7 +294,7 @@ export default defineComponent({
       onAddSlide,
       onEditSlide,
       onRemoveSlide,
-      onUpdateSlide,
+      onSubmitSlide,
     };
   },
   emits: {
@@ -256,7 +305,10 @@ export default defineComponent({
 
 <style src="./index.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
-.modal-edit-form {
+.modal-edit-group {
   --modal-size-height: 560px;
+}
+.modal-edit-slide {
+  --modal-size-height: 690px;
 }
 </style>

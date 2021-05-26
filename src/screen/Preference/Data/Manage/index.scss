@@ -138,9 +138,6 @@
       }
     }
   }
-  &__add {
-    display: none;
-  }
   @include responsive(desktop) {
     &:hover {
       .tree-item__header {
