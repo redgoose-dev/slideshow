@@ -1,29 +1,39 @@
 {
 	"alert": {
+		"completeRestore": "복원을 완료했습니다.",
 		"errorSubmit": "처리에 문제가 생겼습니다.",
 		"failedApply": "오류가 발생하여 적용하지 못했습니다.",
 		"failedGetData": "데이터를 가져오는데 실패했습니다.",
+		"failedRestore": "복원에 실패했습니다.",
 		"invalidAddress": "주소가 잘못되었습니다.",
-		"invalidData": "데이터가 잘못되었습니다."
+		"invalidData": "데이터가 잘못되었습니다.",
+		"noSelectedFile": "선택한 파일이 없습니다."
 	},
 	"base": {
+		"ShortcutKey": "단축키",
 		"add": "추가하기",
 		"address": "주소",
 		"advanced": "전문가",
 		"apply": "적용하기",
 		"author": "제작자",
+		"autoplay": "자동재생",
 		"backup": "백업",
 		"basic": "기본",
+		"caption": "캡션",
 		"close": "닫기",
 		"contain": "전부 보이기",
+		"controller": "컨트롤러",
 		"cover": "꽉채우기",
 		"darkMode": "다크 모드",
 		"data": "데이터",
 		"description": "설명",
 		"edit": "수정",
 		"file": "파일",
+		"fullscreen": "전체화면",
 		"general": "기본",
 		"groupKey": "그룹 키",
+		"guide": "가이드",
+		"hud": "HUD",
 		"image": "이미지",
 		"imageUrl": "이미지 URL",
 		"information": "정보",
@@ -32,254 +42,143 @@
 		"inputText": "글자를 입력해주세요.",
 		"inputUrl": "URL을 입력하세요.",
 		"keyboard": "키보드",
+		"language": "언어",
+		"leftKey": "왼쪽 방향키",
 		"lightMode": "라이트 모드",
+		"menu": "메뉴",
 		"name": "이름",
+		"next": "다음",
 		"none": "없음",
 		"openUrl": "URL 열기",
+		"paginate": "슬라이드 번호",
+		"preference": "환경설정",
+		"previous": "이전",
 		"processing": "처리중..",
 		"remove": "삭제",
+		"repeat": "반복",
+		"reset": "재설정",
+		"resetSlideshow": "슬라이드쇼 재설정",
 		"restore": "복원",
+		"rightKey": "오른쪽 방향키",
+		"shuffleText": "무작위로 변하는 글자",
 		"slides": "슬라이드",
 		"style": "스타일",
 		"subject": "제목",
 		"submitEdit": "수정하기",
+		"swipe": "밀어 넘기기",
 		"system": "시스템",
 		"thumbnail": "썸네일",
 		"urlThumbnailUrl": "썸네일 이미지 URL",
 		"version": "버전"
 	},
 	"confirm": {
+		"applyRestart": "슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?",
+		"backup": "정말 모든 데이터를 백업할까요?\n백업한 내용은 `JSON` 파일로 저장됩니다.",
 		"remove": "정말 삭제할까요?",
-		"resetPreference": "슬라이드쇼가 재시작됩니다.\n적용하시겠습니까?"
+		"reset": "정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?\n초기화하면 복구할 수 없습니다.",
+		"restart": "정말로 재시작 하겠습니까?",
+		"restore": "정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다."
 	},
 	"description": {
+		"addSlides": "환경설정에서 슬라이드를 추가해주세요.",
+		"autoplay": "슬라이드를 자동재생 합니다.",
+		"autoplayDelay": "슬라이드가 자동으로 전환하기 전에 대기하는 시간입니다.",
+		"autoplayDirection": "슬라이드가 자동으로 전환하는 방향을 설정합니다.",
+		"autoplayPauseOnHover": "슬라이드 영역에 마우스를 갖다대면 자동재생을 일시정지 합니다.",
+		"backup": "슬라이드쇼의 모든 데이터를 가져오거나 내보냅니다.",
+		"captionAnimationSpeed": "값이 높을수록 애니메이션 속도가 빨라집니다.",
+		"captionAnimationType": "슬라이드가 바뀔때의 캡션 트랜지션을 선택합니다.",
+		"captionPosition": "캡션의 위치를 설정합니다. 예)왼쪽,상단",
+		"captionScale": "캡션의 크기를 설정합니다.",
 		"empty": "비었습니다.",
 		"emptySlides": "슬라이드가 없습니다.",
 		"getDataByRestAPI": "RestAPI 주소로 데이터를 가져옵니다.",
 		"getJsonFile": "JSON 파일을 업로드하여 데이터를 가져옵니다.",
+		"hoverVisibleHud": "슬라이드 영역에 마우스를 갖다대면 조작과 상태요소를 숨깁니다.",
+		"hud": "조작과 상태요소들을 보여줍니다.",
+		"imageScale": "슬라이드 이미지 크기를 정합니다. 예) 가로,세로",
+		"imageType": "슬라이드 이미지 표시방식을 선택합니다.",
 		"importDataMethod": "데이터를 가져오는 방법을 선택합니다.",
+		"information": "문제점이나 개선에 관한 의견이 있으면 %{link} 페이지를 이용해주세요.",
+		"initialNumber": "시작할때 표시되는 슬라이드 번호입니다. (번호는 0부터)",
 		"inputDescriptionSlide": "슬라이드 설명을 입력합니다.",
 		"inputImageUrl": "이미지 주소를 입력합니다.",
 		"inputKeyOnGroup": "슬라이드 그룹의 키값을 입력합니다.",
 		"inputSlideDataCode": "슬라이드 데이터 코드를 입력해주세요.",
 		"inputSlideTitle": "슬라이드 제목을 입력합니다.",
 		"inputThumbnailUrl": "썸네일 이미지 주소를 입력합니다.",
+		"keyboardGuide": "다음과 같이 키보드 단축키를 누르면 해당 기능을 실행합니다.",
+		"language": "언어를 설정합니다.",
+		"openPreference": "환경설정 열기",
+		"repeat": "슬라이드를 마지막에서 처음으로 이동합니다.",
+		"reset": "모든 설정과 슬라이드 데이터를 재설정합니다.",
+		"restart": "슬라이드쇼 재실행",
+		"screenMode": "화면모드를 선택합니다.",
 		"selectJsonFile": "JSON 파일을 선택해주세요.",
 		"setCategoryDescription": "카테고리에 대한 설명을 입력합니다.",
-		"setCategoryName": "카테고리의 이름을 설정합니다."
+		"setCategoryName": "카테고리의 이름을 설정합니다.",
+		"swipe": "터치 디바이스에서 밀어 넘기는 조작을 사용합니다.",
+		"thumbnail": "썸네일 이미지 목록화면을 엽니다.",
+		"touchHud": "마우스를 클릭하거나 화면을 터치할때 HUD를 토글링합니다.",
+		"transitionSpeed": "트랜지션 애니메이션 속도를 변경합니다.",
+		"transitionType": "슬라이드가 바뀔때의 트랜지션을 선택합니다.",
+		"usingKeyboard": "키보드 단축키를 사용합니다.",
+		"visibleContents": "각 조작과 상태요소들 표시를 설정합니다."
 	},
 	"label": {
 		"addGroup": "그룹 추가",
 		"addSlide": "슬라이드 추가",
 		"editGroup": "그룹 수정",
 		"editSlide": "슬라이드 수정",
+		"fadeInOut": "투명도 전환",
 		"getData": "데이터 가져오기",
 		"imageType": "이미지 표시방식",
+		"moveHorizontal": "가로방향으로 이동",
+		"nextSlide": "다음 슬라이드로 이동하기",
+		"prevSlide": "이전 슬라이드로 이동하기",
 		"removeGroup": "그룹 삭제"
 	},
-	"loading": {
-		"label": "슬라이드쇼 준비중.."
-	},
-	"main": {
-		"confirmRestart": "정말로 재시작 하겠습니까?"
-	},
-	"navigation": {
-		"autoplay": "자동재생",
-		"fullscreen": "전체화면 보기",
-		"menu": "메뉴",
-		"preference": "환경설정",
-		"thumbnail": "썸네일 목록보기"
+	"language": {
+		"en": "영어",
+		"ko": "한국어"
 	},
 	"preference": {
-		"general": {
-			"alerts": {
-				"completeRestore": "복원을 완료했습니다.",
-				"failedRestore": "복원에 실패했습니다.",
-				"noSelectedFile": "선택한 파일이 없습니다."
-			},
-			"backup": {
-				"description": "슬라이드쇼의 모든 데이터를 가져오거나 내보냅니다.",
-				"title": "백업 및 복원"
-			},
-			"clickVisibleHud": {
-				"description": "마우스를 클릭하거나 화면을 터치할때 HUD를 토글링합니다.",
-				"title": "클릭, 터치시 HUD 토글"
-			},
-			"confirms": {
-				"backup": "정말 모든 데이터를 백업할까요?\n백업한 내용은 `json` 파일로 저장됩니다.",
-				"inputExample": "예제 슬라이드를 넣을까요?",
-				"reset": "정말로 모든 설정과 슬라이드 데이터를 초기화 하겠습니까?\n초기화하면 복구할 수 없습니다.",
-				"restore": "정말 모든 데이터를 복원할까요?\n이 작업은 현재 데이터가 모두 삭제됩니다."
-			},
-			"hoverVisibleHud": {
-				"description": "슬라이드 영역에 마우스를 갖다대면 조작과 상태요소를 숨깁니다.",
-				"title": "마우스 오버시 HUD 보이기"
-			},
-			"hud": {
-				"description": "조작과 상태요소들을 보여줍니다.",
-				"title": "HUD"
-			},
-			"language": {
-				"description": "메시지 언어를 설정합니다.",
-				"option_en": "영어",
-				"option_ko": "한국어",
-				"title": "언어"
-			},
-			"reset": {
-				"description": "모든 설정과 슬라이드 데이터를 재설정합니다.",
-				"label": "슬라이드쇼 재설정하기",
-				"title": "슬라이드쇼 재설정"
-			},
-			"visibleContents": {
-				"description": "각 조작과 상태요소들 표시를 설정합니다.",
-				"item_autoplay": "자동재생",
-				"item_caption": "캡션",
-				"item_controller": "컨트롤러",
-				"item_menu": "메뉴",
-				"item_paginate": "슬라이드 번호",
-				"item_thumbnail": "썸네일 표시",
-				"title": "요소들 표시"
-			}
-		},
 		"header": {
-			"data": {
-				"description": "슬라이드 데이터를 관리합니다."
-			},
-			"general": {
-				"description": "기초적인 항목들을 설정합니다."
-			},
-			"information": {
-				"description": "슬라이드쇼에 관한 정보를 확인할 수 있습니다."
-			},
-			"keyboard": {
-				"description": "키보드 단축키에 관한 설정입니다."
-			},
-			"slides": {
-				"description": "슬라이드와 관련된 부분들을 설정합니다."
-			},
-			"style": {
-				"description": "화면에 표시되는 부분들을 설정합니다."
-			}
-		},
-		"information": {
-			"message1": "문제점이나 개선에 관한 의견이 있으면 %{link} 페이지를 이용해주세요."
-		},
-		"keyboard": {
-			"enabled": {
-				"description": "키보드 단축키를 사용합니다.",
-				"title": "키보드 단축키 사용"
-			},
-			"guide": {
-				"description": "다음과 같이 키보드 단축키를 누르면 해당 기능을 실행합니다.",
-				"table": {
-					"body_autoplayDescription": "자동재생",
-					"body_hudDescription": "모든 HUD 요소 보이기",
-					"body_leftDescription": "이전 슬라이드로 이동",
-					"body_leftKey": "왼쪽 방향키",
-					"body_preferenceDescription": "환경설정 열기",
-					"body_restartDescription": "슬라이드쇼 재실행",
-					"body_rightDescription": "다음 슬라이드로 이동",
-					"body_rightKey": "오른쪽 방향키",
-					"body_thumbnailDescription": "썸네일 이미지 목록화면 열기",
-					"head_description": "설명",
-					"head_key": "단축키"
-				},
-				"title": "키보드 가이드"
-			}
-		},
-		"slides": {
-			"animationSpeed": {
-				"description": "트랜지션 애니메이션 속도를 변경합니다.",
-				"title": "트랜지션 속도"
-			},
-			"animationType": {
-				"description": "슬라이드가 바뀔때의 트랜지션을 선택합니다.",
-				"option_fade": "투명도 전환",
-				"option_horizontal": "가로방향으로 이동",
-				"option_none": "없음",
-				"title": "트랜지션 종류"
-			},
-			"autoplay": {
-				"description": "슬라이드를 자동재생 합니다.",
-				"title": "자동재생"
-			},
-			"autoplayDelay": {
-				"description": "슬라이드가 자동으로 전환하기 전에 대기하는 시간입니다.",
-				"title": "자동재생 딜레이"
-			},
-			"autoplayDirection": {
-				"description": "슬라이드가 자동으로 전환하는 방향을 설정합니다.",
-				"option_next": "다음",
-				"option_prev": "이전",
-				"title": "자동재생 방향"
-			},
-			"autoplayPauseOnHover": {
-				"description": "슬라이드 영역에 마우스를 갖다대면 자동재생을 일시정지 합니다.",
-				"title": "마우스 오버시 자동재생 일시정지"
-			},
-			"captionAnimationSpeed": {
-				"description": "값이 높을수록 애니메이션 속도가 빨라집니다.",
-				"title": "캡션 애니메이션 속도"
-			},
-			"captionAnimationType": {
-				"description": "슬라이드가 바뀔때의 캡션 트랜지션을 선택합니다.",
-				"option_none": "없음",
-				"option_shuffle": "무작위 변경되는 글자",
-				"title": "캡션 애니메이션 종류"
-			},
-			"initialNumber": {
-				"description": "시작할때 표시되는 슬라이드 번호입니다. (번호는 0부터)",
-				"title": "기본 슬라이드 번호"
-			},
-			"loop": {
-				"description": "슬라이드를 마지막에서 처음으로 이동합니다.",
-				"title": "반복"
-			},
-			"swipe": {
-				"description": "터치 디바이스에서 밀어 넘기는 조작을 사용합니다.",
-				"title": "밀어 넘기기"
-			}
-		},
-		"style": {
-			"captionPosition": {
-				"description": "캡션의 위치를 설정합니다. 예)왼쪽,상단",
-				"title": "캡션 위치"
-			},
-			"captionScale": {
-				"description": "캡션의 크기를 설정합니다.",
-				"title": "캡션 크기"
-			},
-			"imageScale": {
-				"description": "슬라이드 이미지 크기를 정합니다. 예) 가로,세로",
-				"title": "이미지 크기"
-			},
-			"imageType": {
-				"description": "슬라이드 이미지 표시방식을 선택합니다."
-			},
-			"screenColor": {
-				"description": "화면모드를 선택합니다.",
-				"title": "화면모드"
-			}
-		}
-	},
-	"slides": {
-		"controller": {
-			"next": "다음 슬라이드로 이동하기",
-			"prev": "이전 슬라이드로 이동하기"
-		},
-		"empty": {
-			"description": "환경설정에서 슬라이드를 추가해주세요.",
-			"title": "빈 슬라이드"
+			"data": "슬라이드 데이터를 관리합니다.",
+			"general": "기초적인 항목들을 설정합니다.",
+			"information": "슬라이드쇼에 관한 정보를 확인할 수 있습니다.",
+			"keyboard": "키보드 단축키에 관한 설정입니다.",
+			"slides": "슬라이드와 관련된 부분들을 설정합니다.",
+			"style": "화면에 표시되는 부분들을 설정합니다."
 		}
 	},
 	"title": {
-		"addSlide": "",
+		"autoplayDelay": "자동재생 딜레이",
+		"autoplayDirection": "자동재생 방향",
+		"autoplayPauseOnHover": "마우스 오버시 자동재생 일시정지",
+		"backupOrRestore": "백업 및 복원",
+		"captionAnimationSpeed": "캡션 애니메이션 속도",
+		"captionAnimationType": "캡션 애니메이션 종류",
+		"captionPosition": "캡션 위치",
+		"captionScale": "캡션 크기",
 		"changeMode": "편집모드를 변경합니다.",
+		"emptySlide": "빈 슬라이드",
 		"fold": "접고 펼치기",
 		"getSlideItems": "슬라이드 아이템 가져오기",
+		"hoverVisibleHud": "마우스 오버시 HUD 보이기",
+		"imageScale": "이미지 크기",
 		"importDataByAddress": "주소로 가져오기",
 		"importDataByFile": "파일로 가져오기",
 		"importSlideData": "슬라이드 데이터를 가져옵니다.",
-		"manageSlideData": "슬라이드 데이터 관리"
+		"initialNumber": "기본 슬라이드 번호",
+		"loading": "슬라이드쇼 준비중..",
+		"manageSlideData": "슬라이드 데이터 관리",
+		"screenMode": "화면모드",
+		"thumbnailView": "썸네일 보기",
+		"touchHud": "클릭, 터치시 HUD 토글",
+		"transitionSpeed": "트랜지션 속도",
+		"transitionType": "트랜지션 종류",
+		"usingKeyboard": "키보드 단축키 사용",
+		"visibleContents": "요소들 표시"
 	}
 }

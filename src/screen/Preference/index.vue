@@ -59,7 +59,7 @@ export default defineComponent({
     const preference = convertPureObject(store.state.preference);
     const tree = convertPureObject(store.state.tree);
     let state = reactive({
-      tab: 'data', // general,slides,style,data,keyboard,information
+      tab: 'general', // general,slides,style,data,keyboard,information
       structure: {
         general: preference.general,
         slides: preference.slides,
@@ -97,32 +97,32 @@ export default defineComponent({
           default:
             return {
               title: t('base.general'),
-              description: t('preference.header.general.description'),
+              description: t('preference.header.general'),
             };
           case 'slides':
             return {
               title: t('base.slides'),
-              description: t('preference.header.slides.description'),
+              description: t('preference.header.slides'),
             }
           case 'style':
             return {
               title: t('base.style'),
-              description: t('preference.header.style.description'),
+              description: t('preference.header.style'),
             };
           case 'data':
             return {
               title: t('base.data'),
-              description: t('preference.header.data.description'),
+              description: t('preference.header.data'),
             };
           case 'keyboard':
             return {
               title: t('base.keyboard'),
-              description: t('preference.header.keyboard.description'),
+              description: t('preference.header.keyboard'),
             };
           case 'information':
             return {
               title: t('base.information'),
-              description: t('preference.header.information.description'),
+              description: t('preference.header.information'),
             };
         }
       }),
@@ -149,7 +149,7 @@ export default defineComponent({
     function onSubmit(e)
     {
       e.preventDefault();
-      if (!confirm(t('confirm.resetPreference'))) return;
+      if (!confirm(t('confirm.applyRestart'))) return;
       try
       {
         let tree = convertPureObject(state.structure.data.tree);

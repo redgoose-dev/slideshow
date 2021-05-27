@@ -7,10 +7,10 @@
       icon-name="frown"
       class="empty__icon"/>
     <h2 class="empty__title">
-      {{$t('slides.empty.title')}}
+      {{$t('title.emptySlide')}}
     </h2>
     <p class="empty__description">
-      {{$t('slides.empty.description')}}
+      {{$t('description.addSlides')}}
     </p>
   </div>
 </article>

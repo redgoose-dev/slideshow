@@ -5,11 +5,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_screenColor">
-          {{$t('preference.style.screenColor.title')}}
+          {{$t('title.screenMode')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.style.screenColor.description')}}
+        {{$t('description.screenMode')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -31,7 +31,7 @@
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.style.imageType.description')}}
+        {{$t('description.imageType')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -54,11 +54,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_imageScale">
-          {{$t('preference.style.imageScale.title')}}
+          {{$t('title.imageScale')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.style.imageScale.description')}}
+        {{$t('description.imageScale')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -77,11 +77,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionScale">
-          {{$t('preference.style.captionScale.title')}}
+          {{$t('title.captionScale')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.style.captionScale.description')}}
+        {{$t('description.captionScale')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -103,11 +103,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionPosition">
-          {{$t('preference.style.captionPosition.title')}}
+          {{$t('title.captionPosition')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.style.captionPosition.description')}}
+        {{$t('description.captionPosition')}}
       </p>
       <div class="field-basic__body">
         <FormText

@@ -6,11 +6,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_enabled">
-            {{$t('preference.keyboard.enabled.title')}}
+            {{$t('title.usingKeyboard')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.keyboard.enabled.description')}}
+          {{$t('description.usingKeyboard')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -27,20 +27,20 @@
   <section class="keyboard-guide">
     <header class="keyboard-guide__header">
       <h3>
-        {{$t('preference.keyboard.guide.title')}}
+        {{$t('base.guide')}}
       </h3>
       <p>
-        {{$t('preference.keyboard.guide.description')}}
+        {{$t('description.keyboardGuide')}}
       </p>
     </header>
     <table class="keyboard-guide__body">
       <thead>
       <tr>
         <th>
-          {{$t('preference.keyboard.guide.table.head_key')}}
+          {{$t('base.ShortcutKey')}}
         </th>
         <td>
-          {{$t('preference.keyboard.guide.table.head_description')}}
+          {{$t('base.description')}}
         </td>
       </tr>
       </thead>
@@ -48,51 +48,51 @@
       <tr>
         <th>
           <code>
-            {{$t('preference.keyboard.guide.table.body_leftKey')}}
+            {{$t('base.leftKey')}}
           </code>
         </th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_leftDescription')}}
+          {{$t('label.prevSlide')}}
         </td>
       </tr>
       <tr>
         <th>
           <code>
-            {{$t('preference.keyboard.guide.table.body_rightKey')}}
+            {{$t('base.rightKey')}}
           </code>
         </th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_rightDescription')}}
+          {{$t('label.nextSlide')}}
         </td>
       </tr>
       <tr>
         <th><code>A</code></th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_autoplayDescription')}}
+          {{$t('base.autoplay')}}
         </td>
       </tr>
       <tr>
         <th><code>S</code></th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_preferenceDescription')}}
+          {{$t('description.openPreference')}}
         </td>
       </tr>
       <tr>
         <th><code>T</code></th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_thumbnailDescription')}}
+          {{$t('description.thumbnail')}}
         </td>
       </tr>
       <tr>
         <th><code>R</code></th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_restartDescription')}}
+          {{$t('description.restart')}}
         </td>
       </tr>
       <tr>
         <th><code>H</code></th>
         <td>
-          {{$t('preference.keyboard.guide.table.body_hudDescription')}}
+          {{$t('description.hud')}}
         </td>
       </tr>
       </tbody>

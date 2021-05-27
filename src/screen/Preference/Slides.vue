@@ -5,11 +5,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_initialNumber">
-          {{$t('preference.slides.initialNumber.title')}}
+          {{$t('title.initialNumber')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.initialNumber.description')}}
+        {{$t('description.initialNumber')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -29,11 +29,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_animationType">
-          {{$t('preference.slides.animationType.title')}}
+          {{$t('title.transitionType')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.animationType.description')}}
+        {{$t('description.transitionType')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -42,13 +42,13 @@
           v-model="state.animationType"
           @update:modelValue="onSave">
           <option value="none">
-            {{$t('preference.slides.animationType.option_none')}}
+            {{$t('base.none')}}
           </option>
           <option value="fade">
-            {{$t('preference.slides.animationType.option_fade')}}
+            {{$t('label.fadeInOut')}}
           </option>
           <option value="horizontal">
-            {{$t('preference.slides.animationType.option_horizontal')}}
+            {{$t('label.moveHorizontal')}}
           </option>
         </FormSelect>
       </div>
@@ -56,11 +56,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_animationSpeed">
-          {{$t('preference.slides.animationSpeed.title')}}
+          {{$t('title.transitionSpeed')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.animationSpeed.description')}}
+        {{$t('description.transitionSpeed')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -83,11 +83,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionAnimationType">
-          {{$t('preference.slides.captionAnimationType.title')}}
+          {{$t('title.captionAnimationType')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.captionAnimationType.description')}}
+        {{$t('description.captionAnimationType')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -96,10 +96,10 @@
           v-model="state.captionAnimationType"
           @update:modelValue="onSave">
           <option value="none">
-            {{$t('preference.slides.captionAnimationType.option_none')}}
+            {{$t('base.none')}}
           </option>
           <option value="shuffle">
-            {{$t('preference.slides.captionAnimationType.option_shuffle')}}
+            {{$t('base.shuffleText')}}
           </option>
         </FormSelect>
       </div>
@@ -107,11 +107,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionAnimationSpeed">
-          {{$t('preference.slides.captionAnimationSpeed.title')}}
+          {{$t('title.captionAnimationSpeed')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.captionAnimationSpeed.description')}}
+        {{$t('description.captionAnimationSpeed')}}
       </p>
       <div class="field-basic__inline">
         <FormText
@@ -132,11 +132,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_autoplay">
-            {{$t('preference.slides.autoplay.title')}}
+            {{$t('base.autoplay')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.slides.autoplay.description')}}
+          {{$t('description.autoplay')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -150,11 +150,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_autoplayDelay">
-          {{$t('preference.slides.autoplayDelay.title')}}
+          {{$t('title.autoplayDelay')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.autoplayDelay.description')}}
+        {{$t('description.autoplayDelay')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -176,11 +176,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_autoplayDirection">
-          {{$t('preference.slides.autoplayDirection.title')}}
+          {{$t('title.autoplayDirection')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.slides.autoplayDirection.description')}}
+        {{$t('description.autoplayDirection')}}
       </p>
       <div class="field-basic__inline">
         <FormRadio
@@ -188,8 +188,8 @@
           id="pref_autoplayDirection"
           :inline="true"
           :items="[
-            { key: false, label: $t('preference.slides.autoplayDirection.option_prev') },
-            { key: true, label: $t('preference.slides.autoplayDirection.option_next') },
+            { key: false, label: $t('base.previous') },
+            { key: true, label: $t('base.next') },
           ]"
           model-type="boolean"
           v-model="state.autoplayDirection"
@@ -200,11 +200,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_autoplayPauseOnHover">
-            {{$t('preference.slides.autoplayPauseOnHover.title')}}
+            {{$t('title.autoplayPauseOnHover')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.slides.autoplayPauseOnHover.description')}}
+          {{$t('description.autoplayPauseOnHover')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -220,11 +220,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_loop">
-            {{$t('preference.slides.loop.title')}}
+            {{$t('base.repeat')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.slides.loop.description')}}
+          {{$t('description.repeat')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -239,11 +239,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_swipe">
-            {{$t('preference.slides.swipe.title')}}
+            {{$t('base.swipe')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.slides.swipe.description')}}
+          {{$t('description.swipe')}}
         </p>
       </div>
       <div class="field-switch__input">

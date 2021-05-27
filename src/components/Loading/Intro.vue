@@ -2,7 +2,7 @@
 <div class="loading-intro loading-intro--move">
   <template v-if="state.show">
     <LoadingUnit class="unit"/>
-    <strong>{{$t('loading.label')}}</strong>
+    <strong>{{$t('title.loading')}}</strong>
   </template>
 </div>
 </template>

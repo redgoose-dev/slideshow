@@ -1,29 +1,39 @@
 {
 	"alert": {
+		"completeRestore": "Restore complete.",
 		"errorSubmit": "There was a problem with processing.",
 		"failedApply": "Failed to apply due to an error.",
 		"failedGetData": "Failed get data.",
+		"failedRestore": "Restore failed.",
 		"invalidAddress": "The address is invalid. ",
-		"invalidData": "The data is invalid."
+		"invalidData": "The data is invalid.",
+		"noSelectedFile": "There is no file selected."
 	},
 	"base": {
+		"ShortcutKey": "Shortcut key",
 		"add": "Add",
 		"address": "Address",
 		"advanced": "Advanced",
 		"apply": "Apply",
 		"author": "Author",
+		"autoplay": "Autoplay",
 		"backup": "Backup",
 		"basic": "Basic",
+		"caption": "Caption",
 		"close": "Close",
 		"contain": "Contain",
+		"controller": "Controller",
 		"cover": "Cover",
 		"darkMode": "Dark mode",
 		"data": "Data",
 		"description": "Description",
 		"edit": "Edit",
 		"file": "File",
+		"fullscreen": "Fullscreen",
 		"general": "General",
 		"groupKey": "Group key",
+		"guide": "Guide",
+		"hud": "HUD",
 		"image": "Image",
 		"imageUrl": "Image URL",
 		"information": "Information",
@@ -32,254 +42,143 @@
 		"inputText": "Please input text.",
 		"inputUrl": "Please input URL.",
 		"keyboard": "Keyboard",
+		"language": "Language",
+		"leftKey": "Left key",
 		"lightMode": "Light mode",
+		"menu": "Menu",
 		"name": "Name",
+		"next": "Next",
 		"none": "None",
 		"openUrl": "Open URL",
+		"paginate": "Slide number",
+		"preference": "Preference",
+		"previous": "Previous",
 		"processing": "Processing..",
 		"remove": "Remove",
+		"repeat": "Repeat",
+		"reset": "Reset",
+		"resetSlideshow": "Reset slideshow",
 		"restore": "Restore",
+		"rightKey": "Right key",
+		"shuffleText": "Shuffle text",
 		"slides": "Slides",
 		"style": "Style",
 		"subject": "Subject",
 		"submitEdit": "Edit",
+		"swipe": "Swipe",
 		"system": "System",
 		"thumbnail": "Thumbnail",
 		"urlThumbnailUrl": "Thumbnail image URL",
 		"version": "Version"
 	},
 	"confirm": {
+		"applyRestart": "The slideshow restarts.\nWould you like to apply?",
+		"backup": "Do you really want to back up all your data?\nThe backed up content is saved as a `JSON` file.",
 		"remove": "Do you really want to delete it?",
-		"resetPreference": "The slideshow restarts.\nWould you like to apply?"
+		"reset": "Do you really want to reset all settings and slide data?\nOnce initialized, it cannot be recovered.",
+		"restart": "Do you really want to restart?",
+		"restore": "Would you really want to restore all your data?\nThis operation will delete all current data."
 	},
 	"description": {
+		"addSlides": "Please add slides in preferences.",
+		"autoplay": "Autoplay the slide.",
+		"autoplayDelay": "The amount of time to wait before the slide automatically transitions.",
+		"autoplayDirection": "Set the direction in which the slide automatically transitions.",
+		"autoplayPauseOnHover": "If you place the mouse over the slide area, autoplay is paused.",
+		"backup": "Import or export all data in the slideshow.",
+		"captionAnimationSpeed": "The higher the value, the faster the animation.",
+		"captionAnimationType": "Select the caption transition when the slide changes.",
+		"captionPosition": "Set position of the caption. ex) left,top",
+		"captionScale": "Set size of the caption.",
 		"empty": "Empty",
 		"emptySlides": "No slides.",
 		"getDataByRestAPI": "Get data by RestAPI address.",
 		"getJsonFile": "Upload the JSON file to get the data.",
+		"hoverVisibleHud": "If you overlay mouse, HUD will be hidden.",
+		"hud": "It shows controller and status.",
+		"imageScale": "Set the size of the slide image. ex) horizontal,vertical",
+		"imageType": "Choose slide image type",
 		"importDataMethod": "Select how to import your data.",
+		"information": "If you have any comments on problems or improvements, please use the %{link} page.",
+		"initialNumber": "This is the slide number displayed at the start. (Numbers from 0)",
 		"inputDescriptionSlide": "Input description of the slide.",
 		"inputImageUrl": "Input image address.",
 		"inputKeyOnGroup": "Enter the key value for the slide group.",
 		"inputSlideDataCode": "Please input slides data code.",
 		"inputSlideTitle": "Input title for the slide.",
 		"inputThumbnailUrl": "Input thumbnail image address.",
+		"keyboardGuide": "Pressing a keyboard shortcut as follows executes the function.",
+		"language": "Set the language.",
+		"openPreference": "Open preference",
+		"repeat": "Moves the slide from last to first.",
+		"reset": "Reset all settings and slide data.",
+		"restart": "Restart the slideshow",
+		"screenMode": "Select a screen mode.",
 		"selectJsonFile": "Please select a JSON file.",
 		"setCategoryDescription": "Set the description of the category.",
-		"setCategoryName": "Set the name of the category."
+		"setCategoryName": "Set the name of the category.",
+		"swipe": "Use swipe operations on touch devices",
+		"thumbnail": "Open the thumbnail image list screen",
+		"touchHud": "Toggles the HUD when clicking the mouse or touching the screen.",
+		"transitionSpeed": "Change transition animation speed.",
+		"transitionType": "Select the transition type when the slide changes.",
+		"usingKeyboard": "Use keyboard shortcuts.",
+		"visibleContents": "Set the display of each controller and status."
 	},
 	"label": {
 		"addGroup": "Add group",
 		"addSlide": "Add slide",
 		"editGroup": "Edit group",
 		"editSlide": "Edit slide",
+		"fadeInOut": "Fade in/out",
 		"getData": "Import data",
 		"imageType": "Image type",
+		"moveHorizontal": "Move horizontally",
+		"nextSlide": "Go to next slide",
+		"prevSlide": "Go to previous slide",
 		"removeGroup": "Remove group"
 	},
-	"loading": {
-		"label": "Ready Slideshow.."
-	},
-	"main": {
-		"confirmRestart": "Do you really want to restart?"
-	},
-	"navigation": {
-		"autoplay": "Autoplay",
-		"fullscreen": "Fullscreen",
-		"menu": "Menu",
-		"preference": "Preference",
-		"thumbnail": "Thumbnail"
+	"language": {
+		"en": "English",
+		"ko": "Korean"
 	},
 	"preference": {
-		"general": {
-			"alerts": {
-				"completeRestore": "Restore complete.",
-				"failedRestore": "Restore failed.",
-				"noSelectedFile": "There is no file selected."
-			},
-			"backup": {
-				"description": "Import or export all data in the slideshow.",
-				"title": "Backup & Restore"
-			},
-			"clickVisibleHud": {
-				"description": "Toggles the HUD when clicking the mouse or touching the screen.",
-				"title": "Toggle HUD on click or touch"
-			},
-			"confirms": {
-				"backup": "Do you really want to back up all your data?\nThe backed up content is saved as a `json` file.",
-				"inputExample": "Would you like to put an example slide?",
-				"reset": "Do you really want to reset all settings and slide data?\nOnce initialized, it cannot be recovered.",
-				"restore": "Would you really want to restore all your data?\nThis operation will delete all current data."
-			},
-			"hoverVisibleHud": {
-				"description": "If you overlay mouse, HUD will be hidden.",
-				"title": "Visible Hover HUD"
-			},
-			"hud": {
-				"description": "It shows controller and status.",
-				"title": "HUD"
-			},
-			"language": {
-				"description": "Set the language.",
-				"option_en": "English",
-				"option_ko": "Korean",
-				"title": "Language"
-			},
-			"reset": {
-				"description": "Reset all settings and slide data.",
-				"label": "Reset slideshow",
-				"title": "Reset slideshow"
-			},
-			"visibleContents": {
-				"description": "Set the display of each controller and status.",
-				"item_autoplay": "Autoplay",
-				"item_caption": "Caption",
-				"item_controller": "Controller",
-				"item_menu": "Menu",
-				"item_paginate": "Paginate",
-				"item_thumbnail": "Thumbnail",
-				"title": "Visible contents"
-			}
-		},
 		"header": {
-			"data": {
-				"description": "Manage slide data."
-			},
-			"general": {
-				"description": "Set the basic items."
-			},
-			"information": {
-				"description": "You can check information about the slideshow."
-			},
-			"keyboard": {
-				"description": "Settings related to keyboard shortcuts."
-			},
-			"slides": {
-				"description": "Set the parts related to the slide."
-			},
-			"style": {
-				"description": "Set the parts displayed on the screen."
-			}
-		},
-		"information": {
-			"message1": "If you have any comments on problems or improvements, please use the %{link} page."
-		},
-		"keyboard": {
-			"enabled": {
-				"description": "Use keyboard shortcuts.",
-				"title": "Enabled shortcut"
-			},
-			"guide": {
-				"description": "Pressing a keyboard shortcut as follows executes the function.",
-				"table": {
-					"body_autoplayDescription": "Autoplay",
-					"body_hudDescription": "Show all HUD elements",
-					"body_leftDescription": "Go to the previous slide",
-					"body_leftKey": "Left key",
-					"body_preferenceDescription": "Open preference",
-					"body_restartDescription": "Restart the slideshow",
-					"body_rightDescription": "Go to the next slide",
-					"body_rightKey": "Right key",
-					"body_thumbnailDescription": "Open the thumbnail image list screen",
-					"head_description": "Description",
-					"head_key": "Shortcut key"
-				},
-				"title": "Keyboard guide"
-			}
-		},
-		"slides": {
-			"animationSpeed": {
-				"description": "Change transition animation speed.",
-				"title": "Transition speed"
-			},
-			"animationType": {
-				"description": "Select the transition type when the slide changes.",
-				"option_fade": "Fade in/out",
-				"option_horizontal": "Move horizontally",
-				"option_none": "None",
-				"title": "Transition type"
-			},
-			"autoplay": {
-				"description": "Autoplay the slide.",
-				"title": "Autoplay"
-			},
-			"autoplayDelay": {
-				"description": "The amount of time to wait before the slide automatically transitions.",
-				"title": "Autoplay delay"
-			},
-			"autoplayDirection": {
-				"description": "Set the direction in which the slide automatically transitions.",
-				"option_next": "Next",
-				"option_prev": "Previous",
-				"title": "Autoplay direction"
-			},
-			"autoplayPauseOnHover": {
-				"description": "If you place the mouse over the slide area, autoplay is paused.",
-				"title": "Autoplay pause on hover"
-			},
-			"captionAnimationSpeed": {
-				"description": "The higher the value, the faster the animation.",
-				"title": "Caption animation speed"
-			},
-			"captionAnimationType": {
-				"description": "Select the caption transition when the slide changes.",
-				"option_none": "None",
-				"option_shuffle": "Shuffle text",
-				"title": "Caption animation type"
-			},
-			"initialNumber": {
-				"description": "This is the slide number displayed at the start. (Numbers from 0)",
-				"title": "Initial slide number"
-			},
-			"loop": {
-				"description": "Moves the slide from last to first.",
-				"title": "Repeat"
-			},
-			"swipe": {
-				"description": "Use swipe operations on touch devices",
-				"title": "Swipe"
-			}
-		},
-		"style": {
-			"captionPosition": {
-				"description": "Set position of the caption. ex) left,top",
-				"title": "Caption position"
-			},
-			"captionScale": {
-				"description": "Set size of the caption.",
-				"title": "Caption scale"
-			},
-			"imageScale": {
-				"description": "Set the size of the slide image. ex) horizontal,vertical",
-				"title": "Image scale"
-			},
-			"imageType": {
-				"description": "Choose slide image type"
-			},
-			"screenColor": {
-				"description": "Select a screen mode.",
-				"title": "Screen mode"
-			}
-		}
-	},
-	"slides": {
-		"controller": {
-			"next": "Go to next slide",
-			"prev": "Go to previous slide"
-		},
-		"empty": {
-			"description": "Please add slides in preferences.",
-			"title": "empty"
+			"data": "Manage slide data.",
+			"general": "Set the basic items.",
+			"information": "You can check information about the slideshow.",
+			"keyboard": "Settings related to keyboard shortcuts.",
+			"slides": "Set the parts related to the slide.",
+			"style": "Set the parts displayed on the screen."
 		}
 	},
 	"title": {
-		"addSlide": "",
+		"autoplayDelay": "Autoplay delay",
+		"autoplayDirection": "Autoplay direction",
+		"autoplayPauseOnHover": "Autoplay pause on hover",
+		"backupOrRestore": "Backup & Restore",
+		"captionAnimationSpeed": "Caption animation speed",
+		"captionAnimationType": "Caption animation type",
+		"captionPosition": "Caption position",
+		"captionScale": "Caption scale",
 		"changeMode": "Change the editing mode.",
+		"emptySlide": "Empty slide",
 		"fold": "Fold and unfold",
 		"getSlideItems": "Get slide items",
+		"hoverVisibleHud": "Visible Hover HUD",
+		"imageScale": "Image scale",
 		"importDataByAddress": "Import by address",
 		"importDataByFile": "Import to file",
 		"importSlideData": "Import slide data.",
-		"manageSlideData": "Manage slides data"
+		"initialNumber": "Initial slide number",
+		"loading": "Ready Slideshow..",
+		"manageSlideData": "Manage slides data",
+		"screenMode": "Screen mode",
+		"thumbnailView": "Thumbnail view",
+		"touchHud": "Toggle HUD on click or touch",
+		"transitionSpeed": "Transition speed",
+		"transitionType": "Transition type",
+		"usingKeyboard": "Using keyboard shortcut",
+		"visibleContents": "Visible contents"
 	}
 }

@@ -112,7 +112,7 @@ export default defineComponent({
             store.dispatch('changeMode', 'thumbnail');
             break;
           case 82: // r
-            if (confirm(t('main.confirmRestart')) && local.main)
+            if (confirm(t('confirm.restart')) && local.main)
             {
               local.main.restart().then();
             }

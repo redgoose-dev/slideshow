@@ -5,11 +5,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_language">
-          {{$t('preference.general.language.title')}}
+          {{$t('base.language')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.general.language.description')}}
+        {{$t('description.language')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -17,8 +17,8 @@
           id="pref_language"
           v-model="state.language"
           @update:modelValue="onSave">
-          <option value="en">{{$t('preference.general.language.option_en')}}</option>
-          <option value="ko">{{$t('preference.general.language.option_ko')}}</option>
+          <option value="en">{{$t('language.en')}}</option>
+          <option value="ko">{{$t('language.ko')}}</option>
         </FormSelect>
       </div>
     </div>
@@ -27,11 +27,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_hud">
-            {{$t('preference.general.hud.title')}}
+            {{$t('base.hud')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.general.hud.description')}}
+          {{$t('description.hud')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -46,11 +46,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_hoverVisibleHud">
-            {{$t('preference.general.hoverVisibleHud.title')}}
+            {{$t('title.hoverVisibleHud')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.general.hoverVisibleHud.description')}}
+          {{$t('description.hoverVisibleHud')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -65,11 +65,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_clickVisibleHud">
-            {{$t('preference.general.clickVisibleHud.title')}}
+            {{$t('title.touchHud')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('preference.general.clickVisibleHud.description')}}
+          {{$t('description.touchHud')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -83,11 +83,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_hudContents">
-          {{$t('preference.general.visibleContents.title')}}
+          {{$t('title.visibleContents')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.general.visibleContents.description')}}
+        {{$t('description.visibleContents')}}
       </p>
       <div class="field-basic__body">
         <ul class="field-checks">
@@ -95,42 +95,35 @@
             <FormCheckbox
               name="pref_hudContents"
               id="pref_hudContents"
-              :label="$t('preference.general.visibleContents.item_menu')"
+              :label="$t('base.menu')"
               :modelValue="state.visibleHudContents.menu"
               @update:modelValue="o => onUpdateHudContents('menu', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('preference.general.visibleContents.item_thumbnail')"
-              :modelValue="state.visibleHudContents.thumbnail"
-              @update:modelValue="o => onUpdateHudContents('thumbnail', o)"/>
-          </li>
-          <li>
-            <FormCheckbox
-              name="pref_hudContents"
-              :label="$t('preference.general.visibleContents.item_caption')"
+              :label="$t('base.caption')"
               :modelValue="state.visibleHudContents.caption"
               @update:modelValue="o => onUpdateHudContents('caption', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('preference.general.visibleContents.item_controller')"
+              :label="$t('base.controller')"
               :modelValue="state.visibleHudContents.controller"
               @update:modelValue="o => onUpdateHudContents('controller', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('preference.general.visibleContents.item_paginate')"
+              :label="$t('base.paginate')"
               :modelValue="state.visibleHudContents.paginate"
               @update:modelValue="o => onUpdateHudContents('paginate', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('preference.general.visibleContents.item_autoplay')"
+              :label="$t('base.autoplay')"
               :modelValue="state.visibleHudContents.autoplay"
               @update:modelValue="o => onUpdateHudContents('autoplay', o)"/>
           </li>
@@ -141,11 +134,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label>
-          {{$t('preference.general.backup.title')}}
+          {{$t('title.backupOrRestore')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('preference.general.backup.description')}}
+        {{$t('description.backup')}}
       </p>
       <div class="field-basic__body">
         <div class="grid import-data">
@@ -164,16 +157,14 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label>
-          {{$t('preference.general.reset.title')}}
-        </label>
+        <label>{{$t('base.reset')}}</label>
       </h3>
       <p class="field-description">
-        {{$t('preference.general.reset.description')}}
+        {{$t('description.reset')}}
       </p>
       <div class="field-basic__body">
         <ButtonBasic color="danger" @click="onClickReset">
-          {{$t('preference.general.reset.label')}}
+          {{$t('base.resetSlideshow')}}
         </ButtonBasic>
       </div>
     </div>
@@ -231,7 +222,7 @@ export default defineComponent({
     }
     function onClickBackup()
     {
-      if (!confirm(t('preference.general.confirms.backup'))) return;
+      if (!confirm(t('confirm.backup'))) return;
       let result = {
         preference: object.convertPureObject(store.state.preference),
         tree: object.convertPureObject(store.state.tree),
@@ -252,7 +243,7 @@ export default defineComponent({
         el.addEventListener('change', e => {
           if (!(e.target.files && e.target.files.length > 0))
           {
-            alert(t('preference.general.alerts.noSelectedFile'));
+            alert(t('alert.noSelectedFile'));
             return;
           }
           const file = e.target.files[0];
@@ -261,7 +252,8 @@ export default defineComponent({
             try
             {
               let json = JSON.parse(String(e.target.result));
-              if (!confirm(t('preference.general.confirms.restore'))) return;
+              if (!confirm(t('confirm.restore'))) return;
+
               if (!(json.preference && json.tree)) throw new Error('no data');
               store.dispatch('changePreference', json.preference);
               store.dispatch('changeTree', json.tree);
@@ -269,12 +261,12 @@ export default defineComponent({
               store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
               store.dispatch('changeAutoplay', false);
               store.commit('updateUseKeyboardEvent', true);
-              alert(t('preference.general.alerts.completeRestore'));
+              alert(t('alert.completeRestore'));
               local.main.restart().then();
             }
             catch(e)
             {
-              alert(t('preference.general.alerts.failedRestore'));
+              alert(t('alert.failedRestore'));
             }
           };
           reader.readAsText(file);
@@ -284,7 +276,7 @@ export default defineComponent({
     }
     function onClickReset()
     {
-      if (!confirm(t('preference.general.confirms.reset'))) return;
+      if (!confirm(t('confirm.reset'))) return;
       store.dispatch('reset').then(() => local.main.restart().then());
     }
 

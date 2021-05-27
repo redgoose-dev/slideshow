@@ -4,7 +4,7 @@
     v-if="showPrev"
     type="button"
     :disabled="disabled"
-    :title="$t('slides.controller.prev')"
+    :title="$t('label.prevSlide')"
     class="prev"
     @click="$emit('click-prev')">
     <Icon icon-name="arrow-left"/>
@@ -13,7 +13,7 @@
     v-if="showNext"
     type="button"
     :disabled="disabled"
-    :title="$t('slides.controller.next')"
+    :title="$t('label.nextSlide')"
     class="next"
     @click="$emit('click-next')">
     <Icon icon-name="arrow-right"/>

@@ -117,7 +117,6 @@ export function checkPreference(item)
     checkNestedKeys(item, 'boolean', ['general', 'hud']);
     checkNestedKeys(item, 'boolean', ['general', 'hoverVisibleHud']);
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'menu']);
-    checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'thumbnail']);
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'caption']);
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'controller']);
     checkNestedKeys(item, 'boolean', ['general', 'visibleHudContents', 'paginate']);

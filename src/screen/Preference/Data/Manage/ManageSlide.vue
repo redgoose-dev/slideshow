@@ -5,7 +5,7 @@
     <div class="fields">
       <div class="field-basic">
         <h3 class="field-title">
-          <label for="pref_src">{{$t('base.imageUrl')}}</label>
+          <label for="pref_src" class="required">{{$t('base.imageUrl')}}</label>
         </h3>
         <p class="field-description">
           {{$t('description.inputImageUrl')}}

@@ -25,8 +25,6 @@ export default defineComponent({
       computedIconComponent: computed(() => {
         switch (props.iconName)
         {
-          case 'grid':
-            return defineAsyncComponent(() => import('./src/icon-grid'));
           case 'menu':
             return defineAsyncComponent(() => import('./src/icon-menu'));
           case 'menu-flat':

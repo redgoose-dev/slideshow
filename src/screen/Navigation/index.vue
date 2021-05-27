@@ -4,21 +4,11 @@
   @touchstart="onTouchStart"
   @click="onClickWrapper">
   <div
-    v-if="state.computedVisibleThumbnail"
-    class="slideshow-navigation__item">
-    <button
-      type="button"
-      :title="$t('navigation.thumbnail')"
-      @click="onClickThumbnailButton(!state.computedActiveThumbnail)">
-      <Icon icon-name="grid"/>
-    </button>
-  </div>
-  <div
     v-if="state.computedVisibleAutoplay"
     class="slideshow-navigation__item">
     <button
       type="button"
-      :title="$t('navigation.autoplay')"
+      :title="$t('base.autoplay')"
       :class="$store.state.autoplay ? 'active' : ''"
       @click="onClickAutoplayButton">
       <Icon icon-name="play-circle"/>
@@ -29,7 +19,7 @@
     class="slideshow-navigation__item">
     <button
       type="button"
-      :title="$t('navigation.menu')"
+      :title="$t('base.menu')"
       :class="state.activeMenu ? 'on' : ''"
       @click="onClickMenuButton">
       <Icon icon-name="menu"/>
@@ -44,7 +34,14 @@
           <button
             type="button"
             @click="onClickContextItem('preference')">
-            {{$t('navigation.preference')}}
+            {{$t('base.preference')}}
+          </button>
+        </li>
+        <li v-if="state.computedVisibleThumbnail">
+          <button
+            type="button"
+            @click="onClickContextItem('thumbnail')">
+            {{$t('title.thumbnailView')}}
           </button>
         </li>
         <li>
@@ -52,7 +49,7 @@
             type="button"
             :class="[ state.activeFullscreen && 'on' ]"
             @click="onClickContextItem('fullscreen')">
-            {{$t('navigation.fullscreen')}}
+            {{$t('base.fullscreen')}}
           </button>
         </li>
       </ul>
@@ -80,7 +77,7 @@ export default defineComponent({
       activeMenu: false,
       activeFullscreen: false,
       computedVisibleThumbnail: computed(() => {
-        return store.state.preference.general.visibleHudContents.thumbnail;
+        return store.state.slides && store.state.slides.length > 1;
       }),
       computedVisibleAutoplay: computed(() => {
         const { slides, preference } = store.state;
@@ -94,10 +91,6 @@ export default defineComponent({
     });
 
     // private methods
-    function onClickThumbnailButton(sw)
-    {
-      store.dispatch('changeMode', sw ? 'thumbnail' : null);
-    }
     function onClickAutoplayButton()
     {
       if (local.slides) local.slides.autoplay();
@@ -127,6 +120,9 @@ export default defineComponent({
       {
         case 'preference':
           store.dispatch('changeMode', 'preference');
+          break;
+        case 'thumbnail':
+          store.dispatch('changeMode', 'thumbnail');
           break;
         case 'fullscreen':
           util.fullscreen(!state.activeFullscreen);
@@ -161,7 +157,6 @@ export default defineComponent({
 
     return {
       state,
-      onClickThumbnailButton,
       onClickAutoplayButton,
       onClickMenuButton,
       onClickContextItem,
