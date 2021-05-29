@@ -97,6 +97,7 @@ export default defineComponent({
         return slides && slides.length > 0;
       }),
       visibleGroup: computed(() => {
+        if (!store.state.preference.general.visibleHudContents.group) return false;
         return store.state.tree && Object.keys(store.state.tree).length > 1;
       }),
     });
