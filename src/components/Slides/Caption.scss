@@ -8,28 +8,29 @@
     position: fixed;
     top: var(--caption-position-top, 32px);
     left: var(--caption-position-left, 30px);
+    right: 250px;
     z-index: 2;
     pointer-events: none;
-    transform: scale(var(--scale));
     transform-origin: 0 0;
     backface-visibility: hidden;
     will-change: transform;
+    font-size: calc(16px * var(--scale));
     h1 {
-      margin: 0;
-      line-height: 1;
-      font-size: 42px;
+      margin: -8px 0 0;
+      font-size: 2.625em;
       letter-spacing: -1.5px;
       font-weight: 800;
-      white-space: nowrap;
+      line-height: 1.2;
+      @include text-single-line();
     }
     pre {
       display: block;
-      margin: 4px 0 0;
+      margin: 2px 0 0;
       font-family: var(--font-base);
       line-height: 1.15;
       word-break: break-word;
       font-weight: 400;
-      font-size: 13px;
+      font-size: .813em;
       letter-spacing: -.5px;
       color: var(--color-fill);
       opacity: .75;

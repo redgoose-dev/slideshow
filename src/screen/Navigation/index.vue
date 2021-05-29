@@ -4,7 +4,7 @@
   @touchstart="onTouchStart"
   @click="onClickWrapper">
   <div
-    v-if="state.computedVisibleAutoplay"
+    v-if="computes.visibleAutoplay"
     class="slideshow-navigation__item">
     <button
       type="button"
@@ -12,6 +12,16 @@
       :class="$store.state.autoplay ? 'active' : ''"
       @click="onClickAutoplayButton">
       <Icon icon-name="play-circle"/>
+    </button>
+  </div>
+  <div
+    v-if="computes.visibleGroup"
+    class="slideshow-navigation__item">
+    <button
+      type="button"
+      :title="$t('base.group')"
+      @click="onClickGroup">
+      <Icon icon-name="folder" class="folder"/>
     </button>
   </div>
   <div
@@ -37,7 +47,7 @@
             {{$t('base.preference')}}
           </button>
         </li>
-        <li v-if="state.computedVisibleThumbnail">
+        <li v-if="computes.visibleThumbnail">
           <button
             type="button"
             @click="onClickContextItem('thumbnail')">
@@ -76,17 +86,18 @@ export default defineComponent({
     let state = reactive({
       activeMenu: false,
       activeFullscreen: false,
-      computedVisibleThumbnail: computed(() => {
+    });
+    let computes = reactive({
+      visibleThumbnail: computed(() => {
         return store.state.slides && store.state.slides.length > 1;
       }),
-      computedVisibleAutoplay: computed(() => {
+      visibleAutoplay: computed(() => {
         const { slides, preference } = store.state;
         if (!preference.slides.autoplay) return false;
-        if (!store.state.preference.general.visibleHudContents.autoplay) return false;
         return slides && slides.length > 0;
       }),
-      computedActiveThumbnail: computed(() => {
-        return store.state.mode === 'thumbnail';
+      visibleGroup: computed(() => {
+        return store.state.tree && Object.keys(store.state.tree).length > 1;
       }),
     });
 
@@ -138,6 +149,10 @@ export default defineComponent({
     {
       e.stopPropagation();
     }
+    function onClickGroup()
+    {
+      store.dispatch('changeMode', 'group');
+    }
 
     // public methods
     function blur()
@@ -157,11 +172,13 @@ export default defineComponent({
 
     return {
       state,
+      computes,
       onClickAutoplayButton,
       onClickMenuButton,
       onClickContextItem,
       onTouchStart,
       onClickWrapper,
+      onClickGroup,
       blur,
     };
   },

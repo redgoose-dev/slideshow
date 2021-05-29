@@ -130,21 +130,21 @@ export default defineComponent({
     const content = ref(null);
 
     // methods
-    function onChangeTab(name)
+    function onTouchStart(e)
     {
-      state.tab = name;
+      if (e.touches && e.touches.length > 1) e.preventDefault();
     }
     function onClose()
     {
       store.dispatch('changeMode', null);
     }
+    function onChangeTab(name)
+    {
+      state.tab = name;
+    }
     function onUpdateFields(structure)
     {
       state.structure[state.tab] = structure;
-    }
-    function onTouchStart(e)
-    {
-      if (e.touches && e.touches.length > 1) e.preventDefault();
     }
     function onSubmit(e)
     {
@@ -175,8 +175,16 @@ export default defineComponent({
           store.dispatch('changeGroup', Object.keys(tree)[0]);
         }
 
-        // restart
-        local.main.restart().then();
+        // update or restart
+        if (local.useProps.preference || local.useProps.tree)
+        {
+          local.main.update('preference');
+          local.main.update('tree');
+        }
+        else
+        {
+          local.main.restart().then();
+        }
       }
       catch(e)
       {
@@ -199,10 +207,10 @@ export default defineComponent({
     return {
       state,
       content,
+      onTouchStart,
+      onClose,
       onChangeTab,
       onSubmit,
-      onClose,
-      onTouchStart,
       onUpdateFields,
     };
   },

@@ -14,9 +14,9 @@ export function changeMode(context, value)
   if (context.state.mode === value) return;
   switch (value)
   {
-    case 'thumbnail':
     case 'preference':
-    case 'guide':
+    case 'group':
+    case 'thumbnail':
       context.commit('updateMode', value);
       break;
     default:

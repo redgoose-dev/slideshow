@@ -1,16 +1,14 @@
 <template>
-<article
-  class="empty"
-  @click="onClickWrapper">
+<article class="empty" @click="onClickWrapper">
   <div class="empty__wrap">
     <Icon
       icon-name="frown"
       class="empty__icon"/>
     <h2 class="empty__title">
-      {{$t('title.emptySlide')}}
+      {{title || $t('title.emptySlide')}}
     </h2>
     <p class="empty__description">
-      {{$t('description.addSlides')}}
+      {{description || $t('description.addSlides')}}
     </p>
   </div>
 </article>
@@ -25,6 +23,10 @@ export default defineComponent({
   name: 'SlidesEmpty',
   components: {
     Icon,
+  },
+  props: {
+    title: String,
+    description: String,
   },
   setup()
   {

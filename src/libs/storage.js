@@ -56,6 +56,7 @@ export function disabled(key)
   {
     case 'preference':
     case 'tree':
+    case 'group':
       disableStorage[key] = true;
       break;
   }

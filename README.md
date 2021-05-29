@@ -43,28 +43,40 @@ https://redgoose-dev.github.io/slideshow/
 - Data: 슬라이드 데이터 편집
 - Keyboard: 키보드 단축키에 관한 항목
 
-### Management slides data
+### Management tree data
 
-슬라이드 데이터는 `Preference > Data` 탭에서 편집할 수 있습니다. 이리 만들어져 있는 예제파일 [example.json](https://github.com/redgoose-dev/slideshow/blob/main/src/example.json) 을 열어보면 배열로 슬라이드들의 정보가 입력되어있다는것을 볼 수 있습니다.  
-슬라이드 하나의 모습은 다음과 같습니다.
+슬라이드 데이터는 `Preference > Data` 탭에서 편집할 수 있습니다. 이리 만들어져 있는 예제파일 [tree.json](https://github.com/redgoose-dev/slideshow/blob/main/resource/example/tree.json) 을 열어보면 객체로 슬라이드들의 정보가 입력되어있다는것을 볼 수 있습니다.  
+슬라이드 그룹 하나의 모습은 다음과 같습니다.
 
 ```json
 {
-  "src": "filename.jpg",
-  "thumbnail": "filename.jpg",
-  "title": "title text",
-  "description": "description text"
+  "foo": {
+    "name": "slide title",
+    "description": "description text",
+    "slides": [
+      {
+        "src": "filename.jpg",
+        "thumbnail": "filename.jpg",
+        "title": "title text",
+        "description": "description text"
+      }
+    ]
+  }
 }
 ```
 
-이런 모습의 슬라이드 데이터에 대한 설명은 다음과 같습니다.
+슬라이드 데이터는 `json`파일로 만들어서 가져오거나 외부 서버에서 가져올 수 있습니다.  
+외부 서버에서 슬라이드를 가져올때의 데이터는 다음과 같습니다.
 
-- `src`: 슬라이드 이미지파일 주소
-- `thumbnail`: 썸네일 이미지파일 주소 (필수가 아닙니다. 이 값이 없으면 `src`값으로 사용합니다.)
-- `title`: 캡션에서 사용되는 제목
-- `description`: 캡션에서 사용되는 설명
-
-슬라이드 데이터는 `json`파일로 만들어서 가져오거나 외부 서버에서 가져올 수 있습니다.
+```json
+{
+  "foo": {
+    "name": "title",
+    "description": "description text",
+    "slides": "https://domain.com/example.json"
+  }
+}
+```
 
 
 ## Develop Usage

@@ -5,17 +5,21 @@
     $store.state.preference.general.hoverVisibleHud && 'slideshow--hover',
   ]">
   <Slides
-    v-if="state.computedExistSlides"
+    v-if="computes.existSlides"
     ref="slides"
     class="slideshow__slides"/>
-  <SlidesEmpty v-else/>
+  <SlidesEmpty
+    v-else
+    :title="computes.emptyTitle"
+    :description="computes.emptyDescription"/>
   <Navigation
     v-if="$store.state.preference.general.hud"
     ref="navigation"
     class="slideshow__navigation"/>
   <teleport to="#modal">
-    <Thumbnail v-if="state.computedShowThumbnail"/>
-    <Preference v-if="state.computedShowPreference"/>
+    <Group v-if="computes.showGroup"/>
+    <Thumbnail v-if="computes.showThumbnail"/>
+    <Preference v-if="computes.showPreference"/>
   </teleport>
 </div>
 </template>
@@ -28,8 +32,9 @@ import * as local from '~/libs/local';
 import Slides from '~/components/Slides';
 import SlidesEmpty from '~/components/Slides/Empty';
 import Navigation from '~/screen/Navigation';
-import Thumbnail from '~/screen/Thumbnail';
 import Preference from '~/screen/Preference';
+import Group from '~/screen/Group';
+import Thumbnail from '~/screen/Thumbnail';
 
 export default defineComponent({
   name: 'Container',
@@ -37,36 +42,44 @@ export default defineComponent({
     Navigation,
     Slides,
     SlidesEmpty,
-    Thumbnail,
     Preference,
+    Group,
+    Thumbnail,
   },
-  setup()
+  props: {
+    error: Object,
+  },
+  setup(props)
   {
     const store = useStore();
     const { t } = useI18n({ useScope: 'global' });
-    let state = reactive({
-      computedMode: computed(() => {
+    const slides = ref(null);
+    const navigation = ref(null);
+    let computes = reactive({
+      mode: computed(() => {
         switch (store.state.mode)
         {
           case 'preference':
+          case 'group':
           case 'thumbnail':
             return store.state.mode;
           default:
             return null;
         }
       }),
-      computedExistSlides: computed(() => {
+      existSlides: computed(() => {
         return store.state.slides && store.state.slides.length > 0;
       }),
-      computedShowThumbnail: computed(() => {
-        return state.computedMode === 'thumbnail';
+      showThumbnail: computed(() => (computes.mode === 'thumbnail')),
+      showPreference: computed(() => (computes.mode === 'preference')),
+      showGroup: computed(() => (computes.mode === 'group')),
+      emptyTitle: computed(() => {
+        return props.error ? props.error.title : undefined;
       }),
-      computedShowPreference: computed(() => {
-        return state.computedMode === 'preference';
+      emptyDescription: computed(() => {
+        return props.error ? props.error.description : undefined;
       }),
     });
-    const slides = ref(null);
-    const navigation = ref(null);
     let keys = [];
 
     // methods
@@ -80,7 +93,7 @@ export default defineComponent({
         return;
       }
       if (navigation.value) navigation.value.blur();
-      if (state.computedMode)
+      if (computes.mode)
       {
         switch (e.keyCode)
         {
@@ -115,6 +128,12 @@ export default defineComponent({
             if (confirm(t('confirm.restart')) && local.main)
             {
               local.main.restart().then();
+            }
+            break;
+          case 71: // g
+            if (store.state.tree && Object.keys(store.state.tree).length > 1)
+            {
+              store.dispatch('changeMode', 'group');
             }
             break;
           case 72: // h
@@ -157,7 +176,7 @@ export default defineComponent({
     });
 
     return {
-      state,
+      computes,
       slides,
       navigation,
     };
@@ -165,4 +184,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./index.scss" lang="scss" scoped></style>
+<style src="./Container.scss" lang="scss" scoped></style>

@@ -1,20 +1,14 @@
 <template>
-<article
-  class="thumbnail"
-  @touchstart="onTouchStart">
-  <header v-if="state.computedTitle" class="thumbnail__header">
-    <h2 v-if="state.computedTitle">
-      {{state.computedTitle}}
-    </h2>
-    <p v-if="state.computedDescription">
-      {{state.computedDescription}}
-    </p>
+<article class="thumbnail" @touchstart="onTouchStart">
+  <header v-if="computes.title" class="thumbnail__header">
+    <h2>{{computes.title}}</h2>
+    <p v-if="computes.description">{{computes.description}}</p>
   </header>
   <div class="thumbnail__body">
     <ul
-      v-if="state.computedIndex && state.computedIndex.length > 0"
+      v-if="computes.index && computes.index.length > 0"
       class="thumbnail__index">
-      <li v-for="(o,k) in state.computedIndex">
+      <li v-for="(o,k) in computes.index">
         <button
           type="button"
           :disabled="k === $store.state.activeSlide"
@@ -51,17 +45,17 @@ export default defineComponent({
   setup()
   {
     const store = useStore();
-    let state = reactive({
-      computedIndex: computed(() => {
+    let computes = reactive({
+      index: computed(() => {
         return store.state.slides.map(o => ({
           ...o,
           thumbnail: o.thumbnail || o.src,
         }));
       }),
-      computedTitle: computed(() => {
+      title: computed(() => {
         return store.state.tree[store.state.group].name;
       }),
-      computedDescription: computed(() => {
+      description: computed(() => {
         return store.state.tree[store.state.group].description;
       }),
     });
@@ -90,7 +84,7 @@ export default defineComponent({
     });
 
     return {
-      state,
+      computes,
       onSelect,
       onClose,
       onTouchStart,

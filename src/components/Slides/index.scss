@@ -11,10 +11,20 @@
   &.swipe-move {
     cursor: grabbing;
   }
+  &--horizontal {
+    .controller {
+      display: none;
+    }
+  }
   @include responsive(desktop) {
     &__paginate {
       right: 30px;
       bottom: 30px;
+    }
+    &--horizontal {
+      .controller {
+        display: block;
+      }
     }
   }
 }

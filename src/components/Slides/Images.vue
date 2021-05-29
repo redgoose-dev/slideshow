@@ -2,7 +2,7 @@
 <div
   :class="[
     'slideshow-images',
-    state.computedAnimationTypeClass,
+    `animation--${animationType}`,
     imageType && `type--${imageType}`,
     state.playAnimation && 'play-animation',
     state.cancelAnimation && 'cancel-animation',
@@ -24,7 +24,15 @@
         (state.active === key && !!state.activeClassName) && state.activeClassName,
         (state.nextKey === key && !!state.nextClassName) && state.nextClassName,
       ]">
-      <img v-if="state.loaded[key]" :src="item.src" :alt="item.title">
+      <div v-if="state.error[key]" class="empty-image">
+        <Icon icon-name="x"/>
+        <strong>no image</strong>
+      </div>
+      <img
+        v-else-if="state.loaded[key]"
+        :src="item.src"
+        :alt="item.title"
+        @error="onErrorImage(key)">
     </figure>
     <figure
       v-if="state.computedShowLastItem"
@@ -42,13 +50,17 @@
 <script>
 import { defineComponent, ref, reactive, computed } from 'vue';
 import * as util from '~/libs/util';
+import Icon from '~/components/Icon';
 
 export default defineComponent({
   name: 'SlidesImages',
+  components: {
+    Icon,
+  },
   props: {
     items: { type: Array, required: true }, // 슬라이드 아이템 목록
     initialActive: { type: Number, default: 0 }, // 초기 활성화되는 슬라이드
-    animationType: { type: String, default: null }, // null,'fade','horizontal'
+    animationType: { type: String, default: 'none' }, // fade,horizontal,none
     imageType: { type: String, default: null }, // null,contain,cover
     duration: { type: Number, default: 800 }, // animation speed(ms)
     imageSize: { type: Array, default: [100,100] }, // slide image scale(%)
@@ -59,23 +71,13 @@ export default defineComponent({
   {
     let state = reactive({
       loaded: new Array(props.items.length).fill(false), // 이미지 로드체크 목록
+      error: new Array(props.items.length).fill(false), // 이미지 에러체크 목록
       active: props.initialActive, // 현재 활성화되어있는 슬라이드 번호
       activeClassName: 'current',
       nextKey: undefined,
       nextClassName: undefined,
       playAnimation: false,
       cancelAnimation: false,
-      computedAnimationTypeClass: computed(() => {
-        switch (props.animationType)
-        {
-          case 'fade':
-            return 'animation--fade';
-          case 'horizontal':
-            return 'animation--horizontal';
-          default:
-            return 'animation--none';
-        }
-      }),
       computedContainerStyle: computed(() => {
         let result = {
           '--speed-slide-animation': `${props.duration}ms`,
@@ -110,10 +112,7 @@ export default defineComponent({
 
     // set loaded
     state.loaded[props.initialActive] = true;
-    if (props.animationType === 'horizontal')
-    {
-      state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
-    }
+    state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
 
     // methods
     async function play(n = null, userAnimationType = undefined)
@@ -121,15 +120,6 @@ export default defineComponent({
       if (typeof n !== 'number') return;
       // set temp active
       _active = Number(n);
-      // init image load event
-      if (!state.loaded[_active])
-      {
-        const image = new Image();
-        image.onload = () => {
-          state.loaded[_active] = true;
-        };
-        image.src = props.items[_active].src;
-      }
       // play motion
       const type = userAnimationType !== undefined ? userAnimationType : props.animationType;
       switch (type)
@@ -174,6 +164,7 @@ export default defineComponent({
         case 'none':
         default:
           state.active = _active;
+          state.loaded = util.setAreaTrue(state.loaded, props.items.length, props.initialActive, props.loop);
           break;
       }
     }
@@ -217,6 +208,10 @@ export default defineComponent({
       wrap.value.removeEventListener('transitionend', onCancelTransitionEnd);
       context.emit('animation-control', false);
     }
+    function onErrorImage(key)
+    {
+      state.error[key] = true;
+    }
 
     return {
       state,
@@ -224,6 +219,7 @@ export default defineComponent({
       wrap,
       play,
       cancel,
+      onErrorImage,
     };
   },
   emits: {

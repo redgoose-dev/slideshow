@@ -6,14 +6,20 @@
         <button
           type="button"
           :title="$t('title.fold')"
-          :class="[ 'fold', state.fold[item.key] && 'fold--on' ]"
+          :disabled="!item.fold"
+          :class="[
+            item.fold ? 'fold' : 'minus',
+            (item.fold && state.fold[item.key]) && 'fold--on',
+          ]"
           @click="onToggleFold(item.key)">
-          <Icon icon-name="arrow-down"/>
+          <Icon :icon-name="item.fold ? 'arrow-down' : 'minus'"/>
         </button>
       </nav>
       <h3>
         <strong>
-          <b>{{item.key}}</b> {{item.name}} <em>{{item.slides.length}}</em>
+          <b>{{item.key}}</b>
+          {{item.name}}
+          <em v-if="item.fold">{{item.slides.length}}</em>
         </strong>
         <span v-if="item.description">
           {{item.description}}
@@ -21,6 +27,7 @@
       </h3>
       <nav>
         <button
+          v-if="item.fold"
           type="button"
           :title="$t('label.addSlide')"
           class="add"
@@ -44,7 +51,7 @@
       </nav>
     </header>
     <Slides
-      v-if="state.fold[item.key]"
+      v-if="state.fold[item.key] && item.fold"
       :item-key="item.key"
       :items="item.slides"
       @change-order="o => onUpdateSlides(item.key, o)"
@@ -62,7 +69,7 @@
   <teleport to="#modal">
     <ModalWrapper
       v-if="state.showManageGroup"
-      :title="$t('label.editGroup')"
+      :title="$t(state.manageFormGroup.type === 'edit' ? 'label.editGroup' : 'label.addGroup')"
       class="modal-edit-group"
       @close="state.showManageGroup = false">
       <ManageGroup
@@ -71,7 +78,7 @@
     </ModalWrapper>
     <ModalWrapper
       v-if="state.showManageSlide"
-      :title="$t('label.editSlide')"
+      :title="$t(state.editFormSlide.type === 'edit' ? 'label.editSlide' : 'label.addSlide')"
       class="modal-edit-slide"
       @close="state.showManageSlide = false">
       <ManageSlide
@@ -122,6 +129,7 @@ export default defineComponent({
         const keys = Object.keys(props.tree);
         return keys.map(key => ({
           ...props.tree[key],
+          fold: Array.isArray(props.tree[key].slides),
           key,
         }));
       }),
@@ -153,6 +161,8 @@ export default defineComponent({
         key: '',
         name: '',
         description: '',
+        slidesType: 'array',
+        slidesUrl: '',
       };
       state.showManageGroup = true;
     }
@@ -164,6 +174,8 @@ export default defineComponent({
         originalKey: key,
         name: props.tree[key].name,
         description: props.tree[key].description,
+        slidesType: Array.isArray(props.tree[key].slides) ? 'array' : 'url',
+        slidesUrl: typeof props.tree[key].slides === 'string' ? props.tree[key].slides : '',
       };
       state.showManageGroup = true;
     }
@@ -178,7 +190,7 @@ export default defineComponent({
     {
       try
       {
-        const { key, originalKey, type, name, description } = res;
+        const { key, originalKey, type, name, description, slidesUrl } = res;
         let newKey;
         let clone = convertPureObject(props.tree);
         function testKey(str)
@@ -194,7 +206,7 @@ export default defineComponent({
             clone[newKey] = {
               name,
               description,
-              slides: [],
+              slides: (res.slidesType === 'url') ? res.slidesUrl : [],
             };
             break;
           case 'edit':
@@ -205,6 +217,14 @@ export default defineComponent({
               name,
               description,
             };
+            if (res.slidesType === 'url')
+            {
+              clone[newKey].slides = res.slidesUrl;
+            }
+            else if (!Array.isArray(clone[newKey].slides))
+            {
+              clone[newKey].slides = [];
+            }
             if (originalKey !== key) delete clone[originalKey];
             break;
         }
@@ -222,7 +242,7 @@ export default defineComponent({
       state.editFormSlide = {
         type: 'add',
         groupKey: key,
-        src: 'https://',
+        src: '',
         thumbnail: '',
         title: '',
         description: '',

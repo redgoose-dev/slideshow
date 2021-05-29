@@ -1,10 +1,10 @@
 <template>
 <LoadingIntro v-if="state.loading"/>
-<Container v-else/>
+<Container v-else :error="state.error"/>
 </template>
 
 <script>
-import { defineComponent, reactive, onMounted, ref } from 'vue';
+import { defineComponent, reactive, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
 import * as storage from '~/libs/storage';
@@ -29,7 +29,7 @@ export default defineComponent({
     group: String,
     tree: Object,
   },
-  setup(props)
+  setup(props, context)
   {
     let root = ref(null);
     let store = useStore();
@@ -37,7 +37,9 @@ export default defineComponent({
     let state = reactive({
       dev: process.env.NODE_ENV === 'development',
       loading: true,
+      error: undefined,
     });
+    let restarting = false;
 
     // private methods
     function updateTheme(color)
@@ -56,6 +58,20 @@ export default defineComponent({
       const $html = document.querySelector('html');
       $html.dataset['color'] = theme;
     }
+    function error(sw)
+    {
+      if (sw)
+      {
+        state.error = {
+          title: 'Error slides',
+          description: '슬라이드를 가져오는데 오류가 발생했습니다.',
+        }
+      }
+      else
+      {
+        state.error = undefined;
+      }
+    }
     function fetchPreference()
     {
       if (props.preference)
@@ -66,7 +82,6 @@ export default defineComponent({
           let preference = convertPureObject(props.preference);
           store.dispatch('changePreference', preference);
           store.dispatch('changeActiveSlide', preference.slides.initialNumber);
-          storage.set('preference', preference);
         }
       }
       else
@@ -85,16 +100,24 @@ export default defineComponent({
     }
     function fetchGroup()
     {
-      let group = props.group ? props.group : storage.get('group');
+      let group;
+      if (props.group)
+      {
+        storage.disabled('group');
+        group = props.group;
+      }
+      else
+      {
+        let storageGroup = storage.get('group');
+        group = storageGroup || 'default';
+      }
       store.dispatch('changeGroup', group);
     }
-    async function fetchTree()
+    function fetchTree()
     {
-      let tree, slides;
-
       try
       {
-        // set tree
+        let tree;
         if (props.tree)
         {
           storage.disabled('tree');
@@ -114,9 +137,20 @@ export default defineComponent({
           };
         }
         store.dispatch('changeTree', tree);
-
-        // set slides
-        slides = store.state.tree[store.state.group] ? store.state.tree[store.state.group].slides : [];
+        error(false);
+      }
+      catch(e)
+      {
+        if (window.dev) console.error(e.message);
+        error(true);
+      }
+    }
+    async function fetchSlides()
+    {
+      try
+      {
+        const { group, tree } = store.state;
+        let slides = tree[group] ? tree[group].slides : [];
         if (slides && typeof slides === 'string')
         {
           let getSlides = await getApiData(slides);
@@ -128,11 +162,13 @@ export default defineComponent({
           slides = null;
         }
         store.dispatch('changeSlides', slides);
+        error(false);
       }
       catch(e)
       {
         if (window.dev) console.error(e.message);
-        alert('error slide data');
+        store.dispatch('changeSlides', null);
+        error(true);
       }
     }
     // public methods
@@ -146,32 +182,59 @@ export default defineComponent({
     {
       state.loading = true;
     }
-    async function restart(reloadSlides = false)
+    async function restart()
     {
+      if (restarting) return;
+      restarting = true;
       stop();
       updateTheme(store.state.preference.style.screenColor);
       locale.value = store.state.preference.general.language;
-      await fetchTree();
+      await fetchSlides();
       await sleep(800);
-      if (reloadSlides)
+      start();
+      restarting = false;
+    }
+    function update(type)
+    {
+      switch (type)
       {
-        fetchTree().then(() => start());
-      }
-      else
-      {
-        start();
+        case 'preference':
+          context.emit('update-preference', convertPureObject(store.state.preference));
+          break;
+        case 'tree':
+          context.emit('update-tree', convertPureObject(store.state.tree));
+          break;
+        case 'group':
+          context.emit('update-group', store.state.group);
+          break;
       }
     }
 
     // lifecycles
-    onMounted(() => {
-      fetchTree().then(() => start());
+    onMounted(async () => {
+      fetchTree();
+      fetchGroup();
+      await fetchSlides();
+      start();
+    });
+
+    // watch
+    watch(() => props.preference, () => {
+      fetchPreference();
+      restart().then();
+    });
+    watch(() => props.tree, () => {
+      fetchTree();
+      restart().then();
+    });
+    watch(() => props.group, () => {
+      fetchGroup();
+      restart().then();
     });
 
     // actions
     initCustomEvent();
     fetchPreference();
-    fetchGroup();
     updateTheme(store.state.preference.style.screenColor);
     locale.value = store.state.preference.general.language;
 
@@ -181,11 +244,21 @@ export default defineComponent({
       start,
       stop,
       restart,
+      update,
     };
   },
   mounted()
   {
-    local.setup(this);
+    local.setup(this, {
+      preference: !!this.preference,
+      tree: !!this.tree,
+      group: !!this.group,
+    });
+  },
+  emits: {
+    'update-preference': null,
+    'update-tree': null,
+    'update-group': null,
   },
 });
 </script>

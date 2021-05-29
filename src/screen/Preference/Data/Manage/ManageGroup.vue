@@ -61,10 +61,51 @@
           v-model="state.form.description"/>
       </div>
     </div>
+    <div class="field-basic">
+      <h3 class="field-title">
+        <label for="pref_slideType">
+          {{$t('title.selectSlidesType')}}
+        </label>
+      </h3>
+      <p class="field-description">
+        {{$t('description.selectSlidesType')}}
+        {{form.type === 'edit' ? $t('description.selectSlidesType2') : ''}}
+      </p>
+      <div class="field-basic__body">
+        <FormRadio
+          type="button"
+          name="pref_slideType"
+          id="prof_slideType"
+          :title="$t('title.selectSlidesType')"
+          :items="[
+              { key: 'array', label: $t('base.array') },
+              { key: 'url', label: `URL ${$t('base.address')}` },
+            ]"
+          v-model="state.form.slidesType"/>
+      </div>
+    </div>
+    <div v-if="state.form.slidesType === 'url'" class="field-basic">
+      <h3 class="field-title">
+        <label for="pref_slidesUrl">
+          {{$t('title.slidesUrlAddress')}}
+        </label>
+      </h3>
+      <p class="field-description">
+        {{$t('description.inputSlidesUrl')}}
+      </p>
+      <div class="field-basic__body">
+        <FormText
+          name="pref_slidesUrl"
+          id="pref_slidesUrl"
+          :placeholder="$t('base.inputUrl')"
+          :required="true"
+          v-model="state.form.slidesUrl"/>
+      </div>
+    </div>
     <nav class="submit-buttons">
       <div>
         <ButtonBasic type="submit" color="key" :inline="true">
-          {{form.type === 'add' ? $t('base.add') : $t('base.submitEdit')}}
+          {{form.type === 'add' ? $t('label.addGroup') : $t('label.editGroup')}}
         </ButtonBasic>
       </div>
     </nav>
@@ -74,24 +115,32 @@
 
 <script>
 import { defineComponent, reactive } from 'vue';
+import { useI18n } from 'vue-i18n/index';
 import FormText from '~/components/Form/Text';
 import ButtonBasic from '~/components/Button/Basic';
+import FormRadio from '~/components/Form/Radio';
 
 export default defineComponent({
   name: 'ManageGroup',
   components: {
     FormText,
     ButtonBasic,
+    FormRadio,
   },
   props: {
     form: Object,
   },
   setup(props, context)
   {
+    const { t } = useI18n({ useScope: 'global' });
     let state = reactive({
       form: props.form,
       error: {
         key: false,
+      },
+      slides: {
+        type: props.form.slidesType || 'array', // url,array
+        url: props.form.slidesUrl || '', // api url address
       },
     });
 
@@ -106,12 +155,16 @@ export default defineComponent({
       e.preventDefault();
       try
       {
-        if (state.error.key) throw new Error('error value / key');
+        if (state.error.key)
+        {
+          throw new Error('error value / key');
+        }
         context.emit('submit', state.form);
       }
       catch(e)
       {
         if (window.dev) console.error(e.message);
+        alert(t('alert.errorSubmit'));
       }
     }
 

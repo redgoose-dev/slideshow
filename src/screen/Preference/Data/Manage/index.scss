@@ -21,7 +21,7 @@
     min-height: 48px;
     > h3 {
       margin: 0;
-      padding: 10px 16px 10px 4px;
+      padding: 12px 16px 12px 4px;
       flex: 1;
       @include text-single-line();
       strong {
@@ -33,8 +33,8 @@
       }
       span {
         display: block;
-        margin: 2px 0 0;
-        font-size: 10px;
+        margin: 3px 0 0;
+        font-size: 11px;
         font-weight: 400;
         letter-spacing: -.5px;
         line-height: 1.15;
@@ -92,6 +92,10 @@
         &:active {
           opacity: .5;
         }
+        &:disabled {
+          cursor: default;
+          opacity: 1;
+        }
         &:nth-child(n+2) {
           margin-left: 1px;
         }
@@ -112,6 +116,9 @@
               transform: rotateX(180deg);
             }
           }
+        }
+        &.minus {
+          opacity: .5;
         }
         &.add {
           svg {

@@ -133,7 +133,7 @@ export default defineComponent({
       }
       else
       {
-        alert($t('alert.invalidAddress'));
+        alert(t('alert.invalidAddress'));
         switch (key)
         {
           case 'src':

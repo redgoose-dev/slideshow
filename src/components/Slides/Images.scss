@@ -161,3 +161,37 @@
     }
   }
 }
+
+.empty-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  svg {
+    margin: 0 auto;
+    --icon-stroke: .25;
+    --icon-size: 120px;
+    --icon-color: var(--color-danger);
+  }
+  strong {
+    display: block;
+    margin: -8px 0 16px;
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-low-fill);
+    letter-spacing: -.25px;
+  }
+  @include responsive(tablet) {
+    svg {
+      --icon-size: 160px;
+    }
+    strong {
+      font-size: 16px;
+    }
+  }
+}

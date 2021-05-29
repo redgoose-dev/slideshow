@@ -3,6 +3,7 @@
   :class="[
     'slideshow-slides',
     state.swipeMove && 'swipe-move',
+    `slideshow-slides--${computes.transitionType}`
   ]"
   @touchstart="onStart"
   @touchmove="onMove"
@@ -17,7 +18,7 @@
     ref="images"
     :initial-active="$store.state.activeSlide"
     :items="state.computedImages"
-    :animation-type="$store.state.preference.slides.animationType"
+    :animation-type="computes.transitionType"
     :duration="$store.state.preference.slides.animationSpeed"
     :image-type="$store.state.preference.style.imageType"
     :image-size="$store.state.preference.style.imageScale"
@@ -106,6 +107,18 @@ export default defineComponent({
       computedVisiblePaginate: computed(() => {
         const { hud, visibleHudContents } = store.state.preference.general;
         return hud && visibleHudContents.paginate;
+      }),
+    });
+    let computes = reactive({
+      transitionType: computed(() => {
+        switch (store.state.preference.slides.animationType)
+        {
+          case 'fade':
+          case 'horizontal':
+            return store.state.preference.slides.animationType;
+          default:
+            return 'none';
+        }
       }),
     });
     let swipeMeta = null; // 슬라이드를 스와이프할때 필요한 정보들을 담는다.
@@ -252,7 +265,7 @@ export default defineComponent({
     function runAutoplay(sw)
     {
       if (!mounted) return;
-      if (!store.state.autoplay) return;
+      if (sw && !store.state.autoplay) return;
       if (sw && !autoplayTimer)
       {
         if (!store.state.autoplay) return;
@@ -346,6 +359,7 @@ export default defineComponent({
 
     return {
       state,
+      computes,
       images,
       // methods
       onAnimationControl,

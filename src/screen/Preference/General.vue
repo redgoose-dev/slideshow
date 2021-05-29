@@ -123,9 +123,9 @@
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('base.autoplay')"
-              :modelValue="state.visibleHudContents.autoplay"
-              @update:modelValue="o => onUpdateHudContents('autoplay', o)"/>
+              :label="$t('base.group')"
+              :modelValue="state.visibleHudContents.group"
+              @update:modelValue="o => onUpdateHudContents('group', o)"/>
           </li>
         </ul>
       </div>

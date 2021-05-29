@@ -12,6 +12,7 @@ export default {
         controller: true,
         paginate: true,
         autoplay: true,
+        group: true,
       },
     },
     slides: {

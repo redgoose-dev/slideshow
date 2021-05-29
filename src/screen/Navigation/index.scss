@@ -33,6 +33,9 @@
         --icon-color: var(--color-invert);
         --icon-stroke: 1.5;
         --icon-size: 22px;
+        &.folder {
+          --icon-size: 20px;
+        }
       }
     }
   }

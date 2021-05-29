@@ -1,12 +1,14 @@
 export let main = null;
 export let slides = null;
+export let useProps = null;
 
 /**
  * setup app
  */
-export function setup(o)
+export function setup(o, use)
 {
   main = o;
+  useProps = use;
 }
 
 /**

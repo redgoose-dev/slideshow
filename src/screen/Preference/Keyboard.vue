@@ -95,6 +95,12 @@
           {{$t('description.hud')}}
         </td>
       </tr>
+      <tr>
+        <th><code>G</code></th>
+        <td>
+          {{$t('description.group')}}
+        </td>
+      </tr>
       </tbody>
     </table>
   </section>

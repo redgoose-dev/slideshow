@@ -5,7 +5,10 @@
   type === 'button' && 'form-radio--button',
 ]">
   <div class="form-radio__wrap">
-    <div v-if="type === 'button'" v-for="(o,k) in items" class="form-radio__button">
+    <div
+      v-if="type === 'button'"
+      v-for="(o,k) in items"
+      class="form-radio__button">
       <button
         type="button"
         :disabled="modelValue === o.key || (!modelValue && k === 0)"
