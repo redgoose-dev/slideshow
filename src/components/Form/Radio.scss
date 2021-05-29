@@ -9,6 +9,7 @@
     overflow: hidden;
     background-color: var(--color-shape);
     transition: box-shadow var(--speed-button-active) ease-out;
+    box-sizing: border-box;
     &:focus-within {
       box-shadow: 0 0 0 2px var(--color-key);
     }
@@ -67,6 +68,8 @@
       transition: background-color 200ms ease-out, color 200ms ease-out;
       -webkit-tap-highlight-color: transparent;
       outline: none;
+      white-space: nowrap;
+      border-radius: 2px;
       &:disabled {
         background: var(--color-key);
         color: var(--color-invert);
