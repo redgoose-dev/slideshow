@@ -253,12 +253,11 @@ export default defineComponent({
             {
               let json = JSON.parse(String(e.target.result));
               if (!confirm(t('confirm.restore'))) return;
-
-              if (!(json.preference && json.tree)) throw new Error('no data');
-              store.dispatch('changePreference', json.preference);
-              store.dispatch('changeTree', json.tree);
+              if (!(json.preference || json.tree)) throw new Error('no data');
+              if (json.preference) store.dispatch('changePreference', json.preference);
+              if (json.tree) store.dispatch('changeTree', json.tree);
               store.dispatch('changeMode', null);
-              store.dispatch('changeActiveSlide', json.preference.slides.initialNumber);
+              store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
               store.dispatch('changeAutoplay', false);
               store.commit('updateUseKeyboardEvent', true);
               alert(t('alert.completeRestore'));
@@ -266,6 +265,7 @@ export default defineComponent({
             }
             catch(e)
             {
+              if (window.dev) console.error(e.message);
               alert(t('alert.failedRestore'));
             }
           };

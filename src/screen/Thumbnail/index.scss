@@ -174,7 +174,7 @@
   @include responsive(desktop) {
     padding: 60px 64px;
     &__header {
-      padding: 20px 0 30px;
+      padding: 0 0 30px;
     }
     &__index {
       max-width: 1920px;

@@ -73,7 +73,6 @@ export default defineComponent({
     const store = useStore();
     const images = ref(null);
     let state = reactive({
-      active: store.state.activeSlide === undefined ? store.state.preference.slides.initialNumber : store.state.activeSlide,
       animated: false,
       swipePos: undefined,
       swipeMove: false,
