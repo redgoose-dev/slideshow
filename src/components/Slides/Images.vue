@@ -122,6 +122,20 @@ export default defineComponent({
       _active = Number(n);
       // play motion
       const type = userAnimationType !== undefined ? userAnimationType : props.animationType;
+      // check loaded image
+      if (!state.loaded[_active])
+      {
+        try
+        {
+          await checkLoadImage(props.items[_active].src);
+          state.loaded[_active] = true;
+        }
+        catch(e)
+        {
+          state.error[_active] = true;
+        }
+      }
+      // play transition
       switch (type)
       {
         case 'fade':
@@ -211,6 +225,15 @@ export default defineComponent({
     function onErrorImage(key)
     {
       state.error[key] = true;
+    }
+    function checkLoadImage(src)
+    {
+      return new Promise((resolve, reject) => {
+        let image = new Image();
+        image.onload = () => resolve();
+        image.onerror = () => reject();
+        image.src = src;
+      });
     }
 
     return {
