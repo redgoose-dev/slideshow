@@ -6,7 +6,7 @@ let win = null;
 function createWindow ()
 {
   let settings = {
-    width: 1440,
+    width: 1600,
     height: 900,
     minWidth: 1024,
     minHeight: 768,
@@ -19,6 +19,7 @@ function createWindow ()
   win = new BrowserWindow(settings);
   win.loadFile('docs/index.html');
   createMainMenu();
+  createContextMenu();
   win.on('closed', () => { win = null; });
 }
 
@@ -34,6 +35,15 @@ function createMainMenu()
         mac && { role: 'close' },
         { role: 'quit' },
       ].filter(Boolean),
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'copy' },
+        { role: 'cut' },
+        { role: 'paste' },
+        { role: 'selectAll' },
+      ],
     },
     {
       label: 'Navigator',
@@ -52,6 +62,21 @@ function createMainMenu()
   ];
   let menu = Menu.buildFromTemplate(tree);
   Menu.setApplicationMenu(menu);
+}
+
+// create context menu
+function createContextMenu()
+{
+  const context = new Menu();
+  let tree = [
+    { role: 'copy' },
+    { role: 'paste' },
+  ];
+  tree.filter(item => !!item).forEach(item => context.append(new MenuItem(item)));
+  win.webContents.on('context-menu', (e, params) => {
+    if (!params.selectionText) return;
+    context.popup(win, params.x, params.y);
+  });
 }
 
 // disabled security warnings
