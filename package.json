@@ -13,9 +13,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
-    "build": "vue-cli-service build",
-    "dev-external": "vue-cli-service serve --host 0.0.0.0 --port 3000 src/external/main.js",
-    "bundle": "rm -rf ./bundle && babel src/store --out-dir bundle/store && babel src/i18n --out-dir bundle/i18n"
+    "build": "rm -rf docs && vue-cli-service build",
+    "postbuild": "babel src/store --out-dir docs/bundle/store && babel src/i18n --out-dir docs/bundle/i18n --copy-files",
+    "dev-external": "vue-cli-service serve --host 0.0.0.0 --port 3000 src/external/main.js"
   },
   "browserslist": [
     "> 1%",
