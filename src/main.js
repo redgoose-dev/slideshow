@@ -1,21 +1,18 @@
 import { createApp } from 'vue';
-import { createI18n } from 'vue-i18n/index';
 import store from '~/store';
+import i18n from '~/i18n';
 // components
 import App from '~/screen/App';
 // style
 import '~/scss/main.scss';
 
-// initial i18n
-const i18n = createI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
-  messages: {
-    en: require('~/i18n/en.json'),
-    ko: require('~/i18n/ko.json'),
-  },
-});
-
+// check app element
+if (!document.getElementById('app'))
+{
+  let element = document.createElement('main');
+  element.setAttribute('id', 'app');
+  document.body.append(element);
+}
 // check modal element
 if (!document.getElementById('modal'))
 {
@@ -25,7 +22,7 @@ if (!document.getElementById('modal'))
 }
 
 // initial app and mount
-const app = createApp(App)
+createApp(App)
   .use(store)
   .use(i18n)
   .mount('#app');
