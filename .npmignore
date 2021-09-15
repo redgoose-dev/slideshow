@@ -2,6 +2,7 @@
 .idea/
 resource/
 public/
+.parcel-cache/
 
 vue.config.js
 webpack.config.js
