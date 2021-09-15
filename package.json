@@ -2,7 +2,7 @@
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
   "description": "vue's slideshow",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "main": "src/screen/App.vue",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
@@ -14,20 +14,33 @@
   "scripts": {
     "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
     "build": "rm -rf docs && vue-cli-service build",
+    "postbuild": "parcel build",
     "dev-external": "vue-cli-service serve --host 0.0.0.0 --port 3000 src/external/main.js"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
   ],
+  "targets": {
+    "main": false,
+    "store": {
+      "source": "src/resource.js",
+      "distDir": "./docs",
+      "outputFormat": "esmodule",
+      "isLibrary": true,
+      "optimize": true
+    }
+  },
   "dependencies": {
     "vue": "^3.2.11",
     "vue-i18n": "^9.1.7",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@parcel/transformer-babel": "^2.0.0-alpha.3",
     "@vue/cli-service": "^4.5.13",
     "@vue/compiler-sfc": "^3.2.11",
+    "parcel": "^2.0.0-rc.0",
     "sass": "^1.39.0",
     "sass-loader": "^10"
   }

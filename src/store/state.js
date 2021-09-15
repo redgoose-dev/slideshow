@@ -1,5 +1,5 @@
-import { convertPureObject } from '~/libs/object';
-import defaults from '~/store/defaults';
+import { convertPureObject } from '../libs/object';
+import defaults from './defaults';
 
 // set state
 let state = convertPureObject(defaults);

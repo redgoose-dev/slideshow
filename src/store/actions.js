@@ -1,6 +1,6 @@
 import defaults from './defaults';
-import * as object from '~/libs/object';
-import * as storage from '~/libs/storage';
+import * as object from '../libs/object';
+import * as storage from '../libs/storage';
 
 /**
  * change mode
