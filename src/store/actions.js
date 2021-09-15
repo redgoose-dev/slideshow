@@ -1,4 +1,4 @@
-import defaults from '~/store/defaults';
+import defaults from './defaults';
 import * as object from '~/libs/object';
 import * as storage from '~/libs/storage';
 
