@@ -23,11 +23,16 @@
   ],
   "targets": {
     "main": false,
-    "store": {
+    "resource": {
       "source": "src/resource.js",
-      "distDir": "./docs",
+      "distDir": "./dist",
       "outputFormat": "esmodule",
-      "isLibrary": true,
+      "optimize": true
+    },
+    "component": {
+      "source": "src/screen/App.vue",
+      "distDir": "./dist",
+      "outputFormat": "esmodule",
       "optimize": true
     }
   },
@@ -38,6 +43,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-babel": "^2.0.0-alpha.3",
+    "@parcel/transformer-vue": "2.0.0-rc.0",
     "@vue/cli-service": "^4.5.13",
     "@vue/compiler-sfc": "^3.2.11",
     "parcel": "^2.0.0-rc.0",
