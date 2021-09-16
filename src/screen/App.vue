@@ -7,13 +7,12 @@
 import { defineComponent, reactive, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n/index';
-import * as storage from '~/libs/storage';
-import * as local from '~/libs/local';
-import { getApiData } from '~/libs/util';
-import { convertPureObject, checkPreference, checkSlideItems } from '~/libs/object';
-import { sleep, initCustomEvent } from '~/libs/util';
-import Container from '~/screen/Container';
-import LoadingIntro from '~/components/Loading/Intro';
+import * as storage from '../libs/storage';
+import * as local from '../libs/local';
+import { getApiData, sleep, initCustomEvent } from '../libs/util';
+import { convertPureObject, checkPreference, checkSlideItems } from '../libs/object';
+import Container from './Container.vue';
+import LoadingIntro from '../components/Loading/Intro.vue';
 
 // set dev
 if (window) window.dev = process.env.NODE_ENV === 'development';

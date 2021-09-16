@@ -3,6 +3,7 @@
 resource/
 public/
 .parcel-cache/
+docs/
 
 vue.config.js
 webpack.config.js

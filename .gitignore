@@ -1,7 +1,6 @@
 # directories
 .DS_Store
 node_modules
-/dist
 .parcel-cache
 
 # Log files

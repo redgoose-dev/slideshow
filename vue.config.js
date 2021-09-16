@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const pkg = require('./package.json');
 
+const dev = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   publicPath: './',
   outputDir: 'docs',

@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
-import store from '~/store';
-import i18n from '~/i18n';
+import store from './store';
+import i18n from './i18n';
 // components
-import App from '~/screen/App';
+import App from './screen/App.vue';
 // style
-import '~/scss/main.scss';
+import './scss/main.scss';
 
 // check app element
 if (!document.getElementById('app'))
