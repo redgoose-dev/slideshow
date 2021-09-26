@@ -2,8 +2,8 @@
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
   "description": "vue's slideshow",
-  "version": "1.1.14",
-  "main": "src/screen/App.vue",
+  "version": "1.1.17-ready",
+  "main": "src/resource.js",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",
@@ -13,7 +13,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
-    "build": "rm -rf docs && vue-cli-service build",
+    "build-docs": "rm -rf docs && vue-cli-service build --target app --dest docs src/main.js",
+    "build-lib": "rm -rf dist && vue-cli-service build --target lib --name slideshow --dest dist --formats commonjs src/resource.js",
     "dev-external": "vue-cli-service serve --host 0.0.0.0 --port 3000 src/external/main.js"
   },
   "browserslist": [

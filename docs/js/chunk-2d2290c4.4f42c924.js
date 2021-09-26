@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d2290c4"],{dc7f:function(n,c,e){"use strict";e.r(c);var o=e("7a23");const t={points:"6 9 12 15 18 9"};function r(n,c){return Object(o["openBlock"])(),Object(o["createElementBlock"])("polyline",t)}var p=e("6b0d"),s=e.n(p);const a={},d=s()(a,[["render",r]]);c["default"]=d}}]);

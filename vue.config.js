@@ -3,10 +3,8 @@ const webpack = require('webpack');
 const pkg = require('./package.json');
 
 const dev = process.env.NODE_ENV !== 'production';
-
-module.exports = {
+let config = {
   publicPath: './',
-  outputDir: 'docs',
   productionSourceMap: false,
   configureWebpack: {
     resolve: {
@@ -20,12 +18,19 @@ module.exports = {
       }),
     ]
   },
-  chainWebpack: config => {
+};
+
+if (dev)
+{
+  config.chainWebpack = config => {
     config
       .plugin('html')
       .tap(args => {
         args[0].title = pkg.productName || 'Slideshow';
         return args;
       });
-  },
-};
+  };
+}
+
+// exports
+module.exports = config;
