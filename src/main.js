@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+// assets
 import store from './store';
 import i18n from './i18n';
 // components

@@ -125,14 +125,12 @@ export default defineComponent({
         else
         {
           const storageSlides = storage.get('tree');
-          tree = !!storageSlides ? storageSlides : convertPureObject(require('~/example.json'));
+          tree = !!storageSlides ? storageSlides : [];
         }
         if (Array.isArray(tree))
         {
           tree = {
-            default: {
-              slides: tree,
-            },
+            default: { slides: tree },
           };
         }
         store.dispatch('changeTree', tree);
