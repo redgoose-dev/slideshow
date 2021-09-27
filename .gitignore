@@ -1,7 +1,6 @@
 # directories
 .DS_Store
 node_modules
-.parcel-cache
 
 # Log files
 npm-debug.log*

@@ -2,7 +2,6 @@
 .idea/
 resource/
 public/
-.parcel-cache/
 docs/
 
 vue.config.js
