@@ -24,7 +24,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/mixins";
+@import "../../assets/scss/mixins";
 
 .button-close {
   --button-close-size: 48px;

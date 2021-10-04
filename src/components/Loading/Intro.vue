@@ -43,7 +43,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../scss/mixins";
+@import "../../assets/scss/mixins";
 .loading-intro {
   --loading-size: 50px;
   --loading-speed: 500ms;

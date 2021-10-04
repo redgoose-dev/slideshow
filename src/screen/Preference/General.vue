@@ -297,7 +297,7 @@ export default defineComponent({
 
 <style src="./fieldset.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
-@import "../../scss/mixins";
+@import "../../assets/scss/mixins";
 .import-data {
   --column: 1;
   --gap: 10px;

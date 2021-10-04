@@ -3,8 +3,8 @@
   <legend>information fields</legend>
   <div class="information">
     <figure>
-      <img src="assets/information-light.png" alt="slideshow">
-      <img src="assets/information-dark.png" alt="slideshow">
+      <img src="../../assets/images/information-light.png" alt="slideshow">
+      <img src="../../assets/images/information-dark.png" alt="slideshow">
     </figure>
     <ul>
       <li>{{$t('base.version')}}: <strong>{{version}}</strong></li>
@@ -18,14 +18,14 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { version } from '~/../package.json';
+import pkg from '~/../package.json';
 
 export default defineComponent({
   name: 'PreferenceInformation',
   setup()
   {
     return {
-      version,
+      version: pkg.version,
     };
   },
 });

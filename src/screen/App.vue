@@ -17,6 +17,12 @@ import LoadingIntro from '../components/Loading/Intro.vue';
 // set dev
 if (window) window.dev = process.env.NODE_ENV === 'development';
 
+// set baseOptions
+let baseOptions = {
+  preference: undefined,
+  tree: [],
+};
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -26,7 +32,16 @@ export default defineComponent({
   props: {
     preference: Object,
     group: String,
-    tree: Object,
+    tree: [ Object, Array ],
+  },
+  /**
+   * initialize slideshow
+   * */
+  initialize(options)
+  {
+    const { tree, preference } = options;
+    if (preference) baseOptions.preference = preference;
+    if (tree) baseOptions.tree = convertPureObject(tree);
   },
   setup(props, context)
   {
@@ -85,7 +100,7 @@ export default defineComponent({
       }
       else
       {
-        const storagePreference = storage.get('preference');
+        const storagePreference = storage.get('preference') || baseOptions.preference;
         if (storagePreference && checkPreference(storagePreference))
         {
           store.dispatch('changePreference', storagePreference);
@@ -125,7 +140,7 @@ export default defineComponent({
         else
         {
           const storageSlides = storage.get('tree');
-          tree = !!storageSlides ? storageSlides : [];
+          tree = !!storageSlides ? storageSlides : baseOptions.tree;
         }
         if (Array.isArray(tree))
         {

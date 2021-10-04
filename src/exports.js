@@ -1,6 +1,11 @@
 import Slideshow from './screen/App.vue';
+import store from './store';
+import i18n from './i18n';
 
-export const store = import('./store');
-export const i18n = import('./i18n');
+// import './assets/scss/main.scss';
 
-export default Slideshow;
+export default {
+  component: Slideshow,
+  store,
+  i18n
+}

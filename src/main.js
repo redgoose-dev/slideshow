@@ -5,7 +5,9 @@ import i18n from './i18n';
 // components
 import App from './screen/App.vue';
 // style
-import './scss/main.scss';
+import './assets/scss/main.scss';
+// get example
+import example from './example.json';
 
 // check app element
 if (!document.getElementById('app'))
@@ -23,7 +25,5 @@ if (!document.getElementById('modal'))
 }
 
 // initial app and mount
-createApp(App)
-  .use(store)
-  .use(i18n)
-  .mount('#app');
+App.initialize({ tree: example });
+createApp(App).use(store).use(i18n).mount('#app');

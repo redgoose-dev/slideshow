@@ -1,7 +1,7 @@
 {
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
-  "description": "vue's slideshow",
+  "description": "vue slideshow",
   "version": "1.1.17-ready",
   "main": "src/resource.js",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
@@ -12,24 +12,42 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve --host 0.0.0.0 --port 3000",
-    "build-docs": "rm -rf docs && MODE=docs vue-cli-service build",
-    "build-libs": "rm -rf dist && MODE=libs vue-cli-service build",
-    "dev-external": "vue-cli-service serve --host 0.0.0.0 --port 3000 src/external/main.js"
+    "dev": "webpack serve --config config/webpack.dev.js --mode development --progress",
+    "build-docs": "webpack build --config config/webpack.docs.js --mode production --progress",
+    "build-libs": "webpack build --config config/webpack.libs.js --mode production --progress",
+    "preview-docs": "http-server ./docs -a 0.0.0.0 -p 4000 -s",
+    "dev-external": ""
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
   ],
   "dependencies": {
-    "vue": "^3.2.11",
+    "vue": "^3.2.19",
     "vue-i18n": "^9.1.7",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vue/cli-service": "^4.5.13",
-    "@vue/compiler-sfc": "^3.2.11",
-    "sass": "^1.39.0",
-    "sass-loader": "^10"
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/runtime": "^7.15.4",
+    "@vue/compiler-sfc": "^3.2.19",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.3.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "http-server": "^13.0.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "sass": "^1.42.1",
+    "sass-loader": "^10",
+    "style-loader": "^3.3.0",
+    "terser-webpack-plugin": "^5.2.4",
+    "vue-loader": "^16.8.1",
+    "webpack": "^5.55.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.3.0"
   }
 }
