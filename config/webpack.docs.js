@@ -10,7 +10,7 @@ const paths = {
   assets: 'assets',
 };
 
-const config = (env, options) => ({
+const config = () => ({
   ...base,
   entry: {
     main: path.resolve(__dirname, '../src/main.js'),

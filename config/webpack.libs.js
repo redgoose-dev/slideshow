@@ -1,32 +1,24 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const base = require('./webpack.base');
 
-const config = (env, options) => ({
+const config = () => ({
   ...base,
   entry: {
-    slideshow: {
-      import: path.resolve(__dirname, '../src/exports.js'),
-      dependOn: 'vendor',
-    },
-    vendor: [ 'vue', 'vue-i18n/index', 'vuex' ],
+    slideshow: path.resolve(__dirname, '../src/exports.js'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: './',
     filename: `[name].js`,
     clean: true,
-    // library: {
-    //   name: 'Slideshow',
-    //   type: 'module',
-    // },
-    libraryTarget: 'module',
-    // globalObject: 'this',
-  },
-  experiments: {
-    outputModule: true,
+    library: {
+      name: 'slideshow',
+      type: 'commonjs-module',
+      export: 'default',
+    },
   },
   module: {
     rules: [
@@ -50,34 +42,30 @@ const config = (env, options) => ({
       },
     ],
   },
+  externals: {
+    'vue': 'vue',
+    'vue-i18n/index': 'vue-i18n',
+    'vuex': 'vuex',
+  },
+  experiments: {
+    outputModule: true,
+  },
   plugins: [
     ...base.plugins,
-    // new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
     new MiniCssExtractPlugin({ filename: '[name].css' }),
   ],
   optimization: {
-    // runtimeChunk: 'single',
     minimize: false,
-    // minimizer: [
-    //   new TerserPlugin({
-    //     terserOptions: {
-    //       format: { comments: false },
-    //     },
-    //     extractComments: false,
-    //   }),
-    // ],
-    // splitChunks: {
-    //   chunks: 'all',
-    //   maxInitialRequests: Infinity,
-    //   minSize: 0,
-    //   cacheGroups: {
-    //     commons: {
-    //       test: /[\\/]node_modules[\\/]/,
-    //       name: 'vendor',
-    //       chunks: 'initial',
-    //     },
-    //   },
-    // },
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          format: { comments: false },
+        },
+        extractComments: false,
+      }),
+    ],
   },
 });
 

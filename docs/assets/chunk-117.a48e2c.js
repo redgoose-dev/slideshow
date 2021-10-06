@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_redgoose_slideshow=self.webpackChunk_redgoose_slideshow||[]).push([[117],{6117:function(e,n,r){r.r(n),r.d(n,{default:function(){return t}});var s=r(6252),o={x1:"5",y1:"12",x2:"19",y2:"12"};const u={};var t=(0,r(3744).Z)(u,[["render",function(e,n){return(0,s.wg)(),(0,s.iD)("line",o)}]])}}]);

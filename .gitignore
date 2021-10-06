@@ -19,3 +19,8 @@ pnpm-debug.log*
 
 # etc
 yarn.lock
+
+
+# TODO: 개발을 위하여 임의로 추가
+libs/
+docs/
