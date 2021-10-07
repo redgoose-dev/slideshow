@@ -28,6 +28,8 @@ export default {
     ...base.plugins,
     postcss({
       extract: `${paths.libs}/slideshow.css`,
+      use: [ 'sass' ],
+      plugins: [],
     }),
   ],
 };

@@ -14,6 +14,9 @@ export default {
     vuePlugin({
       target: 'browser',
       cssModulesOptions: {},
+      preprocessOptions: {
+        //
+      },
     }),
   ],
 }
