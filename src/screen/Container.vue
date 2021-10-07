@@ -27,14 +27,14 @@
 <script>
 import { defineComponent, reactive, computed, ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import * as local from '~/libs/local';
-import Slides from '~/components/Slides';
-import SlidesEmpty from '~/components/Slides/Empty';
-import Navigation from '~/screen/Navigation';
-import Preference from '~/screen/Preference';
-import Group from '~/screen/Group';
-import Thumbnail from '~/screen/Thumbnail';
+import Slides from '~/components/Slides/index.vue';
+import SlidesEmpty from '~/components/Slides/Empty.vue';
+import Navigation from '~/screen/Navigation/index.vue';
+import Preference from '~/screen/Preference/index.vue';
+import Group from '~/screen/Group/index.vue';
+import Thumbnail from '~/screen/Thumbnail/index.vue';
 
 export default defineComponent({
   name: 'Container',
@@ -52,7 +52,7 @@ export default defineComponent({
   setup(props)
   {
     const store = useStore();
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     const slides = ref(null);
     const navigation = ref(null);
     let computes = reactive({

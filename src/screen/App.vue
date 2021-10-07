@@ -6,7 +6,7 @@
 <script>
 import { defineComponent, reactive, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import * as storage from '../libs/storage';
 import * as local from '../libs/local';
 import { getApiData, sleep, initCustomEvent } from '../libs/util';
@@ -47,7 +47,7 @@ export default defineComponent({
   {
     let root = ref(null);
     let store = useStore();
-    const { t, locale } = useI18n({ useScope: 'global' });
+    const { t, locale } = vueI18n.useI18n({ useScope: 'global' });
     let state = reactive({
       dev: process.env.NODE_ENV === 'development',
       loading: true,

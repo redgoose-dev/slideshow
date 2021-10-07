@@ -10,7 +10,7 @@
 <script>
 import { defineComponent, reactive, onMounted, onUnmounted } from 'vue';
 import * as util from '~/libs/util';
-import LoadingUnit from './Unit';
+import LoadingUnit from './Unit.vue';
 
 export default defineComponent({
   name: 'LoadingIntro',

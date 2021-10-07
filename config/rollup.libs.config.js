@@ -1,4 +1,4 @@
-import scss from 'rollup-plugin-scss';
+import postcss from 'rollup-plugin-postcss';
 import { paths, projectName } from './options';
 import base from './rollup.base.config';
 
@@ -11,23 +11,23 @@ export default {
       exports: 'default',
       name: projectName,
       globals: {
+        vue: 'Vue',
         vuex: 'vuex',
-        'vue-i18n/index': 'i18n',
+        'vue-i18n/index': 'vueI18n',
       },
     },
     {
       file: `${paths.libs}/slideshow.es.js`,
       format: 'es',
-    }
+    },
   ],
   external: [
     ...base.external,
   ],
   plugins: [
     ...base.plugins,
-    scss({
-      output: `${paths.libs}/slideshow.css`,
-      // processor: () => {},
+    postcss({
+      extract: `${paths.libs}/slideshow.css`,
     }),
   ],
 };

@@ -40,7 +40,7 @@
 <script>
 import { defineComponent, defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import { convertPureObject, checkPreference, checkTree } from '~/libs/object';
 import * as local from '~/libs/local';
 import Icon from '~/components/Icon';
@@ -55,7 +55,7 @@ export default defineComponent({
   setup()
   {
     const store = useStore();
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     const preference = convertPureObject(store.state.preference);
     const tree = convertPureObject(store.state.tree);
     let state = reactive({

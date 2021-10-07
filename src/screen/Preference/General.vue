@@ -175,7 +175,7 @@
 <script>
 import { defineComponent, reactive } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import * as object from '~/libs/object';
 import * as local from '~/libs/local';
 import * as string from '~/libs/string';
@@ -200,7 +200,7 @@ export default defineComponent({
   setup(props, context)
   {
     const store = useStore();
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     let state = reactive({
       language: props.structure.language,
       hud: props.structure.hud,

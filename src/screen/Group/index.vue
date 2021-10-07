@@ -36,7 +36,7 @@
 <script>
 import { defineComponent, reactive, computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import * as local from '~/libs/local';
 import Icon from '~/components/Icon';
 import Item from './Item';
@@ -50,7 +50,7 @@ export default defineComponent({
   setup()
   {
     const store = useStore();
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     let computes = reactive({
       index: computed(() => {
         const { tree, group } = store.state;

@@ -100,7 +100,7 @@
 
 <script>
 import { defineComponent, reactive, ref } from 'vue';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import FormText from '~/components/Form/Text';
 import ButtonBasic from '~/components/Button/Basic';
 import { validUrl } from '~/libs/string';
@@ -116,7 +116,7 @@ export default defineComponent({
   },
   setup(props, context)
   {
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     let state = reactive({
       form: props.form,
     });

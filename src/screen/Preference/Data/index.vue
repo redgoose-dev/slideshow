@@ -66,7 +66,7 @@
 
 <script>
 import { defineComponent, reactive } from 'vue';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import { checkTree } from '~/libs/object';
 import { objectToString } from '~/libs/string';
 import FormText from '~/components/Form/Text';
@@ -93,7 +93,7 @@ export default defineComponent({
   },
   setup(props, context)
   {
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     let localState = reactive({
       mode: 'basic', // basic,advanced
       showImportData: false,

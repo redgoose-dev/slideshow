@@ -91,7 +91,7 @@
 
 <script>
 import { defineComponent, reactive, computed } from 'vue';
-import { useI18n } from 'vue-i18n/index';
+import * as vueI18n from 'vue-i18n/index';
 import { convertPureObject } from '~/libs/object';
 import Icon from '~/components/Icon';
 import ButtonBasic from '~/components/Button/Basic';
@@ -115,7 +115,7 @@ export default defineComponent({
   },
   setup(props, context)
   {
-    const { t } = useI18n({ useScope: 'global' });
+    const { t } = vueI18n.useI18n({ useScope: 'global' });
     let state = reactive({
       fold: createFold(),
       dragPlaceholder: undefined,
