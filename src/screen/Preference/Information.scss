@@ -1,4 +1,5 @@
-@import "../../assets/scss/mixins";
+@use './fieldset';
+@use '../../assets/scss/mixins';
 
 .information {
   > figure {
@@ -49,7 +50,7 @@
     }
   }
 
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     > figure {
       img {
         &:nth-child(1) {

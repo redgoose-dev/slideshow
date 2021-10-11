@@ -1,4 +1,4 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .empty {
   position: absolute;
@@ -33,7 +33,7 @@
     color: var(--color-low-fill);
   }
 
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     &__icon {
       --icon-size: 120px;
       --icon-stroke: .5px;
@@ -48,7 +48,7 @@
       font-size: 13px;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &__icon {
       --icon-color: var(--color-fill);
     }

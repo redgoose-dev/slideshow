@@ -5,47 +5,34 @@
       icon-name="frown"
       class="empty__icon"/>
     <h2 class="empty__title">
-      {{title || $t('title.emptySlide')}}
+      {{title || t('title.emptySlide')}}
     </h2>
     <p class="empty__description">
-      {{description || $t('description.addSlides')}}
+      {{description || t('description.addSlides')}}
     </p>
   </div>
 </article>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-import { useStore } from 'vuex';
-import Icon from '~/components/Icon';
+<script setup>
+import store from '~/store';
+import i18n from '~/i18n';
+import Icon from '~/components/Icon/index.vue';
 
-export default defineComponent({
-  name: 'SlidesEmpty',
-  components: {
-    Icon,
-  },
-  props: {
-    title: String,
-    description: String,
-  },
-  setup()
-  {
-    const store = useStore();
-
-    // methods
-    function onClickWrapper(e)
-    {
-      if (store.state.preference.general.clickVisibleHud)
-      {
-        store.dispatch('changeHud');
-      }
-    }
-
-    return {
-      onClickWrapper,
-    };
-  },
+const { t } = i18n.global;
+const props = defineProps({
+  title: String,
+  description: String,
 });
+
+// methods
+function onClickWrapper()
+{
+  if (store.state.preference.general.clickVisibleHud)
+  {
+    store.dispatch('changeHud');
+  }
+}
 </script>
 
 <style src="./Empty.scss" lang="scss" scoped></style>

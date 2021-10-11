@@ -5,11 +5,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_language">
-          {{$t('base.language')}}
+          {{t('base.language')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.language')}}
+        {{t('description.language')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -17,8 +17,8 @@
           id="pref_language"
           v-model="state.language"
           @update:modelValue="onSave">
-          <option value="en">{{$t('language.en')}}</option>
-          <option value="ko">{{$t('language.ko')}}</option>
+          <option value="en">{{t('language.en')}}</option>
+          <option value="ko">{{t('language.ko')}}</option>
         </FormSelect>
       </div>
     </div>
@@ -27,11 +27,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_hud">
-            {{$t('base.hud')}}
+            {{t('base.hud')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.hud')}}
+          {{t('description.hud')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -46,11 +46,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_hoverVisibleHud">
-            {{$t('title.hoverVisibleHud')}}
+            {{t('title.hoverVisibleHud')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.hoverVisibleHud')}}
+          {{t('description.hoverVisibleHud')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -65,11 +65,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_clickVisibleHud">
-            {{$t('title.touchHud')}}
+            {{t('title.touchHud')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.touchHud')}}
+          {{t('description.touchHud')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -83,11 +83,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_hudContents">
-          {{$t('title.visibleContents')}}
+          {{t('title.visibleContents')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.visibleContents')}}
+        {{t('description.visibleContents')}}
       </p>
       <div class="field-basic__body">
         <ul class="field-checks">
@@ -95,35 +95,35 @@
             <FormCheckbox
               name="pref_hudContents"
               id="pref_hudContents"
-              :label="$t('base.menu')"
+              :label="t('base.menu')"
               :modelValue="state.visibleHudContents.menu"
               @update:modelValue="o => onUpdateHudContents('menu', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('base.caption')"
+              :label="t('base.caption')"
               :modelValue="state.visibleHudContents.caption"
               @update:modelValue="o => onUpdateHudContents('caption', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('base.controller')"
+              :label="t('base.controller')"
               :modelValue="state.visibleHudContents.controller"
               @update:modelValue="o => onUpdateHudContents('controller', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('base.paginate')"
+              :label="t('base.paginate')"
               :modelValue="state.visibleHudContents.paginate"
               @update:modelValue="o => onUpdateHudContents('paginate', o)"/>
           </li>
           <li>
             <FormCheckbox
               name="pref_hudContents"
-              :label="$t('base.group')"
+              :label="t('base.group')"
               :modelValue="state.visibleHudContents.group"
               @update:modelValue="o => onUpdateHudContents('group', o)"/>
           </li>
@@ -134,22 +134,22 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label>
-          {{$t('title.backupOrRestore')}}
+          {{t('title.backupOrRestore')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.backup')}}
+        {{t('description.backup')}}
       </p>
       <div class="field-basic__body">
         <div class="grid import-data">
           <div>
             <ButtonBasic color="key" @click="onClickBackup">
-              {{$t('base.backup')}}
+              {{t('base.backup')}}
             </ButtonBasic>
           </div>
           <div>
             <ButtonBasic color="key" @click="onClickRestore">
-              {{$t('base.restore')}}
+              {{t('base.restore')}}
             </ButtonBasic>
           </div>
         </div>
@@ -157,14 +157,14 @@
     </div>
     <div class="field-basic">
       <h3 class="field-title">
-        <label>{{$t('base.reset')}}</label>
+        <label>{{t('base.reset')}}</label>
       </h3>
       <p class="field-description">
-        {{$t('description.reset')}}
+        {{t('description.reset')}}
       </p>
       <div class="field-basic__body">
         <ButtonBasic color="danger" @click="onClickReset">
-          {{$t('base.resetSlideshow')}}
+          {{t('base.resetSlideshow')}}
         </ButtonBasic>
       </div>
     </div>
@@ -172,136 +172,112 @@
 </fieldset>
 </template>
 
-<script>
-import { defineComponent, reactive } from 'vue';
-import { useStore } from 'vuex';
-import * as vueI18n from 'vue-i18n/index';
+<script setup>
+import { reactive } from 'vue';
+import store from '~/store';
+import i18n from '~/i18n';
 import * as object from '~/libs/object';
 import * as local from '~/libs/local';
 import * as string from '~/libs/string';
-import FormText from '~/components/Form/Text';
-import FormSelect from '~/components/Form/Select';
-import FormSwitch from '~/components/Form/Switch';
-import FormCheckbox from '~/components/Form/Checkbox';
-import ButtonBasic from '~/components/Button/Basic';
+import FormSelect from '~/components/Form/Select.vue';
+import FormSwitch from '~/components/Form/Switch.vue';
+import FormCheckbox from '~/components/Form/Checkbox.vue';
+import ButtonBasic from '~/components/Button/Basic.vue';
 
-export default defineComponent({
-  name: 'PreferenceGeneral',
-  components: {
-    FormText,
-    FormSelect,
-    FormSwitch,
-    FormCheckbox,
-    ButtonBasic,
-  },
-  props: {
-    structure: Object,
-  },
-  setup(props, context)
-  {
-    const store = useStore();
-    const { t } = vueI18n.useI18n({ useScope: 'global' });
-    let state = reactive({
-      language: props.structure.language,
-      hud: props.structure.hud,
-      hoverVisibleHud: props.structure.hoverVisibleHud,
-      clickVisibleHud: props.structure.clickVisibleHud,
-      visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
-    });
-
-    // methods
-    function onSave()
-    {
-      const structure = object.convertPureObject(state);
-      context.emit('update', structure);
-    }
-    function onUpdateHudContents(key, value)
-    {
-      state.visibleHudContents[key] = value;
-      onSave();
-    }
-    function onClickBackup()
-    {
-      if (!confirm(t('confirm.backup'))) return;
-      let result = {
-        preference: object.convertPureObject(store.state.preference),
-        tree: object.convertPureObject(store.state.tree),
-      };
-      const date = new Date();
-      let dateFormat = `${date.getFullYear()}${string.twoDigit(date.getMonth() + 1)}${string.twoDigit(date.getDate())}`;
-      const element = document.createElement('a');
-      element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`);
-      element.setAttribute('download', `slideshow_${dateFormat}.json`);
-      element.click();
-    }
-    function onClickRestore()
-    {
-      return new Promise((resolve, reject) => {
-        const el = document.createElement('input');
-        el.setAttribute('type', 'file');
-        el.setAttribute('accept', 'application/json');
-        el.addEventListener('change', e => {
-          if (!(e.target.files && e.target.files.length > 0))
-          {
-            alert(t('alert.noSelectedFile'));
-            return;
-          }
-          const file = e.target.files[0];
-          const reader = new FileReader();
-          reader.onload = e => {
-            try
-            {
-              let json = JSON.parse(String(e.target.result));
-              if (!confirm(t('confirm.restore'))) return;
-              if (!(json.preference || json.tree)) throw new Error('no data');
-              if (json.preference) store.dispatch('changePreference', json.preference);
-              if (json.tree) store.dispatch('changeTree', json.tree);
-              store.dispatch('changeMode', null);
-              store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
-              store.dispatch('changeAutoplay', false);
-              store.commit('updateUseKeyboardEvent', true);
-              alert(t('alert.completeRestore'));
-              local.main.restart().then();
-            }
-            catch(e)
-            {
-              if (window.dev) console.error(e.message);
-              alert(t('alert.failedRestore'));
-            }
-          };
-          reader.readAsText(file);
-        }, false);
-        el.click();
-      });
-    }
-    function onClickReset()
-    {
-      if (!confirm(t('confirm.reset'))) return;
-      store.dispatch('reset').then(() => local.main.restart().then());
-    }
-
-    return {
-      state,
-      onSave,
-      onUpdateHudContents,
-      onClickBackup,
-      onClickRestore,
-      onClickReset,
-    };
-  },
-  emits: {
-    'update': null,
-  },
+const props = defineProps({
+  structure: Object,
 });
+const emits = defineEmits({
+  'update': null,
+});
+const { t } = i18n.global;
+let state = reactive({
+  language: props.structure.language,
+  hud: props.structure.hud,
+  hoverVisibleHud: props.structure.hoverVisibleHud,
+  clickVisibleHud: props.structure.clickVisibleHud,
+  visibleHudContents: object.convertPureObject(props.structure.visibleHudContents),
+});
+
+// methods
+function onSave()
+{
+  const structure = object.convertPureObject(state);
+  emits('update', structure);
+}
+function onUpdateHudContents(key, value)
+{
+  state.visibleHudContents[key] = value;
+  onSave();
+}
+function onClickBackup()
+{
+  if (!confirm(t('confirm.backup'))) return;
+  let result = {
+    preference: object.convertPureObject(store.state.preference),
+    tree: object.convertPureObject(store.state.tree),
+  };
+  const date = new Date();
+  let dateFormat = `${date.getFullYear()}${string.twoDigit(date.getMonth() + 1)}${string.twoDigit(date.getDate())}`;
+  const element = document.createElement('a');
+  element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`);
+  element.setAttribute('download', `slideshow_${dateFormat}.json`);
+  element.click();
+}
+function onClickRestore()
+{
+  return new Promise((resolve, reject) => {
+    const el = document.createElement('input');
+    el.setAttribute('type', 'file');
+    el.setAttribute('accept', 'application/json');
+    el.addEventListener('change', e => {
+      if (!(e.target.files && e.target.files.length > 0))
+      {
+        alert(t('alert.noSelectedFile'));
+        return;
+      }
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        try
+        {
+          let json = JSON.parse(String(e.target.result));
+          if (!confirm(t('confirm.restore'))) return;
+          if (!(json.preference || json.tree)) throw new Error('no data');
+          if (json.preference) store.dispatch('changePreference', json.preference);
+          if (json.tree) store.dispatch('changeTree', json.tree);
+          store.dispatch('changeMode', null);
+          store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
+          store.dispatch('changeAutoplay', false);
+          store.commit('updateUseKeyboardEvent', true);
+          alert(t('alert.completeRestore'));
+          local.main.restart().then();
+        }
+        catch(e)
+        {
+          if (window.dev) console.error(e.message);
+          alert(t('alert.failedRestore'));
+        }
+      };
+      reader.readAsText(file);
+    }, false);
+    el.click();
+  });
+}
+function onClickReset()
+{
+  if (!confirm(t('confirm.reset'))) return;
+  store.dispatch('reset').then(() => local.main.restart().then());
+}
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
+@use './fieldset';
 .import-data {
   --column: 1;
   --gap: 10px;
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --column: 2;
   }
 }

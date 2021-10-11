@@ -5,11 +5,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_initialNumber">
-          {{$t('title.initialNumber')}}
+          {{t('title.initialNumber')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.initialNumber')}}
+        {{t('description.initialNumber')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -29,11 +29,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_animationType">
-          {{$t('title.transitionType')}}
+          {{t('title.transitionType')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.transitionType')}}
+        {{t('description.transitionType')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -42,13 +42,13 @@
           v-model="state.animationType"
           @update:modelValue="onSave">
           <option value="none">
-            {{$t('base.none')}}
+            {{t('base.none')}}
           </option>
           <option value="fade">
-            {{$t('label.fadeInOut')}}
+            {{t('label.fadeInOut')}}
           </option>
           <option value="horizontal">
-            {{$t('label.moveHorizontal')}}
+            {{t('label.moveHorizontal')}}
           </option>
         </FormSelect>
       </div>
@@ -56,11 +56,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_animationSpeed">
-          {{$t('title.transitionSpeed')}}
+          {{t('title.transitionSpeed')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.transitionSpeed')}}
+        {{t('description.transitionSpeed')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -83,11 +83,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionAnimationType">
-          {{$t('title.captionAnimationType')}}
+          {{t('title.captionAnimationType')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.captionAnimationType')}}
+        {{t('description.captionAnimationType')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -96,10 +96,10 @@
           v-model="state.captionAnimationType"
           @update:modelValue="onSave">
           <option value="none">
-            {{$t('base.none')}}
+            {{t('base.none')}}
           </option>
           <option value="shuffle">
-            {{$t('base.shuffleText')}}
+            {{t('base.shuffleText')}}
           </option>
         </FormSelect>
       </div>
@@ -107,11 +107,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionAnimationSpeed">
-          {{$t('title.captionAnimationSpeed')}}
+          {{t('title.captionAnimationSpeed')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.captionAnimationSpeed')}}
+        {{t('description.captionAnimationSpeed')}}
       </p>
       <div class="field-basic__inline">
         <FormText
@@ -132,11 +132,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_autoplay">
-            {{$t('base.autoplay')}}
+            {{t('base.autoplay')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.autoplay')}}
+          {{t('description.autoplay')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -150,11 +150,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_autoplayDelay">
-          {{$t('title.autoplayDelay')}}
+          {{t('title.autoplayDelay')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.autoplayDelay')}}
+        {{t('description.autoplayDelay')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -176,11 +176,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_autoplayDirection">
-          {{$t('title.autoplayDirection')}}
+          {{t('title.autoplayDirection')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.autoplayDirection')}}
+        {{t('description.autoplayDirection')}}
       </p>
       <div class="field-basic__inline">
         <FormRadio
@@ -188,8 +188,8 @@
           id="pref_autoplayDirection"
           :inline="true"
           :items="[
-            { key: false, label: $t('base.previous') },
-            { key: true, label: $t('base.next') },
+            { key: false, label: t('base.previous') },
+            { key: true, label: t('base.next') },
           ]"
           model-type="boolean"
           v-model="state.autoplayDirection"
@@ -200,11 +200,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_autoplayPauseOnHover">
-            {{$t('title.autoplayPauseOnHover')}}
+            {{t('title.autoplayPauseOnHover')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.autoplayPauseOnHover')}}
+          {{t('description.autoplayPauseOnHover')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -220,11 +220,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_loop">
-            {{$t('base.repeat')}}
+            {{t('base.repeat')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.repeat')}}
+          {{t('description.repeat')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -239,11 +239,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_swipe">
-            {{$t('base.swipe')}}
+            {{t('base.swipe')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.swipe')}}
+          {{t('description.swipe')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -258,57 +258,41 @@
 </fieldset>
 </template>
 
-<script>
-import { defineComponent, reactive } from 'vue';
+<script setup>
+import { reactive } from 'vue';
+import i18n from '~/i18n';
 import * as object from '~/libs/object';
-import FormText from '~/components/Form/Text';
-import FormSelect from '~/components/Form/Select';
-import FormSwitch from '~/components/Form/Switch';
-import FormRadio from '~/components/Form/Radio';
+import FormText from '~/components/Form/Text.vue';
+import FormSelect from '~/components/Form/Select.vue';
+import FormSwitch from '~/components/Form/Switch.vue';
+import FormRadio from '~/components/Form/Radio.vue';
 
-export default defineComponent({
-  name: 'PreferenceSlides',
-  components: {
-    FormText,
-    FormSelect,
-    FormSwitch,
-    FormRadio,
-  },
-  props: {
-    structure: Object,
-  },
-  setup(props, context)
-  {
-    let state = reactive({
-      initialNumber: props.structure.initialNumber,
-      animationType: props.structure.animationType,
-      animationSpeed: props.structure.animationSpeed,
-      captionAnimationType: props.structure.captionAnimationType,
-      captionAnimationSpeed: props.structure.captionAnimationSpeed,
-      autoplay: props.structure.autoplay,
-      autoplayDelay: props.structure.autoplayDelay,
-      autoplayDirection: props.structure.autoplayDirection,
-      autoplayPauseOnHover: props.structure.autoplayPauseOnHover,
-      loop: props.structure.loop,
-      swipe: props.structure.swipe,
-    });
-
-    // methods
-    function onSave()
-    {
-      const structure = object.convertPureObject(state);
-      context.emit('update', structure);
-    }
-
-    return {
-      state,
-      onSave,
-    };
-  },
-  emits: {
-    'update': null,
-  },
+const name = 'PreferenceSlides';
+const { t } = i18n.global;
+const props = defineProps({ structure: Object });
+const emits = defineEmits({ 'update': null });
+let state = reactive({
+  initialNumber: props.structure.initialNumber,
+  animationType: props.structure.animationType,
+  animationSpeed: props.structure.animationSpeed,
+  captionAnimationType: props.structure.captionAnimationType,
+  captionAnimationSpeed: props.structure.captionAnimationSpeed,
+  autoplay: props.structure.autoplay,
+  autoplayDelay: props.structure.autoplayDelay,
+  autoplayDirection: props.structure.autoplayDirection,
+  autoplayPauseOnHover: props.structure.autoplayPauseOnHover,
+  loop: props.structure.loop,
+  swipe: props.structure.swipe,
 });
+
+// methods
+function onSave()
+{
+  const structure = object.convertPureObject(state);
+  emits('update', structure);
+}
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use './fieldset';
+</style>

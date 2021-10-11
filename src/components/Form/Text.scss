@@ -1,4 +1,5 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
+@use './form';
 
 .form-text {
   display: block;
@@ -14,6 +15,7 @@
   transition: box-shadow var(--speed-button-active) ease-out;
   font-size: 16px;
   letter-spacing: -.25px;
+  color: var(--color-fill);
   &:focus {
     box-shadow: 0 0 0 2px var(--color-key);
   }
@@ -25,10 +27,11 @@
     padding: 12px var(--form-side-padding);
     height: auto;
     border-radius: 4px;
-    line-height: 1.42;
+    line-height: 1.62;
+    letter-spacing: normal;
     resize: vertical;
     --color-bg: var(--color-shape);
-    @include custom-scroll-style();
+    @include mixins.custom-scroll-style();
   }
   &--inline {
     width: unset;

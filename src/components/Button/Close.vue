@@ -8,23 +8,16 @@
 </button>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-import Icon from '~/components/Icon';
+<script setup>
+import Icon from '~/components/Icon/index.vue';
 
-export default defineComponent({
-  name: 'button-close',
-  components: {
-    Icon,
-  },
-  props: {
-    title: String,
-  },
-});
+const name = 'ButtonClose';
+const props = defineProps({ title: String });
+const emits = defineEmits({ 'close': null });
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .button-close {
   --button-close-size: 48px;
@@ -59,14 +52,14 @@ export default defineComponent({
     --icon-stroke: 1.25px;
   }
 
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --button-close-size: 58px;
     .slideshow-icon {
       --icon-size: 52px;
       --icon-stroke: .75px;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     background: rgba(34,34,34,.75);
   }
 }

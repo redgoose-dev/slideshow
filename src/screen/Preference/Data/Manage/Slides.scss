@@ -1,4 +1,4 @@
-@import "../../../../assets/scss/mixins";
+@use '../../../../assets/scss/mixins';
 
 .data-slides {
   margin: 1px 0 0;
@@ -16,7 +16,7 @@
     color: var(--color-low-fill);
     user-select: none;
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     padding: 4px;
   }
 }
@@ -43,7 +43,7 @@
       letter-spacing: -.5px;
       line-height: 1.15;
       font-weight: 500;
-      @include text-single-line();
+      @include mixins.text-single-line();
       &.none {
         opacity: .3;
       }
@@ -53,7 +53,7 @@
       font-size: 11px;
       line-height: 1.15;
       color: var(--color-low-fill);
-      @include text-single-line();
+      @include mixins.text-single-line();
     }
     nav {
       display: flex;
@@ -79,7 +79,7 @@
   &__nav {
     display: none;
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     margin: 8px;
     border-radius: var(--size-shape-radius);
     box-shadow: 0 0 8px 0 rgba(0,0,0,.15), inset 0 0 0 1px #ddd;
@@ -182,8 +182,8 @@
     }
   }
 
-  @include dark-mode() {
-    @include responsive(desktop) {
+  @include mixins.dark-mode() {
+    @include mixins.responsive(desktop) {
       box-shadow: 0 0 8px 0 rgba(0,0,0,.15), inset 0 0 0 1px #181818;
       &:hover {
         box-shadow: 0 0 12px 0 rgba(0,0,0,.15), inset 0 0 0 1px var(--color-key);

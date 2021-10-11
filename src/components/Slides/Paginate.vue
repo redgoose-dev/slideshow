@@ -2,15 +2,11 @@
 <em class="slideshow-paginate">{{current + 1}} / {{total}}</em>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'SlidePaginate',
-  props: {
-    total: { type: Number, default: 0 },
-    current: { type: Number, default: 0 },
-  },
+<script setup>
+const name = 'SlidePaginate';
+const props = defineProps({
+  total: { type: Number, default: 0 },
+  current: { type: Number, default: 0 },
 });
 </script>
 

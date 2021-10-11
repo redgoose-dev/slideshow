@@ -1,4 +1,5 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
+@use './form';
 
 .form-select {
   display: block;
@@ -26,6 +27,7 @@
     letter-spacing: -.25px;
     background: var(--color-shape);
     line-height: normal;
+    color: var(--color-fill);
   }
   &__icon {
     position: absolute;
@@ -39,7 +41,7 @@
     opacity: .5;
     cursor: not-allowed;
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &__icon {
       --icon-color: var(--color-fill);
     }

@@ -26,22 +26,12 @@
 }
 
 // dark mode
-@mixin dark-mode($root: false)
+@mixin dark-mode()
 {
-  @if $root
-  {
-    &[data-color=dark] { @content; }
-    &[data-color=system], &:not([data-color]) {
-      @media (prefers-color-scheme: dark) { @content; }
-    }
-  }
-  @else
-  {
-    html[data-color=dark] & { @content; }
-    @media (prefers-color-scheme: dark) {
-      html[data-color=system] &, html:not([data-color]) & {
-        @content;
-      }
+  html[data-color=dark] & { @content; }
+  @media (prefers-color-scheme: dark) {
+    html[data-color=system] &, html:not([data-color]) & {
+      @content;
     }
   }
 }

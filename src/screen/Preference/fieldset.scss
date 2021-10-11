@@ -1,4 +1,4 @@
-@import "../../assets/scss/mixins";
+@use "../../assets/scss/mixins";
 
 fieldset {
   margin: 0;
@@ -8,7 +8,7 @@ fieldset {
   > legend {
     font-size: 0;
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     padding: 30px 30px 50px;
   }
 }
@@ -95,7 +95,7 @@ fieldset {
   display: grid;
   grid-template-columns: repeat(var(--column), 1fr);
   gap: 12px;
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --column: 3;
   }
 }
@@ -118,7 +118,7 @@ fieldset {
   border: none;
   border-top: 1px dashed var(--color-shape-button);
   transform: scaleY(.5);
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     border-color: var(--color-low-fill);
   }
 }

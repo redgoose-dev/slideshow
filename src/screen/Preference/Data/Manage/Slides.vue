@@ -23,24 +23,24 @@
       <p v-if="slide.description">{{slide.description}}</p>
       <nav>
         <a :href="slide.src" target="_blank">
-          {{$t('base.image')}}
+          {{t('base.image')}}
         </a>
         <a v-if="slide.thumbnail" :href="slide.thumbnail" target="_blank">
-          {{$t('base.thumbnail')}}
+          {{t('base.thumbnail')}}
         </a>
       </nav>
     </div>
     <nav class="data-slide__nav">
       <button
         type="button"
-        :title="$t('base.edit')"
+        :title="t('base.edit')"
         class="edit"
         @click="$emit('edit', k)">
         <Icon icon-name="edit"/>
       </button>
       <button
         type="button"
-        :title="$t('base.remove')"
+        :title="t('base.remove')"
         class="remove"
         @click="$emit('remove', k)">
         <Icon icon-name="x"/>
@@ -48,103 +48,91 @@
     </nav>
   </li>
   <li v-if="!(items && items.length > 0)" class="data-slides__empty">
-    {{$t('description.empty')}}
+    {{t('description.empty')}}
   </li>
 </ul>
 </template>
 
-<script>
-import { defineComponent, reactive } from 'vue';
+<script setup>
+import { reactive } from 'vue';
+import i18n from '~/i18n';
 import { convertPureObject } from '~/libs/object';
-import Icon from '~/components/Icon';
+import Icon from '~/components/Icon/index.vue';
 
-export default defineComponent({
-  name: 'Slides',
-  components: {
-    Icon,
-  },
-  props: {
-    itemKey: String,
-    items: { type: Array, required: true },
-  },
-  setup(props, context)
-  {
-    let state = reactive({
-      dragStartKey: undefined,
-      dragPlaceholderKey: undefined,
-    });
-    let dragTarget;
-    let dragItems;
-
-    // methods
-    function getTargetElement(el)
-    {
-      return el.dataset.key ? el : el.closest('li');
-    }
-    function onMouseDown(e)
-    {
-      dragTarget = e.target;
-    }
-    function onDragStart(e)
-    {
-      if (!dragTarget.closest('.data-slide__handle > i'))
-      {
-        e.preventDefault();
-        return;
-      }
-      dragTarget = getTargetElement(e.target);
-      dragItems = dragTarget.parentNode.children;
-      state.dragStartKey = Number(dragTarget.dataset.key);
-      for (let i=0; i<dragItems.length; i++)
-      {
-        dragItems[i].addEventListener('dragover', onDragOver);
-        dragItems[i].addEventListener('drop', onDrop);
-        dragItems[i].addEventListener('dragend', onDragEnd);
-      }
-    }
-    function onDragOver(e)
-    {
-      if (e.preventDefault) e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      let target = getTargetElement(e.target);
-      state.dragPlaceholderKey = Number(target.dataset.key);
-    }
-    function onDrop(e)
-    {
-      let target = getTargetElement(e.target);
-      if (state.dragStartKey === state.dragPlaceholderKey) return;
-      let clone = convertPureObject(props.items);
-      clone.splice(state.dragStartKey, 1);
-      clone.splice(Number(target.dataset.key), 0, convertPureObject(props.items[state.dragStartKey]));
-      context.emit('change-order', clone);
-    }
-    function onDragEnd()
-    {
-      if (!(dragTarget && dragItems)) return;
-      for (let i=0; i<dragItems.length; i++)
-      {
-        dragItems[i].removeEventListener('dragover', onDragOver);
-        dragItems[i].removeEventListener('drop', onDrop);
-        dragItems[i].removeEventListener('dragend', onDragEnd);
-      }
-      dragTarget = undefined;
-      dragItems = undefined;
-      state.dragStartKey = undefined;
-      state.dragPlaceholderKey = undefined;
-    }
-
-    return {
-      state,
-      onMouseDown,
-      onDragStart,
-    };
-  },
-  emits: {
-    'change-order': null,
-    'edit': null,
-    'remove': null,
-  },
+const name = 'Slides';
+const { t } = i18n.global;
+const props = defineProps({
+  itemKey: String,
+  items: { type: Array, required: true },
 });
+const emits = defineEmits({
+  'change-order': null,
+  'edit': null,
+  'remove': null,
+});
+let state = reactive({
+  dragStartKey: undefined,
+  dragPlaceholderKey: undefined,
+});
+let dragTarget;
+let dragItems;
+
+// methods
+function getTargetElement(el)
+{
+  return el.dataset.key ? el : el.closest('li');
+}
+function onMouseDown(e)
+{
+  dragTarget = e.target;
+}
+function onDragStart(e)
+{
+  if (!dragTarget.closest('.data-slide__handle > i'))
+  {
+    e.preventDefault();
+    return;
+  }
+  dragTarget = getTargetElement(e.target);
+  dragItems = dragTarget.parentNode.children;
+  state.dragStartKey = Number(dragTarget.dataset.key);
+  for (let i=0; i<dragItems.length; i++)
+  {
+    dragItems[i].addEventListener('dragover', onDragOver);
+    dragItems[i].addEventListener('drop', onDrop);
+    dragItems[i].addEventListener('dragend', onDragEnd);
+  }
+}
+function onDragOver(e)
+{
+  if (e.preventDefault) e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  let target = getTargetElement(e.target);
+  state.dragPlaceholderKey = Number(target.dataset.key);
+}
+function onDrop(e)
+{
+  let target = getTargetElement(e.target);
+  if (state.dragStartKey === state.dragPlaceholderKey) return;
+  let clone = convertPureObject(props.items);
+  clone.splice(state.dragStartKey, 1);
+  clone.splice(Number(target.dataset.key), 0, convertPureObject(props.items[state.dragStartKey]));
+  context.emit('change-order', clone);
+}
+function onDragEnd()
+{
+  if (!(dragTarget && dragItems)) return;
+  for (let i=0; i<dragItems.length; i++)
+  {
+    dragItems[i].removeEventListener('dragover', onDragOver);
+    dragItems[i].removeEventListener('drop', onDrop);
+    dragItems[i].removeEventListener('dragend', onDragEnd);
+  }
+  dragTarget = undefined;
+  dragItems = undefined;
+  state.dragStartKey = undefined;
+  state.dragPlaceholderKey = undefined;
+}
 </script>
 
 <style src="./Slides.scss" lang="scss" scoped></style>

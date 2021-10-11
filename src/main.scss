@@ -1,0 +1,17 @@
+@use 'assets/scss/mixins';
+@use 'assets/scss/normalize';
+
+html {
+  touch-action: manipulation;
+  overflow: hidden;
+}
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow: hidden;
+  position: fixed;
+  background-color: #fafafa;
+  @include mixins.dark-mode() {
+    background-color: #222;
+  }
+}

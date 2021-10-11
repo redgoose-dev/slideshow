@@ -1,40 +1,14 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .group-item {
   --item-height: 90px;
-  display: flex;
-  align-items: center;
   height: var(--item-height);
-  border-radius: var(--size-shape-radius);
-  box-shadow: 0 0 8px 0 rgba(0,0,0,0.15), inset 0 0 0 1px #ddd;
-  overflow: hidden;
   &__image {
     margin: 0;
     height: 100%;
     width: var(--item-height);
     user-select: none;
     background: var(--color-shape);
-    button {
-      display: block;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-size: 0;
-      border: none;
-      background: none;
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-      cursor: pointer;
-      transition: opacity var(--speed-button-active) ease-out;
-      &:active {
-        opacity: .5;
-      }
-      &:disabled {
-        cursor: default;
-        opacity: 1;
-      }
-    }
     img {
       display: block;
       width: 100%;
@@ -59,7 +33,8 @@
       font-weight: 600;
       letter-spacing: -.5px;
       line-height: 1.2;
-      @include text-single-line();
+      color: var(--color-fill);
+      @include mixins.text-single-line();
       em {
         font-style: normal;
         user-select: none;
@@ -75,115 +50,91 @@
       }
     }
     p {
-      margin: 0;
+      margin: 2px 0 0;
       font-size: 12px;
       color: var(--color-low-fill);
       letter-spacing: -.25px;
       line-height: 1.25;
-      @include text-single-line();
+      @include mixins.text-single-line();
     }
   }
   &__meta {
     display: flex;
     align-items: center;
-    margin: 4px 0 0;
+    margin: 5px 0 0;
     padding: 0;
     list-style: none;
     user-select: none;
+    color: var(--color-low-fill);
+    font-family: var(--font-eng);
     li {
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: -.5px;
       &:nth-child(n+2):before {
         content: ', ';
       }
     }
   }
-  &__nav {
-    button {
-      display: block;
-      margin: 0 16px 0 0;
-      padding: 0;
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      outline: none;
-      border-radius: var(--size-shape-radius);
-      transition: opacity var(--speed-button-active) ease-out;
-      -webkit-tap-highlight-color: transparent;
-      --icon-size: 24px;
-      --icon-color: var(--color-shape-button);
-      --icon-stroke: 1.75;
+  &-wrap {
+    display: flex;
+    align-items: center;
+    border-radius: var(--size-shape-radius);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    overflow: hidden;
+    height: 100%;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity var(--speed-button-active) ease-out;
+    cursor: pointer;
+    background-color: var(--color-shape);
+    &:focus {
+      box-shadow: 0 0 0 2px var(--color-key);
+    }
+    &:active {
+      opacity: .5;
+    }
+    &--selected {
+      background: var(--color-key);
+      cursor: auto;
       &:active {
-        opacity: .5;
-      }
-      &:focus {
-        box-shadow: 0 0 0 2px var(--color-key);
-      }
-      &:disabled {
         opacity: 1;
-        cursor: auto;
       }
-    }
-    svg {
-      display: block;
-      margin: 0 auto;
-    }
-  }
-  &--selected {
-    background: var(--color-key);
-    .group-item {
-      &__body {
-        h3 {
-          color: var(--color-invert);
-        }
-        p {
-          color: var(--color-invert);
-        }
-      }
-      &__meta {
-        color: var(--color-invert);
-      }
-      &__nav {
-        button {
-          svg {
-            --icon-color: var(--color-invert);
+      .group-item {
+        &__body {
+          h3 {
+            color: var(--color-invert);
+          }
+          p {
+            color: var(--color-invert);
           }
         }
+        &__meta {
+          color: var(--color-invert);
+        }
       }
     }
   }
-  @include dark-mode() {
-    box-shadow: 0 0 8px 0 rgba(0,0,0,.2), inset 0 0 0 1px #181818;
+
+  @include mixins.dark-mode() {
     &__image {
       svg {
         --icon-color: var(--color-low-fill);
       }
     }
-    &__nav {
-      button {
-        --icon-color: var(--color-low-fill);
-      }
-    }
-    &--selected {
-      .group-item {
-        &__body {
-          h3 {
-            color: var(--color-fill);
-          }
-          p {
-            color: var(--color-fill);
-          }
-        }
-        &__meta {
-          color: var(--color-fill);
-        }
-        &__nav {
-          button {
-            svg {
-              --icon-color: var(--color-fill);
+    &-wrap {
+      box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+      &--selected {
+        .group-item {
+          &__body {
+            h3 {
+              color: var(--color-fill);
             }
+            p {
+              color: var(--color-fill);
+            }
+          }
+          &__meta {
+            color: var(--color-fill);
           }
         }
       }

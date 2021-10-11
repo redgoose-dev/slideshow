@@ -1,4 +1,4 @@
-@import "../../../../assets/scss/mixins";
+@use '../../../../assets/scss/mixins';
 
 .manage-tree {
   position: relative;
@@ -23,7 +23,7 @@
       margin: 0;
       padding: 12px 16px 12px 4px;
       flex: 1;
-      @include text-single-line();
+      @include mixins.text-single-line();
       strong {
         display: block;
         font-size: 14px;
@@ -145,7 +145,7 @@
       }
     }
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     &:hover {
       .tree-item__header {
         > nav:last-child {
@@ -166,7 +166,7 @@
 
 .add-tree {
   display: none;
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     display: block;
     position: sticky;
     z-index: 3;

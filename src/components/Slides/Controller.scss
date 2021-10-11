@@ -1,4 +1,4 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .controller {
   button {
@@ -58,7 +58,7 @@
     opacity: unset;
     pointer-events: unset;
   }
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     button {
       &.prev {
         left: 20px;

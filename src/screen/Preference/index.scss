@@ -1,4 +1,4 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .preference {
   --header: 48px;
@@ -28,9 +28,9 @@
     height: calc(100% - var(--header));
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    @include custom-scroll-style();
+    @include mixins.custom-scroll-style();
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     --header: 84px;
     display: flex;
     align-items: center;
@@ -51,8 +51,8 @@
       overflow: hidden;
     }
   }
-  @include dark-mode() {
-    @include responsive(desktop) {
+  @include mixins.dark-mode() {
+    @include mixins.responsive(desktop) {
       background: rgba(34,34,34,.75);
       &__wrap {
         box-shadow: 0 1px 30px 0 rgba(0,0,0,.5), 0 0 1px 0 rgba(0,0,0,.51);
@@ -130,7 +130,7 @@
       }
     }
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     &__body {
       padding: 0 0 0 30px;
       h2 {
@@ -156,7 +156,7 @@
       }
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &:before {
       background-color: #303030;
     }

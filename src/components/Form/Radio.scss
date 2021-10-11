@@ -1,4 +1,5 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
+@use './form';
 
 .form-radio {
   user-select: none;
@@ -70,6 +71,7 @@
       outline: none;
       white-space: nowrap;
       border-radius: 2px;
+      color: var(--color-fill);
       &:disabled {
         background: var(--color-key);
         color: var(--color-invert);
@@ -101,12 +103,12 @@
       }
     }
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     em {
       padding: 0 24px;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     input:checked + em {
       color: var(--color-fill);
     }

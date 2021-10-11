@@ -1,4 +1,4 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .preference-side {
   --size: 48px;
@@ -43,7 +43,7 @@
     }
   }
 
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     --size: 42px;
     width: 160px;
     &__button {
@@ -68,7 +68,7 @@
       }
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     background-color: #303030;
     &__button {
       svg {

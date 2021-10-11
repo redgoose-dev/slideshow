@@ -1,8 +1,8 @@
-@import "../../assets/scss/mixins";
+@use '../../assets/scss/mixins';
 
 .slideshow-caption {
   display: none;
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     --scale: calc(var(--caption-scale, 100) / 100);
     display: block;
     position: fixed;
@@ -21,7 +21,7 @@
       letter-spacing: -1.5px;
       font-weight: 800;
       line-height: 1.2;
-      @include text-single-line();
+      @include mixins.text-single-line();
     }
     pre {
       display: block;

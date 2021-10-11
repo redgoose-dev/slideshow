@@ -31,42 +31,29 @@
 </nav>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import { getValueFromType } from '~/libs/util';
 
-export default defineComponent({
-  name: 'FormRadio',
-  props: {
-    type: String, // undefined,button
-    items: { type: Array, required: true },
-    name: String,
-    id: String,
-    inline: Boolean,
-    modelType: String,
-    modelValue: [ String, Number, Boolean ],
-  },
-  setup(props, context)
-  {
-    function onChange(e)
-    {
-      context.emit('update:modelValue', getValueFromType(props.modelType, e.target.value));
-    }
-    function onClickItem(key)
-    {
-      context.emit('update:modelValue', getValueFromType(props.modelType, key));
-    }
-    return {
-      onChange,
-      onClickItem,
-    };
-  },
-  emits: {
-    'update:modelValue': null,
-    'blur:modelValue': null,
-  },
+const name = 'FormRadio';
+const props = defineProps({
+  type: String, // undefined,button
+  items: { type: Array, required: true },
+  name: String,
+  id: String,
+  inline: Boolean,
+  modelType: String,
+  modelValue: [ String, Number, Boolean ],
 });
+const emits = defineEmits([ 'update:modelValue', 'blur:modelValue' ]);
+
+function onChange(e)
+{
+  emits('update:modelValue', getValueFromType(props.modelType, e.target.value));
+}
+function onClickItem(key)
+{
+  emits('update:modelValue', getValueFromType(props.modelType, key));
+}
 </script>
 
-<style src="./form.scss" lang="scss" scoped></style>
 <style src="./Radio.scss" lang="scss" scoped></style>
