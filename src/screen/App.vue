@@ -5,8 +5,8 @@
 
 <script setup>
 import { reactive, onMounted, watch, getCurrentInstance } from 'vue';
-import store from '~/store';
-import i18n from '~/i18n';
+import store from '../store';
+import i18n from '../i18n';
 import * as storage from '../libs/storage';
 import * as local from '../libs/local';
 import { getApiData, sleep, initCustomEvent } from '../libs/util';
@@ -160,6 +160,7 @@ async function fetchSlides()
     error(true);
   }
 }
+
 // public methods
 function start()
 {
@@ -188,13 +189,13 @@ function update(type)
   switch (type)
   {
     case 'preference':
-      context.emit('update-preference', convertPureObject(store.state.preference));
+      emits('update-preference', convertPureObject(store.state.preference));
       break;
     case 'tree':
-      context.emit('update-tree', convertPureObject(store.state.tree));
+      emits('update-tree', convertPureObject(store.state.tree));
       break;
     case 'group':
-      context.emit('update-group', store.state.group);
+      emits('update-group', store.state.group);
       break;
   }
 }

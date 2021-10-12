@@ -223,42 +223,42 @@ function disabled(key) {
       break;
   }
 }
-function changeMode(context2, value) {
-  if (context2.state.mode === value)
+function changeMode(context, value) {
+  if (context.state.mode === value)
     return;
   switch (value) {
     case "preference":
     case "group":
     case "thumbnail":
-      context2.commit("updateMode", value);
+      context.commit("updateMode", value);
       break;
     default:
-      context2.commit("updateMode", null);
+      context.commit("updateMode", null);
       break;
   }
 }
-function changePreference(context2, value) {
+function changePreference(context, value) {
   const pref = convertPureObject$1(value);
-  context2.commit("updatePreference", pref);
+  context.commit("updatePreference", pref);
   set("preference", pref);
 }
-function changeAutoplay(context2, sw = void 0) {
-  if (!context2.state.preference.slides.autoplay)
+function changeAutoplay(context, sw = void 0) {
+  if (!context.state.preference.slides.autoplay)
     return;
-  sw = sw === void 0 ? !context2.state.autoplay : sw;
-  context2.commit("updateAutoplay", sw);
+  sw = sw === void 0 ? !context.state.autoplay : sw;
+  context.commit("updateAutoplay", sw);
 }
-function changeHud(context2, sw = void 0) {
-  sw = sw === void 0 ? !context2.state.preference.general.hud : sw;
-  context2.commit("updateValueInPreference", {
+function changeHud(context, sw = void 0) {
+  sw = sw === void 0 ? !context.state.preference.general.hud : sw;
+  context.commit("updateValueInPreference", {
     map: ["general", "hud"],
     value: sw
   });
 }
-function changeTree(context2, tree) {
+function changeTree(context, tree) {
   try {
     checkSlideItems(tree);
-    context2.commit("updateTree", tree);
+    context.commit("updateTree", tree);
     set("tree", tree);
   } catch (e) {
     if (window.dev)
@@ -266,27 +266,27 @@ function changeTree(context2, tree) {
     throw new Error(e.message);
   }
 }
-function changeSlides(context2, newSlides) {
-  context2.commit("updateSlides", newSlides);
+function changeSlides(context, newSlides) {
+  context.commit("updateSlides", newSlides);
 }
-function changeActiveSlide(context2, active) {
+function changeActiveSlide(context, active) {
   if (typeof active !== "number")
     return;
-  context2.commit("updateActiveSlide", active);
+  context.commit("updateActiveSlide", active);
 }
-async function reset(context2) {
+async function reset(context) {
   const preference2 = convertPureObject$1(defaults.preference);
   const tree = convertPureObject$1(defaults.tree);
   const slides2 = convertPureObject$1(defaults.slides);
-  await context2.dispatch("changePreference", preference2);
-  await context2.dispatch("changeTree", tree);
-  await context2.dispatch("changeSlides", slides2);
-  context2.commit("updateActiveSlide", preference2.slides.initialNumber);
-  context2.commit("updateUseKeyboardEvent", true);
-  context2.commit("updateMode", null);
+  await context.dispatch("changePreference", preference2);
+  await context.dispatch("changeTree", tree);
+  await context.dispatch("changeSlides", slides2);
+  context.commit("updateActiveSlide", preference2.slides.initialNumber);
+  context.commit("updateUseKeyboardEvent", true);
+  context.commit("updateMode", null);
 }
-function changeGroup(context2, key) {
-  context2.commit("updateGroup", key);
+function changeGroup(context, key) {
+  context.commit("updateGroup", key);
   set("group", key);
 }
 var actions = /* @__PURE__ */ Object.freeze({
@@ -2965,13 +2965,13 @@ const _sfc_main = {
     function update(type) {
       switch (type) {
         case "preference":
-          context.emit("update-preference", convertPureObject$1(store.state.preference));
+          emits("update-preference", convertPureObject$1(store.state.preference));
           break;
         case "tree":
-          context.emit("update-tree", convertPureObject$1(store.state.tree));
+          emits("update-tree", convertPureObject$1(store.state.tree));
           break;
         case "group":
-          context.emit("update-group", store.state.group);
+          emits("update-group", store.state.group);
           break;
       }
     }

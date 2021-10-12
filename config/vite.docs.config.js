@@ -11,6 +11,7 @@ export default defineConfig(() => {
     build: {
       minify: true,
       outDir: paths.docs,
+      sourcemap: false,
     },
     resolve: {
       alias: [

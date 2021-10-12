@@ -1,0 +1,1 @@
+import{_ as e}from"./index.af6a9c05.js";import{o,b as r}from"./vendor.c3f15dfd.js";const c={},t={d:"M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"};function a(n,s){return o(),r("path",t)}var d=e(c,[["render",a]]);export{d as default};

@@ -1,0 +1,1 @@
+import{_ as t}from"./index.af6a9c05.js";import{o as a,b as o,F as r,h as e}from"./vendor.c3f15dfd.js";const c={},n=e("rect",{x:"9",y:"9",width:"13",height:"13",rx:"2",ry:"2"},null,-1),s=e("path",{d:"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"},null,-1);function _(d,f){return a(),o(r,null,[n,s],64)}var h=t(c,[["render",_]]);export{h as default};
