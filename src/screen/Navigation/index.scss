@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@use '../../assets/scss/mixins';
 
 .slideshow-navigation {
   display: flex;
@@ -48,7 +48,7 @@
     opacity: unset;
     pointer-events: unset;
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &__item {
       > button {
         background: rgba(17,17,17,.4);
@@ -117,7 +117,7 @@
       opacity: 1;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     ul {
       background-color: rgba(17,17,17,.7);
     }

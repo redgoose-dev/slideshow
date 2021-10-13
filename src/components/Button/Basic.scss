@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@use '../../assets/scss/mixins';
 
 .button-basic {
   display: block;
@@ -50,7 +50,7 @@
     }
   }
 
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     color: var(--color-fill);
     &--color {
       &-key {

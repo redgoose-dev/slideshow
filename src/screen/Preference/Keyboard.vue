@@ -6,11 +6,11 @@
       <div class="field-switch__body">
         <h3 class="field-title">
           <label for="pref_enabled">
-            {{$t('title.usingKeyboard')}}
+            {{t('title.usingKeyboard')}}
           </label>
         </h3>
         <p class="field-description">
-          {{$t('description.usingKeyboard')}}
+          {{t('description.usingKeyboard')}}
         </p>
       </div>
       <div class="field-switch__input">
@@ -27,20 +27,20 @@
   <section class="keyboard-guide">
     <header class="keyboard-guide__header">
       <h3>
-        {{$t('base.guide')}}
+        {{t('base.guide')}}
       </h3>
       <p>
-        {{$t('description.keyboardGuide')}}
+        {{t('description.keyboardGuide')}}
       </p>
     </header>
     <table class="keyboard-guide__body">
       <thead>
       <tr>
         <th>
-          {{$t('base.ShortcutKey')}}
+          {{t('base.ShortcutKey')}}
         </th>
         <td>
-          {{$t('base.description')}}
+          {{t('base.description')}}
         </td>
       </tr>
       </thead>
@@ -48,57 +48,57 @@
       <tr>
         <th>
           <code>
-            {{$t('base.leftKey')}}
+            {{t('base.leftKey')}}
           </code>
         </th>
         <td>
-          {{$t('label.prevSlide')}}
+          {{t('label.prevSlide')}}
         </td>
       </tr>
       <tr>
         <th>
           <code>
-            {{$t('base.rightKey')}}
+            {{t('base.rightKey')}}
           </code>
         </th>
         <td>
-          {{$t('label.nextSlide')}}
+          {{t('label.nextSlide')}}
         </td>
       </tr>
       <tr>
         <th><code>A</code></th>
         <td>
-          {{$t('base.autoplay')}}
+          {{t('base.autoplay')}}
         </td>
       </tr>
       <tr>
         <th><code>S</code></th>
         <td>
-          {{$t('description.openPreference')}}
+          {{t('description.openPreference')}}
         </td>
       </tr>
       <tr>
         <th><code>T</code></th>
         <td>
-          {{$t('description.thumbnail')}}
+          {{t('description.thumbnail')}}
         </td>
       </tr>
       <tr>
         <th><code>R</code></th>
         <td>
-          {{$t('description.restart')}}
+          {{t('description.restart')}}
         </td>
       </tr>
       <tr>
         <th><code>H</code></th>
         <td>
-          {{$t('description.hud')}}
+          {{t('description.hud')}}
         </td>
       </tr>
       <tr>
         <th><code>G</code></th>
         <td>
-          {{$t('description.group')}}
+          {{t('description.group')}}
         </td>
       </tr>
       </tbody>
@@ -107,39 +107,24 @@
 </fieldset>
 </template>
 
-<script>
-import { defineComponent, reactive } from 'vue';
+<script setup>
+import { reactive } from 'vue';
+import i18n from '~/i18n';
 import { convertPureObject } from '~/libs/object';
-import FormSwitch from '~/components/Form/Switch';
+import FormSwitch from '~/components/Form/Switch.vue';
 
-export default defineComponent({
-  name: 'PreferenceKeyboard',
-  components: {
-    FormSwitch,
-  },
-  props: {
-    structure: Object,
-  },
-  setup(props, context)
-  {
-    let state = reactive({
-      enabled: props.structure.enabled,
-    });
+const name = 'PreferenceKeyboard';
+const { t } = i18n.global;
+const props = defineProps({ structure: Object });
+const emits = defineEmits({ 'update': null });
+let state = reactive({ enabled: props.structure.enabled });
 
-    // methods
-    function onSave()
-    {
-      const structure = convertPureObject(state);
-      context.emit('update', structure);
-    }
-
-    return {
-      state,
-      onSave,
-    };
-  },
-});
+// methods
+function onSave()
+{
+  const structure = convertPureObject(state);
+  emits('update', structure);
+}
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
 <style src="./Keyboard.scss" lang="scss" scoped></style>

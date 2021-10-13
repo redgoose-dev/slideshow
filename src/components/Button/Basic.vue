@@ -12,21 +12,15 @@
 </button>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'ButtonBasic',
-  props: {
-    type: { type: String, default: 'button' }, // button,reset,submit
-    title: String,
-    color: String, // key
-    disabled: Boolean,
-  },
-  emits: {
-    'click': null,
-  },
+<script setup>
+const name = 'ButtonBasic';
+const props = defineProps({
+  type: { type: String, default: 'button' }, // button,reset,submit
+  title: String,
+  color: String, // key
+  disabled: Boolean,
 });
+const emits = defineEmits({ 'click': null });
 </script>
 
 <style src="./Basic.scss" lang="scss" scoped></style>

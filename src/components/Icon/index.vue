@@ -2,7 +2,7 @@
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
-  :aria-labelledby="iconName"
+  :aria-labelledby="props.iconName"
   fill="none"
   stroke-linecap="round"
   stroke-linejoin="round"
@@ -11,77 +11,71 @@
 </svg>
 </template>
 
-<script>
-import { defineComponent, defineAsyncComponent, computed, reactive } from 'vue';
+<script setup>
+import { defineAsyncComponent, computed, reactive } from 'vue';
 
-export default defineComponent({
-  name: 'Icon',
-  props: {
-    iconName: { type: String, required: true },
-  },
-  setup(props)
-  {
-    let state = reactive({
-      computedIconComponent: computed(() => {
-        switch (props.iconName)
-        {
-          case 'menu':
-            return defineAsyncComponent(() => import('./src/icon-menu'));
-          case 'menu-flat':
-            return defineAsyncComponent(() => import('./src/icon-menu-flat'));
-          case 'arrow-left':
-            return defineAsyncComponent(() => import('./src/icon-arrow-left'));
-          case 'arrow-right':
-            return defineAsyncComponent(() => import('./src/icon-arrow-right'));
-          case 'arrow-up':
-            return defineAsyncComponent(() => import('./src/icon-arrow-up'));
-          case 'arrow-down':
-            return defineAsyncComponent(() => import('./src/icon-arrow-down'));
-          case 'frown':
-            return defineAsyncComponent(() => import('./src/icon-frown'));
-          case 'tool':
-            return defineAsyncComponent(() => import('./src/icon-tool'));
-          case 'droplet':
-            return defineAsyncComponent(() => import('./src/icon-droplet'));
-          case 'copy':
-            return defineAsyncComponent(() => import('./src/icon-copy'));
-          case 'database':
-            return defineAsyncComponent(() => import('./src/icon-database'));
-          case 'command':
-            return defineAsyncComponent(() => import('./src/icon-command'));
-          case 'check':
-            return defineAsyncComponent(() => import('./src/icon-check'));
-          case 'x':
-            return defineAsyncComponent(() => import('./src/icon-x'));
-          case 'upload':
-            return defineAsyncComponent(() => import('./src/icon-upload'));
-          case 'file':
-            return defineAsyncComponent(() => import('./src/icon-file'));
-          case 'info':
-            return defineAsyncComponent(() => import('./src/icon-info'));
-          case 'play-circle':
-            return defineAsyncComponent(() => import('./src/icon-play-circle'));
-          case 'download':
-            return defineAsyncComponent(() => import('./src/icon-download'));
-          case 'edit':
-            return defineAsyncComponent(() => import('./src/icon-edit'));
-          case 'plus':
-            return defineAsyncComponent(() => import('./src/icon-plus'));
-          case 'folder':
-            return defineAsyncComponent(() => import('./src/icon-folder'));
-          case 'minus':
-            return defineAsyncComponent(() => import('./src/icon-minus'));
-          default:
-            return null;
-        }
-      }),
-    });
-    return { state };
-  },
+const name = 'Icon';
+const props = defineProps({
+  iconName: { type: String, required: true },
+});
+let state = reactive({
+  computedIconComponent: computed(() => {
+    switch (props.iconName)
+    {
+      case 'menu':
+        return defineAsyncComponent(() => import('./src/icon-menu.vue'));
+      case 'menu-flat':
+        return defineAsyncComponent(() => import('./src/icon-menu-flat.vue'));
+      case 'arrow-left':
+        return defineAsyncComponent(() => import('./src/icon-arrow-left.vue'));
+      case 'arrow-right':
+        return defineAsyncComponent(() => import('./src/icon-arrow-right.vue'));
+      case 'arrow-up':
+        return defineAsyncComponent(() => import('./src/icon-arrow-up.vue'));
+      case 'arrow-down':
+        return defineAsyncComponent(() => import('./src/icon-arrow-down.vue'));
+      case 'frown':
+        return defineAsyncComponent(() => import('./src/icon-frown.vue'));
+      case 'tool':
+        return defineAsyncComponent(() => import('./src/icon-tool.vue'));
+      case 'droplet':
+        return defineAsyncComponent(() => import('./src/icon-droplet.vue'));
+      case 'copy':
+        return defineAsyncComponent(() => import('./src/icon-copy.vue'));
+      case 'database':
+        return defineAsyncComponent(() => import('./src/icon-database.vue'));
+      case 'command':
+        return defineAsyncComponent(() => import('./src/icon-command.vue'));
+      case 'check':
+        return defineAsyncComponent(() => import('./src/icon-check.vue'));
+      case 'x':
+        return defineAsyncComponent(() => import('./src/icon-x.vue'));
+      case 'upload':
+        return defineAsyncComponent(() => import('./src/icon-upload.vue'));
+      case 'file':
+        return defineAsyncComponent(() => import('./src/icon-file.vue'));
+      case 'info':
+        return defineAsyncComponent(() => import('./src/icon-info.vue'));
+      case 'play-circle':
+        return defineAsyncComponent(() => import('./src/icon-play-circle.vue'));
+      case 'download':
+        return defineAsyncComponent(() => import('./src/icon-download.vue'));
+      case 'edit':
+        return defineAsyncComponent(() => import('./src/icon-edit.vue'));
+      case 'plus':
+        return defineAsyncComponent(() => import('./src/icon-plus.vue'));
+      case 'folder':
+        return defineAsyncComponent(() => import('./src/icon-folder.vue'));
+      case 'minus':
+        return defineAsyncComponent(() => import('./src/icon-minus.vue'));
+      default:
+        return null;
+    }
+  }),
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .slideshow-icon {
   display: block;
   width: var(--icon-size, 24px);

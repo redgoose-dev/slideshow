@@ -14,13 +14,13 @@
         <nav class="preference-header__nav">
           <button
             type="submit"
-            :title="$t('base.apply')"
+            :title="t('base.apply')"
             @click="onSubmit">
             <Icon icon-name="check"/>
           </button>
           <button
             type="button"
-            :title="$t('base.close')"
+            :title="t('base.close')"
             @click="onClose">
             <Icon icon-name="x"/>
           </button>
@@ -37,184 +37,163 @@
 </article>
 </template>
 
-<script>
-import { defineComponent, defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
-import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n/index';
+<script setup>
+import { defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
+import store from '~/store';
+import i18n from '~/i18n';
 import { convertPureObject, checkPreference, checkTree } from '~/libs/object';
 import * as local from '~/libs/local';
-import Icon from '~/components/Icon';
-import Side from './Side';
+import Icon from '~/components/Icon/index.vue';
+import Side from './Side.vue';
 
-export default defineComponent({
-  name: 'preference',
-  components: {
-    Icon,
-    Side,
+const { t } = i18n.global;
+const preference = convertPureObject(store.state.preference);
+const tree = convertPureObject(store.state.tree);
+let state = reactive({
+  tab: 'general', // general,slides,style,data,keyboard,information
+  structure: {
+    general: preference.general,
+    slides: preference.slides,
+    style: preference.style,
+    data: { tree },
+    keyboard: preference.keyboard,
   },
-  setup()
-  {
-    const store = useStore();
-    const { t } = useI18n({ useScope: 'global' });
-    const preference = convertPureObject(store.state.preference);
-    const tree = convertPureObject(store.state.tree);
-    let state = reactive({
-      tab: 'general', // general,slides,style,data,keyboard,information
-      structure: {
-        general: preference.general,
-        slides: preference.slides,
-        style: preference.style,
-        data: { tree },
-        keyboard: preference.keyboard,
-      },
-      computedContentComponent: computed(() => {
-        switch (state.tab)
-        {
-          case 'general':
-          default:
-            return defineAsyncComponent(() => import('./General'));
-          case 'slides':
-            if (!store.state.usePreference.slides) return;
-            return defineAsyncComponent(() => import('./Slides'));
-          case 'style':
-            if (!store.state.usePreference.style) return;
-            return defineAsyncComponent(() => import('./Style'));
-          case 'data':
-            if (!store.state.usePreference.data) return;
-            return defineAsyncComponent(() => import('./Data'));
-          case 'keyboard':
-            if (!store.state.usePreference.keyboard) return;
-            return defineAsyncComponent(() => import('./Keyboard'));
-          case 'information':
-            if (!store.state.usePreference.information) return;
-            return defineAsyncComponent(() => import('./Information'));
-        }
-      }),
-      computedHeaderContent: computed(() => {
-        switch (state.tab)
-        {
-          case 'general':
-          default:
-            return {
-              title: t('base.general'),
-              description: t('preference.header.general'),
-            };
-          case 'slides':
-            return {
-              title: t('base.slides'),
-              description: t('preference.header.slides'),
-            }
-          case 'style':
-            return {
-              title: t('base.style'),
-              description: t('preference.header.style'),
-            };
-          case 'data':
-            return {
-              title: t('base.data'),
-              description: t('preference.header.data'),
-            };
-          case 'keyboard':
-            return {
-              title: t('base.keyboard'),
-              description: t('preference.header.keyboard'),
-            };
-          case 'information':
-            return {
-              title: t('base.information'),
-              description: t('preference.header.information'),
-            };
-        }
-      }),
-    });
-    const content = ref(null);
-
-    // methods
-    function onTouchStart(e)
+  computedContentComponent: computed(() => {
+    switch (state.tab)
     {
-      if (e.touches && e.touches.length > 1) e.preventDefault();
+      case 'general':
+      default:
+        return defineAsyncComponent(() => import('./General.vue'));
+      case 'slides':
+        if (!store.state.usePreference.slides) return;
+        return defineAsyncComponent(() => import('./Slides.vue'));
+      case 'style':
+        if (!store.state.usePreference.style) return;
+        return defineAsyncComponent(() => import('./Style.vue'));
+      case 'data':
+        if (!store.state.usePreference.data) return;
+        return defineAsyncComponent(() => import('./Data/index.vue'));
+      case 'keyboard':
+        if (!store.state.usePreference.keyboard) return;
+        return defineAsyncComponent(() => import('./Keyboard.vue'));
+      case 'information':
+        if (!store.state.usePreference.information) return;
+        return defineAsyncComponent(() => import('./Information.vue'));
     }
-    function onClose()
+  }),
+  computedHeaderContent: computed(() => {
+    switch (state.tab)
     {
-      store.dispatch('changeMode', null);
-    }
-    function onChangeTab(name)
-    {
-      state.tab = name;
-    }
-    function onUpdateFields(structure)
-    {
-      state.structure[state.tab] = structure;
-    }
-    function onSubmit(e)
-    {
-      e.preventDefault();
-      if (!confirm(t('confirm.applyRestart'))) return;
-      try
-      {
-        let tree = convertPureObject(state.structure.data.tree);
-        checkTree(tree);
-        let preference = {
-          general: convertPureObject(state.structure.general),
-          slides: convertPureObject(state.structure.slides),
-          style: convertPureObject(state.structure.style),
-          keyboard: convertPureObject(state.structure.keyboard),
+      case 'general':
+      default:
+        return {
+          title: t('base.general'),
+          description: t('preference.header.general'),
         };
-        if (!checkPreference(preference)) throw new Error('Bad preference data.');
+      case 'slides':
+        return {
+          title: t('base.slides'),
+          description: t('preference.header.slides'),
+        }
+      case 'style':
+        return {
+          title: t('base.style'),
+          description: t('preference.header.style'),
+        };
+      case 'data':
+        return {
+          title: t('base.data'),
+          description: t('preference.header.data'),
+        };
+      case 'keyboard':
+        return {
+          title: t('base.keyboard'),
+          description: t('preference.header.keyboard'),
+        };
+      case 'information':
+        return {
+          title: t('base.information'),
+          description: t('preference.header.information'),
+        };
+    }
+  }),
+});
+const content = ref(null);
 
-        // update store
-        store.dispatch('changePreference', preference);
-        store.dispatch('changeMode', null);
-        store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
-        store.dispatch('changeAutoplay', false);
-        store.commit('updateUseKeyboardEvent', true);
-        store.dispatch('changeTree', tree);
-        // check and update group
-        if (!Object.keys(tree).filter(key => (key === store.state.group)).length)
-        {
-          store.dispatch('changeGroup', Object.keys(tree)[0]);
-        }
+// methods
+function onTouchStart(e)
+{
+  if (e.touches && e.touches.length > 1) e.preventDefault();
+}
+function onClose()
+{
+  store.dispatch('changeMode', null);
+}
+function onChangeTab(name)
+{
+  state.tab = name;
+}
+function onUpdateFields(structure)
+{
+  state.structure[state.tab] = structure;
+}
+function onSubmit(e)
+{
+  e.preventDefault();
+  if (!confirm(t('confirm.applyRestart'))) return;
+  try
+  {
+    let tree = convertPureObject(state.structure.data.tree);
+    checkTree(tree);
+    let preference = {
+      general: convertPureObject(state.structure.general),
+      slides: convertPureObject(state.structure.slides),
+      style: convertPureObject(state.structure.style),
+      keyboard: convertPureObject(state.structure.keyboard),
+    };
+    if (!checkPreference(preference)) throw new Error('Bad preference data.');
 
-        // update or restart
-        if (local.useProps.preference || local.useProps.tree)
-        {
-          local.main.update('preference');
-          local.main.update('tree');
-        }
-        else
-        {
-          local.main.restart().then();
-        }
-      }
-      catch(e)
-      {
-        if (window.dev) console.error(e.message);
-        alert(t('alert.failedApply'));
-      }
+    // update store
+    store.dispatch('changePreference', preference);
+    store.dispatch('changeMode', null);
+    store.dispatch('changeActiveSlide', store.state.preference.slides.initialNumber);
+    store.dispatch('changeAutoplay', false);
+    store.commit('updateUseKeyboardEvent', true);
+    store.dispatch('changeTree', tree);
+    // check and update group
+    if (!Object.keys(tree).filter(key => (key === store.state.group)).length)
+    {
+      store.dispatch('changeGroup', Object.keys(tree)[0]);
     }
 
-    // lifecycles
-    onMounted(() => {
-      if (local.slides) local.slides.pause(true);
-    });
-    onUnmounted(() => {
-      if (local.slides) local.slides.pause(false);
-    });
+    // update or restart
+    if (local.useProps.preference || local.useProps.tree)
+    {
+      local.main.update('preference');
+      local.main.update('tree');
+    }
+    else
+    {
+      local.main.restart().then();
+    }
+  }
+  catch(e)
+  {
+    if (window.dev) console.error(e.message);
+    alert(t('alert.failedApply'));
+  }
+}
 
-    // watch
-    watch(() => state.tab, () => content.value.scrollTo(0, 0));
-
-    return {
-      state,
-      content,
-      onTouchStart,
-      onClose,
-      onChangeTab,
-      onSubmit,
-      onUpdateFields,
-    };
-  },
+// lifecycles
+onMounted(() => {
+  if (local.slides) local.slides.pause(true);
 });
+onUnmounted(() => {
+  if (local.slides) local.slides.pause(false);
+});
+
+// watch
+watch(() => state.tab, () => content.value.scrollTo(0, 0));
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

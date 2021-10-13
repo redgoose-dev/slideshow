@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@use '../../assets/scss/mixins';
 
 .slideshow-images {
   position: relative;
@@ -9,7 +9,7 @@
   font-size: 0;
   .wrap {
     width: 100vw;
-    @include full-height();
+    @include mixins.full-height();
   }
   figure {
     margin: 0;
@@ -39,7 +39,7 @@
     background: transparent;
   }
 
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     figure {
       > img {
         max-width: var(--image-size-width, 100%);
@@ -116,7 +116,7 @@
       display: inline-block;
       width: 100%;
       box-sizing: border-box;
-      @include full-height();
+      @include mixins.full-height();
       &.first {
         margin-left: -100vw;
       }
@@ -186,7 +186,7 @@
     color: var(--color-low-fill);
     letter-spacing: -.25px;
   }
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     svg {
       --icon-size: 160px;
     }

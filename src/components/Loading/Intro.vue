@@ -2,53 +2,40 @@
 <div class="loading-intro loading-intro--move">
   <template v-if="state.show">
     <LoadingUnit class="unit"/>
-    <strong>{{$t('title.loading')}}</strong>
+    <strong>{{t('title.loading')}}</strong>
   </template>
 </div>
 </template>
 
-<script>
-import { defineComponent, reactive, onMounted, onUnmounted } from 'vue';
+<script setup>
+import { reactive, onMounted, onUnmounted } from 'vue';
+import i18n from '~/i18n';
 import * as util from '~/libs/util';
-import LoadingUnit from './Unit';
+import LoadingUnit from './Unit.vue';
 
-export default defineComponent({
-  name: 'LoadingIntro',
-  components: {
-    LoadingUnit,
-  },
-  setup()
-  {
-    let state = reactive({
-      show: false,
-    });
-    let mounted = false;
+const { t } = i18n.global;
+let state = reactive({ show: false });
+let mounted = false;
 
-    // lifecycles
-    onMounted(() => {
-      mounted = true;
-      util.sleep(50).then(() => {
-        if (mounted) state.show = true;
-      });
-    });
-    onUnmounted(() => {
-      mounted = false;
-    });
-
-    return {
-      state,
-    };
-  },
+// lifecycles
+onMounted(() => {
+  mounted = true;
+  util.sleep(50).then(() => {
+    if (mounted) state.show = true;
+  });
+});
+onUnmounted(() => {
+  mounted = false;
 });
 </script>
 
-<style lang="scss">
-@import "../../scss/mixins";
+<style lang="scss" scoped>
+@use '../../assets/scss/mixins';
 .loading-intro {
   --loading-size: 50px;
   --loading-speed: 500ms;
   width: 100vw;
-  @include full-height();
+  @include mixins.full-height();
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -70,7 +57,7 @@ export default defineComponent({
       }
     }
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     strong {
       margin: 48px 0 0;
       font-size: 24px;

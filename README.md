@@ -141,11 +141,8 @@ yarn run electron-build
 
 ### Using component
 
-다른 프로젝트에서 슬라이드쇼를 사용하려면 `npm`을 이용하여 컴포넌트를 직접 추가할 수 있습니다.
-
-```shell
-yarn add @redgoose/slideshow
-```
+다른 프로젝트에서 슬라이드쇼를 사용하고 싶다면 `/src`에 있는 파일들을 가져와서 고쳐서 사용하는것을 권장드립니다.  
+`npm`을 이용하여 모듈설치는 문제가 있어 사용을 권장드리지 못합니다.
 
 디펜던시를 추가하고 [for external project](https://github.com/redgoose-dev/slideshow/tree/main/src/external) 페이지의 내용과 소스를 참고하여 개발할 수 있습니다.
 
@@ -162,5 +159,7 @@ yarn add @redgoose/slideshow
 ## thanks
 
 - vue3: https://v3.vuejs.org
+- vuex: https://vuex.vuejs.org
+- vue-i18n: https://vue-i18n.intlify.dev
 - electron: https://www.electronjs.org
 - example images: https://unsplash.com

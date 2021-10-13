@@ -6,7 +6,7 @@
       <nav>
         <button
           type="button"
-          :title="$t('base.close')"
+          :title="t('base.close')"
           @click="$emit('close')">
           <Icon icon-name="x"/>
         </button>
@@ -19,22 +19,16 @@
 </article>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-import Icon from '~/components/Icon';
+<script setup>
+import i18n from '~/i18n';
+import Icon from '~/components/Icon/index.vue';
 
-export default defineComponent({
-  name: 'ModalWrapper',
-  components: {
-    Icon,
-  },
-  props: {
-    title: { type: String, default: 'Title' },
-  },
-  emits: {
-    'close': null,
-  },
+const name = 'ModalWrapper';
+const { t } = i18n.global;
+const props = defineProps({
+  title: { type: String, default: 'Title' },
 });
+const emits = defineEmits({ 'close': null });
 </script>
 
 <style src="./ModalWrapper.scss" lang="scss" scoped></style>

@@ -1,4 +1,5 @@
-@import "../../scss/mixins";
+@use '../../assets/scss/mixins';
+@use './fieldset';
 
 .keyboard-guide {
   margin: 40px 0 0;
@@ -60,7 +61,7 @@
       }
     }
   }
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     &__body {
       display: table;
       width: 100%;
@@ -101,7 +102,7 @@
     }
   }
 
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &__body {
       tbody {
         th {
@@ -111,7 +112,7 @@
         }
       }
     }
-    @include responsive(tablet) {
+    @include mixins.responsive(tablet) {
       &__body {
         th,
         td {

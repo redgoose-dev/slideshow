@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@use '../../assets/scss/mixins';
 
 .form-switch {
   --wrap-width: 54px;
@@ -58,7 +58,7 @@
     opacity: .5;
   }
 
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     i {
       background-color: var(--color-fill);
     }

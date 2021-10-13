@@ -5,11 +5,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_screenColor">
-          {{$t('title.screenMode')}}
+          {{t('title.screenMode')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.screenMode')}}
+        {{t('description.screenMode')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -17,9 +17,9 @@
           id="pref_screenColor"
           v-model="state.screenColor"
           @update:modelValue="onSave">
-          <option value="system">{{$t('base.system')}}</option>
-          <option value="light">{{$t('base.lightMode')}}</option>
-          <option value="dark">{{$t('base.darkMode')}}</option>
+          <option value="system">{{t('base.system')}}</option>
+          <option value="light">{{t('base.lightMode')}}</option>
+          <option value="dark">{{t('base.darkMode')}}</option>
         </FormSelect>
       </div>
     </div>
@@ -27,11 +27,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_imageType">
-          {{$t('label.imageType')}}
+          {{t('label.imageType')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.imageType')}}
+        {{t('description.imageType')}}
       </p>
       <div class="field-basic__body">
         <FormSelect
@@ -40,13 +40,13 @@
           v-model="state.imageType"
           @update:modelValue="onSave">
           <option value="none">
-            {{$t('base.none')}}
+            {{t('base.none')}}
           </option>
           <option value="contain">
-            {{$t('base.contain')}}
+            {{t('base.contain')}}
           </option>
           <option value="cover">
-            {{$t('base.cover')}}
+            {{t('base.cover')}}
           </option>
         </FormSelect>
       </div>
@@ -54,11 +54,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_imageScale">
-          {{$t('title.imageScale')}}
+          {{t('title.imageScale')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.imageScale')}}
+        {{t('description.imageScale')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -77,11 +77,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionScale">
-          {{$t('title.captionScale')}}
+          {{t('title.captionScale')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.captionScale')}}
+        {{t('description.captionScale')}}
       </p>
       <div class="field-basic__inline">
         <label class="label">
@@ -103,11 +103,11 @@
     <div class="field-basic">
       <h3 class="field-title">
         <label for="pref_captionPosition">
-          {{$t('title.captionPosition')}}
+          {{t('title.captionPosition')}}
         </label>
       </h3>
       <p class="field-description">
-        {{$t('description.captionPosition')}}
+        {{t('description.captionPosition')}}
       </p>
       <div class="field-basic__body">
         <FormText
@@ -126,59 +126,43 @@
 </fieldset>
 </template>
 
-<script>
-import { defineComponent, reactive } from 'vue';
+<script setup>
+import { reactive } from 'vue';
+import i18n from '~/i18n';
 import { convertPureObject } from '~/libs/object';
-import FormText from '~/components/Form/Text';
-import FormSelect from '~/components/Form/Select';
+import FormText from '~/components/Form/Text.vue';
+import FormSelect from '~/components/Form/Select.vue';
 
-export default defineComponent({
-  name: 'PreferenceStyle',
-  components: {
-    FormText,
-    FormSelect,
-  },
-  props: {
-    structure: Object,
-  },
-  setup(props, context)
-  {
-    let state = reactive({
-      screenColor: props.structure.screenColor,
-      imageType: props.structure.imageType,
-      imageScale: props.structure.imageScale,
-      captionScale: props.structure.captionScale,
-      captionPosition: props.structure.captionPosition,
-    });
-
-    // methods
-    function onSave()
-    {
-      const structure = convertPureObject(state);
-      context.emit('update', structure);
-    }
-    function onUpdateImageScale(s)
-    {
-      state.imageScale = s.split(',');
-      onSave();
-    }
-    function onUpdateCaptionPosition(s)
-    {
-      state.captionPosition = s.split(',');
-      onSave();
-    }
-
-    return {
-      state,
-      onSave,
-      onUpdateImageScale,
-      onUpdateCaptionPosition,
-    };
-  },
-  emits: {
-    'update': null,
-  },
+const name = 'PreferenceStyle';
+const { t } = i18n.global;
+const props = defineProps({ structure: Object });
+const emits = defineEmits({ 'update': null });
+let state = reactive({
+  screenColor: props.structure.screenColor,
+  imageType: props.structure.imageType,
+  imageScale: props.structure.imageScale,
+  captionScale: props.structure.captionScale,
+  captionPosition: props.structure.captionPosition,
 });
+
+// methods
+function onSave()
+{
+  const structure = convertPureObject(state);
+  emits('update', structure);
+}
+function onUpdateImageScale(s)
+{
+  state.imageScale = s.split(',');
+  onSave();
+}
+function onUpdateCaptionPosition(s)
+{
+  state.captionPosition = s.split(',');
+  onSave();
+}
 </script>
 
-<style src="./fieldset.scss" lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use './fieldset.scss';
+</style>

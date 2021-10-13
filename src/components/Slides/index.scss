@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@use '../../assets/scss/mixins';
 
 .slideshow-slides {
   user-select: none;
@@ -16,7 +16,7 @@
       display: none;
     }
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     &__paginate {
       right: 30px;
       bottom: 30px;
