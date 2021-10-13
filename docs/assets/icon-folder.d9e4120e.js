@@ -1,0 +1,1 @@
+import{_ as e}from"./index.a5a0b323.js";import{o,b as a}from"./vendor.c3f15dfd.js";const r={},c={d:"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"};function t(n,s){return o(),a("path",c)}var f=e(r,[["render",t]]);export{f as default};
