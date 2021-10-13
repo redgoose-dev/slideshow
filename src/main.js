@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import * as local from './libs/local';
 import App from './screen/App.vue';
-// import App from './Foo.vue';
 import './assets/scss/app.scss';
 import './main.scss';
 import example from './example.json';

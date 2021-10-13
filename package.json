@@ -2,9 +2,7 @@
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
   "description": "vue slideshow",
-  "version": "1.2.0-ready",
-  "main": "./libs/Slideshow.es.js",
-  "module": "./libs/Slideshow.es.js",
+  "version": "1.2.0",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",
@@ -14,11 +12,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --config config/vite.dev.config.js",
-    "build-docs": "rm -rf docs && vite build --config config/vite.docs.config.js",
-    "build-libs": "rm -rf dist && vite build --config config/vite.libs.config.js",
-    "build": "$npm_execpath run build-docs && $npm_execpath run build-libs",
-    "preview": "vite preview --config config/vite.docs.config.js --port 8080",
-    "dev-external": ""
+    "build": "rm -rf docs && vite build --config config/vite.docs.config.js",
+    "preview": "vite preview --config config/vite.docs.config.js"
   },
   "browserslist": [
     "> 1%",

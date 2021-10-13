@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue';
 import base from './vite.base.config';
 import { paths, projectName } from './options';
 
+// TODO: 라이브러리로 계속 번들링을 시도해보았지만 끝내 vue의 문제를 해결하지 못하여 이 상태로 보류하게 되었다.
+
 export default defineConfig(() => {
   return {
     publicDir: false,
