@@ -2,7 +2,7 @@
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
   "description": "vue slideshow",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",

@@ -1,0 +1,1 @@
+import{_ as o}from"./index.a0796f08.js";import{o as e,b as r}from"./vendor.1dba034e.js";const n={},t={points:"6 9 12 15 18 9"};function c(s,a){return e(),r("polyline",t)}var f=o(n,[["render",c]]);export{f as default};
