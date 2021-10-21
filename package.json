@@ -2,7 +2,7 @@
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
   "description": "vue slideshow",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
+    "autoprefixer": "^10.3.7",
     "sass": "^1.43.2",
     "vite": "^2.6.7"
   }

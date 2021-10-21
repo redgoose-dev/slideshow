@@ -1,1 +1,0 @@
-import{_ as o}from"./index.a5a0b323.js";import{o as n,b as t,F as a,h as e}from"./vendor.c3f15dfd.js";const s={},c=e("path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"},null,-1),r=e("polyline",{points:"7 10 12 15 17 10"},null,-1),l=e("line",{x1:"12",y1:"15",x2:"12",y2:"3"},null,-1);function _(d,i){return n(),t(a,null,[c,r,l],64)}var m=o(s,[["render",_]]);export{m as default};

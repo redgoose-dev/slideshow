@@ -1,0 +1,1 @@
+import{_ as o}from"./index.21dc9b26.js";import{o as c,b as n,F as r,h as e}from"./vendor.1dba034e.js";const s={},t=e("circle",{cx:"12",cy:"12",r:"10"},null,-1),a=e("polygon",{points:"10 8 16 12 10 16 10 8"},null,-1);function l(_,i){return c(),n(r,null,[t,a],64)}var m=o(s,[["render",l]]);export{m as default};

@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
+import autoprefixer from 'autoprefixer';
 import base from './vite.base.config';
 import { paths } from './options';
 
@@ -23,5 +24,12 @@ export default defineConfig(({ mode }) => {
     plugins: [
       ...base.plugins,
     ],
+    css: {
+      postcss: {
+        plugins: [
+          autoprefixer(),
+        ],
+      },
+    },
   };
 });

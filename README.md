@@ -158,6 +158,7 @@ yarn run electron-build
 
 ## thanks
 
+- vite: https://vitejs.dev
 - vue3: https://v3.vuejs.org
 - vuex: https://vuex.vuejs.org
 - vue-i18n: https://vue-i18n.intlify.dev
