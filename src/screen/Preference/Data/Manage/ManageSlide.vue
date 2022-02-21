@@ -100,10 +100,10 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
-import i18n from '~/i18n';
-import { validUrl } from '~/libs/string';
-import FormText from '~/components/Form/Text.vue';
-import ButtonBasic from '~/components/Button/Basic.vue';
+import i18n from '../../../../i18n';
+import { validUrl } from '../../../../libs/string';
+import FormText from '../../../../components/Form/Text.vue';
+import ButtonBasic from '../../../../components/Button/Basic.vue';
 
 const name = 'ManageSlide';
 const { t } = i18n.global;
@@ -155,6 +155,4 @@ function onSubmit(e)
 }
 </script>
 
-<style lang="scss" scoped>
-@use '../../fieldset.scss';
-</style>
+<style src="../../fieldset.scss" lang="scss" scoped></style>

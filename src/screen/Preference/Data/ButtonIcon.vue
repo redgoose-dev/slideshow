@@ -9,7 +9,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import Icon from '~/components/Icon/index.vue';
+import Icon from '../../../components/Icon/index.vue';
 
 export default defineComponent({
   name: 'PreferenceDataButtonIcon',

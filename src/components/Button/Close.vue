@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import Icon from '~/components/Icon/index.vue';
+import Icon from '../Icon/index.vue';
 
 const name = 'ButtonClose';
 const props = defineProps({ title: String });

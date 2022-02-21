@@ -66,11 +66,11 @@
 
 <script setup>
 import { reactive } from 'vue';
-import i18n from '~/i18n';
-import { checkTree } from '~/libs/object';
-import { objectToString } from '~/libs/string';
-import FormText from '~/components/Form/Text.vue';
-import FormRadio from '~/components/Form/Radio.vue';
+import i18n from '../../../i18n';
+import { checkTree } from '../../../libs/object';
+import { objectToString } from '../../../libs/string';
+import FormText from '../../../components/Form/Text.vue';
+import FormRadio from '../../../components/Form/Radio.vue';
 import ButtonIcon from './ButtonIcon.vue';
 import Manage from './Manage/index.vue';
 import ModalWrapper from './ModalWrapper.vue';
@@ -152,4 +152,5 @@ function onImportData(res)
 }
 </script>
 
+<style src="../fieldset.scss" lang="scss" scoped></style>
 <style src="./index.scss" lang="scss" scoped></style>

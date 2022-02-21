@@ -17,8 +17,8 @@
 </template>
 
 <script setup>
-import i18n from '~/i18n';
-import pkg from '~/../package.json';
+import i18n from '../../i18n';
+import pkg from '../../../package.json';
 
 const name = 'PreferenceInformation';
 const { t } = i18n.global;
@@ -29,4 +29,5 @@ const signatures = {
 };
 </script>
 
+<style src="./fieldset.scss" lang="scss" scoped></style>
 <style src="./Information.scss" lang="scss" scoped></style>

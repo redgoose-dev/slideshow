@@ -19,7 +19,7 @@
 
 <script setup>
 import { watch, reactive, computed, onMounted, ref } from 'vue';
-import shuffle from '~/libs/shuffle';
+import shuffle from '../../libs/shuffle';
 
 const name = 'Caption';
 const props = defineProps({

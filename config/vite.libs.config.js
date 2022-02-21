@@ -42,11 +42,6 @@ export default defineConfig(() => {
       },
       sourcemap: true,
     },
-    resolve: {
-      alias: [
-        ...base.resolve.alias,
-      ],
-    },
     plugins: [
       ...base.plugins,
     ],

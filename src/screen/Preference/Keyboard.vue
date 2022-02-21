@@ -109,9 +109,9 @@
 
 <script setup>
 import { reactive } from 'vue';
-import i18n from '~/i18n';
-import { convertPureObject } from '~/libs/object';
-import FormSwitch from '~/components/Form/Switch.vue';
+import i18n from '../../i18n';
+import { convertPureObject } from '../../libs/object';
+import FormSwitch from '../../components/Form/Switch.vue';
 
 const name = 'PreferenceKeyboard';
 const { t } = i18n.global;
@@ -127,4 +127,5 @@ function onSave()
 }
 </script>
 
+<style src="./fieldset.scss" lang="scss" scoped></style>
 <style src="./Keyboard.scss" lang="scss" scoped></style>

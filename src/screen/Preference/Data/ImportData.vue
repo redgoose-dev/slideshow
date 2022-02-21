@@ -69,13 +69,13 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
-import i18n from '~/i18n';
-import { getApiData, getFileData } from '~/libs/util';
-import { checkTree } from '~/libs/object';
-import FormRadio from '~/components/Form/Radio.vue';
-import FormText from '~/components/Form/Text.vue';
-import FormUpload from '~/components/Form/Upload.vue';
-import ButtonBasic from '~/components/Button/Basic.vue';
+import i18n from '../../../i18n';
+import { getApiData, getFileData } from '../../../libs/util';
+import { checkTree } from '../../../libs/object';
+import FormRadio from '../../../components/Form/Radio.vue';
+import FormText from '../../../components/Form/Text.vue';
+import FormUpload from '../../../components/Form/Upload.vue';
+import ButtonBasic from '../../../components/Button/Basic.vue';
 
 const { t } = i18n.global;
 let state = reactive({
@@ -142,6 +142,4 @@ async function onSubmit(e)
 }
 </script>
 
-<style lang="scss" scoped>
-@use '../fieldset.scss';
-</style>
+<style src="../fieldset.scss" lang="scss" scoped></style>

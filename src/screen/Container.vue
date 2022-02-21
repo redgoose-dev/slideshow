@@ -26,15 +26,15 @@
 
 <script setup>
 import { reactive, computed, ref, onMounted, onUnmounted } from 'vue';
-import i18n from '~/i18n';
-import store from '~/store';
-import * as local from '~/libs/local';
-import Slides from '~/components/Slides/index.vue';
-import SlidesEmpty from '~/components/Slides/Empty.vue';
-import Navigation from '~/screen/Navigation/index.vue';
-import Preference from '~/screen/Preference/index.vue';
-import Group from '~/screen/Group/index.vue';
-import Thumbnail from '~/screen/Thumbnail/index.vue';
+import i18n from '../i18n';
+import store from '../store';
+import * as local from '../libs/local';
+import Slides from '../components/Slides/index.vue';
+import SlidesEmpty from '../components/Slides/Empty.vue';
+import Navigation from '../screen/Navigation/index.vue';
+import Preference from '../screen/Preference/index.vue';
+import Group from '../screen/Group/index.vue';
+import Thumbnail from '../screen/Thumbnail/index.vue';
 
 const name = 'Container';
 const props = defineProps({ error: Object });

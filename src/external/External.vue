@@ -13,8 +13,8 @@
 
 <script setup>
 import { reactive } from 'vue';
-import Slideshow from '~/screen/App';
-import defaults from '~/store/defaults';
+import Slideshow from '../screen/App';
+import defaults from '../store/defaults';
 
 const name = 'ExternalComponent';
 let state = reactive({

@@ -91,11 +91,11 @@
 
 <script setup>
 import { reactive, computed } from 'vue';
-import i18n from '~/i18n';
-import { convertPureObject } from '~/libs/object';
-import Icon from '~/components/Icon/index.vue';
-import ButtonBasic from '~/components/Button/Basic.vue';
-import ModalWrapper from '~/screen/Preference/Data/ModalWrapper.vue';
+import i18n from '../../../../i18n';
+import { convertPureObject } from '../../../../libs/object';
+import Icon from '../../../../components/Icon/index.vue';
+import ButtonBasic from '../../../../components/Button/Basic.vue';
+import ModalWrapper from '../../../../screen/Preference/Data/ModalWrapper.vue';
 import Slides from './Slides.vue';
 import ManageGroup from './ManageGroup.vue';
 import ManageSlide from './ManageSlide.vue';
@@ -292,8 +292,8 @@ function onSubmitSlide(res)
 }
 </script>
 
+<style src="./index.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
-@use './index';
 .modal-edit-group {
   --modal-size-height: 560px;
 }

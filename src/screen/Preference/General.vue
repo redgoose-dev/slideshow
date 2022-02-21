@@ -174,22 +174,20 @@
 
 <script setup>
 import { reactive } from 'vue';
-import store from '~/store';
-import i18n from '~/i18n';
-import * as object from '~/libs/object';
-import * as local from '~/libs/local';
-import * as string from '~/libs/string';
-import FormSelect from '~/components/Form/Select.vue';
-import FormSwitch from '~/components/Form/Switch.vue';
-import FormCheckbox from '~/components/Form/Checkbox.vue';
-import ButtonBasic from '~/components/Button/Basic.vue';
+import store from '../../store';
+import i18n from '../../i18n';
+import * as object from '../../libs/object';
+import * as local from '../../libs/local';
+import * as string from '../../libs/string';
+import FormSelect from '../../components/Form/Select.vue';
+import FormSwitch from '../../components/Form/Switch.vue';
+import FormCheckbox from '../../components/Form/Checkbox.vue';
+import ButtonBasic from '../../components/Button/Basic.vue';
 
 const props = defineProps({
   structure: Object,
 });
-const emits = defineEmits({
-  'update': null,
-});
+const emits = defineEmits([ 'update' ]);
 const { t } = i18n.global;
 let state = reactive({
   language: props.structure.language,
@@ -271,9 +269,9 @@ function onClickReset()
 }
 </script>
 
+<style src="./fieldset.scss" lang="scss" scoped></style>
 <style lang="scss" scoped>
 @use '../../assets/scss/mixins';
-@use './fieldset';
 .import-data {
   --column: 1;
   --gap: 10px;

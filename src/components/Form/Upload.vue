@@ -26,7 +26,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
-import Icon from '~/components/Icon/index.vue';
+import Icon from '../Icon/index.vue';
 
 const name = 'FormUpload';
 const props = defineProps({
@@ -59,4 +59,5 @@ defineExpose({
 });
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style src="./Upload.scss" lang="scss" scoped></style>

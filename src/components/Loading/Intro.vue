@@ -9,8 +9,8 @@
 
 <script setup>
 import { reactive, onMounted, onUnmounted } from 'vue';
-import i18n from '~/i18n';
-import * as util from '~/libs/util';
+import i18n from '../../i18n';
+import * as util from '../../libs/util';
 import LoadingUnit from './Unit.vue';
 
 const { t } = i18n.global;

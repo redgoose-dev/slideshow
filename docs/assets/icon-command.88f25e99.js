@@ -1,0 +1,1 @@
+import{_ as a}from"./index.2b5e35b2.js";import{o,b as e}from"./vendor.95a30472.js";const r={},t={d:"M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"};function c(n,_){return o(),e("path",t)}var f=a(r,[["render",c]]);export{f as default};

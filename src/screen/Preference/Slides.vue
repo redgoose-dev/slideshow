@@ -260,12 +260,12 @@
 
 <script setup>
 import { reactive } from 'vue';
-import i18n from '~/i18n';
-import * as object from '~/libs/object';
-import FormText from '~/components/Form/Text.vue';
-import FormSelect from '~/components/Form/Select.vue';
-import FormSwitch from '~/components/Form/Switch.vue';
-import FormRadio from '~/components/Form/Radio.vue';
+import i18n from '../../i18n';
+import * as object from '../../libs/object';
+import FormText from '../../components/Form/Text.vue';
+import FormSelect from '../../components/Form/Select.vue';
+import FormSwitch from '../../components/Form/Switch.vue';
+import FormRadio from '../../components/Form/Radio.vue';
 
 const name = 'PreferenceSlides';
 const { t } = i18n.global;
@@ -293,6 +293,4 @@ function onSave()
 }
 </script>
 
-<style lang="scss" scoped>
-@use './fieldset';
-</style>
+<style src="./fieldset.scss" lang="scss" scoped></style>

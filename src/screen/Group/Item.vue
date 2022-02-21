@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import Icon from '~/components/Icon/index.vue';
+import Icon from '../../components/Icon/index.vue';
 
 const name = 'GroupItem';
 const props = defineProps({

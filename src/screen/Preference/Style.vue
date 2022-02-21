@@ -128,10 +128,10 @@
 
 <script setup>
 import { reactive } from 'vue';
-import i18n from '~/i18n';
-import { convertPureObject } from '~/libs/object';
-import FormText from '~/components/Form/Text.vue';
-import FormSelect from '~/components/Form/Select.vue';
+import i18n from '../../i18n';
+import { convertPureObject } from '../../libs/object';
+import FormText from '../../components/Form/Text.vue';
+import FormSelect from '../../components/Form/Select.vue';
 
 const name = 'PreferenceStyle';
 const { t } = i18n.global;
@@ -163,6 +163,4 @@ function onUpdateCaptionPosition(s)
 }
 </script>
 
-<style lang="scss" scoped>
-@use './fieldset.scss';
-</style>
+<style src="./fieldset.scss" lang="scss" scoped></style>

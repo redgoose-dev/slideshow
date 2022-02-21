@@ -31,11 +31,11 @@
 
 <script setup>
 import { reactive, computed, onMounted, onUnmounted } from 'vue';
-import store from '~/store';
-import i18n from '~/i18n';
-import * as local from '~/libs/local';
-import ButtonClose from '~/components/Button/Close.vue';
-import Icon from '~/components/Icon/index.vue';
+import store from '../../store';
+import i18n from '../../i18n';
+import * as local from '../../libs/local';
+import ButtonClose from '../../components/Button/Close.vue';
+import Icon from '../../components/Icon/index.vue';
 
 const { t } = i18n.global;
 let computes = reactive({

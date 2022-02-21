@@ -49,8 +49,8 @@
 
 <script setup>
 import { ref, reactive, computed } from 'vue';
-import * as util from '~/libs/util';
-import Icon from '~/components/Icon/index.vue';
+import * as util from '../../libs/util';
+import Icon from '../Icon/index.vue';
 
 const name = 'SlidesImages';
 const props = defineProps({

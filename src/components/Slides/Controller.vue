@@ -22,8 +22,8 @@
 </template>
 
 <script setup>
-import Icon from '~/components/Icon/index.vue';
-import i18n from '~/i18n';
+import i18n from '../../i18n';
+import Icon from '../../components/Icon/index.vue';
 
 const { t } = i18n.global;
 const props = defineProps({

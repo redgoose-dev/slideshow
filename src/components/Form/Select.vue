@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import * as util from '~/libs/util';
-import Icon from '~/components/Icon/index.vue';
+import * as util from '../../libs/util';
+import Icon from '../Icon/index.vue';
 
 const name = 'FormSelect';
 const props = defineProps({
@@ -45,4 +45,5 @@ function onChange(e)
 }
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style src="./Select.scss" lang="scss" scoped></style>

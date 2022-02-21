@@ -39,11 +39,11 @@
 
 <script setup>
 import { defineAsyncComponent, reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
-import store from '~/store';
-import i18n from '~/i18n';
-import { convertPureObject, checkPreference, checkTree } from '~/libs/object';
-import * as local from '~/libs/local';
-import Icon from '~/components/Icon/index.vue';
+import store from '../../store';
+import i18n from '../../i18n';
+import { convertPureObject, checkPreference, checkTree } from '../../libs/object';
+import * as local from '../../libs/local';
+import Icon from '../../components/Icon/index.vue';
 import Side from './Side.vue';
 
 const { t } = i18n.global;

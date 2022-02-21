@@ -35,14 +35,14 @@
         type="button"
         :title="t('base.edit')"
         class="edit"
-        @click="$emit('edit', k)">
+        @click="emits('edit', k)">
         <Icon icon-name="edit"/>
       </button>
       <button
         type="button"
         :title="t('base.remove')"
         class="remove"
-        @click="$emit('remove', k)">
+        @click="emits('remove', k)">
         <Icon icon-name="x"/>
       </button>
     </nav>
@@ -55,9 +55,9 @@
 
 <script setup>
 import { reactive } from 'vue';
-import i18n from '~/i18n';
-import { convertPureObject } from '~/libs/object';
-import Icon from '~/components/Icon/index.vue';
+import i18n from '../../../../i18n';
+import { convertPureObject } from '../../../../libs/object';
+import Icon from '../../../../components/Icon/index.vue';
 
 const name = 'Slides';
 const { t } = i18n.global;
@@ -65,11 +65,7 @@ const props = defineProps({
   itemKey: String,
   items: { type: Array, required: true },
 });
-const emits = defineEmits({
-  'change-order': null,
-  'edit': null,
-  'remove': null,
-});
+const emits = defineEmits([ 'change-order', 'edit', 'remove' ]);
 let state = reactive({
   dragStartKey: undefined,
   dragPlaceholderKey: undefined,
@@ -117,7 +113,7 @@ function onDrop(e)
   let clone = convertPureObject(props.items);
   clone.splice(state.dragStartKey, 1);
   clone.splice(Number(target.dataset.key), 0, convertPureObject(props.items[state.dragStartKey]));
-  context.emit('change-order', clone);
+  emits('change-order', clone);
 }
 function onDragEnd()
 {

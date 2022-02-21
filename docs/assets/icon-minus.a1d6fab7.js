@@ -1,0 +1,1 @@
+import{_ as e}from"./index.2b5e35b2.js";import{o,b as r}from"./vendor.95a30472.js";const c={},n={x1:"5",y1:"12",x2:"19",y2:"12"};function t(s,_){return o(),r("line",n)}var f=e(c,[["render",t]]);export{f as default};

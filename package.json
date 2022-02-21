@@ -2,7 +2,7 @@
   "name": "@redgoose/slideshow",
   "productName": "Slideshow",
   "description": "vue slideshow",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "repository": "https://github.com/redgoose-dev/slideshow.git",
   "author": {
     "name": "redgoose",
@@ -20,14 +20,14 @@
     "last 2 versions"
   ],
   "dependencies": {
-    "vue": "^3.2.20",
+    "vue": "^3.2.31",
     "vue-i18n": "^9.1.9",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.9.3",
-    "autoprefixer": "^10.3.7",
-    "sass": "^1.43.2",
-    "vite": "^2.6.7"
+    "@vitejs/plugin-vue": "^2.2.2",
+    "autoprefixer": "^10.4.2",
+    "sass": "^1.49.8",
+    "vite": "^2.8.4"
   }
 }

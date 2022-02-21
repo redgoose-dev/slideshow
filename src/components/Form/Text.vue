@@ -48,7 +48,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import * as util from '~/libs/util';
+import * as util from '../../libs/util';
 
 const name = 'FormText';
 const props = defineProps({
@@ -86,4 +86,5 @@ defineExpose({
 });
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style src="./Text.scss" lang="scss" scoped></style>

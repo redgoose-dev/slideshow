@@ -20,8 +20,8 @@
 </template>
 
 <script setup>
-import i18n from '~/i18n';
-import Icon from '~/components/Icon/index.vue';
+import i18n from '../../../i18n';
+import Icon from '../../../components/Icon/index.vue';
 
 const name = 'ModalWrapper';
 const { t } = i18n.global;

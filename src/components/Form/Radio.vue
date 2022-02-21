@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { getValueFromType } from '~/libs/util';
+import { getValueFromType } from '../../libs/util';
 
 const name = 'FormRadio';
 const props = defineProps({
@@ -56,4 +56,5 @@ function onClickItem(key)
 }
 </script>
 
+<style src="./form.scss" lang="scss" scoped></style>
 <style src="./Radio.scss" lang="scss" scoped></style>

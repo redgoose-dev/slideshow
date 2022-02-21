@@ -16,11 +16,6 @@ export default defineConfig(({ mode }) => {
       outDir: paths.docs,
       sourcemap: false,
     },
-    resolve: {
-      alias: [
-        ...base.resolve.alias,
-      ],
-    },
     plugins: [
       ...base.plugins,
     ],

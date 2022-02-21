@@ -115,10 +115,10 @@
 
 <script setup>
 import { reactive } from 'vue';
-import i18n from '~/i18n';
-import FormText from '~/components/Form/Text.vue';
-import ButtonBasic from '~/components/Button/Basic.vue';
-import FormRadio from '~/components/Form/Radio.vue';
+import i18n from '../../../../i18n';
+import FormText from '../../../../components/Form/Text.vue';
+import ButtonBasic from '../../../../components/Button/Basic.vue';
+import FormRadio from '../../../../components/Form/Radio.vue';
 
 const name = 'ManageGroup';
 const { t } = i18n.global;
@@ -160,6 +160,4 @@ function onSubmit(e)
 }
 </script>
 
-<style lang="scss" scoped>
-@use '../../fieldset.scss';
-</style>
+<style src="../../fieldset.scss" lang="scss" scoped></style>

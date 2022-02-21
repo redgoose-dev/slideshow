@@ -53,8 +53,8 @@
 
 <script setup>
 import { reactive, computed, onMounted, onUnmounted, watch, ref } from 'vue';
-import store from '~/store';
-import * as number from '~/libs/number';
+import store from '../../store';
+import * as number from '../../libs/number';
 import Images from './Images.vue';
 import Caption from './Caption.vue';
 import Paginate from './Paginate.vue';

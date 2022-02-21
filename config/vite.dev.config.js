@@ -5,11 +5,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   const { VITE_HOST, VITE_PORT, VITE_OPEN_BROWSER } = env;
   return {
-    resolve: {
-      alias: [
-        ...base.resolve.alias,
-      ],
-    },
     server: {
       host: VITE_HOST,
       port: VITE_PORT,

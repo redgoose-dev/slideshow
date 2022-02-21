@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import Icon from '~/components/Icon/index.vue';
+import Icon from '../Icon/index.vue';
 
 const name = 'FormCheckbox';
 const props = defineProps({
