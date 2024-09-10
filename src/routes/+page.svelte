@@ -1,12 +1,37 @@
-<h1>Welcome to your library project</h1>
-<p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
-<hr>
-
-<Slideshow/>
+<div class="service">
+  <Slideshow
+    preference={{
+      general: {
+        hud: false,
+        FOOO: 'BARRR',
+      },
+    }}
+    tree={[]}/>
+</div>
 
 <script>
-import { Slideshow } from '../dist/index.js'
-console.log(Slideshow)
+import { onMount } from 'svelte'
+import { Slideshow } from '$lib/index.js'
+
+let root
+
+onMount(() => {
+  //
+})
 </script>
+
+<style>
+:global(html) {
+  overflow: hidden;
+}
+:global(body) {
+  margin: 0;
+}
+
+.service {
+  width: 100dvw;
+  max-width: 100%;
+  height: 100dvh;
+  box-sizing: border-box;
+}
+</style>

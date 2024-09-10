@@ -1,8 +1,4 @@
-import Slideshow from '../slideshow/index.svelte'
-
-// Reexport your entry components here
-
-console.log('hello')
+import Slideshow from './components/index.svelte'
 
 export {
   Slideshow,
