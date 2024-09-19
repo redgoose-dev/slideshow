@@ -8,9 +8,9 @@
 </template>
 
 <script setup>
-import { reactive, watch, onMounted, onUnmounted, nextTick, provide, inject } from 'vue'
+import { reactive, watch, onMounted, onUnmounted, nextTick, provide } from 'vue'
 import { preferenceStore, slidesStore } from './store/index.js'
-import { cloneObject, sleep } from './libs/util.js'
+import { sleep } from './libs/util.js'
 import Container from './components/container/index.vue'
 import Loading from './components/loading/main.vue'
 import Error from './components/error/index.vue'
@@ -35,14 +35,22 @@ provide('preference', { updatePreference })
 provide('slides', { updateSlides })
 
 // lifecycles
-onMounted(async () => {
-  await start()
-  updatePreference(preference.$state)
-  updateSlides(slides.$state.data)
+onMounted(() => {
+  start().then()
 })
 onUnmounted(() => {
+  preference.destroy()
+  slides.destroy()
   stop().then()
 })
+
+// watch
+watch(() => props.preference, newValue => {
+  preference.setup(newValue)
+}, { deep: true })
+watch(() => props.slides, (newValue) => {
+  //
+}, { deep: false })
 
 // set expose
 defineExpose({
@@ -51,20 +59,26 @@ defineExpose({
   restart,
 })
 
+
+/**
+ * ACTION
+ */
+
+preference.setup(props.preference, true)
+updatePreference(undefined)
+
 /**
  * FUNCTIONS
  */
 
 async function start()
 {
-  preference.setup(props.preference)
   slides.setup(props.slides)
   await nextTick()
   state.loading = false
 }
 async function stop()
 {
-  preference.destroy()
   slides.destroy()
   await nextTick()
   state.loading = true
@@ -73,14 +87,15 @@ async function restart()
 {
   await stop()
   await nextTick()
-  await sleep(3000)
+  await sleep(2000)
   await start()
 }
-function updatePreference()
+function updatePreference(pref)
 {
-  const data = preference.exportData()
-  emits('update-preference', data)
+  if (pref) preference.setup(pref)
+  emits('update-preference', preference.exportData())
 }
+// TODO: 이 함수는 용도가 아직 명확하지 않다.
 function updateSlides()
 {
   const data = slides.exportData()

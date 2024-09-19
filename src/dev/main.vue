@@ -2,6 +2,7 @@
 <article class="dev">
   <nav>
     <button @click="onClickFire">FIRE</button>
+    <button @click="onClickRestart">RESETART</button>
   </nav>
   <Slideshow
     ref="$slideshow"
@@ -17,7 +18,7 @@ import { ref, reactive } from 'vue'
 import Slideshow from '../slideshow/index.vue'
 
 const $slideshow = ref()
-const preference = reactive({
+const preference = ref({
   general: {
     FOO: 'barrrr',
     language: 'ko',
@@ -26,8 +27,7 @@ const preference = reactive({
 
 function onUpdatedPreference(src)
 {
-  console.log('onUpdatePreference()', src)
-  // preference.value = pref
+  preference.value = src
 }
 function onUpdatedSlides(src)
 {
@@ -36,7 +36,11 @@ function onUpdatedSlides(src)
 
 async function onClickFire()
 {
-  preference.general.language = 'FRE'
+  preference.value.general.language = 'FRE'
+  // $slideshow.value.restart()
+}
+async function onClickRestart()
+{
   $slideshow.value.restart()
 }
 </script>

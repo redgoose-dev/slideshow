@@ -16,7 +16,11 @@ const { updatePreference } = inject('preference')
 
 function onClickTrigger()
 {
-  updatePreference({ FOO: 'BARRRRR' })
+  updatePreference({
+    general: {
+      FOOWWW: 'BARRRRR',
+    }
+  })
 }
 </script>
 
