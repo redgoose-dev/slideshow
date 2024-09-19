@@ -3,7 +3,6 @@
   <Loading v-if="state.loading"/>
   <Error v-else-if="state.error"/>
   <Container v-else/>
-  <pre>{{preference.$state}}</pre>
 </div>
 </template>
 
@@ -95,9 +94,9 @@ function updatePreference(pref)
   if (pref) preference.setup(pref)
   emits('update-preference', preference.exportData())
 }
-// TODO: 이 함수는 용도가 아직 명확하지 않다.
 function updateSlides()
 {
+  // TODO: 이 함수는 용도가 아직 명확하지 않다.
   const data = slides.exportData()
   emits('update-slides', data)
 }

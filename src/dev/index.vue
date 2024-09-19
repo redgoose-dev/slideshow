@@ -1,9 +1,9 @@
 <template>
 <article class="dev">
-  <nav>
-    <button @click="onClickFire">FIRE</button>
-    <button @click="onClickRestart">RESETART</button>
-  </nav>
+<!--  <nav>-->
+<!--    <button @click="onClickFire">FIRE</button>-->
+<!--    <button @click="onClickRestart">RESETART</button>-->
+<!--  </nav>-->
   <Slideshow
     ref="$slideshow"
     :preference="preference"
@@ -43,11 +43,12 @@ async function onClickRestart()
 {
   $slideshow.value.restart()
 }
+
+//.dev {
+//  height: 100dvh;
+//  box-sizing: border-box;
+//}
 </script>
 
-<style scoped>
-.dev {
-  height: 100dvh;
-  box-sizing: border-box;
-}
+<style src="./index.scss" lang="scss" scoped>
 </style>

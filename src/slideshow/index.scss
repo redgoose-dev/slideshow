@@ -1,3 +1,30 @@
 .slideshow {
-  border: 1px solid #000;
+  // color
+  --color-bg: #fafafa;
+  --color-fill: #181818;
+  --color-low-fill: #484848;
+  --color-key: #0cb85b;
+  --color-shape: #e1e1e1;
+  --color-shape-button: #909090;
+  --color-invert: #fff;
+  --color-danger: #cb2217;
+  // size
+  --size-shape-radius: 2px;
+  // font
+  --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-eng: Helvetica, Arial;
+  // speed
+  --speed-button-active: 200ms;
+  --speed-slide-animation: 1000ms;
+  --speed-content-toggle: 300ms;
+
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-fill);
+  background-color: var(--color-bg);
+  font-family: var(--font-base), sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: none;
+
+  border: 10px solid blue;
 }

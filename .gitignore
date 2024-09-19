@@ -2,7 +2,6 @@
 node_modules/
 .idea/
 .vscode/
-dist/
 .output/
 .svelte-kit/
 build/

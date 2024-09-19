@@ -1,6 +1,6 @@
 <template>
-<article>
-  <p>.container</p>
+<article class="container">
+  <p>.container asdasd</p>
   <nav>
     <button @click="onClickTrigger">
       TRIGGER
@@ -24,5 +24,4 @@ function onClickTrigger()
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style src="./index.scss" lang="scss" scoped></style>
