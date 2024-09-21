@@ -1,27 +1,24 @@
 <template>
-<article class="container">
-  <p>.container asdasd</p>
-  <nav>
-    <button @click="onClickTrigger">
-      TRIGGER
-    </button>
-  </nav>
-</article>
+<div class="container">
+  <Slides/>
+</div>
 </template>
 
 <script setup>
 import { inject } from 'vue'
+import Slides from '../slides/index.vue'
 
 const { updatePreference } = inject('preference')
 
-function onClickTrigger()
-{
-  updatePreference({
-    general: {
-      FOOWWW: 'BARRRRR',
-    }
-  })
-}
+// TODO: 루트 컴포넌트로 이벤트 보내기 실험
+// function onClickTrigger()
+// {
+//   updatePreference({
+//     general: {
+//       FOOWWW: 'BARRRRR',
+//     }
+//   })
+// }
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

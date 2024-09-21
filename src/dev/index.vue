@@ -7,7 +7,7 @@
   <Slideshow
     ref="$slideshow"
     :preference="preference"
-    :slides="[]"
+    :slides="slides"
     @update-preference="onUpdatedPreference"
     @update-slides="onUpdatedSlides"/>
 </article>
@@ -16,6 +16,8 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import Slideshow from '../slideshow/index.vue'
+import { defaultSlides } from '../slideshow/libs/defaults.js'
+import { cloneObject } from '../slideshow/libs/util.js'
 
 const $slideshow = ref()
 const preference = ref({
@@ -24,14 +26,16 @@ const preference = ref({
     language: 'ko',
   },
 })
+const slides = ref(cloneObject(defaultSlides))
 
 function onUpdatedPreference(src)
 {
+  console.warn('[onUpdatedPreference()]')
   preference.value = src
 }
 function onUpdatedSlides(src)
 {
-  console.log('onUpdatedSlides()', src)
+  console.warn('[onUpdatedSlides()]')
 }
 
 async function onClickFire()
@@ -43,11 +47,6 @@ async function onClickRestart()
 {
   $slideshow.value.restart()
 }
-
-//.dev {
-//  height: 100dvh;
-//  box-sizing: border-box;
-//}
 </script>
 
 <style src="./index.scss" lang="scss" scoped>

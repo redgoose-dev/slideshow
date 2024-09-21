@@ -25,6 +25,9 @@
   font-family: var(--font-base), sans-serif;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: none;
+  box-sizing: border-box;
 
-  border: 10px solid blue;
+  // slideshow size
+  width: var(--slideshow-width, auto);
+  height: var(--slideshow-height, 100%);
 }

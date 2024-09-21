@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { cloneObject, deepMerge } from '../libs/util.js'
 import { checkPreference, checkSlides } from '../libs/data.js'
 import { defaultPreference } from '../libs/defaults.js'
+import index from "../components/slides/index.vue";
 
 /**
  * preference store
@@ -54,35 +55,72 @@ export const preferenceStore = defineStore('preference', () => {
 /**
  * slides store
  */
-export const slidesStore = defineStore('slides', () => {
-  const data = ref({})
-
-  function setup(src)
-  {
-    // TODO: 외부 값은 배열로 들어오지만 `키-밸류`값인 객체로 변환해서 사용하는것이 좋아보인다.
-    const slides = cloneObject((src?.length > 0) ? src : [])
-    checkSlides(slides)
-    data.value = slides
-  }
-  function destroy()
-  {
-    data.value = undefined
-  }
-  function exportData()
-  {
-    // TODO: order 값을 순서로 내부 객체를 배열로 변환하는것이 좋을거 같다.
-    // TODO: 이것은 데이터 유지를 위한게 아니고 단순히 뽑아내는데 쓰이기 때문에 값의 구조가 변경되어도 괜찮다.
-    // const navigation = navigationStore()
-    return cloneObject(data.value)
-  }
-
-  return {
-    data,
-    setup,
-    destroy,
-    exportData,
-  }
+export const slidesStore = defineStore('slides', {
+  state: () => ({
+    data: new Set(),
+  }),
+  getters: {
+    items()
+    {
+      return cloneObject([...this.data])
+    },
+    images()
+    {
+      let images = []
+      this.data.forEach(slide => images.push({
+        src: slide.src,
+        alt: slide.title,
+      }))
+      return images
+    },
+  },
+  actions: {
+    setup(src)
+    {
+      ;((src?.length > 0) ? src : []).forEach((slide, index) => {
+        this.data.add({ ...slide })
+      })
+    },
+    exportData()
+    {
+      // TODO: order 값을 순서로 내부 객체를 배열로 변환하는것이 좋을거 같다.
+      // TODO: 이것은 데이터 유지를 위한게 아니고 단순히 뽑아내는데 쓰이기 때문에 값의 구조가 변경되어도 괜찮다.
+      // const navigation = navigationStore()
+      return cloneObject(this.data)
+    },
+    destroy()
+    {
+      this.data.clear()
+    },
+  },
 })
+// export const slidesStore = defineStore('slides', () => {
+//   const data = ref({})
+//   function setup(src)
+//   {
+//     data.value = new Set()
+//     ;((src?.length > 0) ? src : []).forEach((slide, index) => {
+//       data.value.add(slide)
+//     })
+//   }
+//   function destroy()
+//   {
+//     data.value.clear()
+//   }
+//   function exportData()
+//   {
+//     // TODO: order 값을 순서로 내부 객체를 배열로 변환하는것이 좋을거 같다.
+//     // TODO: 이것은 데이터 유지를 위한게 아니고 단순히 뽑아내는데 쓰이기 때문에 값의 구조가 변경되어도 괜찮다.
+//     // const navigation = navigationStore()
+//     return cloneObject(data.value)
+//   }
+//   return {
+//     data,
+//     setup,
+//     destroy,
+//     exportData,
+//   }
+// })
 
 export const navigationStore = defineStore('navigation', () => {
   const page = ref(0)
