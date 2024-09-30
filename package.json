@@ -27,17 +27,17 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "@types/bun": "^1.1.9",
+    "@types/bun": "^1.1.10",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/language-server": "^2.1.6",
     "autoprefixer": "^10.4.20",
-    "bun": "^1.1.28",
-    "esbuild": "^0.23.1",
+    "bun": "^1.1.29",
+    "esbuild": "^0.24.0",
     "esbuild-plugin-vue3": "^0.4.2",
-    "lucide": "^0.441.0",
-    "pinia": "^2.2.2",
-    "sass": "^1.79.1",
-    "vite": "^5.4.6",
-    "vue": "^3.5.6"
+    "lucide": "^0.446.0",
+    "pinia": "^2.2.3",
+    "sass": "^1.79.4",
+    "vite": "^5.4.8",
+    "vue": "^3.5.10"
   }
 }

@@ -45,7 +45,7 @@ onUnmounted(() => {
 
 // watch
 watch(() => props.preference, newValue => {
-  preference.setup(newValue)
+  // preference.setup(newValue)
 }, { deep: true })
 watch(() => props.slides, (newValue) => {
   //

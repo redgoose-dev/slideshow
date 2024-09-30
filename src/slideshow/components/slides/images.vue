@@ -1,26 +1,35 @@
 <template>
 <div class="images">
-  <div class="wrap">
-    <figure v-for="o in props.src">
-      <ImageComp
-        :src="o.src"
-        :alt="o.title"/>
-    </figure>
-  </div>
+  <ul ref="$body" class="body">
+    <li
+      v-for="(item, key) in props.items"
+      :ref="el => { $image[key] = el }"
+      :class="[]">
+      <img
+        :src="item.src"
+        :alt="item.title"/>
+    </li>
+  </ul>
   <i class="overlay"></i>
 </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import ImageComp from './image.vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 
 const props = defineProps({
-  src: Array,
-  loop: Boolean,
+  items: { type: Array, required: true }, //슬라이드 이미지 목록
+  active: { type: Number, default: 0 }, // 초기 활성화되는 슬라이드
+  loop: { type: Boolean, default: false }, // 무한대로 반복될지에 대한 여부
+})
+const emits = defineEmits([])
+const $image = ref([])
+const state = reactive({
+  loaded: new Array(props.items)
 })
 
-console.log(props.src)
+onMounted(() => {
+})
 </script>
 
 <style src="./images.scss" lang="scss" scoped></style>

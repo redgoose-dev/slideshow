@@ -30,12 +30,12 @@ const slides = ref(cloneObject(defaultSlides))
 
 function onUpdatedPreference(src)
 {
-  console.warn('[onUpdatedPreference()]')
+  // console.warn('[onUpdatedPreference()]')
   preference.value = src
 }
 function onUpdatedSlides(src)
 {
-  console.warn('[onUpdatedSlides()]')
+  // console.warn('[onUpdatedSlides()]')
 }
 
 async function onClickFire()
