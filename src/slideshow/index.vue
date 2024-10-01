@@ -35,6 +35,7 @@ provide('slides', { updateSlides })
 
 // lifecycles
 onMounted(() => {
+  preference.setup(props.preference, true)
   start().then()
 })
 onUnmounted(() => {
@@ -44,9 +45,6 @@ onUnmounted(() => {
 })
 
 // watch
-watch(() => props.preference, newValue => {
-  // preference.setup(newValue)
-}, { deep: true })
 watch(() => props.slides, (newValue) => {
   //
 }, { deep: false })
@@ -62,9 +60,6 @@ defineExpose({
 /**
  * ACTION
  */
-
-preference.setup(props.preference, true)
-updatePreference(undefined)
 
 /**
  * FUNCTIONS
@@ -89,6 +84,7 @@ async function restart()
   await sleep(2000)
   await start()
 }
+
 function updatePreference(pref)
 {
   if (pref) preference.setup(pref)

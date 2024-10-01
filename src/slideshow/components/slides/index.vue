@@ -1,14 +1,15 @@
 <template>
 <div class="slides">
-  <Images ref="$images" :items="slides.items"/>
+  <Images
+    ref="$images"/>
 <!--  <Caption/>-->
-<!--  <Controller/>-->
+  <Controller/>
 <!--  <Paginate/>-->
 </div>
 </template>
 
 <script setup>
-import { ref, computed, provide } from 'vue'
+import { ref, computed, provide, reactive } from 'vue'
 import { slidesStore, preferenceStore } from '../../store/index.js'
 import Images from './images.vue'
 import Caption from './caption.vue'
@@ -18,8 +19,6 @@ import Paginate from './paginate.vue'
 const preference = preferenceStore()
 const slides = slidesStore()
 const $images = ref()
-
-// console.log(preference.$state)
 
 // set provide
 provide('slides', {
