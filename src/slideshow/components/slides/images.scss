@@ -5,8 +5,18 @@
   box-sizing: border-box;
   scale: .25; // TODO: 테스트용으로 넣어둠
   transform-origin: 50% 50%;
-  outline: 10px solid hsla(0 100% 50% / 100%);
   //overflow: clip;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    outline: 30px solid hsla(0 100% 50% / 50%);
+  }
 }
 
 .mode {
@@ -14,6 +24,9 @@
     .body {
       li {
         display: none;
+        &.active {
+          display: block;
+        }
       }
     }
   }
@@ -26,14 +39,58 @@
         right: 0;
         top: 0;
         bottom: 0;
+        display: none;
+        &.fade-out {
+          display: block;
+          z-index: 1;
+        }
+        &.fade-in {
+          display: block;
+          z-index: 2;
+          opacity: 1;
+          &.hide {
+            opacity: 0;
+          }
+        }
+        &.active {
+          display: block;
+        }
+      }
+    }
+    &.animation-play {
+      li {
+        &.fade-in {
+          transition-property: opacity;
+          transition-duration: var(--speed-transition, 800ms);
+          transition-timing-function: ease-out;
+          will-change: opacity;
+        }
       }
     }
   }
   &--horizontal {
     .body {
+      --pos: var(--move-x, calc(100% * var(--active-column) * -1));
       display: flex;
+      backface-visibility: hidden;
+      transform: translateX(var(--pos));
       li {
         flex-shrink: 0;
+      }
+    }
+    &.animation-play {
+      .body {
+        transition-property: transform;
+        transition-duration: var(--speed-transition, 800ms);
+        transition-timing-function: cubic-bezier(.215,.610,.355,1);
+        will-change: transform;
+      }
+    }
+    &.animation-cancel {
+      .body {
+        transition-property: transform;
+        transition-duration: 200ms;
+        transition-timing-function: ease-out;
       }
     }
   }

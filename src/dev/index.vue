@@ -25,6 +25,11 @@ const preference = ref({
     FOO: 'barrrr',
     language: 'ko',
   },
+  slides: {
+    loop: false,
+    transitionType: 'fade', // none,fade,horizontal
+    initialKey: 'key-001',
+  },
 })
 const slides = ref(cloneObject(defaultSlides))
 

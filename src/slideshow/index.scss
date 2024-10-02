@@ -18,6 +18,7 @@
   --speed-slide-animation: 1000ms;
   --speed-content-toggle: 300ms;
 
+  position: relative;
   font-size: 16px;
   line-height: 1.6;
   color: var(--color-fill);
@@ -30,4 +31,14 @@
   // slideshow size
   width: var(--slideshow-width, auto);
   height: var(--slideshow-height, 100%);
+}
+
+.debug {
+  position: absolute;
+  background: #fff;
+  left: 30px;
+  top: 30px;
+  box-sizing: border-box;
+  outline: 10px solid red;
+  padding: 16px;
 }

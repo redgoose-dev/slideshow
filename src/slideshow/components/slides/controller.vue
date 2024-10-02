@@ -12,6 +12,11 @@
     @click="onClickNext">
     NEXT
   </button>
+  <button
+    type="button"
+    @click="onClickChangeSlide">
+    CHANGE
+  </button>
 </nav>
 </template>
 
@@ -35,6 +40,13 @@ function onClickPrev()
 function onClickNext()
 {
   slides.next()
+}
+
+function onClickChangeSlide()
+{
+  const key = prompt('슬라이드 키 이름??')
+  if (!key) return
+  slides.change(key)
 }
 </script>
 

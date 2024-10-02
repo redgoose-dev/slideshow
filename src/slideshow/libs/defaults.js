@@ -2,31 +2,31 @@
 export const defaultPreference = {
   general: {
     language: 'en', // en,ko
-      hud: true,
-      hoverVisibleHud: false,
-      clickVisibleHud: false,
-      visibleHudContents: {
-      menu: true,
-        thumbnail: false,
-        caption: true,
-        controller: true,
-        paginate: true,
-        autoplay: true,
-        group: true,
+    hud: true,
+    hoverVisibleHud: false,
+    clickVisibleHud: false,
+    visibleHudContents: {
+    menu: true,
+      thumbnail: false,
+      caption: true,
+      controller: true,
+      paginate: true,
+      autoplay: true,
+      group: true,
     },
   },
   slides: {
-    initialNumber: 0,
-      animationType: 'horizontal', // none,fade,horizontal
-      animationSpeed: 500,
-      captionAnimationType: 'none', // none,shuffle
-      captionAnimationSpeed: 40,
-      autoplay: false,
-      autoplayDelay: 7000,
-      autoplayDirection: true, // next(true), prev(false)
-      autoplayPauseOnHover: false,
-      loop: true,
-      swipe: true,
+    initialKey: '',
+    transitionType: 'horizontal', // none,fade,horizontal
+    transitionSpeed: 500,
+    captionAnimationType: 'none', // none,shuffle
+    captionAnimationSpeed: 40,
+    autoplay: false,
+    autoplayDelay: 7000,
+    autoplayDirection: true, // next(true), prev(false)
+    autoplayPauseOnHover: false,
+    loop: true,
+    swipe: true,
   },
   style: {
     screenColor: 'system', // dark,light,system

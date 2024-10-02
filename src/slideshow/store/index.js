@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { cloneObject, deepMerge } from '../libs/util.js'
 import { checkPreference, checkSlides } from '../libs/data.js'
@@ -53,6 +52,7 @@ export const slidesStore = defineStore('slides', {
     data: new Map(),
     order: [],
     active: '',
+    direction: true, // true: 정방향, false: 역방향
     lock: false, // 애니메이션 중일때 값이 바뀌면 안될때가 있으니 그것을 위한 값이다.
   }),
   getters: {
@@ -76,13 +76,20 @@ export const slidesStore = defineStore('slides', {
   actions: {
     setup(src)
     {
+      const preference = preferenceStore()
       const slides = (src?.length > 0) ? src : []
       slides.forEach((slide, index) => {
         const { key, ...body } = slide
-        this.order.push(key)
-        this.data.set(key, body)
+        const keyName = String(key || index)
+        this.order.push(keyName)
+        this.data.set(keyName, body)
       })
-      this.active = this.order[0]
+      // set initial key
+      const { initialKey } = preference.slides
+      if (initialKey && this.order.includes(initialKey)) this.active = initialKey
+      if (!this.active) this.active = this.order[0]
+      // TODO: 슬라이드 키 목록 출력
+      console.warn('ORDER', this.order)
     },
     exportData()
     {
@@ -98,6 +105,7 @@ export const slidesStore = defineStore('slides', {
     },
     prev()
     {
+      if (this.lock) return
       const preference = preferenceStore()
       const activeIndex = this.order.indexOf(this.active)
       let prevIndex
@@ -109,10 +117,12 @@ export const slidesStore = defineStore('slides', {
       {
         prevIndex = (activeIndex > 0) ? activeIndex - 1 : 0
       }
+      this.direction = false
       this.active = this.order[prevIndex]
     },
     next()
     {
+      if (this.lock) return
       const preference = preferenceStore()
       const activeIndex = this.order.indexOf(this.active)
       let nextIndex
@@ -124,7 +134,18 @@ export const slidesStore = defineStore('slides', {
       {
         nextIndex = (activeIndex < this.order.length - 1) ? activeIndex + 1 : this.order.length - 1
       }
+      this.direction = true
       this.active = this.order[nextIndex]
     },
+    change(key)
+    {
+      if (this.lock) return
+      if (key === this.active) return
+      const activeIndex = this.order.indexOf(this.active)
+      const nextIndex = this.order.indexOf(key)
+      if (nextIndex <= -1) return
+      this.direction = activeIndex < nextIndex
+      this.active = this.active = this.order[nextIndex]
+    }
   },
 })

@@ -3,11 +3,12 @@
   <Loading v-if="state.loading"/>
   <Error v-else-if="state.error"/>
   <Container v-else/>
+  <pre class="debug">{{debug}}</pre>
 </div>
 </template>
 
 <script setup>
-import { reactive, watch, onMounted, onUnmounted, nextTick, provide } from 'vue'
+import { reactive, computed, watch, onMounted, onUnmounted, nextTick, provide } from 'vue'
 import { preferenceStore, slidesStore } from './store/index.js'
 import { sleep } from './libs/util.js'
 import Container from './components/container/index.vue'
@@ -28,6 +29,11 @@ const emits = defineEmits([
   'update-preference',
   'update-slides',
 ])
+const debug = computed(() => {
+  return {
+    active: slides.active,
+  }
+})
 
 // set provides
 provide('preference', { updatePreference })
@@ -81,7 +87,7 @@ async function restart()
 {
   await stop()
   await nextTick()
-  await sleep(2000)
+  // await sleep(2000)
   await start()
 }
 
