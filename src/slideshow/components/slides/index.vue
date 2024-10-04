@@ -1,7 +1,6 @@
 <template>
 <div class="slides">
-  <Images
-    ref="$images"/>
+  <Images ref="$images"/>
 <!--  <Caption/>-->
   <Controller/>
 <!--  <Paginate/>-->

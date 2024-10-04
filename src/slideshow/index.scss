@@ -36,9 +36,10 @@
 .debug {
   position: absolute;
   background: #fff;
-  left: 30px;
-  top: 30px;
+  right: 30px;
+  bottom: 30px;
   box-sizing: border-box;
-  outline: 10px solid red;
+  outline: 2px solid red;
   padding: 16px;
+  margin: 0;
 }

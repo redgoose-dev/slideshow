@@ -1,5 +1,8 @@
 <template>
-<div class="slideshow">
+<div
+  :class="[
+    'slideshow',
+  ]">
   <Loading v-if="state.loading"/>
   <Error v-else-if="state.error"/>
   <Container v-else/>
@@ -24,6 +27,7 @@ const props = defineProps({
 const state = reactive({
   loading: true,
   error: undefined,
+  swipe: false,
 })
 const emits = defineEmits([
   'update-preference',
@@ -61,15 +65,6 @@ defineExpose({
   start,
   restart,
 })
-
-
-/**
- * ACTION
- */
-
-/**
- * FUNCTIONS
- */
 
 async function start()
 {

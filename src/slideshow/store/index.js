@@ -80,7 +80,7 @@ export const slidesStore = defineStore('slides', {
       const slides = (src?.length > 0) ? src : []
       slides.forEach((slide, index) => {
         const { key, ...body } = slide
-        const keyName = String(key || index)
+        const keyName = String(key || `key-${index}`)
         this.order.push(keyName)
         this.data.set(keyName, body)
       })
@@ -88,8 +88,6 @@ export const slidesStore = defineStore('slides', {
       const { initialKey } = preference.slides
       if (initialKey && this.order.includes(initialKey)) this.active = initialKey
       if (!this.active) this.active = this.order[0]
-      // TODO: 슬라이드 키 목록 출력
-      console.warn('ORDER', this.order)
     },
     exportData()
     {
@@ -148,4 +146,15 @@ export const slidesStore = defineStore('slides', {
       this.active = this.active = this.order[nextIndex]
     }
   },
+})
+
+/**
+ * 슬라이드쇼 상태에 대한 스토어
+ */
+export const globalStateStore = defineStore('state', {
+  state: () => ({
+    swipe: false,
+    playedSlide: false,
+    playedSlideCancel: false,
+  })
 })

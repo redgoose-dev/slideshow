@@ -1,25 +1,53 @@
 <template>
 <div
+  ref="$root"
   :class="[
     'images',
     `style--${settings.imageType}`,
     `mode--${settings.transitionType}`,
-    state.useAnimationPlay && 'animation-play',
-    state.useAnimationCancel && 'animation-cancel',
+    globalState.playedSlide && 'animation-play',
+    globalState.playedSlideCancel && 'animation-cancel',
+    globalState.swipe && 'swipe',
   ]"
-  :style="rootStyles">
+  :style="rootStyles"
+  @touchstart="onPointerStart"
+  @touchmove="onPointerMove"
+  @touchend="onPointerEnd"
+  @mousedown="onPointerStart"
+  @mousemove="onPointerMove"
+  @mouseup="onPointerEnd"
+  @mouseleave="onMouseLeave"
+  @mouseenter="onMouseEnter"
+  @contextmenu="onContextMenu">
   <ul ref="$body" class="body">
+    <li v-if="showFirstSlide" class="slide-first">
+      <ImagesItem
+        key-name="first-slide-image"
+        :loaded="showFirstSlide.loaded"
+        :src="showFirstSlide.src"
+        :error="showFirstSlide.error"/>
+    </li>
     <li
       v-for="(item, key) in state.items"
-      :ref="el => { $image[item.key] = el }"
+      :ref="el => { $image[key] = el }"
       :class="[
-        (!!state.classNameActive && state.active === item.key) && state.classNameActive,
-        (!!state.classNamePrevActive && state.prevActive === item.key) && state.classNamePrevActive,
+        (!!state.classNameActive && state.active === key) && state.classNameActive,
+        (!!state.classNamePrevActive && state.prevActive === key) && state.classNamePrevActive,
       ]">
-      <!-- <p v-if="item.error">.error</p>-->
-      <img
+      <ImagesItem
+        :key-name="key"
+        :loaded="item.loaded"
         :src="item.src"
-        :alt="item.alt"/>
+        :alt="item.alt"
+        :error="item.error"
+        @error="onErrorImage"/>
+    </li>
+    <li v-if="showLastSlide" class="slide-last">
+      <ImagesItem
+        key-name="last-slide-image"
+        :loaded="showLastSlide.loaded"
+        :src="showLastSlide.src"
+        :error="showLastSlide.error"/>
     </li>
   </ul>
   <i class="overlay"></i>
@@ -27,42 +55,43 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue'
-import { preferenceStore, slidesStore } from '../../store/index.js'
+import { ref, reactive, computed, onMounted, watch, inject, nextTick } from 'vue'
+import { preferenceStore, slidesStore, globalStateStore } from '../../store/index.js'
 import { TRANSITION_TYPE } from '../../libs/keywords.js'
 import { sleep } from '../../libs/util.js'
-
-// TODO: 시작하거나 슬라이드 트랜지션이 끝나면 주변 슬라이드 이미지 로드하는 작업을 한다. 이번에는 주변 2개까지 불러오는 로직을 구현해보는게 좋겠다.
+import ImagesItem from './images-item.vue'
 
 const preference = preferenceStore()
 const slides = slidesStore()
+const globalState = globalStateStore()
 const props = defineProps({})
 const emits = defineEmits([
   'change',
 ])
+const $root = ref()
 const $image = ref({})
 const $body = ref()
 const state = reactive({
-  items: slides.$state.order.map(key => {
-    const item = slides.$state.data.get(key)
-    return {
-      key,
+  items: slides.order.reduce((acc, key) => {
+    const item = slides.data.get(key)
+    acc[key] = {
       src: item.src,
       alt: item.title,
       loaded: false,
       error: false,
     }
-  }),
+    return acc
+  }, {}),
   classNameActive: 'active',
   classNamePrevActive: '',
   active: '',
   prevActive: '',
-  useAnimationPlay: false,
-  useAnimationCancel: false,
+  swipePosX: NaN,
 })
 const settings = computed(() => {
   const { slides, style } = preference
   return {
+    loop: slides.loop || false,
     transitionType: slides.transitionType || TRANSITION_TYPE.NONE,
     transitionSpeed: slides.transitionSpeed || 500,
     imageType: style.imageType || 'none',
@@ -80,18 +109,54 @@ const rootStyles = computed(() => {
       break
     case TRANSITION_TYPE.HORIZONTAL:
       style[`--speed-transition`] = `${settings.value.transitionSpeed}ms`
-      style[`--active-column`] = getSlideIndex(state.prevActive || state.active)
-      // style[`--move-x`] = `` // TODO: 드래그에 필요하다.
+      switch (state.prevActive)
+      {
+        case 'first':
+          style[`--active-column`] = -1
+          break
+        case 'last':
+          style[`--active-column`] = slides.order.length
+          break
+        default:
+          style[`--active-column`] = getSlideIndex(state.prevActive || state.active)
+          break
+      }
+      if (!isNaN(state.swipePosX))
+      {
+        style[`--swipe-pos-x`] = `${state.swipePosX}%`
+      }
       break
   }
   return style
 })
 const showFirstSlide = computed(() => {
-  return false
+  if (settings.value.transitionType !== 'horizontal') return false
+  if (!settings.value.loop) return false
+  if (slides.order.length <= 1) return false
+  const item = state.items[slides.order[slides.order.length - 1]]
+  return {
+    src: item.src,
+    loaded: item.loaded,
+    error: item.error,
+  }
 })
 const showLastSlide = computed(() => {
-  return false
+  if (settings.value.transitionType !== 'horizontal') return false
+  if (!settings.value.loop) return false
+  if (slides.order.length <= 1) return false
+  const item = state.items[slides.order[0]]
+  return {
+    src: item.src,
+    loaded: item.loaded,
+    error: item.error,
+  }
 })
+let pointer = {
+  touched: false,
+  dist: 0,
+  startX: 0,
+  startTime: null,
+}
 
 onMounted(() => {
   const { initialKey } = preference.slides
@@ -104,39 +169,30 @@ onMounted(() => {
   {
     state.active = slides.order[0]
   }
-  // TODO: 주변 이미지 불러오기
+  updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
 })
 
-watch(() => slides.active, async (value, oldValue) => {
+watch(() => slides.active, async (value) => {
   if (slides.order.length <= 1) return
-  await run(value, slides.direction)
+  await run(value)
 })
-
-/**
- * ACTIONS
- */
 
 /**
  * run slide transition
  * @param {string} key
- * @param {boolean} direction (true: next, false: prev)
  * @return {Promise<void>}
  */
-async function run(key, direction = true)
+async function run(key)
 {
-  const idx = slides.order.indexOf(key)
-  // TODO: 이미지 로드 검사하기 (현재 슬라이드 이미지 불러졌는지 검사한다.)
-  // console.log('run()', idx, key, direction)
-  console.log(state.active, key)
   switch (settings.value.transitionType)
   {
     case TRANSITION_TYPE.NONE:
       state.active = key
-      // TODO: 주변 이미지 불러오기
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
       break
     case TRANSITION_TYPE.FADE:
       slides.lock = true
-      state.useAnimationPlay = true
+      globalState.playedSlide = true
       state.prevActive = state.active
       state.classNamePrevActive = 'fade-out'
       state.active = key
@@ -147,7 +203,28 @@ async function run(key, direction = true)
       break
     case TRANSITION_TYPE.HORIZONTAL:
       slides.lock = true
-      state.useAnimationPlay = true
+      globalState.playedSlide = true
+      const idx = {
+        prev: getSlideIndex(state.active),
+        next: getSlideIndex(key),
+      }
+      if (settings.value.loop)
+      {
+        // 이전꺼 0, 다음꺼 마지막
+        if (idx.prev === 0 && idx.next >= slides.order.length - 1)
+        {
+          state.prevActive = 'first'
+        }
+        // 이전꺼 마지막, 다음꺼 0
+        else if (idx.prev >= slides.order.length - 1 && idx.next === 0)
+        {
+          state.prevActive = 'last'
+        }
+        else
+        {
+          state.prevActive = ''
+        }
+      }
       state.active = key
       $body.value.addEventListener('transitionend', onTransitionEnd, { once: true })
       break
@@ -158,25 +235,157 @@ function onTransitionEnd()
   switch (settings.value.transitionType)
   {
     case TRANSITION_TYPE.FADE:
-      state.useAnimationPlay = false
       state.prevActive = ''
       state.classNamePrevActive = ''
       state.classNameActive = 'active'
+      globalState.playedSlide = false
       slides.lock = false
-      // TODO: 주변 이미지 불러오기
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
       break
     case TRANSITION_TYPE.HORIZONTAL:
+      globalState.playedSlide = false
+      state.prevActive = ''
       slides.lock = false
-      state.useAnimationPlay = false
-      // TODO: 주변 이미지 불러오기
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
       break
   }
+}
+
+function cancelRunning()
+{
+  globalState.playedSlideCancel = true
+  $body.value.addEventListener('transitionend', onCancelRunningTransitionEnd, { once: true })
+}
+function onCancelRunningTransitionEnd()
+{
+  globalState.playedSlideCancel = false
 }
 
 function getSlideIndex(key)
 {
   const idx = slides.order.indexOf(key)
   return idx > -1 ? idx : undefined
+}
+
+/**
+ * 주변 슬라이드 loaded 값을 true로 바꿔준다.
+ * @param {string[]} arr
+ * @param {number} pickIndex
+ * @param {boolean} loop
+ * @param {number} scope
+ */
+function updateLoadedFromItems(arr, pickIndex, loop, scope = 2)
+{
+  const length = arr.length
+  for (let i = (0-scope); i <= scope; i++)
+  {
+    let idx = pickIndex + i
+    if (idx < 0)
+    {
+      if (loop) idx = length + idx
+      else continue
+    }
+    else if (idx >= length)
+    {
+      if (loop) idx = idx % length
+      else continue
+    }
+    state.items[arr[idx]].loaded = true
+  }
+}
+function onErrorImage(key)
+{
+  if (state.items[key]) state.items[key].error = true
+}
+
+function onPointerStart(e)
+{
+  e.stopPropagation()
+  if (e.touches) pointer.touched = true
+  if (e.touches && e.touches.length > 1) e.preventDefault()
+  if (globalState.playedSlide) return
+  if (!preference.slides.swipe) return
+  if (preference.slides.transitionType !== TRANSITION_TYPE.HORIZONTAL) return
+  if (slides.order.length <= 2) return
+  pointer.dist = 0
+  pointer.startX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
+  pointer.startTime = new Date().getTime()
+  globalState.swipe = true
+}
+function onPointerMove(e)
+{
+  e.stopPropagation()
+  if (!e.touches && pointer.touched) return
+  if (!globalState.swipe) return
+  if (slides.order.length <= 2) return
+  pointer.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
+  const containerWidth = $root.value.offsetWidth
+  const dist = pointer.moveX - pointer.startX
+  state.swipePosX = (dist / containerWidth * 100) + (0 - (100 * (getSlideIndex(state.active) + 1)))
+}
+function onPointerEnd(e)
+{
+  e.stopPropagation()
+  if (!e.touches && pointer.touched) return
+  if (!globalState.swipe) return
+  if (e.touches && e.touches.length > 0) return
+  if (slides.order.length <= 2) return
+
+  const containerWidth = $root.value.offsetWidth
+  pointer.endX = (e.changedTouches && e.changedTouches[0]) ? Math.floor(e.changedTouches[0].clientX) : (e.clientX || e.pageX)
+  const dir = pointer.startX > pointer.endX // true is next
+  const elapsedTime = new Date().getTime() - pointer.startTime
+  const distPos = pointer.endX - pointer.startX
+  const percent = Math.abs(distPos) / containerWidth * 100
+
+  // unset values
+  pointer.dist = 0
+  pointer.startX = undefined
+  pointer.startTime = undefined
+  pointer.moveX = undefined
+  pointer.endX = undefined
+  globalState.swipe = false
+  state.swipePosX = NaN
+
+  if (elapsedTime < 60 || percent < 1)
+  {
+    // TODO: 클릭하는 수준으로 짧은터치
+    // TODO: HUD를 보이거나 안보이거나 토글링한다.
+    console.log('짧은터치')
+    return
+  }
+
+  if (elapsedTime > 300)
+  {
+    // 긴 터치
+    if (percent > 30) slides[dir ? 'next' : 'prev']()
+    else cancelRunning()
+  }
+  else
+  {
+    // 짧은 터치
+    if (percent > 5) slides[dir ? 'next' : 'prev']()
+    else cancelRunning()
+  }
+}
+function onMouseLeave(e)
+{
+  // TODO: 예감이 이 부분은 부모 영역에서 사용해야 할거 같아 보인다. 아니면 provide 사용이 필요할지도 모르겠다.
+  // TODO: 이 부분은 다른곳에서 조정해야 할 필요가 있어보인다. 다른 컨트롤 버튼이랑 좀 연관이 생길거 같다.
+  if (globalState.swipe) cancelRunning()
+  globalState.swipe = false
+  state.swipePosX = NaN
+  // TODO: 오토플레이랑 관련된 부분도 있다.
+}
+function onMouseEnter(e)
+{
+  // TODO: 여기도 부모 영역에서 실행해야할 거 같아 보인다.
+  // TODO: 오토플레이에 관련된 이벤트로 사용된다.
+}
+function onContextMenu(e)
+{
+  globalState.swipe = false
+  state.swipePosX = NaN
 }
 </script>
 

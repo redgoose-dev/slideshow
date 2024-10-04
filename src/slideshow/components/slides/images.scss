@@ -3,9 +3,10 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  scale: .25; // TODO: 테스트용으로 넣어둠
+  scale: .5; // TODO: 테스트용으로 넣어둠
   transform-origin: 50% 50%;
   //overflow: clip;
+  user-select: none;
   &:after {
     content: '';
     display: block;
@@ -15,7 +16,7 @@
     top: 0;
     bottom: 0;
     pointer-events: none;
-    outline: 30px solid hsla(0 100% 50% / 50%);
+    outline: 30px dashed hsla(0 100% 50% / 50%);
   }
 }
 
@@ -70,7 +71,7 @@
   }
   &--horizontal {
     .body {
-      --pos: var(--move-x, calc(100% * var(--active-column) * -1));
+      --pos: var(--swipe-pos-x, calc(100% * (var(--active-column) + 1) * -1));
       display: flex;
       backface-visibility: hidden;
       transform: translateX(var(--pos));
@@ -91,6 +92,7 @@
         transition-property: transform;
         transition-duration: 200ms;
         transition-timing-function: ease-out;
+        will-change: transform;
       }
     }
   }
@@ -108,13 +110,30 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-  }
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: violet;
-    object-fit: cover;
+    // TODO: 테스트로 눈에띄게 만들어둠, 나중에 삭제하기
+    &.slide-first {
+      background: lime;
+      img {
+        opacity: .25;
+      }
+    }
+    &.slide-last {
+      background: red;
+      img {
+        opacity: .25;
+      }
+    }
+    pre {
+      display: grid;
+      place-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 32px;
+      line-height: 1.25;
+      margin: 0;
+      box-sizing: border-box;
+      font-weight: 600;
+    }
   }
 }
 
@@ -124,5 +143,5 @@
   right: 0;
   top: 0;
   bottom: 0;
-  display: none;
+  //display: none;
 }

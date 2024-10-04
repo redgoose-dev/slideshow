@@ -1,30 +1,34 @@
 <template>
-<nav class="controller">
+<nav :class="[
+  'controller',
+  globalState.swipe && 'swipe',
+]">
   <button
     type="button"
+    title="prev slide"
     :disabled="!usePrevButton"
+    class="prev"
     @click="onClickPrev">
-    PREV
+    <Icon name="chevron-left"/>
   </button>
   <button
     type="button"
+    title="next slide"
     :disabled="!useNextButton"
+    class="next"
     @click="onClickNext">
-    NEXT
-  </button>
-  <button
-    type="button"
-    @click="onClickChangeSlide">
-    CHANGE
+    <Icon name="chevron-right"/>
   </button>
 </nav>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { slidesStore } from '../../store/index.js'
+import { computed, provide } from 'vue'
+import { slidesStore, globalStateStore } from '../../store/index.js'
+import Icon from '../icon/index.vue'
 
 const slides = slidesStore()
+const globalState = globalStateStore()
 const usePrevButton = computed(() => {
   return true
 })
@@ -42,6 +46,7 @@ function onClickNext()
   slides.next()
 }
 
+// TODO: 나중에 지울예정
 function onClickChangeSlide()
 {
   const key = prompt('슬라이드 키 이름??')
