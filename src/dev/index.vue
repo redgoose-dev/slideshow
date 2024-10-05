@@ -1,15 +1,17 @@
 <template>
 <article class="dev">
-<!--  <nav>-->
-<!--    <button @click="onClickFire">FIRE</button>-->
-<!--    <button @click="onClickRestart">RESETART</button>-->
-<!--  </nav>-->
+  <nav>
+    {{activeSlide}}
+    <button @click="onClickControl('stop')">STOP</button>
+    <button @click="onClickControl('start')">START</button>
+    <button @click="onClickControl('restart')">RESTART</button>
+    <button @click="onClickChangeSlide">GO SLIDE</button>
+  </nav>
   <Slideshow
     ref="$slideshow"
+    v-model:active="activeSlide"
     :preference="preference"
-    :slides="slides"
-    @update-preference="onUpdatedPreference"
-    @update-slides="onUpdatedSlides"/>
+    :slides="slides"/>
 </article>
 </template>
 
@@ -27,40 +29,44 @@ const preference = ref({
   },
   slides: {
     loop: true,
-    // initialKey: 'key-0',
     transitionType: 'horizontal', // none,fade,horizontal
     transitionSpeed: 600,
     captionAnimationType: 'shuffle', // none,shuffle
     captionAnimationSpeed: 40,
     captionAnimationDelay: 500,
+    swipe: true,
+    autoplay: false,
+    autoplayDelay: 7000,
+    autoplayDirection: true, // next(true), prev(false)
+    autoplayPauseOnHover: false,
   },
   style: {
-    imageType: 'contain',
+    imageType: 'cover',
     imageScale: [ '100%','100%' ],
   },
 })
 const slides = ref(cloneObject(defaultSlides))
+const activeSlide = ref('4')
 
-function onUpdatedPreference(src)
+async function onClickControl(mode)
 {
-  // console.warn('[onUpdatedPreference()]')
-  preference.value = src
+  switch (mode)
+  {
+    case 'start':
+      $slideshow.value.start()
+      break
+    case 'stop':
+      $slideshow.value.stop()
+      break
+    case 'restart':
+      $slideshow.value.restart()
+      break
+  }
 }
-function onUpdatedSlides(src)
+function onClickChangeSlide()
 {
-  // console.warn('[onUpdatedSlides()]')
-}
-
-async function onClickFire()
-{
-  preference.value.general.language = 'FRE'
-  // $slideshow.value.restart()
-}
-async function onClickRestart()
-{
-  $slideshow.value.restart()
+  activeSlide.value = prompt('슬라이드 번호??')
 }
 </script>
 
-<style src="./index.scss" lang="scss" scoped>
-</style>
+<style src="./index.scss" lang="scss" scoped></style>

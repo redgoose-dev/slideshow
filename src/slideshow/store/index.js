@@ -15,10 +15,9 @@ export const preferenceStore = defineStore('preference', {
   }),
   getters: {},
   actions: {
-    setup(src, useDefault = false)
+    setup(src)
     {
-      const clonedPreference = cloneObject(useDefault ? defaultPreference : this.exportData())
-      let preference = deepMerge(clonedPreference, src)
+      let preference = deepMerge(cloneObject(defaultPreference), src)
       preference = checkPreference(preference)
       this.general = preference.general
       this.slides = preference.slides
@@ -78,19 +77,18 @@ export const slidesStore = defineStore('slides', {
     },
   },
   actions: {
-    setup(src)
+    setup(src, activeKey)
     {
       const preference = preferenceStore()
       const slides = (src?.length > 0) ? src : []
       slides.forEach((slide, index) => {
         const { key, ...body } = slide
-        const keyName = String(key || `key-${index}`)
+        const keyName = String(key || index + 1)
         this.order.push(keyName)
         this.data.set(keyName, body)
       })
       // set initial key
-      const { initialKey } = preference.slides
-      if (initialKey && this.order.includes(initialKey)) this.active = initialKey
+      if (activeKey && this.order.includes(activeKey)) this.active = activeKey
       if (!this.active) this.active = this.order[0]
     },
     exportData()
@@ -103,7 +101,6 @@ export const slidesStore = defineStore('slides', {
     {
       this.data.clear()
       this.order = []
-      this.active = undefined
     },
     prev()
     {
@@ -139,9 +136,14 @@ export const slidesStore = defineStore('slides', {
       this.direction = true
       this.active = this.order[nextIndex]
     },
+    /**
+     * change slide
+     * @param {string} key
+     */
     change(key)
     {
       if (this.lock) return
+      if (!key) return
       if (key === this.active) return
       const activeIndex = this.order.indexOf(this.active)
       const nextIndex = this.order.indexOf(key)

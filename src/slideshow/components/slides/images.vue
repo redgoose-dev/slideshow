@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, watch, inject, nextTick } from 'vue'
+import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { preferenceStore, slidesStore, globalStateStore } from '../../store/index.js'
 import { TRANSITION_TYPE } from '../../libs/keywords.js'
 import { sleep } from '../../libs/util.js'
@@ -147,16 +147,7 @@ let pointer = {
 }
 
 onMounted(() => {
-  const { initialKey } = preference.slides
-  // set initial key
-  if (initialKey && slides.order.includes(initialKey))
-  {
-    state.active = initialKey
-  }
-  else
-  {
-    state.active = slides.order[0]
-  }
+  state.active = slides.active
   updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
 })
 

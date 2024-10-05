@@ -16,18 +16,17 @@ export const defaultPreference = {
     },
   },
   slides: {
-    initialKey: '',
-    transitionType: 'horizontal', // none,fade,horizontal
-    transitionSpeed: 500,
+    transitionType: 'horizontal', // 트랜지션 종류 (none,fade,horizontal)
+    transitionSpeed: 500, // 트랜지션 속도 (ms)
     captionAnimationType: 'none', // none,shuffle
-    captionAnimationDelay: 0,
-    captionAnimationSpeed: 40,
-    autoplay: false,
-    autoplayDelay: 7000,
+    captionAnimationDelay: 0, // 캡션 애니메이션 딜레이 (ms)
+    captionAnimationSpeed: 40, // 캡션 애니메이션 속도 (fps)
+    autoplay: false, // 자동재생
+    autoplayDelay: 7000, // 자동재생 공백시간
     autoplayDirection: true, // next(true), prev(false)
-    autoplayPauseOnHover: false,
-    loop: true,
-    swipe: true,
+    autoplayPauseOnHover: false, // 영역에 갖다댈때 자동재생 일시정지 여부
+    loop: true, // 마지막에서 처음으로 되돌리기
+    swipe: true, // 스와이프 사용여부
   },
   style: {
     displayTheme: 'system', // dark,light,system

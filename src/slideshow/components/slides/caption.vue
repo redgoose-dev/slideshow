@@ -30,6 +30,7 @@ const styles = computed(() => {
   }
 })
 const typos = computed(() => {
+  if (!slides.data.get(slides.active)) return {}
   const { title, description } = slides.data.get(slides.active)
   return { title, description }
 })
