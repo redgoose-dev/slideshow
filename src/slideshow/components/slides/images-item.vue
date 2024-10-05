@@ -1,20 +1,22 @@
 <template>
 <p v-if="props.error">
-  <i>
-    <Icon name="x"/>
-  </i>
+  <i><Icon name="x"/></i>
   <span>no image</span>
 </p>
 <img
   v-if="props.loaded"
   :src="props.src"
   :alt="props.alt"
+  :style="imageStyle"
   @error="onError"/>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { preferenceStore } from '../../store/index.js'
 import Icon from '../icon/index.vue'
 
+const preference = preferenceStore()
 const props = defineProps({
   keyName: String,
   loaded: Boolean,
@@ -23,6 +25,14 @@ const props = defineProps({
   error: Boolean,
 })
 const emits = defineEmits([ 'error' ])
+const imageStyle = computed(() => {
+  const { imageScale, imageType } = preference.style
+  return {
+    '--w': imageScale[0],
+    '--h': imageScale[1],
+    '--fit': imageType,
+  }
+})
 
 function onError()
 {
@@ -33,9 +43,15 @@ function onError()
 <style lang="scss" scoped>
 img {
   display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-width: var(--w, 100%);
+  max-height: var(--h, 100%);
+  object-fit: var(--fit, 'cover');
 }
 p {
   margin: 0;

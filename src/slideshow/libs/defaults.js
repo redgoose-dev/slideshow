@@ -20,6 +20,7 @@ export const defaultPreference = {
     transitionType: 'horizontal', // none,fade,horizontal
     transitionSpeed: 500,
     captionAnimationType: 'none', // none,shuffle
+    captionAnimationDelay: 0,
     captionAnimationSpeed: 40,
     autoplay: false,
     autoplayDelay: 7000,
@@ -30,10 +31,10 @@ export const defaultPreference = {
   },
   style: {
     displayTheme: 'system', // dark,light,system
-    imageType: 'none', // none,contain,cover
-    imageScale: ['75%','75%'], // [ width, height ]
-    captionScale: 100, // (%)
-    captionPosition: ['32px','30px'], // [ left, top ]
+    imageType: 'cover', // none,contain,cover
+    imageScale: [ '100%', '100%' ], // [ width, height ]
+    captionScale: 100, // 캡션 사이즈 퍼센트(%)
+    captionPosition: [ '32px', '30px' ], // [ left, top ]
   },
   keyboard: {
     enabled: true,
@@ -63,7 +64,7 @@ export const defaultSlides = [
   {
     src: 'https://goose.redgoose.me/data/upload/original/202408/koi.webp',
     thumbnail: 'https://goose.redgoose.me/data/upload/thumbnail/202408/66b8890ac4d5a.png',
-    title: 'fFOFOOFOoofoof',
+    title: '황발화 활달바아아아',
     description: 'XOOooxoxoxo xoxoxoxxooo xxxx',
   },
   {

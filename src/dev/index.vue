@@ -27,9 +27,16 @@ const preference = ref({
   },
   slides: {
     loop: true,
+    // initialKey: 'key-0',
     transitionType: 'horizontal', // none,fade,horizontal
     transitionSpeed: 600,
-    initialKey: 'key-0',
+    captionAnimationType: 'shuffle', // none,shuffle
+    captionAnimationSpeed: 40,
+    captionAnimationDelay: 500,
+  },
+  style: {
+    imageType: 'contain',
+    imageScale: [ '100%','100%' ],
   },
 })
 const slides = ref(cloneObject(defaultSlides))

@@ -3,7 +3,6 @@
   ref="$root"
   :class="[
     'images',
-    `style--${preference.style.imageType}`,
     `mode--${preference.slides.transitionType}`,
     globalState.playedSlide && 'animation-play',
     globalState.playedSlideCancel && 'animation-cancel',
@@ -91,8 +90,6 @@ const state = reactive({
 const rootStyles = computed(() => {
   if (slides.order.indexOf(state.active) <= -1) return
   let style = {}
-  style[`--size-width`] = preference.style.imageScale[0]
-  style[`--size-height`] = preference.style.imageScale[1]
   switch (preference.slides.transitionType)
   {
     case TRANSITION_TYPE.FADE:

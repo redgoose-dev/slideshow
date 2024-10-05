@@ -1,6 +1,6 @@
 <template>
 <div class="slides">
-  <Images ref="$images"/>
+  <Images/>
   <Caption/>
   <Controller/>
   <Paginate/>
@@ -17,23 +17,6 @@ import Paginate from './paginate.vue'
 
 const preference = preferenceStore()
 const slides = slidesStore()
-const $images = ref()
-
-// set provide
-provide('slides', {
-  change,
-  // next,
-  // prev,
-})
-
-// const computedSlides = computed(() => {
-//   return slides.items
-// })
-
-function change(n)
-{
-  console.log('change slide', n)
-}
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>
