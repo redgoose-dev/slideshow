@@ -28,7 +28,7 @@ const preference = ref({
   slides: {
     loop: true,
     transitionType: 'horizontal', // none,fade,horizontal
-    transitionSpeed: 800,
+    transitionSpeed: 600,
     initialKey: 'key-0',
   },
 })

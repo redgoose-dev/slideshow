@@ -1,9 +1,9 @@
 <template>
 <div class="slides">
   <Images ref="$images"/>
-<!--  <Caption/>-->
+  <Caption/>
   <Controller/>
-<!--  <Paginate/>-->
+  <Paginate/>
 </div>
 </template>
 

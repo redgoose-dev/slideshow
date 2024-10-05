@@ -3,10 +3,10 @@ export const defaultPreference = {
   general: {
     language: 'en', // en,ko
     hud: true,
-    hoverVisibleHud: false,
-    clickVisibleHud: false,
+    visibleHudHover: false,
+    visibleHudClick: false,
     visibleHudContents: {
-    menu: true,
+      menu: true,
       thumbnail: false,
       caption: true,
       controller: true,
@@ -29,10 +29,10 @@ export const defaultPreference = {
     swipe: true,
   },
   style: {
-    screenColor: 'system', // dark,light,system
+    displayTheme: 'system', // dark,light,system
     imageType: 'none', // none,contain,cover
     imageScale: ['75%','75%'], // [ width, height ]
-    captionScale: 100, // %
+    captionScale: 100, // (%)
     captionPosition: ['32px','30px'], // [ left, top ]
   },
   keyboard: {

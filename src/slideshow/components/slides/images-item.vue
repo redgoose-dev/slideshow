@@ -1,16 +1,20 @@
 <template>
 <p v-if="props.error">
-  <i>icon</i>
-  <strong>message</strong>
+  <i>
+    <Icon name="x"/>
+  </i>
+  <span>no image</span>
 </p>
 <img
-  v-else-if="props.loaded"
+  v-if="props.loaded"
   :src="props.src"
   :alt="props.alt"
   @error="onError"/>
 </template>
 
 <script setup>
+import Icon from '../icon/index.vue'
+
 const props = defineProps({
   keyName: String,
   loaded: Boolean,
@@ -22,7 +26,6 @@ const emits = defineEmits([ 'error' ])
 
 function onError()
 {
-  if (!props.key) return
   emits('error', props.keyName)
 }
 </script>
@@ -41,5 +44,23 @@ p {
   height: 100%;
   place-content: center;
   justify-items: center;
+  user-select: none;
+  pointer-events: none;
+  i {
+    display: block;
+    --icon-size: 120px;
+    --icon-stroke: .25;
+    --icon-color: var(--color-danger);
+  }
+  span {
+    display: block;
+    margin: -8px 0 16px;
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-low-fill);
+    letter-spacing: -.25px;
+    text-transform: uppercase;
+  }
 }
 </style>

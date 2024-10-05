@@ -27,6 +27,7 @@
   -webkit-text-size-adjust: 100%;
   text-size-adjust: none;
   box-sizing: border-box;
+  container: slideshow / inline-size;
 
   // slideshow size
   width: var(--slideshow-width, auto);
@@ -36,7 +37,7 @@
 .debug {
   position: absolute;
   background: #fff;
-  right: 30px;
+  left: 30px;
   bottom: 30px;
   box-sizing: border-box;
   outline: 2px solid red;

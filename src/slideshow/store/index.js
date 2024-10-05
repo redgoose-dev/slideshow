@@ -18,8 +18,8 @@ export const preferenceStore = defineStore('preference', {
     setup(src, useDefault = false)
     {
       const clonedPreference = cloneObject(useDefault ? defaultPreference : this.exportData())
-      const preference = deepMerge(clonedPreference, src)
-      checkPreference(preference)
+      let preference = deepMerge(clonedPreference, src)
+      preference = checkPreference(preference)
       this.general = preference.general
       this.slides = preference.slides
       this.style = preference.style
@@ -71,6 +71,10 @@ export const slidesStore = defineStore('slides', {
           alt: item.title,
         }
       })
+    },
+    activeIndex()
+    {
+      return this.order.indexOf(this.active)
     },
   },
   actions: {

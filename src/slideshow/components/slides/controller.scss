@@ -1,9 +1,15 @@
 .controller {
   > button {
+    --icon-margin: 0;
+    --icon-color: var(--color-fill);
+    --icon-size: 100px;
+    --icon-stroke: .75;
+    --color-outline: hsla(0 0% 100% / 85%);
     display: grid;
     place-content: center;
     position: absolute;
     top: 50%;
+    z-index: 2;
     width: 20%;
     max-width: 120px;
     height: 25%;
@@ -12,10 +18,16 @@
     translate: 0 -50%;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    --icon-margin: 0;
-    --icon-color: var(--color-fill);
-    --icon-size: 72px;
-    --icon-stroke: 1;
+    transition: opacity 200ms ease-out;
+    &:disabled {
+      pointer-events: none;
+      opacity: 0;
+    }
+    .icon {
+      filter:
+        drop-shadow(.5px 0 1px var(--color-outline))
+        drop-shadow(-.5px 0 1px var(--color-outline));
+    }
     &.prev {
       left: 0;
     }

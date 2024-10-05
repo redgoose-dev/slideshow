@@ -1,0 +1,12 @@
+@use '../../assets/mixins';
+
+.caption {
+  display: none;
+  @include mixins.responsive(desktop) {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
+}

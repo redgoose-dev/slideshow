@@ -24,16 +24,19 @@
 
 <script setup>
 import { computed, provide } from 'vue'
-import { slidesStore, globalStateStore } from '../../store/index.js'
+import { preferenceStore, slidesStore, globalStateStore } from '../../store/index.js'
 import Icon from '../icon/index.vue'
 
+const preference = preferenceStore()
 const slides = slidesStore()
 const globalState = globalStateStore()
 const usePrevButton = computed(() => {
-  return true
+  if (preference.slides.loop) return true
+  return 0 < slides.activeIndex
 })
 const useNextButton = computed(() => {
-  return true
+  if (preference.slides.loop) return true
+  return slides.order.length - 1 > slides.activeIndex
 })
 
 function onClickPrev()

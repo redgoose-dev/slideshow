@@ -3,8 +3,8 @@
   ref="$root"
   :class="[
     'images',
-    `style--${settings.imageType}`,
-    `mode--${settings.transitionType}`,
+    `style--${preference.style.imageType}`,
+    `mode--${preference.slides.transitionType}`,
     globalState.playedSlide && 'animation-play',
     globalState.playedSlideCancel && 'animation-cancel',
     globalState.swipe && 'swipe',
@@ -88,37 +88,28 @@ const state = reactive({
   prevActive: '',
   swipePosX: NaN,
 })
-const settings = computed(() => {
-  const { slides, style } = preference
-  return {
-    loop: slides.loop || false,
-    transitionType: slides.transitionType || TRANSITION_TYPE.NONE,
-    transitionSpeed: slides.transitionSpeed || 500,
-    imageType: style.imageType || 'none',
-    imageScale: style.imageScale || [ '100%', '100%' ],
-  }
-})
 const rootStyles = computed(() => {
   if (slides.order.indexOf(state.active) <= -1) return
   let style = {}
-  style[`--size-width`] = settings.value.imageScale[0]
-  style[`--size-height`] = settings.value.imageScale[1]
-  switch (settings.value.transitionType)
+  style[`--size-width`] = preference.style.imageScale[0]
+  style[`--size-height`] = preference.style.imageScale[1]
+  switch (preference.slides.transitionType)
   {
     case TRANSITION_TYPE.FADE:
       break
     case TRANSITION_TYPE.HORIZONTAL:
-      style[`--speed-transition`] = `${settings.value.transitionSpeed}ms`
+      style[`--speed-transition`] = `${preference.slides.transitionSpeed}ms`
       switch (state.prevActive)
       {
         case 'first':
-          style[`--active-column`] = -1
+          style[`--active-column`] = 0
           break
         case 'last':
-          style[`--active-column`] = slides.order.length
+          style[`--active-column`] = slides.order.length + 1
           break
         default:
           style[`--active-column`] = getSlideIndex(state.prevActive || state.active)
+          if (preference.slides.loop) style[`--active-column`]++
           break
       }
       if (!isNaN(state.swipePosX))
@@ -130,8 +121,8 @@ const rootStyles = computed(() => {
   return style
 })
 const showFirstSlide = computed(() => {
-  if (settings.value.transitionType !== 'horizontal') return false
-  if (!settings.value.loop) return false
+  if (preference.slides.transitionType !== 'horizontal') return false
+  if (!preference.slides.loop) return false
   if (slides.order.length <= 1) return false
   const item = state.items[slides.order[slides.order.length - 1]]
   return {
@@ -141,8 +132,8 @@ const showFirstSlide = computed(() => {
   }
 })
 const showLastSlide = computed(() => {
-  if (settings.value.transitionType !== 'horizontal') return false
-  if (!settings.value.loop) return false
+  if (preference.slides.transitionType !== 'horizontal') return false
+  if (!preference.slides.loop) return false
   if (slides.order.length <= 1) return false
   const item = state.items[slides.order[0]]
   return {
@@ -169,7 +160,7 @@ onMounted(() => {
   {
     state.active = slides.order[0]
   }
-  updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
+  updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
 })
 
 watch(() => slides.active, async (value) => {
@@ -184,11 +175,11 @@ watch(() => slides.active, async (value) => {
  */
 async function run(key)
 {
-  switch (settings.value.transitionType)
+  switch (preference.slides.transitionType)
   {
     case TRANSITION_TYPE.NONE:
       state.active = key
-      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
       break
     case TRANSITION_TYPE.FADE:
       slides.lock = true
@@ -208,7 +199,7 @@ async function run(key)
         prev: getSlideIndex(state.active),
         next: getSlideIndex(key),
       }
-      if (settings.value.loop)
+      if (preference.slides.loop)
       {
         // 이전꺼 0, 다음꺼 마지막
         if (idx.prev === 0 && idx.next >= slides.order.length - 1)
@@ -232,7 +223,7 @@ async function run(key)
 }
 function onTransitionEnd()
 {
-  switch (settings.value.transitionType)
+  switch (preference.slides.transitionType)
   {
     case TRANSITION_TYPE.FADE:
       state.prevActive = ''
@@ -240,13 +231,13 @@ function onTransitionEnd()
       state.classNameActive = 'active'
       globalState.playedSlide = false
       slides.lock = false
-      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
       break
     case TRANSITION_TYPE.HORIZONTAL:
       globalState.playedSlide = false
       state.prevActive = ''
       slides.lock = false
-      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), settings.value.loop)
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
       break
   }
 }
@@ -351,7 +342,6 @@ function onPointerEnd(e)
   {
     // TODO: 클릭하는 수준으로 짧은터치
     // TODO: HUD를 보이거나 안보이거나 토글링한다.
-    console.log('짧은터치')
     return
   }
 

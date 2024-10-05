@@ -71,7 +71,7 @@
   }
   &--horizontal {
     .body {
-      --pos: var(--swipe-pos-x, calc(100% * (var(--active-column) + 1) * -1));
+      --pos: var(--swipe-pos-x, calc(100% * var(--active-column) * -1));
       display: flex;
       backface-visibility: hidden;
       transform: translateX(var(--pos));
