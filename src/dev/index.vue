@@ -1,17 +1,22 @@
 <template>
 <article class="dev">
   <nav>
-    {{activeSlide}}
+    <span>{{slideshowState.active}}</span>
+    <span>{{slideshowState.autoplay}}</span>
     <button @click="onClickControl('stop')">STOP</button>
     <button @click="onClickControl('start')">START</button>
     <button @click="onClickControl('restart')">RESTART</button>
     <button @click="onClickChangeSlide">GO SLIDE</button>
+    <button @click="onClickToggleAutoplay">AUTOPLAY</button>
   </nav>
-  <Slideshow
-    ref="$slideshow"
-    v-model:active="activeSlide"
-    :preference="preference"
-    :slides="slides"/>
+  <div class="slideshow-wrap">
+    <Slideshow
+      ref="$slideshow"
+      :preference="preference"
+      :slides="slides"
+      v-model:active="slideshowState.active"
+      v-model:autoplay="slideshowState.autoplay"/>
+  </div>
 </article>
 </template>
 
@@ -24,7 +29,6 @@ import { cloneObject } from '../slideshow/libs/util.js'
 const $slideshow = ref()
 const preference = ref({
   general: {
-    FOO: 'barrrr',
     language: 'ko',
   },
   slides: {
@@ -35,10 +39,10 @@ const preference = ref({
     captionAnimationSpeed: 40,
     captionAnimationDelay: 500,
     swipe: true,
-    autoplay: false,
-    autoplayDelay: 7000,
+    autoplay: true,
+    autoplayDelay: 3000,
     autoplayDirection: true, // next(true), prev(false)
-    autoplayPauseOnHover: false,
+    autoplayPauseOnHover: true,
   },
   style: {
     imageType: 'cover',
@@ -46,7 +50,10 @@ const preference = ref({
   },
 })
 const slides = ref(cloneObject(defaultSlides))
-const activeSlide = ref('4')
+const slideshowState = reactive({
+  active: '3',
+  autoplay: true,
+})
 
 async function onClickControl(mode)
 {
@@ -65,8 +72,32 @@ async function onClickControl(mode)
 }
 function onClickChangeSlide()
 {
-  activeSlide.value = prompt('슬라이드 번호??')
+  slideshowState.active = prompt('슬라이드 번호??')
+}
+function onClickToggleAutoplay()
+{
+  slideshowState.autoplay = !slideshowState.autoplay
 }
 </script>
 
-<style src="./index.scss" lang="scss" scoped></style>
+<style lang="scss" scoped>
+.dev {
+  position: relative;
+  height: 100dvh;
+  display: grid;
+  place-content: center;
+  > nav {
+    position: absolute;
+    left: 300px;
+    top: 120px;
+    z-index: 3;
+    display: flex;
+    gap: 0 8px;
+    align-items: center;
+  }
+}
+.slideshow-wrap {
+  width: 100dvw;
+  height: 100dvh;
+}
+</style>

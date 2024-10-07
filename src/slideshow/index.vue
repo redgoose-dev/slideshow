@@ -1,20 +1,24 @@
 <template>
 <div v-if="!state.stop" class="slideshow">
   <Error v-if="state.error"/>
-  <Container v-else/>
+  <Slides v-else/>
+  <slot/>
+  <component v-if="debug" :is="debug"/>
 </div>
 </template>
 
 <script setup>
-import { reactive, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
-import { preferenceStore, slidesStore } from './store/index.js'
-import Container from './components/container/index.vue'
+import { reactive, watch, onMounted, onUnmounted, nextTick, defineAsyncComponent } from 'vue'
+import { preferenceStore, slidesStore, globalStateStore } from './store/index.js'
+import Slides from './components/slides/index.vue'
 import Error from './components/error/index.vue'
 
 const preference = preferenceStore()
 const slides = slidesStore()
+const globalState = globalStateStore()
 const props = defineProps({
-  active: String,
+  active: [ String, Number ],
+  autoplay: Boolean,
   preference: Object,
   slides: Array,
 })
@@ -25,11 +29,15 @@ const state = reactive({
 })
 const emits = defineEmits([
   'update:active',
+  'update:autoplay',
 ])
 
-// TODO: 슬라이드쇼 내부에서 변경되고 외부에다 전달해줄 데이터 목록
-// TODO: - 활성화된 슬라이드 키
-// TODO: - 자동재생 켜져있는지에 대한 여부
+// set debug component
+let debug
+if (import.meta.env.DEV)
+{
+  debug = defineAsyncComponent(() => import('./components/debug/index.vue'))
+}
 
 // TODO: 무작위로 섞는 기능은 슬라이드쇼 내부에서 정할지 외부에서 섞고 슬라이드쇼에다 집어넣기만 할지 고민하기
 
@@ -46,27 +54,41 @@ onUnmounted(() => {
 // watch
 watch(() => props.slides, () => restart(), { deep: true })
 watch(() => props.preference, () => restart(), { deep: true })
-watch(() => props.active, (value, oldValue) => {
+watch(() => String(props.active), (value, oldValue) => {
   if (value === slides.active) return
   slides.change(value)
 })
 watch(() => slides.active, (value) => {
   emits('update:active', value)
 })
+watch(() => props.autoplay, (value) => {
+  globalState.autoplay = value
+})
 
 async function start()
 {
   if (!state.stop) return
-  preference.setup(props.preference)
-  slides.setup(props.slides, props.active)
-  await nextTick()
-  state.stop = false
+  try
+  {
+    preference.setup(props.preference)
+    slides.setup(props.slides, String(props.active))
+    globalState.setup({
+      autoplay: props.autoplay,
+    })
+    await nextTick()
+    state.stop = false
+  }
+  catch(e)
+  {
+    state.error = e
+  }
 }
 async function stop()
 {
   preference.destroy()
   slides.destroy()
   state.stop = true
+  state.error = undefined
 }
 async function restart()
 {

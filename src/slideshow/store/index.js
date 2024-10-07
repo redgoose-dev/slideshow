@@ -79,7 +79,6 @@ export const slidesStore = defineStore('slides', {
   actions: {
     setup(src, activeKey)
     {
-      const preference = preferenceStore()
       const slides = (src?.length > 0) ? src : []
       slides.forEach((slide, index) => {
         const { key, ...body } = slide
@@ -162,5 +161,12 @@ export const globalStateStore = defineStore('state', {
     swipe: false,
     playedSlide: false,
     playedSlideCancel: false,
-  })
+    autoplay: true,
+  }),
+  actions: {
+    setup(op)
+    {
+      if (op.autoplay !== undefined) this.autoplay = op.autoplay
+    },
+  },
 })

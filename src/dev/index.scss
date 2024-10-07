@@ -1,10 +1,15 @@
-.dev {
-  position: relative;
-  height: 100dvh;
-  > nav {
-    position: absolute;
-    left: 300px;
-    top: 120px;
-    z-index: 3;
-  }
+:root {
+  //
+}
+
+html {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+pre {
+  font-size: 12px;
 }

@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { computed, provide } from 'vue'
+import { computed } from 'vue'
 import { preferenceStore, slidesStore, globalStateStore } from '../../store/index.js'
 import Icon from '../icon/index.vue'
 
@@ -43,18 +43,9 @@ function onClickPrev()
 {
   slides.prev()
 }
-
 function onClickNext()
 {
   slides.next()
-}
-
-// TODO: 나중에 지울예정
-function onClickChangeSlide()
-{
-  const key = prompt('슬라이드 키 이름??')
-  if (!key) return
-  slides.change(key)
 }
 </script>
 

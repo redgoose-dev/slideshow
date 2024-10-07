@@ -16,7 +16,12 @@ const config = defineConfig(() => {
         input: {
           app: './src/docs.html',
         },
-        output: {},
+        output: {
+          manualChunks(id)
+          {
+            if (id.includes('node_modules')) return 'vendor'
+          },
+        },
       },
     },
     css: {

@@ -16,7 +16,6 @@
   @mousemove="onPointerMove"
   @mouseup="onPointerEnd"
   @mouseleave="onMouseLeave"
-  @mouseenter="onMouseEnter"
   @contextmenu="onContextMenu">
   <ul ref="$body" class="body">
     <li v-if="showFirstSlide" class="slide-first">
@@ -66,6 +65,8 @@ const globalState = globalStateStore()
 const props = defineProps({})
 const emits = defineEmits([
   'change',
+  'transition-start',
+  'transition-end',
 ])
 const $root = ref()
 const $image = ref({})
@@ -163,11 +164,14 @@ watch(() => slides.active, async (value) => {
  */
 async function run(key)
 {
-  switch (preference.slides.transitionType)
+  const { transitionType, loop } = preference.slides
+  emits('transition-start')
+  switch (transitionType)
   {
     case TRANSITION_TYPE.NONE:
       state.active = key
-      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), loop)
+      emits('transition-end')
       break
     case TRANSITION_TYPE.FADE:
       slides.lock = true
@@ -187,7 +191,7 @@ async function run(key)
         prev: getSlideIndex(state.active),
         next: getSlideIndex(key),
       }
-      if (preference.slides.loop)
+      if (loop)
       {
         // 이전꺼 0, 다음꺼 마지막
         if (idx.prev === 0 && idx.next >= slides.order.length - 1)
@@ -211,7 +215,8 @@ async function run(key)
 }
 function onTransitionEnd()
 {
-  switch (preference.slides.transitionType)
+  const { transitionType, loop } = preference.slides
+  switch (transitionType)
   {
     case TRANSITION_TYPE.FADE:
       state.prevActive = ''
@@ -219,13 +224,15 @@ function onTransitionEnd()
       state.classNameActive = 'active'
       globalState.playedSlide = false
       slides.lock = false
-      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), loop)
+      emits('transition-end')
       break
     case TRANSITION_TYPE.HORIZONTAL:
       globalState.playedSlide = false
       state.prevActive = ''
       slides.lock = false
-      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
+      updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), loop)
+      emits('transition-end')
       break
   }
 }
@@ -300,7 +307,8 @@ function onPointerMove(e)
   pointer.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
   const containerWidth = $root.value.offsetWidth
   const dist = pointer.moveX - pointer.startX
-  state.swipePosX = (dist / containerWidth * 100) + (0 - (100 * (getSlideIndex(state.active) + 1)))
+  const offset = preference.slides.loop ? 1 : 0
+  state.swipePosX = (dist / containerWidth * 100) + (0 - (100 * (getSlideIndex(state.active) + offset)))
 }
 function onPointerEnd(e)
 {
@@ -346,21 +354,13 @@ function onPointerEnd(e)
     else cancelRunning()
   }
 }
-function onMouseLeave(e)
+function onMouseLeave()
 {
-  // TODO: 예감이 이 부분은 부모 영역에서 사용해야 할거 같아 보인다. 아니면 provide 사용이 필요할지도 모르겠다.
-  // TODO: 이 부분은 다른곳에서 조정해야 할 필요가 있어보인다. 다른 컨트롤 버튼이랑 좀 연관이 생길거 같다.
   if (globalState.swipe) cancelRunning()
   globalState.swipe = false
   state.swipePosX = NaN
-  // TODO: 오토플레이랑 관련된 부분도 있다.
 }
-function onMouseEnter(e)
-{
-  // TODO: 여기도 부모 영역에서 실행해야할 거 같아 보인다.
-  // TODO: 오토플레이에 관련된 이벤트로 사용된다.
-}
-function onContextMenu(e)
+function onContextMenu()
 {
   globalState.swipe = false
   state.swipePosX = NaN

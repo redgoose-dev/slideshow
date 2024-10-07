@@ -21,7 +21,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { icons } from 'lucide'
+import * as lucide from 'lucide'
 import { toPascalCase } from '../../libs/util.js'
 
 const props = defineProps({
@@ -32,9 +32,12 @@ const props = defineProps({
   animation: String,
   animationSpeed: String,
 })
-
+const iconMap = {
+  'ChevronLeft': lucide.ChevronLeft,
+  'ChevronRight': lucide.ChevronRight,
+}
 const icon = computed(() => {
-  let src = icons[toPascalCase(props.name)]
+  let src = iconMap[toPascalCase(props.name)]
   if (!src) return null
   const [ tag, attrs, children ] = src
   const element = createSvgElement(tag, attrs, children)

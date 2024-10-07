@@ -62,6 +62,36 @@ watch(() => slides.active, (value, oldValue) => {
 function playShuffleAnimation(delay)
 {
   const { captionAnimationSpeed } = preference.slides
+  function action($el, text)
+  {
+    try
+    {
+      shuffle($el, {
+        text,
+        fps: captionAnimationSpeed,
+        randomTextType: 'pattern',
+      })
+    }
+    catch (e)
+    {
+      clear()
+    }
+  }
+  function clear()
+  {
+    if ($title.value?.dataset?.id)
+    {
+      cancelAnimationFrame(Number($title.value.dataset.id))
+      $title.value.textContent = ''
+    }
+    if ($description.value?.dataset?.id)
+    {
+      cancelAnimationFrame(Number($description.value.dataset.id))
+      $description.value.textContent = ''
+    }
+    if (interval.title) clearTimeout(interval.title)
+    if (interval.description) clearTimeout(interval.description)
+  }
   clear()
   if ($description.value.dataset.id)
   {
@@ -73,11 +103,7 @@ function playShuffleAnimation(delay)
     interval.title = setTimeout(() => {
       clearTimeout(interval.title)
       interval.title = undefined
-      shuffle($title.value, {
-        text: typos.value.title,
-        fps: captionAnimationSpeed,
-        randomTextType: 'pattern',
-      })
+      action($title.value, typos.value.title)
     }, delay)
   }
   if (typos.value.description)
@@ -85,28 +111,9 @@ function playShuffleAnimation(delay)
     interval.description = setTimeout(() => {
       clearTimeout(interval.description)
       interval.description = undefined
-      shuffle($description.value, {
-        text: typos.value.description,
-        fps: captionAnimationSpeed,
-        randomTextType: 'pattern',
-      })
+      action($description.value, typos.value.description)
     }, delay + 300)
   }
-}
-function clear()
-{
-  if ($title.value.dataset.id)
-  {
-    cancelAnimationFrame(Number($title.value.dataset.id))
-    $title.value.textContent = ''
-  }
-  if ($description.value.dataset.id)
-  {
-    cancelAnimationFrame(Number($description.value.dataset.id))
-    $description.value.textContent = ''
-  }
-  if (interval.title) clearTimeout(interval.title)
-  if (interval.description) clearTimeout(interval.description)
 }
 </script>
 
