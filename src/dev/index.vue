@@ -15,7 +15,9 @@
       :preference="preference"
       :slides="slides"
       v-model:active="slideshowState.active"
-      v-model:autoplay="slideshowState.autoplay"/>
+      v-model:autoplay="slideshowState.autoplay">
+      <div class="add">.addd</div>
+    </Slideshow>
   </div>
 </article>
 </template>
@@ -99,5 +101,14 @@ function onClickToggleAutoplay()
 .slideshow-wrap {
   width: 100dvw;
   height: 100dvh;
+}
+
+.add {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background: lime;
+  width: 100px;
+  height: 100px;
 }
 </style>

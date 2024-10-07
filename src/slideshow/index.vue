@@ -1,8 +1,9 @@
 <template>
 <div v-if="!state.stop" class="slideshow">
   <Error v-if="state.error"/>
-  <Slides v-else/>
-  <slot/>
+  <Slides v-else>
+    <slot/>
+  </Slides>
   <component v-if="debug" :is="debug"/>
 </div>
 </template>

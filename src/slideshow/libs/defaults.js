@@ -1,18 +1,15 @@
 /** @var {object} defaultPreference */
 export const defaultPreference = {
   general: {
-    language: 'en', // en,ko
+    // language: 'en', // en,ko // TODO: 이건 외부 props로 받아서 사용하는것이 좋을거 같다. 분량은 많이 않을거라고 예상된다.
     hud: true, // TODO
-    visibleHudHover: false, // TODO
-    visibleHudClick: false, // TODO
+    visibleHudHover: false, // TODO: 슬라이드쇼에 갖다대면 hud 영역이 등장한다.
+    visibleHudClick: false, // TODO: 클릭하면 hud 영역이 나왔다 없어진다.
     visibleHudContents: { // TODO
-      menu: true,
-      thumbnail: false,
+      slots: true,
       caption: true,
       controller: true,
       paginate: true,
-      autoplay: true,
-      group: true,
     },
   },
   slides: {
