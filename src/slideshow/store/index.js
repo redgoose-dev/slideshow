@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { cloneObject, deepMerge } from '../libs/util.js'
 import { checkPreference, checkSlides } from '../libs/data.js'
-import { defaultPreference } from '../libs/defaults.js'
+import { defaultPreference, defaultLanguage } from '../libs/defaults.js'
 
 /**
  * preference store
@@ -80,6 +80,7 @@ export const slidesStore = defineStore('slides', {
     setup(src, activeKey)
     {
       const slides = (src?.length > 0) ? src : []
+      checkSlides(slides)
       slides.forEach((slide, index) => {
         const { key, ...body } = slide
         const keyName = String(key || index + 1)
@@ -89,12 +90,6 @@ export const slidesStore = defineStore('slides', {
       // set initial key
       if (activeKey && this.order.includes(activeKey)) this.active = activeKey
       if (!this.active) this.active = this.order[0]
-    },
-    exportData()
-    {
-      // TODO: order 값을 순서로 내부 객체를 배열로 변환하는것이 좋을거 같다.
-      // TODO: 이것은 데이터 유지를 위한게 아니고 단순히 뽑아내는데 쓰이기 때문에 값의 구조가 변경되어도 괜찮다.
-      return cloneObject(this.data)
     },
     destroy()
     {
@@ -150,6 +145,27 @@ export const slidesStore = defineStore('slides', {
       this.direction = activeIndex < nextIndex
       this.active = this.active = this.order[nextIndex]
     }
+  },
+})
+
+export const languageStore = defineStore('language', {
+  state: () => ({
+    data: new Map(),
+  }),
+  getters: {
+    print(key)
+    {
+      //
+    },
+  },
+  actions: {
+    setup(src)
+    {
+      const language = Object.assign({}, cloneObject(defaultLanguage), src)
+      Object.entries(language).forEach(([ key, value ]) => {
+        this.data.set(key, value)
+      })
+    },
   },
 })
 

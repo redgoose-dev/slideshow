@@ -8,6 +8,7 @@
     <button @click="onClickControl('restart')">RESTART</button>
     <button @click="onClickChangeSlide">GO SLIDE</button>
     <button @click="onClickToggleAutoplay">AUTOPLAY</button>
+    <button @click="onClickExportData">EXPORT DATA</button>
   </nav>
   <div class="slideshow-wrap">
     <Slideshow
@@ -63,8 +64,8 @@ const preference = ref({
 })
 const slides = ref(cloneObject(slidesData))
 const slideshowState = reactive({
-  active: '4',
-  autoplay: true,
+  active: '2',
+  autoplay: false,
 })
 
 async function onClickControl(mode)
@@ -89,6 +90,11 @@ function onClickChangeSlide()
 function onClickToggleAutoplay()
 {
   slideshowState.autoplay = !slideshowState.autoplay
+}
+function onClickExportData()
+{
+  // $slideshow.value.export()
+  console.log('onClickExportData()', $slideshow.value.exports())
 }
 </script>
 

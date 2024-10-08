@@ -10,18 +10,21 @@
 
 <script setup>
 import { reactive, watch, onMounted, onUnmounted, nextTick, defineAsyncComponent } from 'vue'
-import { preferenceStore, slidesStore, globalStateStore } from './store/index.js'
+import { preferenceStore, slidesStore, globalStateStore, languageStore } from './store/index.js'
+import { cloneObject } from './libs/util.js'
 import Slides from './components/slides/index.vue'
 import Error from './components/error/index.vue'
 
 const preference = preferenceStore()
 const slides = slidesStore()
+const language = languageStore()
 const globalState = globalStateStore()
 const props = defineProps({
   active: [ String, Number ],
   autoplay: Boolean,
   preference: Object,
   slides: Array,
+  language: Object,
 })
 const state = reactive({
   stop: true,
@@ -39,8 +42,6 @@ if (import.meta.env.DEV)
 {
   debug = defineAsyncComponent(() => import('./components/debug/index.vue'))
 }
-
-// TODO: 무작위로 섞는 기능은 슬라이드쇼 내부에서 정할지 외부에서 섞고 슬라이드쇼에다 집어넣기만 할지 고민하기
 
 // lifecycles
 onMounted(() => {
@@ -73,6 +74,7 @@ async function start()
   {
     preference.setup(props.preference)
     slides.setup(props.slides, String(props.active))
+    language.setup(props.language)
     globalState.setup({
       autoplay: props.autoplay,
     })
@@ -97,9 +99,24 @@ async function restart()
   await nextTick()
   await start()
 }
-function exportData()
+
+function exports()
 {
-  // TODO: 데이터 내보내기
+  return cloneObject({
+    preference: preference.exportData(),
+    slides: {
+      data: slides.order.reduce((acc, cur) => {
+        acc.push({
+          ...slides.data.get(cur),
+          key: cur,
+        })
+        return acc
+      }, []),
+      active: slides.active,
+      activeIndex: slides.activeIndex,
+    },
+    language: Object.fromEntries(language.data),
+  })
 }
 
 // set expose
@@ -107,7 +124,7 @@ defineExpose({
   stop,
   start,
   restart,
-  exportData,
+  exports,
 })
 </script>
 

@@ -55,3 +55,8 @@ export const defaultPreference = {
     enabled: true, // TODO
   },
 }
+
+/** @var {object} defaultLanguage */
+export const defaultLanguage = {
+  foo: 'bar',
+}
