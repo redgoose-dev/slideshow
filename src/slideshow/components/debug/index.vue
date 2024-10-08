@@ -14,12 +14,16 @@ const globalState = globalStateStore()
 
 const status = computed(() => {
   return {
-    'preference.slides.loop': preference.slides.loop,
-    'preference.slides.autoplay': preference.slides.autoplay,
-    'globalState.autoplay': globalState.autoplay,
-    'globalState.swipe': globalState.swipe,
+    'general.hud': preference.general.hud,
+    'general.visibleHudHover': preference.general.visibleHudHover,
+    'general.visibleHudClick': preference.general.visibleHudClick,
+    'general.hudContents': preference.general.hudContents,
+    // 'preference.slides.loop': preference.slides.loop,
+    // 'preference.slides.autoplay': preference.slides.autoplay,
+    // 'globalState.autoplay': globalState.autoplay,
+    // 'globalState.swipe': globalState.swipe,
+    // 'slides.lock': slides.lock,
     'slides.active': slides.active,
-    'slides.lock': slides.lock,
   }
 })
 </script>

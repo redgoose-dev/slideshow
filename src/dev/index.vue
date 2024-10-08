@@ -12,10 +12,11 @@
   <div class="slideshow-wrap">
     <Slideshow
       ref="$slideshow"
+      v-model:active="slideshowState.active"
+      v-model:autoplay="slideshowState.autoplay"
       :preference="preference"
       :slides="slides"
-      v-model:active="slideshowState.active"
-      v-model:autoplay="slideshowState.autoplay">
+      :lang="lang">
       <div class="add">.addd</div>
     </Slideshow>
   </div>
@@ -25,16 +26,25 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import Slideshow from '../slideshow/index.vue'
-import { defaultSlides } from '../slideshow/libs/defaults.js'
 import { cloneObject } from '../slideshow/libs/util.js'
+import slidesData from './res/slides.json'
+import lang from './res/lang.json'
 
 const $slideshow = ref()
 const preference = ref({
   general: {
-    language: 'ko',
+    hud: true,
+    visibleHudHover: false,
+    visibleHudClick: false,
+    hudContents: {
+      caption: true,
+      controller: true,
+      paginate: true,
+      slots: true,
+    },
   },
   slides: {
-    loop: true,
+    loop: false,
     transitionType: 'horizontal', // none,fade,horizontal
     transitionSpeed: 600,
     captionAnimationType: 'shuffle', // none,shuffle
@@ -42,18 +52,18 @@ const preference = ref({
     captionAnimationDelay: 500,
     swipe: true,
     autoplay: true,
-    autoplayDelay: 3000,
+    autoplayDelay: 7000,
     autoplayDirection: true, // next(true), prev(false)
-    autoplayPauseOnHover: true,
+    autoplayPauseOnHover: false,
   },
   style: {
     imageType: 'cover',
     imageScale: [ '100%','100%' ],
   },
 })
-const slides = ref(cloneObject(defaultSlides))
+const slides = ref(cloneObject(slidesData))
 const slideshowState = reactive({
-  active: '3',
+  active: '4',
   autoplay: true,
 })
 

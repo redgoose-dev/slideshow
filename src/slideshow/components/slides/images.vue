@@ -67,6 +67,7 @@ const emits = defineEmits([
   'change',
   'transition-start',
   'transition-end',
+  'short-touch',
 ])
 const $root = ref()
 const $image = ref({})
@@ -293,6 +294,7 @@ function onPointerStart(e)
   if (!preference.slides.swipe) return
   if (preference.slides.transitionType !== TRANSITION_TYPE.HORIZONTAL) return
   if (slides.order.length <= 2) return
+  console.log('qweqwe')
   pointer.dist = 0
   pointer.startX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
   pointer.startTime = new Date().getTime()
@@ -334,12 +336,10 @@ function onPointerEnd(e)
   globalState.swipe = false
   state.swipePosX = NaN
 
-  if (elapsedTime < 60 || percent < 1)
-  {
-    // TODO: 클릭하는 수준으로 짧은터치
-    // TODO: HUD를 보이거나 안보이거나 토글링한다.
-    return
-  }
+  if (elapsedTime < 60 || percent < 1) return
+
+  // TODO: loop:false, 첫번째나 마지막 슬라이드 조건이라면 cancelRunning() 실행이 되도록 한다.
+  // TODO: loop:false, 첫번째나 마지막 슬라이드 조건일때 애니메이션이 안되는 현상이 발생한다.
 
   if (elapsedTime > 300)
   {

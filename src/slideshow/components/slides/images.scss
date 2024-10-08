@@ -6,9 +6,10 @@
   transform-origin: 50% 50%;
   user-select: none;
   overflow: clip;
-  // TODO: 테스트
-  scale: 1;
-  // TODO: 테스트
+  // scale: .5;
+  &.swipe {
+    cursor: grabbing;
+  }
 }
 
 .body {

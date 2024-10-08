@@ -2,12 +2,27 @@
 <div
   class="slides"
   @mouseleave="onMouseLeave"
-  @mouseenter="onMouseEnter">
+  @mouseenter="onMouseEnter"
+  @click.prevent="onClickRoot">
   <Images/>
-  <Caption/>
-  <Controller/>
-  <Paginate/>
-  <slot/>
+  <div
+    :class="[
+      'hud',
+      showHud && 'use',
+      preference.general.visibleHudHover && 'hover',
+    ]">
+    <Caption
+      v-if="preference.general.hudContents.caption"
+      class="slides__caption"/>
+    <Controller
+      v-if="preference.general.hudContents.controller"
+      class="slides__controller"/>
+    <Paginate
+      v-if="preference.general.hudContents.paginate"
+      class="slides__paginate"/>
+    <slot
+      v-if="preference.general.hudContents.slots"/>
+  </div>
 </div>
 </template>
 
@@ -23,6 +38,8 @@ const preference = preferenceStore()
 const slides = slidesStore()
 const globalState = globalStateStore()
 const isPauseAutoplay = ref(!globalState.autoplay)
+const showHud = ref(preference.general.hud)
+const showHudHover = ref(preference.general.hud)
 let timeoutId = undefined
 let isPauseAutoplayHover = isPauseAutoplay.value
 
@@ -66,6 +83,10 @@ function triggerTick()
 function onMouseLeave(e)
 {
   e.stopPropagation()
+  // turn on hud
+  const { visibleHudClick } = preference.general
+  if (visibleHudClick) showHudHover.value = false
+  // start autoplay
   const { autoplayPauseOnHover } = preference.slides
   if (!autoplayPauseOnHover) return
   isPauseAutoplayHover = false
@@ -73,10 +94,20 @@ function onMouseLeave(e)
 }
 function onMouseEnter()
 {
+  // turn off hud
+  const { visibleHudClick } = preference.general
+  if (visibleHudClick) showHudHover.value = true
+  // stop autoplay
   const { autoplayPauseOnHover } = preference.slides
   if (!autoplayPauseOnHover) return
   isPauseAutoplayHover = true
   clearAutoplay()
+}
+
+function onClickRoot()
+{
+  if (!preference.general.visibleHudClick) return
+  showHud.value = !showHud.value
 }
 </script>
 

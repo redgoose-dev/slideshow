@@ -162,11 +162,14 @@ export const globalStateStore = defineStore('state', {
     playedSlide: false,
     playedSlideCancel: false,
     autoplay: true,
+    hud: false,
   }),
   actions: {
     setup(op)
     {
+      const preference = preferenceStore()
       if (op.autoplay !== undefined) this.autoplay = op.autoplay
+      this.hud = preference.general.hud
     },
   },
 })
