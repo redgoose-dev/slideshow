@@ -162,9 +162,7 @@ export const languageStore = defineStore('language', {
     setup(src)
     {
       const language = Object.assign({}, cloneObject(defaultLanguage), src)
-      Object.entries(language).forEach(([ key, value ]) => {
-        this.data.set(key, value)
-      })
+      Object.entries(language).forEach(([ key, value ]) => this.data.set(key, value))
     },
   },
 })

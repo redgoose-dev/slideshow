@@ -5,12 +5,11 @@
   @mouseenter="onMouseEnter"
   @click.prevent="onClickRoot">
   <Images/>
-  <div
-    :class="[
-      'hud',
-      showHud && 'use',
-      preference.general.visibleHudHover && 'hover',
-    ]">
+  <div :class="[
+    'hud',
+    showHud && 'use',
+    preference.general.visibleHudHover && 'hover',
+  ]">
     <Caption
       v-if="preference.general.hudContents.caption"
       class="slides__caption"/>
@@ -20,8 +19,7 @@
     <Paginate
       v-if="preference.general.hudContents.paginate"
       class="slides__paginate"/>
-    <slot
-      v-if="preference.general.hudContents.slots"/>
+    <slot v-if="preference.general.hudContents.slots"/>
   </div>
 </div>
 </template>
@@ -47,6 +45,8 @@ onMounted(() => startAutoplay())
 onBeforeUnmount(() => clearAutoplay())
 watch(() => globalState.autoplay, (sw) => {
   isPauseAutoplay.value = !sw
+  if (sw) startAutoplay()
+  else clearAutoplay()
 })
 watch(() => slides.lock, (sw) => {
   isPauseAutoplay.value = sw
@@ -61,7 +61,10 @@ watch(() => globalState.swipe, (sw) => {
 
 function startAutoplay()
 {
-  if (isPauseAutoplayHover !== undefined) isPauseAutoplay.value = isPauseAutoplayHover
+  if (preference.slides.autoplayPauseOnHover)
+  {
+    if (isPauseAutoplayHover !== undefined) isPauseAutoplay.value = isPauseAutoplayHover
+  }
   if (!(preference.slides.autoplay && globalState.autoplay && !isPauseAutoplay.value)) return
   clearAutoplay()
   timeoutId = setTimeout(triggerTick, preference.slides.autoplayDelay)

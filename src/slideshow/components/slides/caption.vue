@@ -12,7 +12,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, reactive, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { sleep } from '../../libs/util.js'
 import { preferenceStore, slidesStore } from '../../store/index.js'
 import { CAPTION_ANIMATION_TYPE } from '../../libs/keywords.js'
 import shuffle from '../../libs/shuffle.js'
@@ -21,12 +22,18 @@ const $title = ref()
 const $description = ref()
 const preference = preferenceStore()
 const slides = slidesStore()
+const captionStyles = reactive({
+  opacity: 1,
+  speed: 0,
+})
 const styles = computed(() => {
   const { captionPosition, captionScale } = preference.style
   return {
     '--caption-left': captionPosition[0],
     '--caption-top': captionPosition[1],
     '--caption-scale': captionScale,
+    '--caption-opacity': captionStyles.opacity,
+    '--caption-speed': `${captionStyles.speed}ms`,
   }
 })
 const typos = computed(() => {
@@ -54,10 +61,20 @@ watch(() => slides.active, (value, oldValue) => {
   switch (animationType.value)
   {
     case CAPTION_ANIMATION_TYPE.SHUFFLE:
+      resetCaption().then()
       playShuffleAnimation(preference.slides.captionAnimationDelay)
       break
   }
 })
+
+async function resetCaption()
+{
+  captionStyles.speed = 120
+  captionStyles.opacity = 0
+  await sleep(preference.slides.transitionSpeed)
+  captionStyles.speed = 0
+  captionStyles.opacity = 1
+}
 
 function playShuffleAnimation(delay)
 {
@@ -82,12 +99,12 @@ function playShuffleAnimation(delay)
     if ($title.value?.dataset?.id)
     {
       cancelAnimationFrame(Number($title.value.dataset.id))
-      $title.value.textContent = ''
+      // $title.value.textContent = ''
     }
     if ($description.value?.dataset?.id)
     {
       cancelAnimationFrame(Number($description.value.dataset.id))
-      $description.value.textContent = ''
+      // $description.value.textContent = ''
     }
     if (interval.title) clearTimeout(interval.title)
     if (interval.description) clearTimeout(interval.description)

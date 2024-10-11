@@ -45,7 +45,7 @@ const preference = ref({
     },
   },
   slides: {
-    loop: false,
+    loop: true,
     transitionType: 'horizontal', // none,fade,horizontal
     transitionSpeed: 600,
     captionAnimationType: 'shuffle', // none,shuffle
@@ -53,7 +53,7 @@ const preference = ref({
     captionAnimationDelay: 500,
     swipe: true,
     autoplay: true,
-    autoplayDelay: 7000,
+    autoplayDelay: 2000,
     autoplayDirection: true, // next(true), prev(false)
     autoplayPauseOnHover: false,
   },
