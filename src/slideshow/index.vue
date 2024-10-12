@@ -1,7 +1,9 @@
 <template>
-<div v-if="!state.stop" class="slideshow">
-  <Error v-if="state.error"/>
-  <Slides v-else>
+<div class="slideshow">
+  <Error
+    v-if="state.error"
+    :message="state.error.message"/>
+  <Slides v-else-if="!state.stop">
     <slot/>
   </Slides>
   <component v-if="debug" :is="debug"/>
@@ -83,6 +85,7 @@ async function start()
   }
   catch(e)
   {
+    console.error('=========>', e)
     state.error = e
   }
 }

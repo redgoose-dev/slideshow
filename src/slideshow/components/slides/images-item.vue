@@ -1,6 +1,6 @@
 <template>
 <p v-if="props.error">
-  <i><Icon name="x"/></i>
+  <i><Icon name="cloud-rain-wind"/></i>
   <span>no image</span>
 </p>
 <img
@@ -64,15 +64,15 @@ p {
   pointer-events: none;
   i {
     display: block;
-    --icon-size: 120px;
-    --icon-stroke: .25;
+    --icon-size: 75px;
+    --icon-stroke: .75;
     --icon-color: var(--color-danger);
   }
   span {
     display: block;
-    margin: -8px 0 16px;
+    margin: 8px 0 16px;
     line-height: 1.4;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     color: var(--color-low-fill);
     letter-spacing: -.25px;

@@ -28,18 +28,13 @@ export function checkPreference(src)
 
 /**
  * slides 데이터 검사
- * @param {object[]} src
+ * @param {object[]} arr
  * @throws {Error}
  */
-export function checkSlides(src)
+export function checkSlides(arr)
 {
-  // TODO: 데이터가 올바른지 검사하기
-  try
-  {
-    //
-  }
-  catch (e)
-  {
-    //
-  }
+  if (!Array.isArray(arr)) throw new Error('slides data is not array')
+  arr.forEach((o) => {
+    if (!o.src) throw new Error('slide data is not valid')
+  })
 }

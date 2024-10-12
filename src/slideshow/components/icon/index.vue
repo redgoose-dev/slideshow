@@ -35,6 +35,8 @@ const props = defineProps({
 const iconMap = {
   'ChevronLeft': lucide.ChevronLeft,
   'ChevronRight': lucide.ChevronRight,
+  'CloudRainWind': lucide.CloudRainWind,
+  'Skull': lucide.Skull,
 }
 const icon = computed(() => {
   let src = iconMap[toPascalCase(props.name)]
