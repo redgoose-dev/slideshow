@@ -50,7 +50,6 @@ const preference = ref({
     transitionSpeed: 600,
     captionAnimationType: 'shuffle', // none,shuffle
     captionAnimationSpeed: 40,
-    captionAnimationDelay: 500,
     swipe: true,
     autoplay: true,
     autoplayDelay: 2000,

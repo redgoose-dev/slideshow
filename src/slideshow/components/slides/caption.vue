@@ -12,8 +12,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onBeforeUnmount, watch } from 'vue'
-import { sleep } from '../../libs/util.js'
+import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { preferenceStore, slidesStore } from '../../store/index.js'
 import { CAPTION_ANIMATION_TYPE } from '../../libs/keywords.js'
 import shuffle from '../../libs/shuffle.js'
@@ -53,7 +52,7 @@ onMounted(() => {
   switch (animationType.value)
   {
     case CAPTION_ANIMATION_TYPE.SHUFFLE:
-      playShuffleAnimation(0)
+      playShuffleAnimation()
       break
   }
 })
@@ -61,22 +60,12 @@ watch(() => slides.active, (value, oldValue) => {
   switch (animationType.value)
   {
     case CAPTION_ANIMATION_TYPE.SHUFFLE:
-      resetCaption().then()
-      playShuffleAnimation(preference.slides.captionAnimationDelay)
+      playShuffleAnimation()
       break
   }
 })
 
-async function resetCaption()
-{
-  captionStyles.speed = 120
-  captionStyles.opacity = 0
-  await sleep(preference.slides.transitionSpeed)
-  captionStyles.speed = 0
-  captionStyles.opacity = 1
-}
-
-function playShuffleAnimation(delay)
+function playShuffleAnimation()
 {
   const { captionAnimationSpeed } = preference.slides
   function action($el, text)
@@ -99,12 +88,10 @@ function playShuffleAnimation(delay)
     if ($title.value?.dataset?.id)
     {
       cancelAnimationFrame(Number($title.value.dataset.id))
-      // $title.value.textContent = ''
     }
     if ($description.value?.dataset?.id)
     {
       cancelAnimationFrame(Number($description.value.dataset.id))
-      // $description.value.textContent = ''
     }
     if (interval.title) clearTimeout(interval.title)
     if (interval.description) clearTimeout(interval.description)
@@ -121,7 +108,7 @@ function playShuffleAnimation(delay)
       clearTimeout(interval.title)
       interval.title = undefined
       action($title.value, typos.value.title)
-    }, delay)
+    }, 10)
   }
   if (typos.value.description)
   {
@@ -129,7 +116,7 @@ function playShuffleAnimation(delay)
       clearTimeout(interval.description)
       interval.description = undefined
       action($description.value, typos.value.description)
-    }, delay + 300)
+    }, 300)
   }
 }
 </script>

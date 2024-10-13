@@ -14,7 +14,6 @@
   :class="[
     'icon',
     `icon--${props.name}`,
-    props.animation && `icon--animation-${props.animation}`,
   ]"
   v-bind="wrapProps"/>
 </template>
@@ -29,8 +28,6 @@ const props = defineProps({
   color: String,
   size: String,
   stroke: Number,
-  animation: String,
-  animationSpeed: String,
 })
 const iconMap = {
   'ChevronLeft': lucide.ChevronLeft,
@@ -69,7 +66,6 @@ const wrapProps = computed(() => {
   if (props.color) attr.style['--icon-color'] = props.color
   if (props.size) attr.style['--icon-size'] = props.size
   if (props.stroke) attr.style['--icon-stroke'] = props.stroke
-  if (props.animationSpeed) attr.style['--icon-animation-speed'] = props.animationSpeed
   return attr
 })
 </script>
@@ -82,10 +78,6 @@ const wrapProps = computed(() => {
   width: var(--icon-size, 24px);
   height: var(--icon-size, 24px);
   stroke-width: var(--icon-stroke, 2);
-  animation: var(--icon-animation, none);
   transition: var(--icon-transition, none);
-  &--animation-rotate {
-    --icon-animation: spin var(--icon-animation-speed, 2000ms) linear infinite;
-  }
 }
 </style>

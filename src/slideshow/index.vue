@@ -74,9 +74,9 @@ async function start()
   if (!state.stop) return
   try
   {
+    language.setup(props.language)
     preference.setup(props.preference)
     slides.setup(props.slides, String(props.active))
-    language.setup(props.language)
     globalState.setup({
       autoplay: props.autoplay,
     })
@@ -85,7 +85,6 @@ async function start()
   }
   catch(e)
   {
-    console.error('=========>', e)
     state.error = e
   }
 }

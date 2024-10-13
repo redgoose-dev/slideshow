@@ -152,17 +152,16 @@ export const languageStore = defineStore('language', {
   state: () => ({
     data: new Map(),
   }),
-  getters: {
-    print(key)
-    {
-      //
-    },
-  },
+  getters: {},
   actions: {
     setup(src)
     {
       const language = Object.assign({}, cloneObject(defaultLanguage), src)
       Object.entries(language).forEach(([ key, value ]) => this.data.set(key, value))
+    },
+    print(key)
+    {
+      return this.data.get(key) || undefined
     },
   },
 })

@@ -5,7 +5,7 @@
 ]">
   <button
     type="button"
-    title="prev slide"
+    :title="language.print('direction.prev')"
     :disabled="!usePrevButton"
     class="prev"
     @click="onClickPrev">
@@ -13,7 +13,7 @@
   </button>
   <button
     type="button"
-    title="next slide"
+    :title="language.print('direction.next')"
     :disabled="!useNextButton"
     class="next"
     @click="onClickNext">
@@ -24,12 +24,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { preferenceStore, slidesStore, globalStateStore } from '../../store/index.js'
+import { preferenceStore, slidesStore, globalStateStore, languageStore } from '../../store/index.js'
 import Icon from '../icon/index.vue'
 
 const preference = preferenceStore()
 const slides = slidesStore()
 const globalState = globalStateStore()
+const language = languageStore()
 const usePrevButton = computed(() => {
   if (preference.slides.loop) return true
   return 0 < slides.activeIndex

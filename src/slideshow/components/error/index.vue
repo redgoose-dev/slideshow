@@ -10,7 +10,7 @@
 import Icon from '../icon/index.vue'
 
 const props = defineProps({
-  message: String,
+  message: { type: String, default: 'Invalid error' },
 })
 </script>
 

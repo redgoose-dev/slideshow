@@ -26,8 +26,6 @@ export const defaultPreference = {
     transitionSpeed: 500,
     // none,shuffle
     captionAnimationType: 'none',
-    // 캡션 애니메이션 딜레이 (ms)
-    captionAnimationDelay: 0,
     // 캡션 애니메이션 속도 (fps)
     captionAnimationSpeed: 40,
     // 자동재생 기능사용 (자동재생이 켜진다는 의미가 아니다)
@@ -58,5 +56,6 @@ export const defaultPreference = {
 
 /** @var {object} defaultLanguage */
 export const defaultLanguage = {
-  foo: 'bar',
+  'direction.prev': 'Prev Slide',
+  'direction.next': 'Next Slide',
 }
