@@ -1,10 +1,12 @@
+@use './assets/mixins';
+
 .slideshow {
   // color
-  --color-bg: hsl(0 0% 98%);
-  --color-fill: hsl(0 0% 9%);
-  --color-low-fill: hsl(0 0% 28%);
-  --color-key: hsl(148 88% 38%);
-  --color-danger: hsl(4 80% 44%);
+  --color-bg: light-dark(hsl(0 0% 98%), hsl(0 0% 16%));
+  --color-fill: light-dark(hsl(0 0% 9%), hsl(0 0% 96%));
+  --color-low-fill: light-dark(hsl(0 0% 28%), hsl(0 0% 60%));
+  --color-key: light-dark(hsl(148 88% 38%), hsl(148 73% 39%));
+  --color-danger: light-dark(hsl(4 80% 44%), hsl(4 82% 36%));
   // size
   --size-shape-radius: 2px;
   // font
@@ -29,8 +31,20 @@
   // slideshow size
   width: var(--slideshow-width, auto);
   height: var(--slideshow-height, 100%);
+
   *::selection {
     background: var(--color-key);
     color: var(--color-bg);
+  }
+
+  // color theme
+  color-scheme: light dark;
+  &.theme {
+    &--light {
+      color-scheme: only light;
+    }
+    &--dark {
+      color-scheme: only dark;
+    }
   }
 }

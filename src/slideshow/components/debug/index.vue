@@ -37,8 +37,7 @@ const status = computed(() => {
   margin: 0;
   left: 10px;
   bottom: 10px;
-  border: 1px solid hsl(0 0% 50%);
-  background: hsla(161 100% 50% / 75%);
+  background: color-mix(in hsl, var(--color-key), transparent 25%);
   backdrop-filter: blur(16px);
   border-radius: 8px;
   pointer-events: none;

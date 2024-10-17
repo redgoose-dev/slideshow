@@ -1,4 +1,4 @@
-import { TRANSITION_TYPE, CAPTION_ANIMATION_TYPE, DISPLAY_THEME, IMAGE_TYPE } from './keywords.js'
+import { TRANSITION_TYPE, CAPTION_ANIMATION_TYPE, IMAGE_TYPE } from './keywords.js'
 
 /**
  * preference 데이터 검사하거나 조정하기
@@ -14,10 +14,6 @@ export function checkPreference(src)
   if (!Object.values(CAPTION_ANIMATION_TYPE).includes(src.slides.captionAnimationType))
   {
     src.slides.captionAnimationType = CAPTION_ANIMATION_TYPE.NONE
-  }
-  if (!Object.values(DISPLAY_THEME).includes(src.style.displayTheme))
-  {
-    src.style.displayTheme = DISPLAY_THEME.SYSTEM
   }
   if (!Object.values(IMAGE_TYPE).includes(src.style.imageType))
   {

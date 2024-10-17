@@ -38,8 +38,6 @@ export const defaultPreference = {
     autoplayPauseOnHover: true,
   },
   style: {
-    // dark,light,system
-    displayTheme: 'system',
     // none,contain,cover
     imageType: 'cover',
     // [ width, height ]

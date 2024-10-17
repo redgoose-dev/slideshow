@@ -2,10 +2,8 @@
 <div
   ref="$slideshow"
   :tabindex="state.tabIndex"
-  class="slideshow">
-  <Error
-    v-if="state.error"
-    :message="state.error.message"/>
+  :class="[ 'slideshow', `theme--${props.theme}` ]">
+  <Error v-if="state.error" :message="state.error.message"/>
   <Slides v-else-if="!state.stop">
     <slot/>
   </Slides>
@@ -25,12 +23,14 @@ const preference = preferenceStore()
 const slides = slidesStore()
 const language = languageStore()
 const globalState = globalStateStore()
+const $slideshow = ref()
 const props = defineProps({
   active: [ String, Number ], // 활성된 슬라이드 키
   autoplay: Boolean, // 자동재생
   preference: Object, // 설정 데이터
   slides: Array, // 슬라이드 데이터
   language: Object, // 언어 데이터 객체
+  theme: { type: String, default: 'system' }, // 컬러테마 (system,light,dark)
 })
 const state = reactive({
   stop: true,
@@ -42,7 +42,6 @@ const emits = defineEmits([
   'update:active',
   'update:autoplay',
 ])
-const $slideshow = ref()
 
 // set debug component
 let debug
@@ -66,9 +65,7 @@ watch(() => String(props.active), (value, oldValue) => {
   if (value === slides.active) return
   slides.change(value)
 })
-watch(() => slides.active, (value) => {
-  emits('update:active', value)
-})
+watch(() => slides.active, (value) => emits('update:active', value))
 watch(() => props.autoplay, (value) => {
   globalState.autoplay = value
 })

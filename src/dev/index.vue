@@ -17,7 +17,9 @@
       v-model:autoplay="slideshowState.autoplay"
       :preference="preference"
       :slides="slides"
-      :lang="lang">
+      :language="lang"
+      :theme="slideshowState.theme"
+      class="slideshow-body">
       <div class="add">.add-window</div>
     </Slideshow>
   </div>
@@ -57,7 +59,7 @@ const preference = ref({
     autoplayPauseOnHover: false,
   },
   style: {
-    imageType: 'cover',
+    imageType: 'contain',
     imageScale: [ '100%','100%' ],
   },
   keyboard: {
@@ -69,6 +71,7 @@ const slides = ref(cloneObject(slidesData))
 const slideshowState = reactive({
   active: '2',
   autoplay: false,
+  theme: 'light',
 })
 
 async function onClickControl(mode)
@@ -129,5 +132,9 @@ function onClickExportData()
   background: lime;
   width: 100px;
   height: 100px;
+}
+
+.slideshow-body {
+  //
 }
 </style>
