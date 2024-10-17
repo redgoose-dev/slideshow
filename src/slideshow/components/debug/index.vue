@@ -20,6 +20,7 @@ const status = computed(() => {
     'general.hudContents': preference.general.hudContents,
     // 'preference.slides.loop': preference.slides.loop,
     // 'preference.slides.autoplay': preference.slides.autoplay,
+    // 'preference.keyboard': preference.keyboard,
     // 'globalState.autoplay': globalState.autoplay,
     // 'globalState.swipe': globalState.swipe,
     // 'slides.lock': slides.lock,

@@ -18,7 +18,7 @@
       :preference="preference"
       :slides="slides"
       :lang="lang">
-      <div class="add">.addd</div>
+      <div class="add">.add-window</div>
     </Slideshow>
   </div>
 </article>
@@ -59,6 +59,10 @@ const preference = ref({
   style: {
     imageType: 'cover',
     imageScale: [ '100%','100%' ],
+  },
+  keyboard: {
+    eventTarget: 'element', // element,window
+    enable: true,
   },
 })
 const slides = ref(cloneObject(slidesData))

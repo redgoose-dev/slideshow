@@ -18,15 +18,15 @@
     translate: 0 -50%;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-    transition: opacity 200ms ease-out;
+    transition: opacity 200ms ease-out, outline-width 200ms ease-out;
+    outline: none;
     &:disabled {
       pointer-events: none;
       opacity: 0;
     }
     .icon {
-      filter:
-        drop-shadow(.5px 0 1px var(--color-outline))
-        drop-shadow(-.5px 0 1px var(--color-outline));
+      filter: drop-shadow(.5px 0 1px var(--color-outline)) drop-shadow(-.5px 0 1px var(--color-outline));
+      transition: filter 200ms ease-out;
     }
     &.prev {
       left: 0;
@@ -36,6 +36,14 @@
     }
     &:active {
       opacity: .5;
+    }
+    &:focus-visible {
+      --color-outline: hsla(0 0% 100% / 100%);
+      .icon {
+        filter: drop-shadow(1px 0 1px var(--color-outline)) drop-shadow(-1px 0 1px var(--color-outline));
+      }
+      outline: 2px solid var(--color-key);
+      outline-offset: -1.25em;
     }
   }
   &.swipe {

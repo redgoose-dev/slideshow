@@ -21,3 +21,7 @@ export const IMAGE_TYPE = {
   COVER: 'cover',
 }
 
+export const KEYBOARD_EVENT_TARGET = {
+  ELEMENT: 'element',
+  WINDOW: 'window',
+}

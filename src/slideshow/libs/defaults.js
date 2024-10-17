@@ -50,7 +50,8 @@ export const defaultPreference = {
     captionPosition: [ '32px', '30px' ],
   },
   keyboard: {
-    enabled: true, // TODO
+    eventTarget: 'element',
+    enable: true,
   },
 }
 

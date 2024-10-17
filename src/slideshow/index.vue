@@ -1,5 +1,8 @@
 <template>
-<div class="slideshow">
+<div
+  ref="$slideshow"
+  :tabindex="state.tabIndex"
+  class="slideshow">
   <Error
     v-if="state.error"
     :message="state.error.message"/>
@@ -11,9 +14,10 @@
 </template>
 
 <script setup>
-import { reactive, watch, onMounted, onUnmounted, nextTick, defineAsyncComponent } from 'vue'
+import { ref, reactive, watch, onMounted, onBeforeUnmount, nextTick, defineAsyncComponent } from 'vue'
 import { preferenceStore, slidesStore, globalStateStore, languageStore } from './store/index.js'
 import { cloneObject } from './libs/util.js'
+import { KEYBOARD_EVENT_TARGET } from './libs/keywords.js'
 import Slides from './components/slides/index.vue'
 import Error from './components/error/index.vue'
 
@@ -22,21 +26,23 @@ const slides = slidesStore()
 const language = languageStore()
 const globalState = globalStateStore()
 const props = defineProps({
-  active: [ String, Number ],
-  autoplay: Boolean,
-  preference: Object,
-  slides: Array,
-  language: Object,
+  active: [ String, Number ], // 활성된 슬라이드 키
+  autoplay: Boolean, // 자동재생
+  preference: Object, // 설정 데이터
+  slides: Array, // 슬라이드 데이터
+  language: Object, // 언어 데이터 객체
 })
 const state = reactive({
   stop: true,
   error: undefined,
   swipe: false,
+  tabIndex: '',
 })
 const emits = defineEmits([
   'update:active',
   'update:autoplay',
 ])
+const $slideshow = ref()
 
 // set debug component
 let debug
@@ -46,10 +52,8 @@ if (import.meta.env.DEV)
 }
 
 // lifecycles
-onMounted(() => {
-  start().then()
-})
-onUnmounted(() => {
+onMounted(() => start())
+onBeforeUnmount(() => {
   preference.destroy()
   slides.destroy()
   stop().then()
@@ -81,6 +85,7 @@ async function start()
       autoplay: props.autoplay,
     })
     await nextTick()
+    setKeyboardEvent()
     state.stop = false
   }
   catch(e)
@@ -92,6 +97,7 @@ async function stop()
 {
   preference.destroy()
   slides.destroy()
+  destroyKeyboardEvent()
   state.stop = true
   state.error = undefined
 }
@@ -119,6 +125,53 @@ function exports()
     },
     language: Object.fromEntries(language.data),
   })
+}
+
+/**
+ * KEYBOARD EVENT
+ */
+function setKeyboardEvent()
+{
+  switch (preference.keyboard.eventTarget)
+  {
+    case KEYBOARD_EVENT_TARGET.WINDOW:
+      state.tabIndex = ''
+      window.addEventListener('keyup', onKeyupEvent)
+      break
+    default:
+      if (!$slideshow.value) return
+      state.tabIndex = '0'
+      $slideshow.value.addEventListener('keyup', onKeyupEvent)
+      break
+  }
+}
+function onKeyupEvent(e)
+{
+  if (!preference.keyboard.enable) return
+  const { keyCode } = e
+  switch (keyCode)
+  {
+    case 37: // arrow left
+      slides.prev()
+      break
+    case 39: // arrow right
+      slides.next()
+      break
+  }
+}
+function destroyKeyboardEvent()
+{
+  state.tabIndex = ''
+  switch (preference.keyboard?.eventTarget)
+  {
+    case KEYBOARD_EVENT_TARGET.WINDOW:
+      window.removeEventListener('keyup', onKeyupEvent)
+      break
+    default:
+      if (!$slideshow.value) return
+      $slideshow.value.removeEventListener('keyup', onKeyupEvent)
+      break
+  }
 }
 
 // set expose
