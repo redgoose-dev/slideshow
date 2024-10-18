@@ -1,0 +1,9 @@
+config/
+docs/
+src/
+node_modules/
+
+.gitignore
+jsconfig.json
+README.md
+bun.lockb

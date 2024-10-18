@@ -1,3 +1,4 @@
+![SLIDESHOW](https://i.ibb.co/2YHhDG2/app-icon.png)
 
 # Slideshow
 
@@ -17,4 +18,12 @@
 - 키보드 단축키
 
 
+## Usage
+
+이 프로젝트는 `Vue Component`로 사용할 수 있습니다.
+
+
+
+
+### Props data
 
