@@ -31,6 +31,8 @@
   // slideshow size
   width: var(--slideshow-width, auto);
   height: var(--slideshow-height, 100%);
+  min-width: 320px;
+  min-height: 240px;
 
   *::selection {
     background: var(--color-key);

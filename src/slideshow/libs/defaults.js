@@ -8,10 +8,14 @@ export const defaultPreference = {
     // 슬라이드쇼를 클릭하면 hud 영역이 나왔다 없어진다.
     visibleHudClick: false,
     // 특정 항목을 사용할지에 대한 스위치
-    visibleHudContents: {
+    hudContents: {
+      // 슬라이드쇼 하위 요소들
       slots: true,
+      // 캡션 영역
       caption: true,
+      // 컨트롤러 영역
       controller: true,
+      // 페이지 번호 영역
       paginate: true,
     },
   },
@@ -37,6 +41,7 @@ export const defaultPreference = {
     // 영역에 갖다댈때 자동재생 일시정지 여부
     autoplayPauseOnHover: true,
   },
+  // 스타일
   style: {
     // none,contain,cover
     imageType: 'cover',
@@ -47,8 +52,11 @@ export const defaultPreference = {
     // [ left, top ]
     captionPosition: [ '32px', '30px' ],
   },
+  // 키보드 이벤트
   keyboard: {
+    // 이벤트 객체
     eventTarget: 'element',
+    // 단축키 사용유무
     enable: true,
   },
 }
