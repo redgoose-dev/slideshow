@@ -44,7 +44,7 @@ export const defaultPreference = {
   // 스타일
   style: {
     // none,contain,cover
-    imageType: 'cover',
+    imageType: 'contain',
     // [ width, height ]
     imageScale: [ '100%', '100%' ],
     // 캡션 사이즈 퍼센트(%)
@@ -65,4 +65,7 @@ export const defaultPreference = {
 export const defaultLanguage = {
   'direction.prev': 'Prev Slide',
   'direction.next': 'Next Slide',
+  'error.title': 'Error',
+  'error.title-empty': 'Empty',
+  'error.empty': 'No slide data is available.',
 }

@@ -1,3 +1,7 @@
 {
-  "hello": "Hello"
+  "direction.prev": "이전 슬라이드",
+  "direction.next": "다음 슬라이드",
+  "error.title": "오류",
+  "error.title-empty": "빈 슬라이드",
+  "error.empty": "슬라이드 데이터가 없습니다."
 }

@@ -13,7 +13,8 @@
 }
 
 .hud {
-  display: none;
+  //display: none;
+  opacity: 0;
   position: absolute;
   left: 0;
   right: 0;
@@ -21,11 +22,15 @@
   bottom: 0;
   box-sizing: border-box;
   pointer-events: none;
-  transition: opacity 200ms ease-out;
+  transition: opacity 240ms ease-out;
   > * {
-    pointer-events: auto;
+    pointer-events: none;
   }
   &.use {
-    display: block;
+    //display: block;
+    opacity: 1;
+    > * {
+      pointer-events: auto;
+    }
   }
 }

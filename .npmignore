@@ -7,3 +7,4 @@ node_modules/
 jsconfig.json
 README.md
 bun.lockb
+.env.*

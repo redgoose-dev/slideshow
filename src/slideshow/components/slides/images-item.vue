@@ -51,7 +51,7 @@ img {
   height: 100%;
   max-width: var(--w, 100%);
   max-height: var(--h, 100%);
-  object-fit: var(--fit, 'cover');
+  object-fit: var(--fit, none);
 }
 p {
   margin: 0;

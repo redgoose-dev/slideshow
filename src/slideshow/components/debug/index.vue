@@ -14,12 +14,12 @@ const globalState = globalStateStore()
 
 const status = computed(() => {
   return {
-    'general.hud': preference.general.hud,
-    'general.visibleHudHover': preference.general.visibleHudHover,
-    'general.visibleHudClick': preference.general.visibleHudClick,
-    'general.hudContents': preference.general.hudContents,
-    // 'preference.slides.loop': preference.slides.loop,
-    // 'preference.slides.autoplay': preference.slides.autoplay,
+    'general.hud': preference.general?.hud,
+    'general.visibleHudHover': preference.general?.visibleHudHover,
+    'general.visibleHudClick': preference.general?.visibleHudClick,
+    'general.hudContents': preference.general?.hudContents,
+    // 'preference.slides.loop': preference.slides?.loop,
+    // 'preference.slides.autoplay': preference.slides?.autoplay,
     // 'preference.keyboard': preference.keyboard,
     // 'globalState.autoplay': globalState.autoplay,
     // 'globalState.swipe': globalState.swipe,
@@ -33,7 +33,7 @@ const status = computed(() => {
 .debug {
   position: absolute;
   z-index: 2;
-  display: block;
+  display: var(--slideshow-debug-display, none);
   margin: 0;
   left: 10px;
   bottom: 10px;
@@ -41,9 +41,11 @@ const status = computed(() => {
   backdrop-filter: blur(16px);
   border-radius: 8px;
   pointer-events: none;
+  opacity: var(--slideshow-debug-opacity, 1);
   .status {
     padding: 4px 20px;
-    font-size: 11px;
+    font-family: 'Monaco', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 10px;
     line-height: 1.25;
   }
 }

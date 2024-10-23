@@ -1,16 +1,46 @@
 <template>
 <article class="error">
-  <Icon name="skull"/>
-  <h1>Error</h1>
-  <p>{{props.message}}</p>
+  <Icon :name="_icon"/>
+  <h1>{{_title}}</h1>
+  <p>{{_message}}</p>
 </article>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { languageStore } from '../../store/index.js'
 import Icon from '../icon/index.vue'
 
 const props = defineProps({
   message: { type: String, default: 'Invalid error' },
+})
+const language = languageStore()
+const _title = computed(() => {
+  switch (props.message)
+  {
+    case 'EMPTY_SLIDES':
+      return language.print('error.title-empty')
+    default:
+      return language.print('error.title')
+  }
+})
+const _message = computed(() => {
+  switch (props.message)
+  {
+    case 'EMPTY_SLIDES':
+      return language.print('error.empty')
+    default:
+      return props.message
+  }
+})
+const _icon = computed(() => {
+  switch (props.message)
+  {
+    case 'EMPTY_SLIDES':
+      return 'ghost'
+    default:
+      return 'skull'
+  }
 })
 </script>
 
@@ -23,7 +53,7 @@ const props = defineProps({
   height: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 0 24px 36px;
+  padding: 36px 24px 56px;
   .icon {
     --icon-size: 78px;
     --icon-margin: 0;

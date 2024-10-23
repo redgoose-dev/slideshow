@@ -1,0 +1,38 @@
+@use 'normalize';
+
+:root {
+  --font-base: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --docs-color-bg: light-dark(hsl(0 0% 96%), hsl(0 0% 20%));
+  --docs-color-base: light-dark(hsl(0 0% 12%), hsl(0 0% 96%));
+  --docs-color-weak: light-dark(hsl(0 0% 30%), hsl(0 0% 60%));
+  --docs-color-key: light-dark(hsl(148 88% 38%), hsl(148 73% 39%));
+  --docs-color-danger: light-dark(hsl(4 80% 44%), hsl(4 82% 36%));
+}
+html {
+  touch-action: manipulation;
+  color-scheme: light dark;
+  &[data-theme="light"] {
+    color-scheme: only light;
+  }
+  &[data-theme="dark"] {
+    color-scheme: only dark;
+  }
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--docs-color-bg);
+  -webkit-touch-callout: none; // for ios
+  position: fixed;
+  inset: 0;
+}
+body, button, input, textarea, select {
+  font-family: var(--font-base);
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-text-size-adjust: none;
+  color: var(--docs-color-base);
+}
+a {
+  color: var(--docs-color-key);
+}

@@ -1,0 +1,91 @@
+.navigation {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0 1px;
+    > li {}
+  }
+  button, a {
+    display: grid;
+    place-content: center;
+    width: 48px;
+    aspect-ratio: 1 / 1;
+    font-size: 0;
+    background: color-mix(in hsl, var(--docs-color-bg), transparent 50%);
+    box-sizing: border-box;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition:
+      opacity 200ms ease-out,
+      background-color 160ms ease-out;
+  }
+  button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    svg {
+      display: block;
+      margin: 0 auto;
+      --icon-size: 20px;
+      --icon-stroke: 2;
+      --icon-color: var(--docs-color-fill);
+    }
+    &:active {
+      opacity: .5;
+    }
+  }
+}
+
+.autoplay {
+  &.on {
+    background: color-mix(in hsl, var(--color-key), transparent 0%);
+    svg {
+      --icon-color: hsl(0 0% 100%);
+    }
+  }
+}
+
+.theme {
+  position: relative;
+  .icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    transition: opacity 200ms ease-out, rotate 600ms ease-out;
+    &:nth-child(1) {
+      opacity: 1;
+      rotate: 360deg;
+    }
+    &:nth-child(2) {
+      opacity: 0;
+      rotate: 0deg;
+    }
+  }
+  &.dark {
+    .icon {
+      &:nth-child(1) {
+        opacity: 0;
+        rotate: 0deg;
+      }
+      &:nth-child(2) {
+        opacity: 1;
+        rotate: 360deg;
+      }
+    }
+  }
+}
+
+.github {
+  color: var(--color-fill);
+  svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  &:active {
+    opacity: .5;
+  }
+}

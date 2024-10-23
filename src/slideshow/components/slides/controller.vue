@@ -8,7 +8,7 @@
     :title="language.print('direction.prev')"
     :disabled="!usePrevButton"
     class="prev"
-    @click="onClickPrev">
+    @click.stop="onClickPrev">
     <Icon name="chevron-left"/>
   </button>
   <button
@@ -16,7 +16,7 @@
     :title="language.print('direction.next')"
     :disabled="!useNextButton"
     class="next"
-    @click="onClickNext">
+    @click.stop="onClickNext">
     <Icon name="chevron-right"/>
   </button>
 </nav>

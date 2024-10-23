@@ -335,7 +335,12 @@ function onPointerEnd(e)
   globalState.swipe = false
   state.swipePosX = NaN
 
-  if (elapsedTime < 60 || percent < 1) return
+  if (elapsedTime < 60 || percent < 1)
+  {
+    globalState.isClickSlide = true
+    return
+  }
+  globalState.isClickSlide = false
 
   // `loop`가 아니고 첫번째와 마지막 슬라이드일 경우
   if (!preference.slides.loop)

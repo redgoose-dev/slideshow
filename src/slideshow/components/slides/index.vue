@@ -8,18 +8,18 @@
   <div :class="[
     'hud',
     showHud && 'use',
-    preference.general.visibleHudHover && 'hover',
+    preference.general?.visibleHudHover && 'hover',
   ]">
     <Caption
-      v-if="preference.general.hudContents.caption"
+      v-if="preference.general?.hudContents?.caption"
       class="slides__caption"/>
     <Controller
-      v-if="preference.general.hudContents.controller"
+      v-if="preference.general?.hudContents?.controller"
       class="slides__controller"/>
     <Paginate
-      v-if="preference.general.hudContents.paginate"
+      v-if="preference.general?.hudContents?.paginate"
       class="slides__paginate"/>
-    <slot v-if="preference.general.hudContents.slots"/>
+    <slot v-if="preference.general?.hudContents?.slots"/>
   </div>
 </div>
 </template>
@@ -110,6 +110,7 @@ function onMouseEnter()
 function onClickRoot()
 {
   if (!preference.general.visibleHudClick) return
+  if (!globalState.isClickSlide) return
   showHud.value = !showHud.value
 }
 </script>

@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import Slideshow from '../slideshow/index.vue'
 import { cloneObject } from '../slideshow/libs/util.js'
 import slidesData from './res/slides.json'
@@ -74,6 +74,14 @@ const slideshowState = reactive({
   theme: 'light',
 })
 
+onMounted(() => {
+  window.slideshow = {
+    prev: () => $slideshow.value.prev(),
+    next: () => $slideshow.value.next(),
+    change: (key) => $slideshow.value.change(key),
+  }
+})
+
 async function onClickControl(mode)
 {
   switch (mode)
@@ -100,7 +108,7 @@ function onClickToggleAutoplay()
 function onClickExportData()
 {
   // $slideshow.value.export()
-  console.log('onClickExportData()', $slideshow.value.exports())
+  console.log('onClickExportData()', $slideshow.value.exportData())
 }
 </script>
 

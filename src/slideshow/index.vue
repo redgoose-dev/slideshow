@@ -70,62 +70,8 @@ watch(() => props.autoplay, (value) => {
   globalState.autoplay = value
 })
 
-async function start()
-{
-  if (!state.stop) return
-  try
-  {
-    language.setup(props.language)
-    preference.setup(props.preference)
-    slides.setup(props.slides, String(props.active))
-    globalState.setup({
-      autoplay: props.autoplay,
-    })
-    await nextTick()
-    setKeyboardEvent()
-    state.stop = false
-  }
-  catch(e)
-  {
-    state.error = e
-  }
-}
-async function stop()
-{
-  preference.destroy()
-  slides.destroy()
-  destroyKeyboardEvent()
-  state.stop = true
-  state.error = undefined
-}
-async function restart()
-{
-  await stop()
-  await nextTick()
-  await start()
-}
-
-function exports()
-{
-  return cloneObject({
-    preference: preference.exportData(),
-    slides: {
-      data: slides.order.reduce((acc, cur) => {
-        acc.push({
-          ...slides.data.get(cur),
-          key: cur,
-        })
-        return acc
-      }, []),
-      active: slides.active,
-      activeIndex: slides.activeIndex,
-    },
-    language: Object.fromEntries(language.data),
-  })
-}
-
 /**
- * KEYBOARD EVENT
+ * Keyboard event
  */
 function setKeyboardEvent()
 {
@@ -171,12 +117,85 @@ function destroyKeyboardEvent()
   }
 }
 
+/**
+ * Component methods
+ */
+async function start()
+{
+  if (!state.stop) return
+  try
+  {
+    language.setup(props.language)
+    preference.setup(props.preference)
+    slides.setup(props.slides, String(props.active))
+    globalState.setup({
+      autoplay: props.autoplay,
+    })
+    await nextTick()
+    setKeyboardEvent()
+    state.stop = false
+  }
+  catch(e)
+  {
+    state.error = e
+  }
+}
+async function stop()
+{
+  preference.destroy()
+  slides.destroy()
+  destroyKeyboardEvent()
+
+  state.stop = true
+  state.error = undefined
+}
+async function restart()
+{
+  await stop()
+  await nextTick()
+  await start()
+}
+function exportData()
+{
+  return cloneObject({
+    preference: preference.exportData(),
+    slides: {
+      data: slides.order.reduce((acc, cur) => {
+        acc.push({
+          ...slides.data.get(cur),
+          key: cur,
+        })
+        return acc
+      }, []),
+      active: slides.active,
+      activeIndex: slides.activeIndex,
+    },
+    language: Object.fromEntries(language.data),
+  })
+}
+function prevSlide()
+{
+  slides.prev()
+}
+function nextSlide()
+{
+  slides.next()
+}
+function changeSlide(key)
+{
+  if (key === slides.active) return
+  slides.change(String(key))
+}
+
 // set expose
 defineExpose({
   stop,
   start,
   restart,
-  exports,
+  exportData,
+  prev: prevSlide,
+  next: nextSlide,
+  change: changeSlide,
 })
 </script>
 

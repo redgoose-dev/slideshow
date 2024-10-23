@@ -34,6 +34,11 @@ const iconMap = {
   'ChevronRight': lucide.ChevronRight,
   'CloudRainWind': lucide.CloudRainWind,
   'Skull': lucide.Skull,
+  'Ghost': lucide.Ghost,
+  'CirclePlay': lucide.CirclePlay,
+  'Sun': lucide.Sun,
+  'Moon': lucide.Moon,
+  'Cog': lucide.Cog,
 }
 const icon = computed(() => {
   let src = iconMap[toPascalCase(props.name)]

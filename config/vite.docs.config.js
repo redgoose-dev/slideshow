@@ -1,10 +1,10 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import { existsSync, renameSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
-const config = defineConfig(() => {
+const config = defineConfig(({ mode }) => {
   return {
     root: 'src',
     base: './',
@@ -14,7 +14,7 @@ const config = defineConfig(() => {
       sourcemap: false,
       rollupOptions: {
         input: {
-          app: './src/docs.html',
+          index: './src/docs.html',
         },
         output: {
           manualChunks(id)
@@ -54,7 +54,6 @@ function renameHtmlFile()
     closeBundle()
     {
       const dir = resolve(__dirname, '../docs')
-      const pathDocs = join(dir, 'docs.html')
       if (existsSync(join(dir, 'docs.html')))
       {
         renameSync(join(dir, 'docs.html'), join(dir, 'index.html'))

@@ -30,6 +30,7 @@ export function checkPreference(src)
 export function checkSlides(arr)
 {
   if (!Array.isArray(arr)) throw new Error('slides data is not array')
+  if (!arr.length) throw new Error('EMPTY_SLIDES')
   arr.forEach((o) => {
     if (!o.src) throw new Error('slide data is not valid')
   })

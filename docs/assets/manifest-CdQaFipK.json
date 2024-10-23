@@ -1,0 +1,22 @@
+{
+  "name": "Slideshow Demo",
+  "short_name": "Slideshow",
+  "description": "This is a demo site for the Vue component of an image slideshow.",
+  "icons": [
+    {
+      "src": "./images/app-icon.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./images/app-icon@2x.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#0cb65b",
+  "background_color": "#fafafa",
+  "orientation": "natural"
+}

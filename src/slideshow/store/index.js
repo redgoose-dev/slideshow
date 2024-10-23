@@ -176,6 +176,7 @@ export const globalStateStore = defineStore('state', {
     playedSlideCancel: false,
     autoplay: true,
     hud: false,
+    isClickSlide: false,
   }),
   actions: {
     setup(op)

@@ -1,0 +1,17 @@
+.docs {
+  position: relative;
+  height: 100dvh;
+  box-sizing: border-box;
+}
+
+.slideshow {
+  --slideshow-width: 100%;
+  --slideshow-height: 100%;
+}
+
+.navigation {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 2;
+}
