@@ -1,4 +1,5 @@
 @use 'normalize';
+@use 'fonts';
 
 :root {
   --font-base: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -23,8 +24,6 @@ body {
   min-width: 320px;
   background: var(--docs-color-bg);
   -webkit-touch-callout: none; // for ios
-  position: fixed;
-  inset: 0;
 }
 body, button, input, textarea, select {
   font-family: var(--font-base);
@@ -35,4 +34,12 @@ body, button, input, textarea, select {
 }
 a {
   color: var(--docs-color-key);
+}
+
+// slideshow mode
+html.slideshow-mode {
+  body {
+    position: fixed;
+    inset: 0;
+  }
 }

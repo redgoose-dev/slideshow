@@ -13,7 +13,6 @@
 }
 
 .hud {
-  //display: none;
   opacity: 0;
   position: absolute;
   left: 0;
@@ -27,10 +26,16 @@
     pointer-events: none;
   }
   &.use {
-    //display: block;
     opacity: 1;
     > * {
       pointer-events: auto;
+    }
+  }
+}
+.images {
+  &:is(.swipe) + .hud {
+    > * {
+      pointer-events: none;
     }
   }
 }

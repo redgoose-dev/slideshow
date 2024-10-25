@@ -127,9 +127,10 @@ async function start()
   {
     language.setup(props.language)
     preference.setup(props.preference)
+    if (!preference.slides?.autoplay) emits('update:autoplay', false)
     slides.setup(props.slides, String(props.active))
     globalState.setup({
-      autoplay: props.autoplay,
+      autoplay: preference.slides.autoplay && props.autoplay,
     })
     await nextTick()
     setKeyboardEvent()

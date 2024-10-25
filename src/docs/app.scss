@@ -1,12 +1,14 @@
 .docs {
   position: relative;
-  height: 100dvh;
+  min-height: 100dvh;
   box-sizing: border-box;
+  container: docs / inline-size;
 }
 
 .slideshow {
-  --slideshow-width: 100%;
-  --slideshow-height: 100%;
+  --slideshow-width: 100dvw;
+  --slideshow-height: 100dvh;
+  font-family: var(--font-base);
 }
 
 .navigation {

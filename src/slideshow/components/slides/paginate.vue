@@ -23,7 +23,7 @@ const current = computed(() => {
   bottom: 16px;
   z-index: 2;
   margin: 0;
-  font-family: var(--font-eng), sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   line-height: 1.05;
   font-size: 13px;
   letter-spacing: -.5px;

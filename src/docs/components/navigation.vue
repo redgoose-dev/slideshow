@@ -1,7 +1,7 @@
 <template>
 <nav class="navigation">
   <ul>
-    <li>
+    <li v-if="visibleAutoplay">
       <button
         type="button"
         title="오토플레이"
@@ -53,10 +53,17 @@
 </template>
 
 <script setup>
-import { slideshowStateStore } from '../stores.js'
+import { computed } from 'vue'
+import { stateStore, preferenceStore } from '../stores.js'
 import Icon from '../../slideshow/components/icon/index.vue'
 
-const slideshowState = slideshowStateStore()
+const slideshowState = stateStore()
+const preference = preferenceStore()
+const emits = defineEmits([ 'change-mode' ])
+
+const visibleAutoplay = computed(() => {
+  return preference.data?.slides?.autoplay
+})
 
 function onClickAutoplay()
 {
@@ -64,12 +71,11 @@ function onClickAutoplay()
 }
 function onClickTheme()
 {
-  slideshowState.theme = slideshowState.theme === 'dark' ? 'light' : 'dark'
+  slideshowState.changeTheme(slideshowState.theme === 'dark' ? 'light' : 'dark')
 }
 function onClickSetting()
 {
-  //
-  console.log('onClickSetting()')
+  emits('change-mode', 'settings')
 }
 </script>
 

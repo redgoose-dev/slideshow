@@ -4,7 +4,7 @@
   @mouseleave="onMouseLeave"
   @mouseenter="onMouseEnter"
   @click.prevent="onClickRoot">
-  <Images/>
+  <Images class="images"/>
   <div :class="[
     'hud',
     showHud && 'use',

@@ -21,6 +21,32 @@ const config = defineConfig(({ mode }) => {
           {
             if (id.includes('node_modules')) return 'vendor'
           },
+          assetFileNames(assetInfo)
+          {
+            const info = assetInfo.name.split('.')
+            const ext = info[info.length - 1]
+            if (/woff/i.test(ext))
+            {
+              return `fonts/[name][extname]`
+            }
+            else if (/^manifest/.test(info[0]))
+            {
+              return `[name][extname]`
+            }
+            else if (/^favicon/.test(info[0]))
+            {
+              return `[name][extname]`
+            }
+            else if (/^app-icon/.test(info[0]))
+            {
+              return `images/[name][extname]`
+            }
+            else if (/png|jpe?g|svg|ico|webp|gif/i.test(ext))
+            {
+              return `images/[name]-[hash][extname]`
+            }
+            return `assets/[name]-[hash][extname]`
+          },
         },
       },
     },
