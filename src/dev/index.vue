@@ -9,6 +9,7 @@
     <button @click="onClickChangeSlide">GO SLIDE</button>
     <button @click="onClickToggleAutoplay">AUTOPLAY</button>
     <button @click="onClickExportData">EXPORT DATA</button>
+    <button @click="onClickGetSlidesKey">GET KEYS</button>
   </nav>
   <div class="slideshow-wrap">
     <Slideshow
@@ -109,6 +110,10 @@ function onClickExportData()
 {
   // $slideshow.value.export()
   console.log('onClickExportData()', $slideshow.value.exportData())
+}
+function onClickGetSlidesKey()
+{
+  console.log('onClickGetSlidesKey()', $slideshow.value.getKeys())
 }
 </script>
 

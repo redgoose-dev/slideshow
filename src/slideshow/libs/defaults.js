@@ -43,18 +43,18 @@ export const defaultPreference = {
   },
   // 스타일
   style: {
-    // none,contain,cover
+    // 이미지 표시 타입 `none,contain,cover`
     imageType: 'contain',
-    // [ width, height ]
+    // 전체 영역에서 표시되는 이미지 사이즈 `[ width, height ]`
     imageScale: [ '100%', '100%' ],
     // 캡션 사이즈 퍼센트(%)
     captionScale: 100,
-    // [ left, top ]
+    // 캡션의 위치 [ left, top ]
     captionPosition: [ '32px', '30px' ],
   },
   // 키보드 이벤트
   keyboard: {
-    // 이벤트 객체
+    // 이벤트 객체 `element,window`
     eventTarget: 'element',
     // 단축키 사용유무
     enable: true,

@@ -52,11 +52,7 @@ if (import.meta.env.DEV)
 
 // lifecycles
 onMounted(() => start())
-onBeforeUnmount(() => {
-  preference.destroy()
-  slides.destroy()
-  stop().then()
-})
+onBeforeUnmount(() => stop())
 
 // watch
 watch(() => props.slides, () => restart(), { deep: true })
@@ -90,7 +86,7 @@ function setKeyboardEvent()
 }
 function onKeyupEvent(e)
 {
-  if (!preference.keyboard.enable) return
+  if (!preference?.keyboard?.enable) return
   const { keyCode } = e
   switch (keyCode)
   {
@@ -143,10 +139,9 @@ async function start()
 }
 async function stop()
 {
+  destroyKeyboardEvent()
   preference.destroy()
   slides.destroy()
-  destroyKeyboardEvent()
-
   state.stop = true
   state.error = undefined
 }
@@ -155,6 +150,19 @@ async function restart()
   await stop()
   await nextTick()
   await start()
+}
+function prevSlide()
+{
+  slides.prev()
+}
+function nextSlide()
+{
+  slides.next()
+}
+function changeSlide(key)
+{
+  if (key === slides.active) return
+  slides.change(String(key))
 }
 function exportData()
 {
@@ -174,29 +182,21 @@ function exportData()
     language: Object.fromEntries(language.data),
   })
 }
-function prevSlide()
+function getSlidesKey()
 {
-  slides.prev()
-}
-function nextSlide()
-{
-  slides.next()
-}
-function changeSlide(key)
-{
-  if (key === slides.active) return
-  slides.change(String(key))
+  return cloneObject(slides.order)
 }
 
 // set expose
 defineExpose({
-  stop,
   start,
+  stop,
   restart,
-  exportData,
   prev: prevSlide,
   next: nextSlide,
   change: changeSlide,
+  exportData,
+  getKeys: getSlidesKey,
 })
 </script>
 
