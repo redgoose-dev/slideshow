@@ -1,0 +1,24 @@
+$dir: './fonts';
+
+// Pretendard
+@mixin font-loader-pretendard($weight-name, $weight)
+{
+  @font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src:
+      local('qPretendard #{$weight-name}'),
+      url('#{$dir}/Pretendard-#{$weight-name}.subset.woff2') format('woff2');
+  }
+}
+@include font-loader-pretendard('Thin', 100); // Thin
+@include font-loader-pretendard('ExtraLight', 200); // ExtraLight
+@include font-loader-pretendard('Light', 300); // Light
+@include font-loader-pretendard('Regular', 400); // Regular
+@include font-loader-pretendard('Medium', 500); // Medium
+@include font-loader-pretendard('SemiBold', 600); // SemiBold
+@include font-loader-pretendard('Bold', 700); // Bold
+@include font-loader-pretendard('ExtraBold', 800); // ExtraBold
+@include font-loader-pretendard('Black', 900); // black

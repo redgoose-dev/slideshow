@@ -1,0 +1,31 @@
+.page {
+  //
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.05;
+  letter-spacing: -.5px;
+}
+
+.description {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--docs-color-weak);
+  line-height: 1.15;
+}
+
+.body {
+  margin: 16px 0 0;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px hsl(0 0% 85%);
+}
+.editor {
+  margin: 0;
+}
+
+.submit {
+  margin: 36px 0 0;
+}

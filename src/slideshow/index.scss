@@ -1,0 +1,49 @@
+@use './assets/mixins';
+
+.slideshow {
+  // color
+  --color-bg: light-dark(hsl(0 0% 98%), hsl(0 0% 16%));
+  --color-fill: light-dark(hsl(0 0% 9%), hsl(0 0% 96%));
+  --color-low-fill: light-dark(hsl(0 0% 28%), hsl(0 0% 60%));
+  --color-key: light-dark(hsl(148 88% 38%), hsl(148 73% 39%));
+  --color-danger: light-dark(hsl(4 80% 44%), hsl(4 82% 36%));
+  // size
+  --size-shape-radius: 2px;
+  // speed
+  --speed-button-active: 200ms;
+  --speed-slide-animation: 1000ms;
+  --speed-content-toggle: 300ms;
+
+  position: relative;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-fill);
+  background-color: var(--color-bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: none;
+  box-sizing: border-box;
+  container: slideshow / inline-size;
+
+  // slideshow size
+  width: var(--slideshow-width, auto);
+  height: var(--slideshow-height, 100%);
+  min-width: 320px;
+  min-height: 240px;
+
+  *::selection {
+    background: var(--color-key);
+    color: var(--color-bg);
+  }
+
+  // color theme
+  color-scheme: light dark;
+  &.theme {
+    &--light {
+      color-scheme: only light;
+    }
+    &--dark {
+      color-scheme: only dark;
+    }
+  }
+}

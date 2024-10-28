@@ -1,0 +1,44 @@
+@use '../../assets/mixins';
+
+.caption {
+  display: none;
+  @include mixins.responsive(desktop) {
+    display: block;
+    position: absolute;
+    top: var(--caption-top, 32px);
+    left: var(--caption-left, 30px);
+    z-index: 2;
+    right: 8em;
+    font-size: calc(16px * calc(var(--caption-scale, 100) / 100));
+    transform-origin: 0 0;
+    backface-visibility: hidden;
+    will-change: transform;
+    user-select: none;
+    pointer-events: none;
+    opacity: var(--caption-opacity);
+    transition: opacity var(--caption-speed, unset) ease-out;
+    h1 {
+      margin: -8px 0 0;
+      font-size: 2.625em;
+      letter-spacing: -1.5px;
+      font-weight: 800;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: clip;
+      text-overflow: ellipsis;
+    }
+    p {
+      margin: 2px 0 0;
+      line-height: 1.15;
+      word-break: break-word;
+      font-weight: 400;
+      font-size: .813em;
+      letter-spacing: -.25px;
+      color: var(--color-fill);
+      white-space: nowrap;
+      overflow: clip;
+      text-overflow: ellipsis;
+      opacity: .75;
+    }
+  }
+}

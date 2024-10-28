@@ -1,0 +1,16 @@
+// responsive
+@mixin responsive($range)
+{
+  @if $range == tablet
+  {
+    @container slideshow (min-width: 768px) { @content; }
+  }
+  @else if $range == desktop
+  {
+    @container slideshow (min-width: 1024px) { @content; }
+  }
+  @else if $range == desktop-large
+  {
+    @container slideshow (min-width: 1440px) { @content; }
+  }
+}

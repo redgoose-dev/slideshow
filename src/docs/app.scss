@@ -1,0 +1,19 @@
+.docs {
+  position: relative;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  container: docs / inline-size;
+}
+
+.slideshow {
+  --slideshow-width: 100dvw;
+  --slideshow-height: 100dvh;
+  font-family: var(--font-base);
+}
+
+.navigation {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 2;
+}

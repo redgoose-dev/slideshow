@@ -1,13 +1,24 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import autoprefixer from 'autoprefixer'
 
 const config = defineConfig(({ mode }) => {
-  const { VITE_HOST, VITE_PORT } = loadEnv(mode, process.cwd())
   return {
     root: 'src',
-    server: {
-      host: VITE_HOST,
-      port: Number(VITE_PORT),
+    build: {
+      outDir: '../dist',
+      lib: {
+        entry: 'slideshow/index.vue',
+        name: 'Slideshow',
+        formats: [ 'es' ],
+      },
+      rollupOptions: {
+        output: {},
+        external: [
+          'vue',
+          'pinia',
+        ]
+      },
     },
     css: {
       preprocessorOptions: {
@@ -15,7 +26,13 @@ const config = defineConfig(({ mode }) => {
           api: 'modern-compiler',
         },
       },
+      postcss: {
+        plugins: [
+          autoprefixer(),
+        ],
+      },
     },
+    esbuild: {},
     plugins: [
       vue({
         template: {

@@ -1,0 +1,41 @@
+.slides {
+  height: 100%;
+  box-sizing: border-box;
+  @media (hover: hover) {
+    > .hud.hover {
+      opacity: 0;
+      pointer-events: none;
+    }
+    &:hover > .hud.hover {
+      opacity: 1;
+    }
+  }
+}
+
+.hud {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  transition: opacity 240ms ease-out;
+  > * {
+    pointer-events: none;
+  }
+  &.use {
+    opacity: 1;
+    > * {
+      pointer-events: auto;
+    }
+  }
+}
+.images {
+  &:is(.swipe) + .hud {
+    > * {
+      pointer-events: none;
+    }
+  }
+}

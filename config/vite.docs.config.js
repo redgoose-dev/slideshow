@@ -1,30 +1,91 @@
-import { defineConfig, loadEnv } from 'vite';
-import autoprefixer from 'autoprefixer';
-import base from './vite.base.config';
-import { paths } from './options';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import autoprefixer from 'autoprefixer'
+import { existsSync, renameSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd());
-  const { VITE_HOST } = env;
+const config = defineConfig(({ mode }) => {
   return {
+    root: 'src',
     base: './',
-    server: {
-      host: VITE_HOST,
-    },
     build: {
+      outDir: '../docs',
       minify: true,
-      outDir: paths.docs,
       sourcemap: false,
+      rollupOptions: {
+        input: {
+          index: './src/docs.html',
+        },
+        output: {
+          manualChunks(id)
+          {
+            if (id.includes('node_modules')) return 'vendor'
+          },
+          assetFileNames(assetInfo)
+          {
+            const info = assetInfo.name.split('.')
+            const ext = info[info.length - 1]
+            if (/woff/i.test(ext))
+            {
+              return `fonts/[name][extname]`
+            }
+            else if (/^manifest/.test(info[0]))
+            {
+              return `[name][extname]`
+            }
+            else if (/^favicon/.test(info[0]))
+            {
+              return `[name][extname]`
+            }
+            else if (/^app-icon/.test(info[0]))
+            {
+              return `images/[name][extname]`
+            }
+            else if (/png|jpe?g|svg|ico|webp|gif/i.test(ext))
+            {
+              return `images/[name]-[hash][extname]`
+            }
+            return `assets/[name]-[hash][extname]`
+          },
+        },
+      },
     },
-    plugins: [
-      ...base.plugins,
-    ],
     css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
       postcss: {
         plugins: [
           autoprefixer(),
         ],
       },
     },
-  };
-});
+    plugins: [
+      vue({
+        template: {
+          compilerOptions: {},
+        },
+      }),
+      renameHtmlFile(),
+    ],
+  }
+})
+
+function renameHtmlFile()
+{
+  return {
+    name: 'plugin-rename-html-file',
+    closeBundle()
+    {
+      const dir = resolve(__dirname, '../docs')
+      if (existsSync(join(dir, 'docs.html')))
+      {
+        renameSync(join(dir, 'docs.html'), join(dir, 'index.html'))
+      }
+    }
+  }
+}
+
+export default config

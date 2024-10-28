@@ -1,1 +1,0 @@
-import{_ as n}from"./index.2b5e35b2.js";import{o,b as c,F as t,h as e}from"./vendor.95a30472.js";const r={},s=e("circle",{cx:"12",cy:"12",r:"10"},null,-1),l=e("line",{x1:"12",y1:"16",x2:"12",y2:"12"},null,-1),_=e("line",{x1:"12",y1:"8",x2:"12.01",y2:"8"},null,-1);function a(i,f){return o(),c(t,null,[s,l,_],64)}var m=n(r,[["render",a]]);export{m as default};
