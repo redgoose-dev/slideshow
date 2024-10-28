@@ -35,6 +35,10 @@ body, button, input, textarea, select {
 a {
   color: var(--docs-color-key);
 }
+::selection {
+  background: var(--docs-color-key);
+  color: hsl(0 0% 96%);
+}
 
 // slideshow mode
 html.slideshow-mode {

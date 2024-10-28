@@ -116,7 +116,7 @@ function setupStates()
       active: storageData.active,
       autoplay: storageData.autoplay,
     })
-    slideshowState.changeTheme(storageData.theme)
+    slideshowState.changeTheme(storageData.theme || 'light')
   }
 }
 

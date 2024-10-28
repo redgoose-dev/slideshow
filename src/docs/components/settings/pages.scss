@@ -20,7 +20,7 @@
   margin: 16px 0 0;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 0 0 1px hsl(0 0% 85%);
+  box-shadow: 0 0 0 1px light-dark(hsl(0 0% 85%), hsl(0 0% 35%));
 }
 .editor {
   margin: 0;

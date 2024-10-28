@@ -15,7 +15,7 @@ export const stateStore = defineStore('state-store', {
     {
       const $html = document.documentElement
       $html.dataset.theme = value
-      this.theme = value
+      this.theme = value || 'light'
     },
   },
 })

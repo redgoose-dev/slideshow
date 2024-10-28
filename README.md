@@ -80,7 +80,7 @@ const language = ref({})
 ### preference
 
 슬라이드쇼의 환경설정 값입니다.
-[defaults.js](https://github.com/redgoose-dev/slideshow/blob/2.0/src/slideshow/libs/defaults.js) 파일에서 `defaultPreference`값이 기본값이며 이 구조에서 값을 변경하여 설정을 고쳐서 사용할 수 있습니다.
+[defaults.js](https://github.com/redgoose-dev/slideshow/blob/main/src/slideshow/libs/defaults.js) 파일에서 `defaultPreference`값이 기본값이며 이 구조에서 값을 변경하여 설정을 고쳐서 사용할 수 있습니다.
 
 ### slides
 
@@ -107,7 +107,7 @@ const language = ref({})
 ### language
 
 슬라이드쇼에서 사용하는 메시지 값
-[defaults.js](https://github.com/redgoose-dev/slideshow/blob/2.0/src/slideshow/libs/defaults.js) 파일에서 `defaultLanguage`값이 기본값이며 이 값을 기반으로 값을 만들어 사용하면 됩니다.
+[defaults.js](https://github.com/redgoose-dev/slideshow/blob/main/src/slideshow/libs/defaults.js) 파일에서 `defaultLanguage`값이 기본값이며 이 값을 기반으로 값을 만들어 사용하면 됩니다.
 
 ### active
 
@@ -223,5 +223,12 @@ onMounted(() => {
   </nav>
 </Slideshow>
 </template>
-<style scoped></style>
+
+<style scoped>
+nav {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+</style>
 ```
