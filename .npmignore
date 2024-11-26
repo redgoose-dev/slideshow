@@ -2,6 +2,7 @@ config/
 docs/
 src/
 node_modules/
+.idea/
 
 .gitignore
 jsconfig.json
