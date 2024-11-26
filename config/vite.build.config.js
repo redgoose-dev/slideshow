@@ -10,7 +10,7 @@ const config = defineConfig(({ mode }) => {
       lib: {
         entry: 'slideshow/index.vue',
         name: 'Slideshow',
-        fileName: 'vue-slideshow',
+        cssFileName: 'vue-slideshow',
         formats: [ 'es' ],
       },
       rollupOptions: {
