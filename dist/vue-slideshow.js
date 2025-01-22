@@ -231,7 +231,7 @@ const we = {
   }
 });
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -248,21 +248,21 @@ const P = {
   "stroke-linejoin": "round"
 };
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
 const Se = ["svg", P, [["path", { d: "m15 18-6-6 6-6" }]]];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
 const Te = ["svg", P, [["path", { d: "m9 18 6-6-6-6" }]]];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -276,7 +276,7 @@ const Ne = [
   ]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -292,7 +292,7 @@ const Ee = [
   ]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -318,7 +318,7 @@ const Ae = [
   ]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -333,7 +333,7 @@ const Ce = [
   ]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -344,7 +344,7 @@ const Me = [
   [["path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" }]]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -365,7 +365,7 @@ const Ie = [
   ]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -386,7 +386,7 @@ const Oe = [
   ]
 ];
 /**
- * @license lucide v0.461.0 - ISC
+ * @license lucide v0.473.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.

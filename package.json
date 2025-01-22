@@ -1,6 +1,6 @@
 {
   "name": "@redgoose/vue-slideshow",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "type": "module",
   "main": "./dist/vue-slideshow.js",
   "module": "./dist/vue-slideshow.js",
