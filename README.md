@@ -91,13 +91,11 @@ const language = ref({})
 [
   {
     "src": "image.jpg",
-    "thumbnail": "thumbnail.webp",
     "title": "slide title",
     "description": "slide description"
   },
   {
     "src": "image.jpg",
-    "thumbnail": "thumbnail.webp",
     "title": "slide title",
     "description": "slide description"
   }
