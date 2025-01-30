@@ -70,7 +70,7 @@ const preference = ref({
 })
 const slides = ref(cloneObject(slidesData))
 const slideshowState = reactive({
-  active: '2',
+  active: '1',
   autoplay: false,
   theme: 'light',
 })

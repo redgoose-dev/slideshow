@@ -3,7 +3,7 @@
   ref="$root"
   :class="[
     'images',
-    `mode--${preference.slides.transitionType}`,
+    `mode--${preference.slides?.transitionType}`,
     globalState.playedSlide && 'animation-play',
     globalState.playedSlideCancel && 'animation-cancel',
     globalState.swipe && 'swipe',
@@ -107,8 +107,15 @@ const rootStyles = computed(() => {
           style[`--active-column`] = slides.order.length + 1
           break
         default:
-          style[`--active-column`] = getSlideIndex(state.prevActive || state.active)
-          if (preference.slides.loop) style[`--active-column`]++
+          if (slides.order.length > 1)
+          {
+            style[`--active-column`] = getSlideIndex(state.prevActive || state.active)
+            if (preference.slides.loop) style[`--active-column`]++
+          }
+          else
+          {
+            style[`--active-column`] = 0
+          }
           break
       }
       if (!isNaN(state.swipePosX))
@@ -277,7 +284,10 @@ function updateLoadedFromItems(arr, pickIndex, loop, scope = 2)
       if (loop) idx = idx % length
       else continue
     }
-    state.items[arr[idx]].loaded = true
+    if (state.items[arr[idx]])
+    {
+      state.items[arr[idx]].loaded = true
+    }
   }
 }
 function onErrorImage(key)

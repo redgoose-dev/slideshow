@@ -22,9 +22,9 @@
     cursor: pointer;
     transition: opacity 200ms ease-out, outline-width 200ms ease-out;
     outline: none;
-    //pointer-events: auto;
+    pointer-events: auto;
     &:disabled {
-      //pointer-events: none;
+      pointer-events: none;
       opacity: 0;
     }
     .icon {
@@ -51,7 +51,7 @@
   }
   &.swipe {
     > button {
-      //pointer-events: none;
+      pointer-events: none;
     }
   }
 }

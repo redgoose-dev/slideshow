@@ -10,6 +10,6 @@ build/
 .DS_Store
 yarn.lock
 package-lock.json
-bun.lockb
+bun.lock
 .env.*
 Thumbs.db

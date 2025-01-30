@@ -99,6 +99,7 @@ export const slidesStore = defineStore('slides', {
     prev()
     {
       if (this.lock) return
+      if (this.order?.length <= 1) return
       const preference = preferenceStore()
       const activeIndex = this.order.indexOf(this.active)
       let prevIndex
@@ -116,6 +117,7 @@ export const slidesStore = defineStore('slides', {
     next()
     {
       if (this.lock) return
+      if (this.order?.length <= 1) return
       const preference = preferenceStore()
       const activeIndex = this.order.indexOf(this.active)
       let nextIndex
@@ -137,6 +139,7 @@ export const slidesStore = defineStore('slides', {
     change(key)
     {
       if (this.lock) return
+      if (this.order?.length <= 1) return
       if (!key) return
       if (key === this.active) return
       const activeIndex = this.order.indexOf(this.active)

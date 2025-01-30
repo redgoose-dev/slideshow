@@ -19,57 +19,57 @@
  * (c) 2025 Eduardo San Martin Morote
  * @license MIT
  */let vo;const Zn=e=>vo=e,xo=Symbol();function Os(e){return e&&typeof e=="object"&&Object.prototype.toString.call(e)==="[object Object]"&&typeof e.toJSON!="function"}var rn;(function(e){e.direct="direct",e.patchObject="patch object",e.patchFunction="patch function"})(rn||(rn={}));function Fu(){const e=mi(!0),t=e.run(()=>Pi({}));let n=[],s=[];const r=Zs({install(i){Zn(r),r._a=i,i.provide(xo,r),i.config.globalProperties.$pinia=r,s.forEach(o=>n.push(o)),s=[]},use(i){return this._a?n.push(i):s.push(i),this},_p:n,_a:null,_e:e,_s:new Map,state:t});return r}const wo=()=>{};function Kr(e,t,n,s=wo){e.push(t);const r=()=>{const i=e.indexOf(t);i>-1&&(e.splice(i,1),s())};return!n&&yi()&&dl(r),r}function At(e,...t){e.slice().forEach(n=>{n(...t)})}const Af=e=>e(),Jr=Symbol(),ds=Symbol();function Rs(e,t){e instanceof Map&&t instanceof Map?t.forEach((n,s)=>e.set(s,n)):e instanceof Set&&t instanceof Set&&t.forEach(e.add,e);for(const n in t){if(!t.hasOwnProperty(n))continue;const s=t[n],r=e[n];Os(r)&&Os(s)&&e.hasOwnProperty(n)&&!re(s)&&!ot(s)?e[n]=Rs(r,s):e[n]=s}return e}const Of=Symbol();function Rf(e){return!Os(e)||!e.hasOwnProperty(Of)}const{assign:tt}=Object;function Mf(e){return!!(re(e)&&e.effect)}function Nf(e,t,n,s){const{state:r,actions:i,getters:o}=t,l=n.state.value[e];let c;function a(){l||(n.state.value[e]=r?r():{});const d=jl(n.state.value[e]);return tt(d,i,Object.keys(o||{}).reduce((p,v)=>(p[v]=Zs(bo(()=>{Zn(n);const x=n._s.get(e);return o[v].call(x,x)})),p),{}))}return c=Co(e,a,t,n,s,!0),c}function Co(e,t,n={},s,r,i){let o;const l=tt({actions:{}},n),c={deep:!0};let a,d,p=[],v=[],x;const N=s.state.value[e];!i&&!N&&(s.state.value[e]={}),Pi({});let O;function q(D){let H;a=d=!1,typeof D=="function"?(D(s.state.value[e]),H={type:rn.patchFunction,storeId:e,events:x}):(Rs(s.state.value[e],D),H={type:rn.patchObject,payload:D,storeId:e,events:x});const oe=O=Symbol();Bi().then(()=>{O===oe&&(a=!0)}),d=!0,At(p,H,s.state.value[e])}const W=i?function(){const{state:H}=n,oe=H?H():{};this.$patch(Ee=>{tt(Ee,oe)})}:wo;function K(){o.stop(),p=[],v=[],s._s.delete(e)}const te=(D,H="")=>{if(Jr in D)return D[ds]=H,D;const oe=function(){Zn(s);const Ee=Array.from(arguments),Ne=[],et=[];function Ft(k){Ne.push(k)}function gn(k){et.push(k)}At(v,{args:Ee,name:oe[ds],store:Y,after:Ft,onError:gn});let se;try{se=D.apply(this&&this.$id===e?this:Y,Ee)}catch(k){throw At(et,k),k}return se instanceof Promise?se.then(k=>(At(Ne,k),k)).catch(k=>(At(et,k),Promise.reject(k))):(At(Ne,se),se)};return oe[Jr]=!0,oe[ds]=H,oe},$={_p:s,$id:e,$onAction:Kr.bind(null,v),$patch:q,$reset:W,$subscribe(D,H={}){const oe=Kr(p,D,H.detached,()=>Ee()),Ee=o.run(()=>Cn(()=>s.state.value[e],Ne=>{(H.flush==="sync"?d:a)&&D({storeId:e,type:rn.direct,events:x},Ne)},tt({},c,H)));return oe},$dispose:K},Y=Wn($);s._s.set(e,Y);const ue=(s._a&&s._a.runWithContext||Af)(()=>s._e.run(()=>(o=mi()).run(()=>t({action:te}))));for(const D in ue){const H=ue[D];if(re(H)&&!Mf(H)||ot(H))i||(N&&Rf(H)&&(re(H)?H.value=N[D]:Rs(H,N[D])),s.state.value[e][D]=H);else if(typeof H=="function"){const oe=te(H,D);ue[D]=oe,l.actions[D]=H}}return tt(Y,ue),tt(V(Y),ue),Object.defineProperty(Y,"$state",{get:()=>s.state.value[e],set:D=>{q(H=>{tt(H,D)})}}),s._p.forEach(D=>{tt(Y,o.run(()=>D({store:Y,app:s._a,pinia:s,options:l})))}),N&&i&&n.hydrate&&n.hydrate(Y.$state,N),a=!0,d=!0,Y}/*! #__NO_SIDE_EFFECTS__ */function Hu(e,t,n){let s,r;const i=typeof t=="function";typeof e=="string"?(s=e,r=i?n:t):(r=e,s=e.id);function o(l,c){const a=bc();return l=l||(a?nn(xo,null):null),l&&Zn(l),l=vo,l._s.has(s)||(i?Co(s,t,r,l):Nf(s,r,l)),l._s.get(s)}return o.$id=s,o}/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Ve={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"};/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Uu=["svg",Ve,[["path",{d:"m15 18-6-6 6-6"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Vu=["svg",Ve,[["path",{d:"m9 18 6-6-6-6"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Wu=["svg",Ve,[["circle",{cx:"12",cy:"12",r:"10"}],["polygon",{points:"10 8 16 12 10 16 10 8"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Ku=["svg",Ve,[["path",{d:"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"}],["path",{d:"m9.2 22 3-7"}],["path",{d:"m9 13-3 7"}],["path",{d:"m17 13-3 7"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Ju=["svg",Ve,[["path",{d:"M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"}],["path",{d:"M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"}],["path",{d:"M12 2v2"}],["path",{d:"M12 22v-2"}],["path",{d:"m17 20.66-1-1.73"}],["path",{d:"M11 10.27 7 3.34"}],["path",{d:"m20.66 17-1.73-1"}],["path",{d:"m3.34 7 1.73 1"}],["path",{d:"M14 12h8"}],["path",{d:"M2 12h2"}],["path",{d:"m20.66 7-1.73 1"}],["path",{d:"m3.34 17 1.73-1"}],["path",{d:"m17 3.34-1 1.73"}],["path",{d:"m11 13.73-4 6.93"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Yu=["svg",Ve,[["path",{d:"M9 10h.01"}],["path",{d:"M15 10h.01"}],["path",{d:"M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Gu=["svg",Ve,[["path",{d:"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const Zu=["svg",Ve,[["path",{d:"m12.5 17-.5-1-.5 1h1z"}],["path",{d:"M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z"}],["circle",{cx:"15",cy:"12",r:"1"}],["circle",{cx:"9",cy:"12",r:"1"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const qu=["svg",Ve,[["circle",{cx:"12",cy:"12",r:"4"}],["path",{d:"M12 2v2"}],["path",{d:"M12 20v2"}],["path",{d:"m4.93 4.93 1.41 1.41"}],["path",{d:"m17.66 17.66 1.41 1.41"}],["path",{d:"M2 12h2"}],["path",{d:"M20 12h2"}],["path",{d:"m6.34 17.66-1.41 1.41"}],["path",{d:"m19.07 4.93-1.41 1.41"}]]];/**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.

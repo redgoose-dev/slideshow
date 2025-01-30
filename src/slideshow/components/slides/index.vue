@@ -14,7 +14,7 @@
       v-if="preference.general?.hudContents?.caption"
       class="slides__caption"/>
     <Controller
-      v-if="preference.general?.hudContents?.controller"
+      v-if="_useController"
       class="slides__controller"/>
     <Paginate
       v-if="preference.general?.hudContents?.paginate"
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { slidesStore, preferenceStore, globalStateStore } from '../../store/index.js'
 import Images from './images.vue'
 import Caption from './caption.vue'
@@ -40,6 +40,10 @@ const showHud = ref(preference.general.hud)
 const showHudHover = ref(preference.general.hud)
 let timeoutId = undefined
 let isPauseAutoplayHover = isPauseAutoplay.value
+
+const _useController = computed(() => {
+  return !!preference.general?.hudContents?.controller && slides.order.length > 1
+})
 
 onMounted(() => startAutoplay())
 onBeforeUnmount(() => clearAutoplay())

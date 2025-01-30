@@ -1,9 +1,9 @@
-import { computed as b, openBlock as v, createElementBlock as _, mergeProps as he, createCommentVNode as E, Fragment as J, createElementVNode as $, createVNode as F, normalizeStyle as se, ref as X, reactive as ie, onMounted as ee, watch as O, normalizeClass as q, unref as N, renderList as ve, toDisplayString as Z, withModifiers as ae, onBeforeUnmount as ue, createBlock as Y, renderSlot as pe, nextTick as le, withCtx as me, resolveDynamicComponent as ge } from "vue";
+import { computed as b, openBlock as m, createElementBlock as _, mergeProps as he, createCommentVNode as E, Fragment as J, createElementVNode as H, createVNode as z, normalizeStyle as se, ref as $, reactive as ie, onMounted as ee, watch as O, normalizeClass as G, unref as A, renderList as ve, toDisplayString as Y, withModifiers as ae, onBeforeUnmount as ue, createBlock as V, renderSlot as pe, nextTick as le, withCtx as me, resolveDynamicComponent as ge } from "vue";
 import { defineStore as te } from "pinia";
 function ye(a = 3e3) {
   return new Promise((e) => setTimeout(e, a));
 }
-function K(a) {
+function Z(a) {
   try {
     if (!a) throw new Error("no src");
     try {
@@ -28,7 +28,7 @@ const I = {
   NONE: "none",
   FADE: "fade",
   HORIZONTAL: "horizontal"
-}, G = {
+}, U = {
   NONE: "none",
   SHUFFLE: "shuffle"
 }, ce = {
@@ -40,7 +40,7 @@ const I = {
   WINDOW: "window"
 };
 function xe(a) {
-  return Object.values(I).includes(a.slides.transitionType) || (a.slides.transitionType = I.NONE), Object.values(G).includes(a.slides.captionAnimationType) || (a.slides.captionAnimationType = G.NONE), Object.values(ce).includes(a.style.imageType) || (a.style.imageType = ce.NONE), a;
+  return Object.values(I).includes(a.slides.transitionType) || (a.slides.transitionType = I.NONE), Object.values(U).includes(a.slides.captionAnimationType) || (a.slides.captionAnimationType = U.NONE), Object.values(ce).includes(a.style.imageType) || (a.style.imageType = ce.NONE), a;
 }
 function ke(a) {
   if (!Array.isArray(a)) throw new Error("slides data is not array");
@@ -115,7 +115,7 @@ const we = {
   "error.title": "Error",
   "error.title-empty": "Empty",
   "error.empty": "No slide data is available."
-}, H = te("preference", {
+}, D = te("preference", {
   state: () => ({
     general: void 0,
     slides: void 0,
@@ -125,11 +125,11 @@ const we = {
   getters: {},
   actions: {
     setup(a) {
-      let e = fe(K(we), a);
+      let e = fe(Z(we), a);
       e = xe(e), this.general = e.general, this.slides = e.slides, this.style = e.style, this.keyboard = e.keyboard;
     },
     exportData() {
-      return K({
+      return Z({
         general: this.general,
         slides: this.slides,
         style: this.style,
@@ -140,7 +140,7 @@ const we = {
       this.general = void 0, this.slides = void 0, this.style = void 0, this.keyboard = void 0;
     }
   }
-}), U = te("slides", {
+}), K = te("slides", {
   state: () => ({
     data: /* @__PURE__ */ new Map(),
     order: [],
@@ -152,7 +152,7 @@ const we = {
   }),
   getters: {
     items() {
-      return this.order.map((a) => K(this.data.get(a)));
+      return this.order.map((a) => Z(this.data.get(a)));
     },
     images() {
       return this.order.map((a) => {
@@ -179,14 +179,16 @@ const we = {
       this.data.clear(), this.order = [];
     },
     prev() {
-      if (this.lock) return;
-      const a = H(), e = this.order.indexOf(this.active);
+      var t;
+      if (this.lock || ((t = this.order) == null ? void 0 : t.length) <= 1) return;
+      const a = D(), e = this.order.indexOf(this.active);
       let r;
       a.slides.loop ? r = (e - 1 + this.order.length) % this.order.length : r = e > 0 ? e - 1 : 0, this.direction = !1, this.active = this.order[r];
     },
     next() {
-      if (this.lock) return;
-      const a = H(), e = this.order.indexOf(this.active);
+      var t;
+      if (this.lock || ((t = this.order) == null ? void 0 : t.length) <= 1) return;
+      const a = D(), e = this.order.indexOf(this.active);
       let r;
       a.slides.loop ? r = (e + 1) % this.order.length : r = e < this.order.length - 1 ? e + 1 : this.order.length - 1, this.direction = !0, this.active = this.order[r];
     },
@@ -195,7 +197,8 @@ const we = {
      * @param {string} key
      */
     change(a) {
-      if (this.lock || !a || a === this.active) return;
+      var t;
+      if (this.lock || ((t = this.order) == null ? void 0 : t.length) <= 1 || !a || a === this.active) return;
       const e = this.order.indexOf(this.active), r = this.order.indexOf(a);
       r <= -1 || (this.direction = e < r, this.active = this.active = this.order[r]);
     }
@@ -207,7 +210,7 @@ const we = {
   getters: {},
   actions: {
     setup(a) {
-      const e = Object.assign({}, K(be), a);
+      const e = Object.assign({}, Z(be), a);
       Object.entries(e).forEach(([r, t]) => this.data.set(r, t));
     },
     print(a) {
@@ -225,13 +228,13 @@ const we = {
   }),
   actions: {
     setup(a) {
-      const e = H();
+      const e = D();
       a.autoplay !== void 0 && (this.autoplay = a.autoplay), this.hud = e.general.hud;
     }
   }
 });
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -248,21 +251,21 @@ const P = {
   "stroke-linejoin": "round"
 };
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
 const Se = ["svg", P, [["path", { d: "m15 18-6-6 6-6" }]]];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
 const Te = ["svg", P, [["path", { d: "m9 18 6-6-6-6" }]]];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -276,7 +279,7 @@ const Ne = [
   ]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -292,7 +295,7 @@ const Ee = [
   ]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -318,7 +321,7 @@ const Ae = [
   ]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -333,7 +336,7 @@ const Ce = [
   ]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -344,7 +347,7 @@ const Me = [
   [["path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" }]]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -365,7 +368,7 @@ const Ie = [
   ]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -386,7 +389,7 @@ const Oe = [
   ]
 ];
 /**
- * @license lucide v0.473.0 - ISC
+ * @license lucide v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -398,7 +401,7 @@ const Pe = [
     ["path", { d: "M18 6 6 18" }],
     ["path", { d: "m6 6 12 12" }]
   ]
-], D = (a, e) => {
+], F = (a, e) => {
   const r = a.__vccOpts || a;
   for (const [t, s] of e)
     r[t] = s;
@@ -426,16 +429,16 @@ const Pe = [
     }, t = b(() => {
       let u = r[_e(e.name)];
       if (!u) return null;
-      const [o, c, n] = u;
-      return s(o, c, n).innerHTML;
+      const [o, l, n] = u;
+      return s(o, l, n).innerHTML;
     });
-    function s(u, o, c = []) {
+    function s(u, o, l = []) {
       const n = document.createElementNS("http://www.w3.org/2000/svg", u);
-      return Object.keys(o).forEach((m) => {
-        n.setAttribute(m, String(o[m]));
-      }), c.length && c.forEach((m) => {
-        const g = s(...m);
-        n.appendChild(g);
+      return Object.keys(o).forEach((y) => {
+        n.setAttribute(y, String(o[y]));
+      }), l.length && l.forEach((y) => {
+        const v = s(...y);
+        n.appendChild(v);
       }), n;
     }
     const p = b(() => {
@@ -444,7 +447,7 @@ const Pe = [
       };
       return e.color && (u.style["--icon-color"] = e.color), e.size && (u.style["--icon-size"] = e.size), e.stroke && (u.style["--icon-stroke"] = e.stroke), u;
     });
-    return (u, o) => t.value ? (v(), _("svg", he({
+    return (u, o) => t.value ? (m(), _("svg", he({
       key: 0,
       innerHTML: t.value,
       xmlns: "http://www.w3.org/2000/svg",
@@ -462,7 +465,7 @@ const Pe = [
       ]
     }, p.value), null, 16, Le)) : E("", !0);
   }
-}, Q = /* @__PURE__ */ D(Xe, [["__scopeId", "data-v-905b7142"]]), $e = { key: 0 }, He = ["src", "alt"], De = {
+}, Q = /* @__PURE__ */ F(Xe, [["__scopeId", "data-v-905b7142"]]), $e = { key: 0 }, He = ["src", "alt"], De = {
   __name: "images-item",
   props: {
     keyName: String,
@@ -473,25 +476,25 @@ const Pe = [
   },
   emits: ["error"],
   setup(a, { emit: e }) {
-    const r = H(), t = a, s = e, p = b(() => {
-      const { imageScale: o, imageType: c } = r.style;
+    const r = D(), t = a, s = e, p = b(() => {
+      const { imageScale: o, imageType: l } = r.style;
       return {
         "--w": o[0],
         "--h": o[1],
-        "--fit": c
+        "--fit": l
       };
     });
     function u() {
       s("error", t.keyName);
     }
-    return (o, c) => (v(), _(J, null, [
-      t.error ? (v(), _("p", $e, [
-        $("i", null, [
-          F(Q, { name: "cloud-rain-wind" })
+    return (o, l) => (m(), _(J, null, [
+      t.error ? (m(), _("p", $e, [
+        H("i", null, [
+          z(Q, { name: "cloud-rain-wind" })
         ]),
-        c[0] || (c[0] = $("span", null, "no image", -1))
+        l[0] || (l[0] = H("span", null, "no image", -1))
       ])) : E("", !0),
-      t.loaded ? (v(), _("img", {
+      t.loaded ? (m(), _("img", {
         key: 1,
         src: t.src,
         alt: t.alt,
@@ -500,7 +503,7 @@ const Pe = [
       }, null, 44, He)) : E("", !0)
     ], 64));
   }
-}, re = /* @__PURE__ */ D(De, [["__scopeId", "data-v-a9c65d04"]]), Fe = {
+}, re = /* @__PURE__ */ F(De, [["__scopeId", "data-v-a9c65d04"]]), Fe = {
   key: 0,
   class: "slide-first"
 }, Re = {
@@ -516,12 +519,12 @@ const Pe = [
     "short-touch"
   ],
   setup(a, { emit: e }) {
-    const r = H(), t = U(), s = ne(), p = e, u = X(), o = X({}), c = X(), n = ie({
-      items: t.order.reduce((i, x) => {
-        const k = t.data.get(x);
-        return i[x] = {
-          src: k.src,
-          alt: k.title,
+    const r = D(), t = K(), s = ne(), p = e, u = $(), o = $({}), l = $(), n = ie({
+      items: t.order.reduce((i, k) => {
+        const w = t.data.get(k);
+        return i[k] = {
+          src: w.src,
+          alt: w.title,
           loaded: !1,
           error: !1
         }, i;
@@ -531,7 +534,7 @@ const Pe = [
       active: "",
       prevActive: "",
       swipePosX: NaN
-    }), m = b(() => {
+    }), y = b(() => {
       if (t.order.indexOf(n.active) <= -1) return;
       let i = {};
       switch (r.slides.transitionType) {
@@ -546,14 +549,14 @@ const Pe = [
               i["--active-column"] = t.order.length + 1;
               break;
             default:
-              i["--active-column"] = M(n.prevActive || n.active), r.slides.loop && i["--active-column"]++;
+              t.order.length > 1 ? (i["--active-column"] = C(n.prevActive || n.active), r.slides.loop && i["--active-column"]++) : i["--active-column"] = 0;
               break;
           }
           isNaN(n.swipePosX) || (i["--swipe-pos-x"] = `${n.swipePosX}%`);
           break;
       }
       return i;
-    }), g = b(() => {
+    }), v = b(() => {
       if (r.slides.transitionType !== "horizontal" || !r.slides.loop || t.order.length <= 1) return !1;
       const i = n.items[t.order[t.order.length - 1]];
       return {
@@ -583,163 +586,166 @@ const Pe = [
     });
     async function S(i) {
       var T;
-      const { transitionType: x, loop: k } = r.slides;
-      switch (p("transition-start"), x) {
+      const { transitionType: k, loop: w } = r.slides;
+      switch (p("transition-start"), k) {
         case I.NONE:
-          n.active = i, L(t.order, t.order.indexOf(n.active), k), p("transition-end");
+          n.active = i, L(t.order, t.order.indexOf(n.active), w), p("transition-end");
           break;
         case I.FADE:
-          t.lock = !0, s.playedSlide = !0, n.prevActive = n.active, n.classNamePrevActive = "fade-out", n.active = i, n.classNameActive = "fade-in hide", await ye(20), n.classNameActive = "fade-in", (T = o.value[n.active]) == null || T.addEventListener("transitionend", l, { once: !0 });
+          t.lock = !0, s.playedSlide = !0, n.prevActive = n.active, n.classNamePrevActive = "fade-out", n.active = i, n.classNameActive = "fade-in hide", await ye(20), n.classNameActive = "fade-in", (T = o.value[n.active]) == null || T.addEventListener("transitionend", g, { once: !0 });
           break;
         case I.HORIZONTAL:
           t.lock = !0, s.playedSlide = !0;
-          const C = {
-            prev: M(n.active),
-            next: M(i)
+          const N = {
+            prev: C(n.active),
+            next: C(i)
           };
-          k && (C.prev === 0 && C.next >= t.order.length - 1 ? n.prevActive = "first" : C.prev >= t.order.length - 1 && C.next === 0 ? n.prevActive = "last" : n.prevActive = ""), n.active = i, c.value.addEventListener("transitionend", l, { once: !0 });
+          w && (N.prev === 0 && N.next >= t.order.length - 1 ? n.prevActive = "first" : N.prev >= t.order.length - 1 && N.next === 0 ? n.prevActive = "last" : n.prevActive = ""), n.active = i, l.value.addEventListener("transitionend", g, { once: !0 });
           break;
       }
     }
-    function l() {
-      const { transitionType: i, loop: x } = r.slides;
+    function g() {
+      const { transitionType: i, loop: k } = r.slides;
       switch (i) {
         case I.FADE:
-          n.prevActive = "", n.classNamePrevActive = "", n.classNameActive = "active", s.playedSlide = !1, t.lock = !1, L(t.order, t.order.indexOf(n.active), x), p("transition-end");
+          n.prevActive = "", n.classNamePrevActive = "", n.classNameActive = "active", s.playedSlide = !1, t.lock = !1, L(t.order, t.order.indexOf(n.active), k), p("transition-end");
           break;
         case I.HORIZONTAL:
-          s.playedSlide = !1, n.prevActive = "", t.lock = !1, L(t.order, t.order.indexOf(n.active), x), p("transition-end");
+          s.playedSlide = !1, n.prevActive = "", t.lock = !1, L(t.order, t.order.indexOf(n.active), k), p("transition-end");
           break;
       }
     }
-    function y() {
-      s.playedSlideCancel = !0, c.value.addEventListener("transitionend", w, { once: !0 });
+    function c() {
+      s.playedSlideCancel = !0, l.value.addEventListener("transitionend", x, { once: !0 });
     }
-    function w() {
+    function x() {
       s.playedSlideCancel = !1;
     }
-    function M(i) {
-      const x = t.order.indexOf(i);
-      return x > -1 ? x : void 0;
+    function C(i) {
+      const k = t.order.indexOf(i);
+      return k > -1 ? k : void 0;
     }
-    function L(i, x, k, T = 2) {
-      const C = i.length;
-      for (let B = 0 - T; B <= T; B++) {
-        let j = x + B;
-        if (j < 0)
-          if (k) j = C + j;
+    function L(i, k, w, T = 2) {
+      const N = i.length;
+      for (let X = 0 - T; X <= T; X++) {
+        let R = k + X;
+        if (R < 0)
+          if (w) R = N + R;
           else continue;
-        else if (j >= C)
-          if (k) j = j % C;
+        else if (R >= N)
+          if (w) R = R % N;
           else continue;
-        n.items[i[j]].loaded = !0;
+        n.items[i[R]] && (n.items[i[R]].loaded = !0);
       }
     }
-    function V(i) {
+    function j(i) {
       n.items[i] && (n.items[i].error = !0);
     }
-    function R(i) {
+    function W(i) {
       i.stopPropagation(), i.touches && (d.touched = !0), i.touches && i.touches.length > 1 && i.preventDefault(), !s.playedSlide && r.slides.swipe && r.slides.transitionType === I.HORIZONTAL && (t.order.length <= 2 || (d.dist = 0, d.startX = i.touches && i.touches[0] ? Math.floor(i.touches[0].clientX) : i.clientX || i.pageX, d.startTime = (/* @__PURE__ */ new Date()).getTime(), s.swipe = !0));
     }
-    function z(i) {
+    function B(i) {
       if (i.stopPropagation(), !i.touches && d.touched || !s.swipe || t.order.length <= 2) return;
       d.moveX = i.touches && i.touches[0] ? Math.floor(i.touches[0].clientX) : i.clientX || i.pageX;
-      const x = u.value.offsetWidth, k = d.moveX - d.startX, T = r.slides.loop ? 1 : 0;
-      n.swipePosX = k / x * 100 + (0 - 100 * (M(n.active) + T));
+      const k = u.value.offsetWidth, w = d.moveX - d.startX, T = r.slides.loop ? 1 : 0;
+      n.swipePosX = w / k * 100 + (0 - 100 * (C(n.active) + T));
     }
     function h(i) {
       if (i.stopPropagation(), !i.touches && d.touched || !s.swipe || i.touches && i.touches.length > 0 || t.order.length <= 2) return;
-      const x = u.value.offsetWidth;
+      const k = u.value.offsetWidth;
       d.endX = i.changedTouches && i.changedTouches[0] ? Math.floor(i.changedTouches[0].clientX) : i.clientX || i.pageX;
-      const k = d.startX > d.endX, T = (/* @__PURE__ */ new Date()).getTime() - d.startTime, C = d.endX - d.startX, B = Math.abs(C) / x * 100;
-      if (d.dist = 0, d.startX = void 0, d.startTime = void 0, d.moveX = void 0, d.endX = void 0, s.swipe = !1, n.swipePosX = NaN, T < 60 || B < 1) {
+      const w = d.startX > d.endX, T = (/* @__PURE__ */ new Date()).getTime() - d.startTime, N = d.endX - d.startX, X = Math.abs(N) / k * 100;
+      if (d.dist = 0, d.startX = void 0, d.startTime = void 0, d.moveX = void 0, d.endX = void 0, s.swipe = !1, n.swipePosX = NaN, T < 60 || X < 1) {
         s.isClickSlide = !0;
         return;
       }
       if (s.isClickSlide = !1, !r.slides.loop) {
-        if (k) {
+        if (w) {
           if (t.activeIndex === t.data.size - 1) {
-            y();
+            c();
             return;
           }
         } else if (t.activeIndex === 0) {
-          y();
+          c();
           return;
         }
       }
-      T > 300 ? B > 30 ? t[k ? "next" : "prev"]() : y() : B > 5 ? t[k ? "next" : "prev"]() : y();
+      T > 300 ? X > 30 ? t[w ? "next" : "prev"]() : c() : X > 5 ? t[w ? "next" : "prev"]() : c();
     }
-    function A() {
-      s.swipe && y(), s.swipe = !1, n.swipePosX = NaN;
+    function M() {
+      s.swipe && c(), s.swipe = !1, n.swipePosX = NaN;
     }
-    function W() {
+    function q() {
       s.swipe = !1, n.swipePosX = NaN;
     }
-    return (i, x) => (v(), _("div", {
-      ref_key: "$root",
-      ref: u,
-      class: q([
-        "images",
-        `mode--${N(r).slides.transitionType}`,
-        N(s).playedSlide && "animation-play",
-        N(s).playedSlideCancel && "animation-cancel",
-        N(s).swipe && "swipe"
-      ]),
-      style: se(m.value),
-      onTouchstart: R,
-      onTouchmove: z,
-      onTouchend: h,
-      onMousedown: R,
-      onMousemove: z,
-      onMouseup: h,
-      onMouseleave: A,
-      onContextmenu: W
-    }, [
-      $("ul", {
-        ref_key: "$body",
-        ref: c,
-        class: "body"
+    return (i, k) => {
+      var w;
+      return m(), _("div", {
+        ref_key: "$root",
+        ref: u,
+        class: G([
+          "images",
+          `mode--${(w = A(r).slides) == null ? void 0 : w.transitionType}`,
+          A(s).playedSlide && "animation-play",
+          A(s).playedSlideCancel && "animation-cancel",
+          A(s).swipe && "swipe"
+        ]),
+        style: se(y.value),
+        onTouchstart: W,
+        onTouchmove: B,
+        onTouchend: h,
+        onMousedown: W,
+        onMousemove: B,
+        onMouseup: h,
+        onMouseleave: M,
+        onContextmenu: q
       }, [
-        g.value ? (v(), _("li", Fe, [
-          F(re, {
-            "key-name": "first-slide-image",
-            loaded: g.value.loaded,
-            src: g.value.src,
-            error: g.value.error
-          }, null, 8, ["loaded", "src", "error"])
-        ])) : E("", !0),
-        (v(!0), _(J, null, ve(n.items, (k, T) => (v(), _("li", {
-          ref_for: !0,
-          ref: (C) => {
-            o.value[T] = C;
-          },
-          class: q([
-            !!n.classNameActive && n.active === T && n.classNameActive,
-            !!n.classNamePrevActive && n.prevActive === T && n.classNamePrevActive
-          ])
+        H("ul", {
+          ref_key: "$body",
+          ref: l,
+          class: "body"
         }, [
-          F(re, {
-            "key-name": T,
-            loaded: k.loaded,
-            src: k.src,
-            alt: k.alt,
-            error: k.error,
-            onError: V
-          }, null, 8, ["key-name", "loaded", "src", "alt", "error"])
-        ], 2))), 256)),
-        f.value ? (v(), _("li", Re, [
-          F(re, {
-            "key-name": "last-slide-image",
-            loaded: f.value.loaded,
-            src: f.value.src,
-            error: f.value.error
-          }, null, 8, ["loaded", "src", "error"])
-        ])) : E("", !0)
-      ], 512),
-      x[0] || (x[0] = $("i", { class: "overlay" }, null, -1))
-    ], 38));
+          v.value ? (m(), _("li", Fe, [
+            z(re, {
+              "key-name": "first-slide-image",
+              loaded: v.value.loaded,
+              src: v.value.src,
+              error: v.value.error
+            }, null, 8, ["loaded", "src", "error"])
+          ])) : E("", !0),
+          (m(!0), _(J, null, ve(n.items, (T, N) => (m(), _("li", {
+            ref_for: !0,
+            ref: (X) => {
+              o.value[N] = X;
+            },
+            class: G([
+              !!n.classNameActive && n.active === N && n.classNameActive,
+              !!n.classNamePrevActive && n.prevActive === N && n.classNamePrevActive
+            ])
+          }, [
+            z(re, {
+              "key-name": N,
+              loaded: T.loaded,
+              src: T.src,
+              alt: T.alt,
+              error: T.error,
+              onError: j
+            }, null, 8, ["key-name", "loaded", "src", "alt", "error"])
+          ], 2))), 256)),
+          f.value ? (m(), _("li", Re, [
+            z(re, {
+              "key-name": "last-slide-image",
+              loaded: f.value.loaded,
+              src: f.value.src,
+              error: f.value.error
+            }, null, 8, ["loaded", "src", "error"])
+          ])) : E("", !0)
+        ], 512),
+        k[0] || (k[0] = H("i", { class: "overlay" }, null, -1))
+      ], 38);
+    };
   }
-}, We = /* @__PURE__ */ D(ze, [["__scopeId", "data-v-3ae9bac8"]]);
+}, We = /* @__PURE__ */ F(ze, [["__scopeId", "data-v-ab8c2783"]]);
 function Be(a, e) {
   e = Object.assign({}, {
     text: "",
@@ -765,44 +771,44 @@ function Be(a, e) {
     callback: null
     // 애니메이션이 끝나고 실행되는 함수
   }, e), e.text = e.text.trim();
-  let r = [], t = 0, s = 0, p = "", u = !0, o = !1, c = 0;
+  let r = [], t = 0, s = 0, p = "", u = !0, o = !1, l = 0;
   const n = 1e3 / e.fps;
-  function m(f) {
-    const d = f - c;
+  function y(f) {
+    const d = f - l;
     if (d > n) {
-      c = f - d % n;
+      l = f - d % n;
       let S = p;
       u = !0;
-      for (let l = s; l <= t; l++)
-        if (r[l] !== 0 && r[l] != null) {
+      for (let g = s; g <= t; g++)
+        if (r[g] !== 0 && r[g] != null) {
           u = !1;
-          const y = r[l];
-          let w = "";
-          if (Math.abs(y) <= e.moveTrigger) {
+          const c = r[g];
+          let x = "";
+          if (Math.abs(c) <= e.moveTrigger) {
             switch (e.randomTextType) {
               case "pattern":
-                w = g(e.pattern);
+                x = v(e.pattern);
                 break;
               case "unicode":
               default:
-                const M = Math.min(Math.max(e.text.charCodeAt(l) + y, 33), 126);
-                w = String.fromCharCode(M);
+                const C = Math.min(Math.max(e.text.charCodeAt(g) + c, 33), 126);
+                x = String.fromCharCode(C);
                 break;
             }
-            S += w;
+            S += x;
           } else
             S += e.waitChar;
-          y > 0 ? r[l] -= 1 : r[l] += 1;
+          c > 0 ? r[g] -= 1 : r[g] += 1;
         } else
-          s === l - 1 && (s = l, p = e.text.substring(0, s)), S += e.text.charAt(l);
+          s === g - 1 && (s = g, p = e.text.substring(0, s)), S += e.text.charAt(g);
       if (a.textContent = S, t <= e.text.length ? t += e.charSpeed : o = !0, u && o) {
         a.dataset.id && cancelAnimationFrame(parseInt(a.dataset.id)), a.textContent = p, a.dataset.run = "false", e.callback && e.callback();
         return;
       }
     }
-    a.dataset.id = requestAnimationFrame(m);
+    a.dataset.id = requestAnimationFrame(y);
   }
-  function g(f) {
+  function v(f) {
     const d = Math.floor(Math.random() * f.length);
     return f.substring(d, d + 1);
   }
@@ -810,53 +816,53 @@ function Be(a, e) {
     a.dataset.run = "true", a.textContent = e.waitChar;
     for (let f = 0; f <= e.text.length - 1; f++)
       e.text.charAt(f) !== " " ? r[f] = (e.moveFix + Math.round(Math.random() * e.moveRange)) * (Math.round(Math.random()) - 0.5) * 2 : r[f] = 0;
-    t = 0, s = 0, p = "", a.dataset.id && cancelAnimationFrame(Number(a.dataset.id)), a.dataset.id = requestAnimationFrame(m);
+    t = 0, s = 0, p = "", a.dataset.id && cancelAnimationFrame(Number(a.dataset.id)), a.dataset.id = requestAnimationFrame(y);
   }
 }
 const je = { key: 0 }, Ve = { key: 1 }, Ye = {
   __name: "caption",
   setup(a) {
-    const e = X(), r = X(), t = H(), s = U(), p = ie({
+    const e = $(), r = $(), t = D(), s = K(), p = ie({
       opacity: 1,
       speed: 0
     }), u = b(() => {
-      const { captionPosition: g, captionScale: f } = t.style;
+      const { captionPosition: v, captionScale: f } = t.style;
       return {
-        "--caption-left": g[0],
-        "--caption-top": g[1],
+        "--caption-left": v[0],
+        "--caption-top": v[1],
         "--caption-scale": f,
         "--caption-opacity": p.opacity,
         "--caption-speed": `${p.speed}ms`
       };
     }), o = b(() => {
       if (!s.data.get(s.active)) return {};
-      const { title: g, description: f } = s.data.get(s.active);
-      return { title: g, description: f };
-    }), c = b(() => t.slides.captionAnimationType);
+      const { title: v, description: f } = s.data.get(s.active);
+      return { title: v, description: f };
+    }), l = b(() => t.slides.captionAnimationType);
     let n = {
       title: void 0,
       description: void 0
     };
     ee(() => {
-      switch (c.value) {
-        case G.SHUFFLE:
-          m();
+      switch (l.value) {
+        case U.SHUFFLE:
+          y();
           break;
       }
-    }), O(() => s.active, (g, f) => {
-      switch (c.value) {
-        case G.SHUFFLE:
-          m();
+    }), O(() => s.active, (v, f) => {
+      switch (l.value) {
+        case U.SHUFFLE:
+          y();
           break;
       }
     });
-    function m() {
-      const { captionAnimationSpeed: g } = t.slides;
-      function f(S, l) {
+    function y() {
+      const { captionAnimationSpeed: v } = t.slides;
+      function f(S, g) {
         try {
           Be(S, {
-            text: l,
-            fps: g,
+            text: g,
+            fps: v,
             randomTextType: "pattern"
           });
         } catch {
@@ -864,8 +870,8 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
         }
       }
       function d() {
-        var S, l, y, w;
-        (l = (S = e.value) == null ? void 0 : S.dataset) != null && l.id && cancelAnimationFrame(Number(e.value.dataset.id)), (w = (y = r.value) == null ? void 0 : y.dataset) != null && w.id && cancelAnimationFrame(Number(r.value.dataset.id)), n.title && clearTimeout(n.title), n.description && clearTimeout(n.description);
+        var S, g, c, x;
+        (g = (S = e.value) == null ? void 0 : S.dataset) != null && g.id && cancelAnimationFrame(Number(e.value.dataset.id)), (x = (c = r.value) == null ? void 0 : c.dataset) != null && x.id && cancelAnimationFrame(Number(r.value.dataset.id)), n.title && clearTimeout(n.title), n.description && clearTimeout(n.description);
       }
       d(), r.value.dataset.id && (clearInterval(Number(r.value.dataset.id)), r.value.innerText = ""), o.value.title && (n.title = setTimeout(() => {
         clearTimeout(n.title), n.title = void 0, f(e.value, o.value.title);
@@ -873,20 +879,20 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
         clearTimeout(n.description), n.description = void 0, f(r.value, o.value.description);
       }, 300));
     }
-    return (g, f) => (v(), _("article", {
+    return (v, f) => (m(), _("article", {
       class: "caption",
       style: se(u.value)
     }, [
-      c.value === N(G).NONE ? (v(), _(J, { key: 0 }, [
-        o.value.title ? (v(), _("h1", je, Z(o.value.title), 1)) : E("", !0),
-        o.value.description ? (v(), _("p", Ve, Z(o.value.description), 1)) : E("", !0)
-      ], 64)) : (v(), _(J, { key: 1 }, [
-        o.value.title ? (v(), _("h1", {
+      l.value === A(U).NONE ? (m(), _(J, { key: 0 }, [
+        o.value.title ? (m(), _("h1", je, Y(o.value.title), 1)) : E("", !0),
+        o.value.description ? (m(), _("p", Ve, Y(o.value.description), 1)) : E("", !0)
+      ], 64)) : (m(), _(J, { key: 1 }, [
+        o.value.title ? (m(), _("h1", {
           key: 0,
           ref_key: "$title",
           ref: e
         }, null, 512)) : E("", !0),
-        o.value.description ? (v(), _("p", {
+        o.value.description ? (m(), _("p", {
           key: 1,
           ref_key: "$description",
           ref: r
@@ -894,121 +900,125 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
       ], 64))
     ], 4));
   }
-}, Ze = /* @__PURE__ */ D(Ye, [["__scopeId", "data-v-7d03c6b3"]]), Ke = ["title", "disabled"], Ue = ["title", "disabled"], Ge = {
+}, Ze = /* @__PURE__ */ F(Ye, [["__scopeId", "data-v-7d03c6b3"]]), Ke = ["title", "disabled"], Ue = ["title", "disabled"], Ge = {
   __name: "controller",
   setup(a) {
-    const e = H(), r = U(), t = ne(), s = oe(), p = b(() => e.slides.loop ? !0 : 0 < r.activeIndex), u = b(() => e.slides.loop ? !0 : r.order.length - 1 > r.activeIndex);
+    const e = D(), r = K(), t = ne(), s = oe(), p = b(() => e.slides.loop ? !0 : 0 < r.activeIndex), u = b(() => e.slides.loop ? !0 : r.order.length - 1 > r.activeIndex);
     function o() {
       r.prev();
     }
-    function c() {
+    function l() {
       r.next();
     }
-    return (n, m) => (v(), _("nav", {
-      class: q([
+    return (n, y) => (m(), _("nav", {
+      class: G([
         "controller",
-        N(t).swipe && "swipe"
+        A(t).swipe && "swipe"
       ])
     }, [
-      $("button", {
+      H("button", {
         type: "button",
-        title: N(s).print("direction.prev"),
+        title: A(s).print("direction.prev"),
         disabled: !p.value,
         class: "prev",
         onClick: ae(o, ["stop"])
       }, [
-        F(Q, { name: "chevron-left" })
+        z(Q, { name: "chevron-left" })
       ], 8, Ke),
-      $("button", {
+      H("button", {
         type: "button",
-        title: N(s).print("direction.next"),
+        title: A(s).print("direction.next"),
         disabled: !u.value,
         class: "next",
-        onClick: ae(c, ["stop"])
+        onClick: ae(l, ["stop"])
       }, [
-        F(Q, { name: "chevron-right" })
+        z(Q, { name: "chevron-right" })
       ], 8, Ue)
     ], 2));
   }
-}, qe = /* @__PURE__ */ D(Ge, [["__scopeId", "data-v-9e222bcc"]]), Je = { class: "paginate" }, Qe = {
+}, qe = /* @__PURE__ */ F(Ge, [["__scopeId", "data-v-9e222bcc"]]), Je = { class: "paginate" }, Qe = {
   __name: "paginate",
   setup(a) {
-    const e = U(), r = b(() => e.order.length), t = b(() => e.activeIndex + 1);
-    return (s, p) => (v(), _("p", Je, Z(t.value) + " / " + Z(r.value), 1));
+    const e = K(), r = b(() => e.order.length), t = b(() => e.activeIndex + 1);
+    return (s, p) => (m(), _("p", Je, Y(t.value) + " / " + Y(r.value), 1));
   }
-}, et = /* @__PURE__ */ D(Qe, [["__scopeId", "data-v-8e8ad4b5"]]), tt = {
+}, et = /* @__PURE__ */ F(Qe, [["__scopeId", "data-v-8e8ad4b5"]]), tt = {
   __name: "index",
   setup(a) {
-    const e = H(), r = U(), t = ne(), s = X(!t.autoplay), p = X(e.general.hud), u = X(e.general.hud);
-    let o, c = s.value;
-    ee(() => n()), ue(() => m()), O(() => t.autoplay, (l) => {
-      s.value = !l, l ? n() : m();
-    }), O(() => r.lock, (l) => {
-      s.value = l, l ? m() : n();
-    }), O(() => t.swipe, (l) => {
-      s.value = l, l ? m() : n();
+    const e = D(), r = K(), t = ne(), s = $(!t.autoplay), p = $(e.general.hud), u = $(e.general.hud);
+    let o, l = s.value;
+    const n = b(() => {
+      var c, x;
+      return !!((x = (c = e.general) == null ? void 0 : c.hudContents) != null && x.controller) && r.order.length > 1;
     });
-    function n() {
-      e.slides.autoplayPauseOnHover && c !== void 0 && (s.value = c), e.slides.autoplay && t.autoplay && !s.value && (m(), o = setTimeout(g, e.slides.autoplayDelay));
+    ee(() => y()), ue(() => v()), O(() => t.autoplay, (c) => {
+      s.value = !c, c ? y() : v();
+    }), O(() => r.lock, (c) => {
+      s.value = c, c ? v() : y();
+    }), O(() => t.swipe, (c) => {
+      s.value = c, c ? v() : y();
+    });
+    function y() {
+      e.slides.autoplayPauseOnHover && l !== void 0 && (s.value = l), e.slides.autoplay && t.autoplay && !s.value && (v(), o = setTimeout(f, e.slides.autoplayDelay));
     }
-    function m() {
+    function v() {
       o && (clearTimeout(o), o = void 0);
     }
-    function g() {
+    function f() {
       if (!t.autoplay) return;
-      const { autoplayDirection: l } = e.slides;
-      l ? r.next() : r.prev();
+      const { autoplayDirection: c } = e.slides;
+      c ? r.next() : r.prev();
     }
-    function f(l) {
-      l.stopPropagation();
-      const { visibleHudClick: y } = e.general;
-      y && (u.value = !1);
-      const { autoplayPauseOnHover: w } = e.slides;
-      w && (c = !1, n());
-    }
-    function d() {
-      const { visibleHudClick: l } = e.general;
-      l && (u.value = !0);
-      const { autoplayPauseOnHover: y } = e.slides;
-      y && (c = !0, m());
+    function d(c) {
+      c.stopPropagation();
+      const { visibleHudClick: x } = e.general;
+      x && (u.value = !1);
+      const { autoplayPauseOnHover: C } = e.slides;
+      C && (l = !1, y());
     }
     function S() {
+      const { visibleHudClick: c } = e.general;
+      c && (u.value = !0);
+      const { autoplayPauseOnHover: x } = e.slides;
+      x && (l = !0, v());
+    }
+    function g() {
       e.general.visibleHudClick && t.isClickSlide && (p.value = !p.value);
     }
-    return (l, y) => {
-      var w, M, L, V, R, z, h, A, W;
-      return v(), _("div", {
+    return (c, x) => {
+      var C, L, j, W, B, h, M;
+      return m(), _("div", {
         class: "slides",
-        onMouseleave: f,
-        onMouseenter: d,
-        onClick: ae(S, ["prevent"])
+        onMouseleave: d,
+        onMouseenter: S,
+        onClick: ae(g, ["prevent"])
       }, [
-        F(We, { class: "images" }),
-        $("div", {
-          class: q([
+        z(We, { class: "images" }),
+        H("div", {
+          class: G([
             "hud",
             p.value && "use",
-            ((w = N(e).general) == null ? void 0 : w.visibleHudHover) && "hover"
+            ((C = A(e).general) == null ? void 0 : C.visibleHudHover) && "hover"
           ])
         }, [
-          (L = (M = N(e).general) == null ? void 0 : M.hudContents) != null && L.caption ? (v(), Y(Ze, {
+          (j = (L = A(e).general) == null ? void 0 : L.hudContents) != null && j.caption ? (m(), V(Ze, {
             key: 0,
             class: "slides__caption"
           })) : E("", !0),
-          (R = (V = N(e).general) == null ? void 0 : V.hudContents) != null && R.controller ? (v(), Y(qe, {
+          n.value ? (m(), V(qe, {
             key: 1,
             class: "slides__controller"
           })) : E("", !0),
-          (h = (z = N(e).general) == null ? void 0 : z.hudContents) != null && h.paginate ? (v(), Y(et, {
+          (B = (W = A(e).general) == null ? void 0 : W.hudContents) != null && B.paginate ? (m(), V(et, {
             key: 2,
             class: "slides__paginate"
           })) : E("", !0),
-          (W = (A = N(e).general) == null ? void 0 : A.hudContents) != null && W.slots ? pe(l.$slots, "default", { key: 3 }, void 0, !0) : E("", !0)
+          (M = (h = A(e).general) == null ? void 0 : h.hudContents) != null && M.slots ? pe(c.$slots, "default", { key: 3 }, void 0, !0) : E("", !0)
         ], 2)
       ], 32);
     };
   }
-}, nt = /* @__PURE__ */ D(tt, [["__scopeId", "data-v-fa018419"]]), rt = { class: "error" }, at = {
+}, nt = /* @__PURE__ */ F(tt, [["__scopeId", "data-v-9b3be34a"]]), rt = { class: "error" }, at = {
   __name: "index",
   props: {
     message: { type: String, default: "Invalid error" }
@@ -1036,13 +1046,13 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
           return "skull";
       }
     });
-    return (u, o) => (v(), _("article", rt, [
-      F(Q, { name: p.value }, null, 8, ["name"]),
-      $("h1", null, Z(t.value), 1),
-      $("p", null, Z(s.value), 1)
+    return (u, o) => (m(), _("article", rt, [
+      z(Q, { name: p.value }, null, 8, ["name"]),
+      H("h1", null, Y(t.value), 1),
+      H("p", null, Y(s.value), 1)
     ]));
   }
-}, st = /* @__PURE__ */ D(at, [["__scopeId", "data-v-95b78cd2"]]), it = ["tabindex"], ot = {
+}, st = /* @__PURE__ */ F(at, [["__scopeId", "data-v-95b78cd2"]]), it = ["tabindex"], ot = {
   __name: "index",
   props: {
     active: [String, Number],
@@ -1063,16 +1073,16 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
     "update:autoplay"
   ],
   setup(a, { expose: e, emit: r }) {
-    const t = H(), s = U(), p = oe(), u = ne(), o = X(), c = a, n = ie({
+    const t = D(), s = K(), p = oe(), u = ne(), o = $(), l = a, n = ie({
       stop: !0,
       error: void 0,
       swipe: !1,
       tabIndex: ""
-    }), m = r;
-    let g;
-    ee(() => l()), ue(() => y()), O(() => c.slides, () => w(), { deep: !0 }), O(() => c.preference, () => w(), { deep: !0 }), O(() => String(c.active), (h, A) => {
+    }), y = r;
+    let v;
+    ee(() => g()), ue(() => c()), O(() => l.slides, () => x(), { deep: !0 }), O(() => l.preference, () => x(), { deep: !0 }), O(() => String(l.active), (h, M) => {
       h !== s.active && s.change(h);
-    }), O(() => s.active, (h) => m("update:active", h)), O(() => c.autoplay, (h) => {
+    }), O(() => s.active, (h) => y("update:active", h)), O(() => l.autoplay, (h) => {
       u.autoplay = h;
     });
     function f() {
@@ -1087,10 +1097,10 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
       }
     }
     function d(h) {
-      var W;
-      if (!((W = t == null ? void 0 : t.keyboard) != null && W.enable)) return;
-      const { keyCode: A } = h;
-      switch (A) {
+      var q;
+      if (!((q = t == null ? void 0 : t.keyboard) != null && q.enable)) return;
+      const { keyCode: M } = h;
+      switch (M) {
         case 37:
           s.prev();
           break;
@@ -1111,39 +1121,39 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
           break;
       }
     }
-    async function l() {
+    async function g() {
       var h;
       if (n.stop)
         try {
-          p.setup(c.language), t.setup(c.preference), (h = t.slides) != null && h.autoplay || m("update:autoplay", !1), s.setup(c.slides, String(c.active)), u.setup({
-            autoplay: t.slides.autoplay && c.autoplay
+          p.setup(l.language), t.setup(l.preference), (h = t.slides) != null && h.autoplay || y("update:autoplay", !1), s.setup(l.slides, String(l.active)), u.setup({
+            autoplay: t.slides.autoplay && l.autoplay
           }), await le(), f(), n.stop = !1;
-        } catch (A) {
-          n.error = A;
+        } catch (M) {
+          n.error = M;
         }
     }
-    async function y() {
+    async function c() {
       S(), t.destroy(), s.destroy(), n.stop = !0, n.error = void 0;
     }
-    async function w() {
-      await y(), await le(), await l();
+    async function x() {
+      await c(), await le(), await g();
     }
-    function M() {
+    function C() {
       s.prev();
     }
     function L() {
       s.next();
     }
-    function V(h) {
+    function j(h) {
       h !== s.active && s.change(String(h));
     }
-    function R() {
-      return K({
+    function W() {
+      return Z({
         preference: t.exportData(),
         slides: {
-          data: s.order.reduce((h, A) => (h.push({
-            ...s.data.get(A),
-            key: A
+          data: s.order.reduce((h, M) => (h.push({
+            ...s.data.get(M),
+            key: M
           }), h), []),
           active: s.active,
           activeIndex: s.activeIndex
@@ -1151,37 +1161,37 @@ const je = { key: 0 }, Ve = { key: 1 }, Ye = {
         language: Object.fromEntries(p.data)
       });
     }
-    function z() {
-      return K(s.order);
+    function B() {
+      return Z(s.order);
     }
     return e({
-      start: l,
-      stop: y,
-      restart: w,
-      prev: M,
+      start: g,
+      stop: c,
+      restart: x,
+      prev: C,
       next: L,
-      change: V,
-      exportData: R,
-      getKeys: z
-    }), (h, A) => (v(), _("div", {
+      change: j,
+      exportData: W,
+      getKeys: B
+    }), (h, M) => (m(), _("div", {
       ref_key: "$slideshow",
       ref: o,
       tabindex: n.tabIndex,
-      class: q(["slideshow", `theme--${c.theme}`])
+      class: G(["slideshow", `theme--${l.theme}`])
     }, [
-      n.error ? (v(), Y(st, {
+      n.error ? (m(), V(st, {
         key: 0,
         message: n.error.message
-      }, null, 8, ["message"])) : n.stop ? E("", !0) : (v(), Y(nt, { key: 1 }, {
+      }, null, 8, ["message"])) : n.stop ? E("", !0) : (m(), V(nt, { key: 1 }, {
         default: me(() => [
           pe(h.$slots, "default", {}, void 0, !0)
         ]),
         _: 3
       })),
-      N(g) ? (v(), Y(ge(N(g)), { key: 2 })) : E("", !0)
+      A(v) ? (m(), V(ge(A(v)), { key: 2 })) : E("", !0)
     ], 10, it));
   }
-}, dt = /* @__PURE__ */ D(ot, [["__scopeId", "data-v-777b39d2"]]);
+}, dt = /* @__PURE__ */ F(ot, [["__scopeId", "data-v-777b39d2"]]);
 export {
   dt as default
 };
