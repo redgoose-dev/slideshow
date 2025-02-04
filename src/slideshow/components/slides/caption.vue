@@ -97,7 +97,7 @@ function playShuffleAnimation()
     if (interval.description) clearTimeout(interval.description)
   }
   clear()
-  if ($description.value.dataset.id)
+  if ($description.value?.dataset.id)
   {
     clearInterval(Number($description.value.dataset.id))
     $description.value.innerText = ''
