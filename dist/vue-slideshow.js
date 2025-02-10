@@ -34,7 +34,9 @@ const M = {
 }, ce = {
   NONE: "none",
   CONTAIN: "contain",
-  COVER: "cover"
+  COVER: "cover",
+  SCALE_DOWN: "scale-down",
+  FILL: "fill"
 }, de = {
   WINDOW: "window"
 };
@@ -92,7 +94,7 @@ const we = {
   },
   // 스타일
   style: {
-    // 이미지 표시 타입 `none,contain,cover`
+    // 이미지 표시 타입 `none,contain,cover,scale-down,fill`
     imageType: "contain",
     // 전체 영역에서 표시되는 이미지 사이즈 `[ width, height ]`
     imageScale: ["100%", "100%"],
@@ -510,7 +512,6 @@ const Pe = [
   class: "slide-last"
 }, ze = {
   __name: "images",
-  props: {},
   emits: [
     "change",
     "transition-start",
@@ -744,7 +745,7 @@ const Pe = [
       ], 38);
     };
   }
-}, We = /* @__PURE__ */ F(ze, [["__scopeId", "data-v-ab8c2783"]]);
+}, We = /* @__PURE__ */ F(ze, [["__scopeId", "data-v-2be51cdd"]]);
 function Be(a, e) {
   e = Object.assign({}, {
     text: "",

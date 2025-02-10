@@ -43,7 +43,7 @@ export const defaultPreference = {
   },
   // 스타일
   style: {
-    // 이미지 표시 타입 `none,contain,cover`
+    // 이미지 표시 타입 `none,contain,cover,scale-down,fill`
     imageType: 'contain',
     // 전체 영역에서 표시되는 이미지 사이즈 `[ width, height ]`
     imageScale: [ '100%', '100%' ],

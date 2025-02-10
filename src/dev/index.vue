@@ -32,6 +32,7 @@ import { ref, reactive, onMounted } from 'vue'
 import Slideshow from '../slideshow/index.vue'
 import { cloneObject } from '../slideshow/libs/util.js'
 import slidesData from './res/slides.json'
+// import slidesData from './res/numbers.json'
 import lang from './res/lang.json'
 
 const $slideshow = ref()
@@ -60,7 +61,7 @@ const preference = ref({
     autoplayPauseOnHover: false,
   },
   style: {
-    imageType: 'contain',
+    imageType: 'scale-down',
     imageScale: [ '100%','100%' ],
   },
   keyboard: {
@@ -108,7 +109,6 @@ function onClickToggleAutoplay()
 }
 function onClickExportData()
 {
-  // $slideshow.value.export()
   console.log('onClickExportData()', $slideshow.value.exportData())
 }
 function onClickGetSlidesKey()
@@ -137,7 +137,6 @@ function onClickGetSlidesKey()
   width: 100dvw;
   height: 100dvh;
 }
-
 .add {
   position: absolute;
   right: 30px;
@@ -146,7 +145,6 @@ function onClickGetSlidesKey()
   width: 100px;
   height: 100px;
 }
-
 .slideshow-body {
   //
 }

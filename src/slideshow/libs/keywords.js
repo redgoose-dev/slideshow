@@ -13,6 +13,8 @@ export const IMAGE_TYPE = {
   NONE: 'none',
   CONTAIN: 'contain',
   COVER: 'cover',
+  SCALE_DOWN: 'scale-down',
+  FILL: 'fill',
 }
 
 export const KEYBOARD_EVENT_TARGET = {

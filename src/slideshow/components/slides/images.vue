@@ -62,7 +62,6 @@ import ImagesItem from './images-item.vue'
 const preference = preferenceStore()
 const slides = slidesStore()
 const globalState = globalStateStore()
-const props = defineProps({})
 const emits = defineEmits([
   'change',
   'transition-start',
