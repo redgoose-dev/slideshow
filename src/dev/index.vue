@@ -125,12 +125,25 @@ function onClickGetSlidesKey()
   place-content: center;
   > nav {
     position: absolute;
-    left: 300px;
-    top: 120px;
+    right: 20px;
+    top: 150px;
     z-index: 3;
     display: flex;
-    gap: 0 8px;
+    gap: 0 6px;
     align-items: center;
+    button {
+      display: block;
+      margin: 0;
+      padding: 0 12px;
+      border: none;
+      height: 28px;
+      background: hsl(0 0% 35%);
+      white-space: nowrap;
+      font-size: 11px;
+      color: hsl(0 0% 100%);
+      font-weight: 500;
+      cursor: pointer;
+    }
   }
 }
 .slideshow-wrap {
@@ -143,7 +156,7 @@ function onClickGetSlidesKey()
   top: 30px;
   background: lime;
   width: 100px;
-  height: 100px;
+  height: 60px;
 }
 .slideshow-body {
   //

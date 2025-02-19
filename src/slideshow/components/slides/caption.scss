@@ -2,7 +2,7 @@
 
 .caption {
   display: none;
-  @include mixins.responsive(desktop) {
+  @include mixins.responsive(tablet) {
     display: block;
     position: absolute;
     top: var(--caption-top, 32px);

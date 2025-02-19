@@ -51,7 +51,7 @@ const icon = computed(() => {
 
 function createSvgElement(tag, attrs, children = [])
 {
-  const element = document.createElementNS("http://www.w3.org/2000/svg", tag)
+  const element = document.createElementNS('http://www.w3.org/2000/svg', tag)
   Object.keys(attrs).forEach((name) => {
     element.setAttribute(name, String(attrs[name]))
   })

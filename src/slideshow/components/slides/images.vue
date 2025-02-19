@@ -48,7 +48,7 @@
         :error="showLastSlide.error"/>
     </li>
   </ul>
-  <i class="overlay"></i>
+  <i class="overlay" draggable="false"></i>
 </div>
 </template>
 
@@ -305,6 +305,8 @@ function onPointerStart(e)
   if (slides.order.length <= 2) return
   pointer.dist = 0
   pointer.startX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
+  const disableOffset = 50
+  if (pointer.startX < disableOffset || pointer.startX > screen.width - disableOffset) return
   pointer.startTime = new Date().getTime()
   globalState.swipe = true
 }
