@@ -6,7 +6,7 @@
     --icon-color: var(--color-fill);
     --icon-size: 54px;
     --icon-stroke: 1.25;
-    --color-outline: light-dark(hsla(0 0% 100% / 75%), hsla(0 0% 0% / 35%));
+    --color-outline: light-dark(hsla(0 0% 100% / 50%), hsla(0 0% 0% / 35%));
     display: grid;
     align-items: center;
     position: absolute;
@@ -30,7 +30,10 @@
       opacity: 0;
     }
     .icon {
-      filter: drop-shadow(1px 0 1px var(--color-outline)) drop-shadow(-1px 0 1px var(--color-outline));
+      filter:
+        drop-shadow(0 0 1px var(--color-outline))
+        drop-shadow(0 0 1px var(--color-outline))
+        drop-shadow(0 0 1px var(--color-outline));
       transition: filter 200ms ease-out;
     }
     &.prev {
@@ -48,7 +51,10 @@
       --color-outline: var(--color-key);
       --icon-size: 64px;
       .icon {
-        filter: drop-shadow(1px 0 1px var(--color-outline)) drop-shadow(-1px 0 1px var(--color-outline));
+        filter:
+          drop-shadow(0 0 1px var(--color-outline))
+          drop-shadow(0 0 1px var(--color-outline))
+          drop-shadow(0 0 1px var(--color-outline));
       }
     }
   }
