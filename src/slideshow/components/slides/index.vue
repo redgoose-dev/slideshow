@@ -1,8 +1,8 @@
 <template>
 <div
   class="slides"
-  @mouseleave="onMouseLeave"
-  @mouseenter="onMouseEnter"
+  @pointerleave.stop="onPointerLeave"
+  @pointerenter="onPointerEnter"
   @click.prevent="onClickRoot">
   <Images class="images"/>
   <div :class="[
@@ -38,6 +38,7 @@ const globalState = globalStateStore()
 const isPauseAutoplay = ref(!globalState.autoplay)
 const showHud = ref(preference.general.hud)
 const showHudHover = ref(preference.general.hud)
+const mounted = ref(false)
 let timeoutId = undefined
 let isPauseAutoplayHover = isPauseAutoplay.value
 
@@ -45,8 +46,14 @@ const _useController = computed(() => {
   return !!preference.general?.hudContents?.controller && slides.order.length > 1
 })
 
-onMounted(() => startAutoplay())
-onBeforeUnmount(() => clearAutoplay())
+onMounted(() => {
+  mounted.value = true
+  startAutoplay()
+})
+onBeforeUnmount(() => {
+  mounted.value = false
+  clearAutoplay()
+})
 watch(() => globalState.autoplay, (sw) => {
   isPauseAutoplay.value = !sw
   if (sw) startAutoplay()
@@ -87,9 +94,9 @@ function triggerTick()
   else slides.prev()
 }
 
-function onMouseLeave(e)
+function onPointerLeave()
 {
-  e.stopPropagation()
+  if (!mounted?.value) return
   // turn on hud
   const { visibleHudClick } = preference.general
   if (visibleHudClick) showHudHover.value = false
@@ -99,8 +106,9 @@ function onMouseLeave(e)
   isPauseAutoplayHover = false
   startAutoplay()
 }
-function onMouseEnter()
+function onPointerEnter()
 {
+  if (!mounted?.value) return
   // turn off hud
   const { visibleHudClick } = preference.general
   if (visibleHudClick) showHudHover.value = true

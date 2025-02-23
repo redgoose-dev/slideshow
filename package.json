@@ -1,6 +1,6 @@
 {
   "name": "@redgoose/vue-slideshow",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "type": "module",
   "main": "./dist/vue-slideshow.js",
   "module": "./dist/vue-slideshow.js",
@@ -21,10 +21,10 @@
   ],
   "devDependencies": {
     "@redgoose/json-editor": "^1.2.2",
-    "@types/bun": "^1.2.2",
+    "@types/bun": "^1.2.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "autoprefixer": "^10.4.20",
-    "bun": "^1.2.2",
+    "bun": "^1.2.3",
     "esbuild": "^0.25.0",
     "esbuild-plugin-vue3": "^0.4.2",
     "lucide": "^0.474.0",

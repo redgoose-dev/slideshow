@@ -9,13 +9,10 @@
     globalState.swipe && 'swipe',
   ]"
   :style="rootStyles"
-  @touchstart="onPointerStart"
-  @touchmove="onPointerMove"
-  @touchend="onPointerEnd"
-  @mousedown="onPointerStart"
-  @mousemove="onPointerMove"
-  @mouseup="onPointerEnd"
-  @mouseleave="onMouseLeave"
+  @pointerdown.stop="onPointerStart"
+  @pointermove.stop="onPointerMove"
+  @pointerup.stop="onPointerEnd"
+  @pointerleave="onMouseLeave"
   @contextmenu="onContextMenu">
   <ul ref="$body" class="body">
     <li v-if="showFirstSlide" class="slide-first">
@@ -158,7 +155,6 @@ onMounted(() => {
   state.active = slides.active
   updateLoadedFromItems(slides.order, slides.order.indexOf(state.active), preference.slides.loop)
 })
-
 watch(() => slides.active, async (value) => {
   if (slides.order.length <= 1) return
   await run(value)
@@ -296,15 +292,13 @@ function onErrorImage(key)
 
 function onPointerStart(e)
 {
-  e.stopPropagation()
-  if (e.touches) pointer.touched = true
-  if (e.touches && e.touches.length > 1) e.preventDefault()
+  if (e.pointerType === 'touch') pointer.touched = true
   if (globalState.playedSlide) return
   if (!preference.slides.swipe) return
   if (preference.slides.transitionType !== TRANSITION_TYPE.HORIZONTAL) return
   if (slides.order.length <= 2) return
   pointer.dist = 0
-  pointer.startX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
+  pointer.startX = e.clientX || e.pageX
   const disableOffset = 50
   if (pointer.startX < disableOffset || pointer.startX > screen.width - disableOffset) return
   pointer.startTime = new Date().getTime()
@@ -312,11 +306,9 @@ function onPointerStart(e)
 }
 function onPointerMove(e)
 {
-  e.stopPropagation()
-  if (!e.touches && pointer.touched) return
   if (!globalState.swipe) return
   if (slides.order.length <= 2) return
-  pointer.moveX = (e.touches && e.touches[0]) ? Math.floor(e.touches[0].clientX) : (e.clientX || e.pageX)
+  pointer.moveX = e.clientX || e.pageX
   const containerWidth = $root.value.offsetWidth
   const dist = pointer.moveX - pointer.startX
   const offset = preference.slides.loop ? 1 : 0
@@ -324,14 +316,11 @@ function onPointerMove(e)
 }
 function onPointerEnd(e)
 {
-  e.stopPropagation()
-  if (!e.touches && pointer.touched) return
   if (!globalState.swipe) return
-  if (e.touches && e.touches.length > 0) return
   if (slides.order.length <= 2) return
 
   const containerWidth = $root.value.offsetWidth
-  pointer.endX = (e.changedTouches && e.changedTouches[0]) ? Math.floor(e.changedTouches[0].clientX) : (e.clientX || e.pageX)
+  pointer.endX = e.clientX || e.pageX
   const dir = pointer.startX > pointer.endX // true is next
   const elapsedTime = new Date().getTime() - pointer.startTime
   const distPos = pointer.endX - pointer.startX

@@ -40,7 +40,7 @@ const preference = ref({
   general: {
     hud: true,
     visibleHudHover: false,
-    visibleHudClick: false,
+    visibleHudClick: true,
     hudContents: {
       caption: true,
       controller: true,
